@@ -1,8 +1,8 @@
 {
-  "name": "personalsite",
+  "name": "mysite",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://jeancarlos.github.io/personalsite",
+  "homepage": "https://jeansouza.dev",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@testing-library/jest-dom": "^4.2.4",
