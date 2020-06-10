@@ -5,7 +5,7 @@ function App() {
     <div className="App">
       <header className="App--Header">
         <h1 className="App--Title">
-          Hi, I'm <strong>Jean</strong>, <span class="App--TitleMyRole">Front-end Engineer</span>
+          Hi, I'm <strong>Jean</strong>, <span class="App--TitleMyRole">Front-End Engineer</span>
           <span class="App--TitlePonctuation">.</span>
         </h1>
         <p className="App-Links">
