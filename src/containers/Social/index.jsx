@@ -2,23 +2,42 @@ import React, { Fragment } from 'react';
 import Emoji from 'components/Emoji'
 import './style.css';
 
-function App() {
+const links = [
+  {
+    name: 'Twitter',
+    url: 'https://twitter.com/jeancarlos'
+  },
+  {
+    name: 'Instagram',
+    url: 'https://www.instagram.com/jeancosouza/'
+  },
+  {
+    name: 'Spotify',
+    url: 'https://open.spotify.com/user/jeancosouza'
+  },
+  {
+    name: 'GitHub',
+    url: 'https://github.com/jeancarlos'
+  },
+  {
+    name: 'LinkedIn',
+    url: 'https://www.linkedin.com/in/jeancarlosudi/'
+  }
+]
+
+function Social() {
   return (
     <Fragment>
       <header className="App--Header">
         <h1 className="App--Title">
-          <Emoji symbol="🔗" /> Social
+          <Emoji symbol="🔗" /> Social & Links
         </h1>
-        <p className="App-Links App-Links--vertical">
-          <a rel="noopener noreferrer" href="https://github.com/jeancarlos">* GitHub</a>
-          <a rel="noopener noreferrer" href="https://www.linkedin.com/in/jeancarlosudi/">* LinkedIn</a>
-          <a rel="noopener noreferrer" href="https://twitter.com/jeancarlos">* Twitter</a>
-          <a rel="noopener noreferrer" href="https://www.instagram.com/jeancosouza/">* Instagram</a>
-          <a rel="noopener noreferrer" href="https://open.spotify.com/user/jeancosouza?si=kg5mgm-YSjC-F9CHv3DhiA">* Spotify</a>
-        </p>
+        <ul className="App-Links Social__List">
+          {links.map(({ name, url }) => <li key={name}><span class="Social__Bullet">*</span><a rel="noopener noreferrer" href={url}> {name}</a></li>)}
+        </ul>
       </header>
     </Fragment>
   );
 }
 
-export default App;
+export default Social;

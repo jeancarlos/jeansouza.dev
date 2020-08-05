@@ -6,7 +6,7 @@ const social = [
   {
     title: 'Social | Jean Souza - Front-End Engineer',
     path: '/social',
-    Component: Social
+    component: Social
   }
 ]
 
