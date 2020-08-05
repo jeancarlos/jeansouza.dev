@@ -1,0 +1,1 @@
+{"version":3,"sources":["style.css"],"names":[],"mappings":"AACA,qBACE,aAAc,CACd,eACF,CAEA,uBACE,aAAc,CACd,yBAA0B,CAC1B,QACF","file":"3.395327c9.chunk.css","sourcesContent":["\n.App-Links--vertical {\n  display: block;\n  text-align: left;\n}\n\n.App-Links--vertical a {\n  display: block;\n  padding: .6em 0 .6em 2.8em;\n  margin: 0;\n}\n\n"]}
