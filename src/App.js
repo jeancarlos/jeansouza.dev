@@ -1,20 +1,31 @@
-import React from 'react';
+import React, { Suspense } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory
+} from "react-router-dom";
+import Emoji from 'components/Emoji'
+import routes from './routes'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App--Header">
-        <h1 className="App--Title">
-          Hi, I'm <strong>Jean</strong>, <span class="App--TitleMyRole">Front-End Engineer</span>
-          <span class="App--TitlePonctuation">.</span>
-        </h1>
-        <p className="App-Links">
-          <a href="https://github.com/jeancarlos">GitHub</a>
-          <a href="https://www.linkedin.com/in/jeancarlosudi/">LinkedIn</a>
-        </p>
-      </header>
-    </div>
-  );
+  let history = useHistory();
+  const placeHolder = (
+    <header className="App--Header">
+      <Emoji className="App--Header App--Loading" symbol="⏳" />
+    </header>
+  )
+  return (<div className="App">
+    <Router><Switch>
+      {routes.map(({ path, Component }) => (
+        <Route exact path={path}>
+          <Suspense fallback={placeHolder}>
+            <Component history={history} />
+          </Suspense>
+        </Route>
+      ))}
+    </Switch></Router>
+  </div>);
 }
 
 export default App;
