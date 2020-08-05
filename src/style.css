@@ -1,8 +1,16 @@
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
 body {
-  margin: 0;
+  align-items: center;
+  display: flex;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+  justify-content: center;
+  margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -11,7 +19,7 @@ body {
     align-items: center;
     display: flex;
     justify-content: center;
-    min-height: 100vh;
+    min-height: 100%;
     text-align: center;
 }
 
@@ -59,4 +67,3 @@ body {
   color: #2b2eff;
   transition: all 100ms ease-in-out;
 }
-
