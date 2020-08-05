@@ -23,6 +23,9 @@ body {
     text-align: center;
 }
 
+.emoji { font-size: inherit; }
+.emoji img { transform: translateY(18%); }
+
 .App--Title {
   font-size: 1.5em;
   font-weight: 200;
@@ -66,4 +69,15 @@ body {
 .App-Links a:hover {
   color: #2b2eff;
   transition: all 100ms ease-in-out;
+}
+
+.App--Loading img,
+.App--Loading {
+  font-size: 2rem;
+  animation: spin 2s infinite;
+}
+
+@keyframes spin {
+  from { transform:rotate(0deg); }
+  to { transform:rotate(360deg); }
 }

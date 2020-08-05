@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   useHistory
@@ -12,13 +12,13 @@ function App() {
   let history = useHistory();
   const placeHolder = (
     <header className="App--Header">
-      <Emoji className="App--Header App--Loading" symbol="⏳" />
+      <Emoji className="App--Header App--Loading" symbol="⌛" />
     </header>
   )
   return (<div className="App">
     <Router><Switch>
-      {routes.map(({ path, Component }) => (
-        <Route exact path={path}>
+      {routes.map(({ path, exact, component: Component }) => (
+        <Route key={path} exact={exact} path={path}>
           <Suspense fallback={placeHolder}>
             <Component history={history} />
           </Suspense>
