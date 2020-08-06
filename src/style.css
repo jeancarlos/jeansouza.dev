@@ -64,6 +64,7 @@ body {
 .App-Links a {
   margin: 0 .5em;
   color: black;
+  outline: none;
 }
 
 .App-Links a:hover {
