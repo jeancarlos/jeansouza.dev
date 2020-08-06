@@ -1,14 +1,16 @@
 
 .Social__List {
   display: block;
-  text-align: left;
   padding: 0;
+  text-align: left;
 }
 
-.Social__List li {
+.Social__ListItem {
+  position: relative;
+  z-index: 1;
+  align-items: center;
   display: flex;
   list-style: none;
-  align-items: center;
   padding: .5em 0 .5em 2.4em;
 }
 
@@ -20,8 +22,8 @@
 }
 
 .Social__List a {
-  padding: .6em;
   line-height: 1em;
   margin: 0;
+  padding: .6em;
 }
 
