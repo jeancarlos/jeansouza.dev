@@ -1,3 +1,3 @@
 # jeansouza.dev
 
-Source code **jeansouza.dev**
+Source code for **jeansouza.dev**
