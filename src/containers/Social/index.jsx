@@ -25,7 +25,7 @@ const links = [
     url: 'https://www.linkedin.com/in/jeancarlosudi/'
   },
   {
-    name: 'steam',
+    name: 'Steam',
     url: 'https://steamcommunity.com/r/leonrk'
   },
   {
@@ -33,7 +33,7 @@ const links = [
     content: '1749 2384 1794'
   },
   {
-    name: 'The source code of this site',
+    name: 'Source for this website',
     url: 'https://github.com/jeancarlos/mysite'
   }
 ]
