@@ -4,8 +4,8 @@
   border-right: 2px solid black;
   border-bottom: 2px solid black;
   padding: .5rem .8rem;
-  transform: scale(0) translateY(-10px);
-  transition: all .2s ease-in;
+  transform: scale(0) translateY(60px);
+  transition: all .1s ease-in-out;
   position: absolute;
   left: 40px;
   top: -30px;
