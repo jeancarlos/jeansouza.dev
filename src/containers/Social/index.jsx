@@ -1,42 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import Tooltip from 'components/Tooltip/index'
+import React, { useEffect, useState } from 'react'
+import '@fortawesome/fontawesome-free/js/all.js'
+import Tooltip from 'components/Tooltip'
 import Emoji from 'components/Emoji'
-import './style.css';
-
-const links = [
-  {
-    name: 'Twitter',
-    url: 'https://twitter.com/jeancarlos'
-  },
-  {
-    name: 'Instagram',
-    url: 'https://www.instagram.com/jeancosouza/'
-  },
-  {
-    name: 'Spotify',
-    url: 'https://open.spotify.com/user/jeancosouza'
-  },
-  {
-    name: 'GitHub',
-    url: 'https://github.com/jeancarlos'
-  },
-  {
-    name: 'LinkedIn',
-    url: 'https://www.linkedin.com/in/jeancarlosudi/'
-  },
-  {
-    name: 'Steam',
-    url: 'https://steamcommunity.com/r/leonrk'
-  },
-  {
-    name: 'Switch Friend Code',
-    content: '1749 2384 1794'
-  },
-  {
-    name: 'Source for this website',
-    url: 'https://github.com/jeancarlos/mysite'
-  }
-]
+import './style.css'
+import { links } from './constants'
 
 function Social() {
   const [showTooltip, setShowTooltip] = useState([])
@@ -55,12 +22,13 @@ function Social() {
   }, [])
 
 
-  const link = ({ name, url, content }, index) => (
+  const renderIcon = (icon) => <i className={`Social__Bullet ${icon}`}></i>
+
+  const link = ({ name, url, content, icon = 'fas fa-link' }, index) => (
     <li key={name} className="Social__ListItem">
-      <span className="Social__Bullet">*</span>
       {
         content ? [
-          <a key="a" onClick={(e) => handleClick(e, index)} href="#pop"> {name}</a>,
+          <a key="a" onClick={(e) => handleClick(e, index)} href="#pop">{renderIcon(icon)} {name}</a>,
           <Tooltip
             key="Tooltip"
             onMouseLeave={(e) => handleClick(e, index, false)}
@@ -68,7 +36,7 @@ function Social() {
           >
             {content}
           </Tooltip>
-        ] : <a rel="noopener noreferrer" href={url}> {name}</a>
+        ] : <a rel="noopener noreferrer" href={url}>{renderIcon(icon)} {name}</a>
       }
     </li >
   )
@@ -77,12 +45,12 @@ function Social() {
     <header className="App--Header">
       <h1 className="App--Title">
         <Emoji symbol="🔗" /> Social & Links
-        </h1>
+      </h1>
       <ul className="App-Links Social__List">
         {links.map(link)}
       </ul>
     </header>
-  );
+  )
 }
 
-export default Social;
+export default Social

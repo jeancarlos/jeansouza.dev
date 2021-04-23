@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import emoji from 'constants/appleEmoji'
+import 'style.styl'
 
 function Emoji({ label, symbol, className = '' }) {
   let parseSymbol = symbol
