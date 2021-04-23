@@ -15,10 +15,8 @@
 }
 
 .Social__Bullet {
-  color: #2b2eff;
-  font-size: 2em;
   line-height: 1em;
-  transform: translateY(6px);
+  margin-right: 0.2em;
 }
 
 .Social__List a {
