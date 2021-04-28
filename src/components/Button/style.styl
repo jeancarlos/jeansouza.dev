@@ -23,7 +23,9 @@
     transition all 300ms ease-in-out
     width calc(100% - 2px)
     z-index -1
+    -webkit-transition all 200ms ease-in-out
 
+  &-focus::before
   &:active::before
   &:hover::before
     border-color rgba(255, 255, 255, 1)
@@ -41,7 +43,9 @@
     transition all 200ms ease-in-out
     width 100%
     z-index 1
+    -webkit-transition all 200ms ease-in-out
 
+  &-focus::after
   &:active::after
   &:hover::after
     transform translateX(0)
