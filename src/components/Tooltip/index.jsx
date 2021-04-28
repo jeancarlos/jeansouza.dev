@@ -16,7 +16,6 @@ function Tooltip ({
   const transform = show ? btStyleOpen : btStyleClosed
   const classShow = show ? 'Tooltip-show' : ''
   const classNames = `${className} Tooltip ${classShow}`
-  const classShowBg = show ? 'Tooltip--Focus-show' : ''
 
   useEffect(() => {
     setButtonMargin(btRef.current.offsetWidth / 2)
@@ -34,7 +33,6 @@ function Tooltip ({
         >
           {children}
         </Component>
-        <b onClick={onMouseLeave} className={`Tooltip--Focus ${classShowBg}`} />
       </Fragment>
     )
 }

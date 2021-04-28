@@ -32,13 +32,15 @@ function SocialLinks ({ open }) {
             <Button
               key={`${formatedName}Bt`}
               onClick={() => handleClick(index)}
+              className={showTooltip[index]? 'Button-focus' : ''}
             >
               {renderIcon(icon)} {name}
             </Button>,
             <Tooltip
               key={`${formatedName}Tooltip`}
               onMouseLeave={() => handleClose(index)}
-              component='span' show={showTooltip[index]}
+              component='span'
+              show={showTooltip[index]}
             >
               {content}
             </Tooltip>

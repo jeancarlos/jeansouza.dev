@@ -22,7 +22,7 @@ function Home () {
             I like cats 🐱, video games 🎮, exchanging ideas 💭 and I talk a lot 🎙️.
           </p>
           <p>
-            Find where I'm at the links bellow:
+            Find where I am at the links bellow:
           </p>
         </Article>
         <ul className="Home--Links">
@@ -34,11 +34,6 @@ function Home () {
           <li>
             <Button href="https://github.com/jeancarlos">
               <i className={`Social__Bullet fab fa-github`}></i> GitHub
-            </Button>
-          </li>
-          <li>
-            <Button href="https://www.linkedin.com/in/jeancarlosudi/">
-              <i className={`Social__Bullet fab fa-linkedin`}></i> LinkedIn
             </Button>
           </li>
           <li>
