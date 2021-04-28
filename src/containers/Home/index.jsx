@@ -18,7 +18,7 @@ function Home () {
       </header>
       <Article>
         <p>
-          I'm a specialist in the technologies that involves the creation of websites and web applications.<br />
+          I'm a specialist in the technologies for the creation of web applications.<br />
           I like cats 🐱, video games 🎮, exchanging ideas 💭 and I talk a lot 🎙️.
         </p>
         <p>

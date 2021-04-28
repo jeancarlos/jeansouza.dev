@@ -10,7 +10,7 @@ function SocialLinks ({ open }) {
   const className = open ? 'SociaLinks-open' : ''
 
   const handleClick = (index) =>
-    setShowTooltip(values => values.map((value, i) => index === i ? !value : value))
+    setShowTooltip(values => values.map((value, i) => index === i ? !value : false))
 
   const handleClose = (index) => {
     setShowTooltip(values => values.map(() => false))
