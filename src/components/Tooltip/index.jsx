@@ -22,19 +22,19 @@ function Tooltip ({
   }, [])
 
   return (
-      <Fragment>
-        <Component
-          ref={btRef}
-          onClick={onMouseLeave}
-          onMouseLeave={onMouseLeave}
-          className={classNames}
-          role="tooltip"
-          style={{ transform }}
-        >
-          {children}
-        </Component>
-      </Fragment>
-    )
+    <Fragment>
+      <Component
+        ref={btRef}
+        onClick={onMouseLeave}
+        onMouseLeave={onMouseLeave}
+        className={classNames}
+        role="tooltip"
+        style={{ transform }}
+      >
+        {children}
+      </Component>
+    </Fragment>
+  )
 }
 
 export default Tooltip

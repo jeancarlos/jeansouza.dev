@@ -32,7 +32,7 @@ function SocialLinks ({ open }) {
             <Button
               key={`${formatedName}Bt`}
               onClick={() => handleClick(index)}
-              className={showTooltip[index]? 'Button-focus' : ''}
+              className={showTooltip[index] ? 'Button-focus' : ''}
             >
               {renderIcon(icon)} {name}
             </Button>,

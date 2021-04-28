@@ -2,7 +2,7 @@
 import React from 'react'
 import './style.styl'
 
-function Button({ children, href, onClick, className = '' }) {
+function Button ({ children, href, onClick, className = '' }) {
   const url = href || '#'
   const rel = href ? 'noopener noreferrer' : ''
 
@@ -15,7 +15,7 @@ function Button({ children, href, onClick, className = '' }) {
 
   return (
     <a
-      className={`${className} Button` }
+      className={`${className} Button`}
       rel={rel}
       href={url}
       onClick={handleClick}
