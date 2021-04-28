@@ -1,19 +1,17 @@
 import React, { Suspense } from 'react';
+import '@fortawesome/fontawesome-free/js/all.js'
 import {
   HashRouter as Router,
   Switch,
   Route,
   useHistory
 } from "react-router-dom";
-import Emoji from 'components/Emoji'
 import routes from './routes'
 
-function App() {
+function App () {
   let history = useHistory();
   const placeHolder = (
-    <header className="App--Header">
-      <Emoji className="App--Header App--Loading" symbol="⌛" />
-    </header>
+    <div><i className="Loading fas fa-sync" /></div>
   )
   return (<div className="App">
     <Router><Switch>

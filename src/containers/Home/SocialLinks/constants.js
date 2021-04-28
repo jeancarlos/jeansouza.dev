@@ -1,15 +1,5 @@
 export const links = [
   {
-    name: 'Twitter',
-    url: 'https://twitter.com/jeancarlos',
-    icon: `fab fa-twitter`
-  },
-  {
-    name: 'Dev Twitter',
-    url: 'https://twitter.com/jeancosouza',
-    icon: `fab fa-twitter`
-  },
-  {
     name: 'Instagram',
     url: 'https://www.instagram.com/jeancosouza/',
     icon: `fab fa-instagram`
@@ -20,18 +10,8 @@ export const links = [
     icon: `fab fa-spotify`
   },
   {
-    name: 'GitHub',
-    url: 'https://github.com/jeancarlos',
-    icon: `fab fa-github`
-  },
-  {
-    name: 'LinkedIn',
-    url: 'https://www.linkedin.com/in/jeancarlosudi/',
-    icon: `fab fa-linkedin`
-  },
-  {
     name: 'Steam',
-    content: 'jeanrk',
+    content: 'jeanrnk',
     icon: `fab fa-steam`
   },
   {
@@ -41,12 +21,17 @@ export const links = [
   },
   {
     name: 'Discord',
-    content: 'jeanrk#5682',
+    content: 'jeanrnk#5682',
     icon: `fab fa-discord`
   },
   {
     name: 'Xbox gamertag',
-    content: 'jeanrenzo',
+    content: 'jeanrnk',
+    icon: `fab fa-xbox`
+  },
+  {
+    name: 'PSN ID',
+    content: 'jeanrnk',
     icon: `fab fa-xbox`
   },
   {

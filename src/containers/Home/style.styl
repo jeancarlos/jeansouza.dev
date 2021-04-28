@@ -1,13 +1,46 @@
-.App-Links
-  display flex
-  font-size .8em
-  padding 1.5em 0 0
-  display flex
-  justify-content center
-  margin 0
+.Home
+  .Title
+    strong
+      font-weight bold
 
-  li
-    margin 0 .5em
-    list-style none
+    .TitleMyRole
+      white-space nowrap
 
+  .Home--Links
+    align-items center
+    display flex
+    flex-wrap wrap
+    justify-content center
+    margin 2em 0 0
+    padding 0
 
+    li
+      list-style none
+      margin 0 0.5em 0.5em
+
+  .Home--BtMore
+    background #fff
+    border none
+    color rgba(0, 0, 0, 0.9)
+    cursor pointer
+    display block
+    margin 1.2em auto
+    text-align center
+    width 106px
+
+    .Home--BtMoreText
+      display block
+      white-space nowrap
+
+    .Home--BtMoreIcon
+      animation bump 3s infinite
+
+@keyframes bump
+  0%
+    transform translateY(0)
+
+  95%
+    transform translateY(3px)
+
+  100%
+    transform translateY(0)
