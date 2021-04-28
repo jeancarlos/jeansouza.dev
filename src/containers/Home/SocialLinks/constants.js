@@ -2,7 +2,7 @@ export const links = [
   {
     name: 'LinkedIn',
     url: 'https://www.linkedin.com/in/jeancarlosudi/',
-    icon: 'fas fa-linkedin'
+    icon: 'fab fa-linkedin'
   },
   {
     name: 'Instagram',
@@ -37,7 +37,7 @@ export const links = [
   {
     name: 'PSN ID',
     content: 'jeanrnk',
-    icon: 'fab fa-xbox'
+    icon: 'fab fa-playstation'
   },
   {
     name: 'Source for this website',
