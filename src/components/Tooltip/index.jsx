@@ -1,7 +1,7 @@
-import React from 'react';
-import './style.css'
+import React, { useRef, useEffect, useState, Fragment } from 'react';
+import './style.styl'
 
-function Tooltip({
+function Tooltip ({
   children,
   onMouseLeave,
   component = 'div',
@@ -9,18 +9,34 @@ function Tooltip({
   className = ''
 }) {
   const Component = component
-  const classShow = show ? 'Tooltip--show' : ''
+  const btRef = useRef(null)
+  const [buttonMargin, setButtonMargin] = useState(0)
+  const btStyleOpen = `scale(1) translate(-${buttonMargin}px, 0)`
+  const btStyleClosed = `scale(0) translate(-${buttonMargin}px, 40px)`
+  const transform = show ? btStyleOpen : btStyleClosed
+  const classShow = show ? 'Tooltip-show' : ''
   const classNames = `${className} Tooltip ${classShow}`
+  const classShowBg = show ? 'Tooltip--Focus-show' : ''
+
+  useEffect(() => {
+    setButtonMargin(btRef.current.offsetWidth / 2)
+  }, [])
+
   return (
-    <Component
-      onClick={onMouseLeave}
-      onMouseLeave={onMouseLeave}
-      className={classNames}
-      role="tooltip"
-    >
-      {children}
-    </Component>
-  )
+      <Fragment>
+        <Component
+          ref={btRef}
+          onClick={onMouseLeave}
+          onMouseLeave={onMouseLeave}
+          className={classNames}
+          role="tooltip"
+          style={{ transform }}
+        >
+          {children}
+        </Component>
+        <b onClick={onMouseLeave} className={`Tooltip--Focus ${classShowBg}`} />
+      </Fragment>
+    )
 }
 
 export default Tooltip
