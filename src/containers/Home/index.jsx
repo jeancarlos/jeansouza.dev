@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Helmet } from "react-helmet";
 import '@fortawesome/fontawesome-free/js/all.js'
 import Button from 'components/Button'
 import Title from 'components/Title'
@@ -10,6 +11,11 @@ function Home () {
   const [openSocialLinks, setOpenSocialLinks] = useState(false)
   return (
     <div className="Home">
+      <Helmet>
+        <title>Jean Souza - Front-End Engineer</title>
+        <meta name="description" content="Specialist in technologies for the creation of web applications." />
+        <link rel="canonical" href="https://jeansouza.dev" />
+      </Helmet>
       <header>
         <Title>
           Hi, I'm <strong>Jean</strong>, <span className="Home--TitleMyRole">Front-End Engineer</span>
