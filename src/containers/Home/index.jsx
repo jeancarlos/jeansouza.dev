@@ -25,7 +25,7 @@ function Home () {
       <Article>
         <p>
           I'm a specialist in the technologies for the creation of web applications.<br />
-          I like cats 🐱, video games 🎮, exchanging ideas 💭 and I talk a lot 🎙️.
+          I like cats 🐱, video games 🎮, to tinker with tech 🧠 and I talk a lot 🎙️.
         </p>
         <p>
           Find where I am at the links bellow:
@@ -35,17 +35,17 @@ function Home () {
         <li>
           <Button href="https://twitch.tv/jeanrnk">
             <i className={`Social__Bullet fab fa-twitch`}></i> Live Code
-            </Button>
+          </Button>
         </li>
         <li>
           <Button href="https://github.com/jeancarlos">
             <i className={`Social__Bullet fab fa-github`}></i> GitHub
-            </Button>
+          </Button>
         </li>
         <li>
           <Button href="https://twitter.com/jeancarlos/">
             <i className={`Social__Bullet fab fa-twitter`}></i> Twitter
-            </Button>
+          </Button>
         </li>
       </ul>
       <button className="Home--BtMore" onClick={() => setOpenSocialLinks(!openSocialLinks)}>
