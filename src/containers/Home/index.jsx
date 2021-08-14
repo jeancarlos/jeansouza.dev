@@ -23,7 +23,7 @@ function Home () {
       </header>
       <article className="Home--Article">
         <p>
-          I'm a specialist in the technologies for the creation of web applications.<br />
+          I'm a specialist in the technologies for web applications.<br />
           I like cats 🐱, video games 🎮, to tinker with tech 🧠 and I talk a lot 🎙️.
         </p>
         <p>
