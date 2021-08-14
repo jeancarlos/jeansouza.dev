@@ -10,11 +10,6 @@ export const links = [
     icon: 'fab fa-instagram'
   },
   {
-    name: 'Spotify',
-    url: 'https://open.spotify.com/user/jeancosouza',
-    icon: 'fab fa-spotify'
-  },
-  {
     name: 'Steam',
     content: 'jeanrnk',
     icon: 'fab fa-steam'

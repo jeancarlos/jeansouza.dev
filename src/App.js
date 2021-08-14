@@ -15,10 +15,10 @@ function App () {
   )
   return (<div className="App">
     <Router><Switch>
-      {routes.map(({ path, exact, component: Component }) => (
+      {routes.map(({ path, exact, theme: Theme, component: Component }) => (
         <Route key={path} exact={exact} path={path}>
           <Suspense fallback={placeHolder}>
-            <Component history={history} />
+            <Theme><Component history={history} /></Theme>
           </Suspense>
         </Route>
       ))}
