@@ -1,4 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:ital,wght@0,400;0,700;1,400&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@0,500;0,700&family=Roboto:ital,wght@0,400;0,700;1,400&display=swap')
+@import './variables.styl'
+
+$dot-color = #75688c
+$dot-size = 1px
+$dot-space = 25px
+$background-gradient = linear-gradient(90deg, $default-background-color $dot-space - $dot-size, transparent 1%) center, linear-gradient($default-background-color $dot-space - $dot-size, transparent 1%) center, $dot-color
 
 html
 body
@@ -7,7 +13,9 @@ body
 
 body
   align-items center
-  color rgba(0, 0, 0, 0.8)
+  background $background-gradient
+  background-size $dot-space $dot-space
+  color $default-text-color
   display flex
   font-family 'Poppins', sans-serif
   font-size 1em
@@ -21,15 +29,6 @@ body
   *
     -webkit-backface-visibility hidden
     -webkit-tap-highlight-color transparent
-
-.App
-  align-items center
-  display flex
-  justify-content center
-  max-width 1024px
-  min-height 100%
-  padding 2rem
-  text-align center
 
 .Loading
   animation spin 2s infinite
