@@ -1,12 +1,19 @@
+@import '../../variables.styl'
+
 .Home
   .Title
+    font-size 1.5em
+    font-weight normal
+
     strong
       font-weight bold
 
-    .TitleMyRole
-      white-space nowrap
+  .Home--TitleMyRole
+    white-space nowrap
 
-  .Article p
+  .Home--Article p
+    font-size 1em
+    font-weight normal
     text-align center
 
   .Home--Links
@@ -22,28 +29,16 @@
       margin 0 0.25em 0.5em
 
   .Home--BtMore
-    background #fff
+    background transparent
     border none
-    color rgba(0, 0, 0, 0.9)
+    color $default-text-color
     cursor pointer
     display block
-    margin 1.2em auto
+    font-weight bold
+    margin 0 auto
     text-align center
     width 106px
 
     .Home--BtMoreText
       display block
       white-space nowrap
-
-    .Home--BtMoreIcon
-      animation bump 3s infinite
-
-@keyframes bump
-  0%
-    transform translateY(0)
-
-  95%
-    transform translateY(3px)
-
-  100%
-    transform translateY(0)
