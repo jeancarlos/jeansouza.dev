@@ -1,7 +1,9 @@
 import home from './home'
+import video from './video'
 
 const routes = [
-    ...home,
+  ...home,
+  ...video
 ]
 
 export default routes
