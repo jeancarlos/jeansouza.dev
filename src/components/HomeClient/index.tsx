@@ -58,16 +58,14 @@ export function HomeClient({ posts }: HomeClientProps) {
           </Title>
         </header>
 
-        <article className="mt-6 max-w-md text-center">
+        <article className="mt-6 max-w-sm text-center">
           <p className="font-body font-normal text-base leading-relaxed">
-            I&apos;m a specialist in the technologies for the creation of web
-            applications.
+            I build fast, accessible web apps and live-code on Twitch.
             <br />
-            I like cats 🐱, video games 🎮, to tinker with tech 🧠 and I talk a
-            lot 🎙️.
+            Cats 🐱, games 🎮, tech 🧠 — and I talk way too much 🎙️.
           </p>
-          <p className="font-body font-normal text-sm leading-relaxed mt-3 opacity-70">
-            Find where I am at the links below:
+          <p className="font-body font-normal text-sm leading-relaxed mt-3 opacity-60">
+            Find me at:
           </p>
         </article>
 
