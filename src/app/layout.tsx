@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Poppins, Roboto } from 'next/font/google'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import '@/styles/globals.css'
+import { DotBackground } from '@/components/DotBackground'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -34,7 +35,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${poppins.variable} ${roboto.variable}`}>
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        <DotBackground />
+        {children}
+      </body>
     </html>
   )
 }
