@@ -7,14 +7,14 @@ export interface LinkItem {
 
 export const links: LinkItem[] = [
   {
-    name: 'LinkedIn',
-    url: 'https://www.linkedin.com/in/jeancarlosudi/',
-    icon: 'fab fa-linkedin',
-  },
-  {
     name: 'Instagram',
     url: 'https://www.instagram.com/jeancosouza/',
     icon: 'fab fa-instagram',
+  },
+  {
+    name: 'Discord',
+    content: 'jeanrnk#5682',
+    icon: 'fab fa-discord',
   },
   {
     name: 'Steam',
@@ -25,11 +25,6 @@ export const links: LinkItem[] = [
     name: 'Switch Friend Code',
     content: '1749 2384 1794',
     icon: 'fas fa-gamepad',
-  },
-  {
-    name: 'Discord',
-    content: 'jeanrnk#5682',
-    icon: 'fab fa-discord',
   },
   {
     name: 'Xbox gamertag',

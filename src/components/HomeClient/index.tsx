@@ -71,11 +71,6 @@ export function HomeClient({ posts }: HomeClientProps) {
 
         <ul className="flex flex-wrap justify-center items-center gap-2 mt-8 p-0 list-none">
           <li>
-            <Button href="https://twitch.tv/jeanrnk">
-              <i className="fab fa-twitch mr-1" /> Live Code
-            </Button>
-          </li>
-          <li>
             <Button href="https://github.com/jeancarlos">
               <i className="fab fa-github mr-1" /> GitHub
             </Button>
@@ -83,6 +78,11 @@ export function HomeClient({ posts }: HomeClientProps) {
           <li>
             <Button href="https://bsky.app/profile/jeansouza.dev">
               <i className="fab fa-bluesky mr-1" /> Bluesky
+            </Button>
+          </li>
+          <li>
+            <Button href="https://www.linkedin.com/in/jeancarlosudi/">
+              <i className="fab fa-linkedin mr-1" /> LinkedIn
             </Button>
           </li>
           <li>
