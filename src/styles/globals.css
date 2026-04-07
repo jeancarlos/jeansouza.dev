@@ -46,3 +46,55 @@
     -webkit-tap-highlight-color: transparent;
   }
 }
+
+@layer components {
+  /* Blog prose overrides — keep brand palette */
+  .prose h1,
+  .prose h2,
+  .prose h3 {
+    background: linear-gradient(to right, #e84545, #b33a73);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .prose a {
+    color: #e84545;
+    text-decoration-color: #e8454580;
+  }
+
+  .prose a:hover {
+    color: #b33a73;
+  }
+
+  .prose code {
+    background: rgba(117, 104, 140, 0.25);
+    border-radius: 4px;
+    padding: 0.1em 0.4em;
+    font-size: 0.875em;
+  }
+
+  .prose pre code {
+    background: transparent;
+    padding: 0;
+  }
+
+  .prose pre {
+    background: rgba(62, 51, 83, 0.8);
+    border: 1px solid rgba(117, 104, 140, 0.3);
+  }
+
+  .prose blockquote {
+    border-left-color: #e84545;
+    color: #f2b8d4;
+    opacity: 0.8;
+  }
+
+  .prose hr {
+    border-color: rgba(117, 104, 140, 0.3);
+  }
+
+  .prose table th {
+    color: #f2b8d4;
+  }
+}

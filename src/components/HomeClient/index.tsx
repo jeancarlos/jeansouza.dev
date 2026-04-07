@@ -16,7 +16,6 @@ export function HomeClient({ posts }: HomeClientProps) {
 
   useEffect(() => {
     const observers: IntersectionObserver[] = []
-    // Fires when element enters the top 20% of the viewport
     const options: IntersectionObserverInit = {
       rootMargin: '0px 0px -80% 0px',
       threshold: 0,
@@ -49,7 +48,7 @@ export function HomeClient({ posts }: HomeClientProps) {
       {/* Hero */}
       <div
         ref={heroRef}
-        className="flex flex-col items-center justify-center min-h-screen px-4 py-8 w-full"
+        className="relative flex flex-col items-center justify-center min-h-screen px-6 py-16 w-full"
       >
         <header className="text-center">
           <Title>
@@ -59,20 +58,20 @@ export function HomeClient({ posts }: HomeClientProps) {
           </Title>
         </header>
 
-        <article className="px-4 mt-4 max-w-lg text-center">
-          <p className="font-body font-normal text-base leading-[1.4rem] text-justify">
+        <article className="mt-6 max-w-md text-center">
+          <p className="font-body font-normal text-base leading-relaxed">
             I&apos;m a specialist in the technologies for the creation of web
             applications.
             <br />
             I like cats 🐱, video games 🎮, to tinker with tech 🧠 and I talk a
             lot 🎙️.
           </p>
-          <p className="font-body font-normal text-base leading-[1.4rem] mt-4">
+          <p className="font-body font-normal text-sm leading-relaxed mt-3 opacity-70">
             Find where I am at the links below:
           </p>
         </article>
 
-        <ul className="flex flex-wrap justify-center items-center gap-x-1 gap-y-2 mt-8 p-0 list-none">
+        <ul className="flex flex-wrap justify-center items-center gap-2 mt-8 p-0 list-none">
           <li>
             <Button href="https://twitch.tv/jeanrnk">
               <i className="fab fa-twitch mr-1" /> Live Code
@@ -90,17 +89,33 @@ export function HomeClient({ posts }: HomeClientProps) {
           </li>
           <li>
             <button
-              className="bg-transparent border-none text-brand-text cursor-pointer block font-bold text-center w-[106px] hover:opacity-80 transition-opacity"
+              className="text-brand-text/70 hover:text-brand-text cursor-pointer font-semibold text-sm transition-colors px-2 py-1"
               aria-expanded={socialOpen}
               onClick={() => setSocialOpen((v) => !v)}
             >
               <span className="block whitespace-nowrap">More links</span>
-              <i className="fas fa-angle-double-down" />
+              <i
+                className={`fas fa-chevron-down block transition-transform duration-200 ${socialOpen ? 'rotate-180' : ''}`}
+              />
             </button>
           </li>
         </ul>
 
         <SocialLinks open={socialOpen} />
+
+        {/* Scroll-to-blog arrow */}
+        {posts.length > 0 && (
+          <button
+            onClick={() => postRefs.current[0]?.scrollIntoView({ behavior: 'smooth' })}
+            aria-label="Scroll to blog"
+            className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-brand-text/40 hover:text-brand-text/80 transition-colors cursor-pointer"
+          >
+            <span className="font-body font-normal text-xs tracking-widest uppercase opacity-80">
+              Blog
+            </span>
+            <i className="fas fa-chevron-down text-lg animate-bounce" />
+          </button>
+        )}
       </div>
 
       {/* Blog posts — scroll inline */}
@@ -110,12 +125,12 @@ export function HomeClient({ posts }: HomeClientProps) {
           ref={(el) => {
             postRefs.current[i] = el
           }}
-          className="w-full max-w-2xl px-6 py-16 border-t border-brand-dot/30"
+          className="w-full max-w-2xl px-6 py-20 border-t border-brand-dot/30"
         >
           <h2 className="bg-brand-gradient bg-clip-text text-transparent text-2xl font-bold mb-2">
             {post.title}
           </h2>
-          <time className="block text-sm opacity-60 mb-8 font-body font-normal">
+          <time className="block text-sm opacity-50 mb-10 font-body font-normal">
             {new Date(post.date + 'T12:00:00').toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'long',
