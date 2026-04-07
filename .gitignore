@@ -131,9 +131,10 @@ yarn-error.log*
 #ia tooling
 .claude
 docs/
-# Next.js build output
-/out/
 
 # AI assistant files
 CLAUDE.md
 GEMINI.md
+
+# Next.js build output
+/out/
