@@ -1,0 +1,28 @@
+.SocialLinks {
+  align-content: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  margin-top: 0;
+  max-height: 0;
+  opacity: 0;
+  padding: 0;
+  position: relative;
+  transform: scale(0.8);
+  transform-origin: center top;
+  transition: all 0.2s ease-in-out;
+  z-index: 2;
+}
+
+.open {
+  max-height: 1000px;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.item {
+  margin: 0 0.25em 0.5em;
+  position: relative;
+  z-index: 4;
+}
