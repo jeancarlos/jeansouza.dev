@@ -91,6 +91,7 @@ export function HomeClient({ posts }: HomeClientProps) {
           <li>
             <button
               className="bg-transparent border-none text-brand-text cursor-pointer block font-bold text-center w-[106px] hover:opacity-80 transition-opacity"
+              aria-expanded={socialOpen}
               onClick={() => setSocialOpen((v) => !v)}
             >
               <span className="block whitespace-nowrap">More links</span>
