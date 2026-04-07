@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [master, feat/stack-modernization]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
