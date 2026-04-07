@@ -20,12 +20,14 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
-  title: 'Jean Souza - Front-End Engineer',
-  description: 'Specialist in technologies for the creation of web applications.',
+  title: 'Jean Souza - Senior Front-End Engineer',
+  description:
+    '15 years shipping web interfaces — from jQuery to React 19. Senior Front-End Engineer with a DevOps edge: React, Next.js, TypeScript, Docker, and a homelab with 3 years of uptime.',
   metadataBase: new URL('https://jeansouza.dev'),
   openGraph: {
-    title: 'Jean Souza - Front-End Engineer',
-    description: 'Specialist in technologies for the creation of web applications.',
+    title: 'Jean Souza - Senior Front-End Engineer',
+    description:
+      '15 years shipping web interfaces — from jQuery to React 19. React · Next.js · TypeScript · DevOps.',
     url: 'https://jeansouza.dev',
     siteName: 'Jean Souza',
     type: 'website',
