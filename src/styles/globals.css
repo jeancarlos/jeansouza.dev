@@ -24,12 +24,12 @@
     background: linear-gradient(
           90deg,
           var(--bg) calc(var(--dot-space) - var(--dot-size)),
-          transparent 1%
+          transparent 1px
         )
         center,
       linear-gradient(
           var(--bg) calc(var(--dot-space) - var(--dot-size)),
-          transparent 1%
+          transparent 1px
         )
         center,
       var(--dot-color);
