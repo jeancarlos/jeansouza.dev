@@ -127,3 +127,14 @@ yarn-debug.log*
 yarn-error.log*
 
 .vscode
+
+#ia tooling
+.claude
+docs/
+
+# AI assistant files
+CLAUDE.md
+GEMINI.md
+
+# Next.js build output
+/out/
