@@ -58,7 +58,7 @@ export function HomeClient({ posts }: HomeClientProps) {
           </Title>
         </header>
 
-        <article className="mt-6 max-w-md text-center">
+        <article className="mt-6 max-w-lg text-center">
           <p className="font-body font-normal text-base leading-relaxed">
             15 years shipping web interfaces — from jQuery to React 19.
             <br />
@@ -70,7 +70,7 @@ export function HomeClient({ posts }: HomeClientProps) {
           </p>
         </article>
 
-        <ul className="flex flex-wrap justify-center items-center gap-2 mt-8 p-0 list-none">
+        <ul className="flex flex-wrap justify-center items-center gap-2 mt-8 mb-2 p-0 list-none">
           <li>
             <Button href="https://github.com/jeancarlos">
               <i className="fab fa-github mr-1" /> GitHub

@@ -9,15 +9,15 @@ description: Migrating from Create React App to Next.js 15 with TypeScript, Tail
 My personal site was running on Create React App — a tool officially archived by the React team in 2023. React 16, Stylus for CSS, deployed manually with the `gh-pages` CLI. It worked, but it wasn't something I'd point to as evidence of my front-end skills.
 
 ## The new stack
-
-| Concern | Before | After |
-|---------|--------|-------|
-| Framework | Create React App 3 | Next.js 15 |
-| Language | JavaScript | TypeScript |
-| CSS | Stylus | Tailwind CSS |
-| Icons | FontAwesome 5 | FontAwesome 6 |
-| Deploy | gh-pages CLI | GitHub Actions |
-
+```
+| Concern   | Before             | After          |
+|-----------|--------------------|----------------|
+| Framework | Create React App 3 | Next.js 15     |
+| Language  | JavaScript         | TypeScript     |
+| CSS       | Stylus             | Tailwind CSS   |
+| Icons     | FontAwesome 5      | FontAwesome 6  |
+| Deploy    | gh-pages CLI       | GitHub Actions |
+```
 ## Architecture
 
 The site is fully static. Next.js generates HTML at build time using `output: 'export'` and publishes the `out/` directory to the `gh-pages` branch on every push via GitHub Actions running on a self-hosted server.
