@@ -34,16 +34,26 @@ interface Props {
   posts: Post[]
 }
 
+const SAFE = 20
+
+function centeredPos(w: number, h: number): { x: number; y: number } {
+  const vw = typeof window !== 'undefined' ? window.innerWidth : 1200
+  const vh = typeof window !== 'undefined' ? window.innerHeight : 800
+  return {
+    x: Math.max(SAFE, Math.min((vw - w) / 2, vw - w - SAFE)),
+    y: Math.max(SAFE, Math.min((vh - h) / 2, vh - h - SAFE)),
+  }
+}
+
 export function Hero({ locale, posts }: Props) {
   const t = useTranslations('hero')
   const tResume = useTranslations('resume')
   const { openWindow } = useWindowManager()
 
-  // Center on viewport — SSR safe
   const homeW = 560
   const homeH = 320
-  const homeX = typeof window !== 'undefined' ? Math.max(20, (window.innerWidth - homeW) / 2) : 100
-  const homeY = typeof window !== 'undefined' ? Math.max(60, (window.innerHeight - homeH) / 2) : 100
+  const homeX = typeof window !== 'undefined' ? Math.max(SAFE, (window.innerWidth - homeW) / 2) : 100
+  const homeY = typeof window !== 'undefined' ? Math.max(SAFE + 40, (window.innerHeight - homeH) / 2) : 100
 
   const nextLocale = locale === 'pt' ? 'en' : 'pt'
   const router = useRouter()
@@ -57,8 +67,8 @@ export function Hero({ locale, posts }: Props) {
       url: `/${locale}/#resume`,
       title: '~/resume',
       content: <ResumeWindowDynamic locale={locale} />,
-      position: { x: 40, y: 40 },
-      size: { width: vw - 80, height: vh - 80 },
+      position: { x: SAFE + 20, y: SAFE + 20 },
+      size: { width: vw - (SAFE + 20) * 2, height: vh - (SAFE + 20) * 2 },
       defaultSize: 'fullscreen',
       isExpanded: true,
       isMinimized: false,
@@ -66,6 +76,8 @@ export function Hero({ locale, posts }: Props) {
   }
 
   const openBlogPost = (post: Post) => {
+    const w = 820
+    const h = 660
     openWindow({
       id: `post-${post.slug}`,
       url: `/${locale}/blog/${post.slug}`,
@@ -73,8 +85,8 @@ export function Hero({ locale, posts }: Props) {
       content: (
         <BlogPostWindowDynamic title={post.title} date={post.date} contentHtml={post.contentHtml} />
       ),
-      position: { x: homeX + 100, y: homeY + 100 },
-      size: { width: 680, height: 560 },
+      position: centeredPos(w, h),
+      size: { width: w, height: h },
       defaultSize: 'medium',
       isExpanded: false,
       isMinimized: false,
@@ -82,13 +94,15 @@ export function Hero({ locale, posts }: Props) {
   }
 
   const openBlog = () => {
+    const w = 820
+    const h = 620
     openWindow({
       id: 'blog',
       url: `/${locale}/blog`,
       title: '~/blog',
       content: <BlogListWindowDynamic posts={posts} onOpenPost={openBlogPost} />,
-      position: { x: homeX + 50, y: homeY + 50 },
-      size: { width: 680, height: 520 },
+      position: centeredPos(w, h),
+      size: { width: w, height: h },
       defaultSize: 'medium',
       isExpanded: false,
       isMinimized: false,
@@ -96,13 +110,15 @@ export function Hero({ locale, posts }: Props) {
   }
 
   const openMoreLinks = () => {
+    const w = 320
+    const h = 280
     openWindow({
       id: 'more-links',
       url: `/${locale}/#more`,
       title: '~/more',
       content: <MoreLinksWindowDynamic />,
-      position: { x: homeX + 50, y: homeY + 50 },
-      size: { width: 320, height: 280 },
+      position: { x: Math.max(SAFE, homeX + homeW + SAFE), y: homeY },
+      size: { width: w, height: h },
       defaultSize: 'compact',
       isExpanded: false,
       isMinimized: false,

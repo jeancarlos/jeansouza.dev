@@ -23,7 +23,7 @@ export function Button({
     </span>
   )
 
-  const wrapperClass = `group relative inline-block rounded-full bg-gradient-to-r from-[#e84545] to-[#b33a73] p-px shadow-sm transition-transform active:scale-95 ${disabled ? 'opacity-40 pointer-events-none' : ''} ${className}`
+  const wrapperClass = `group relative inline-block rounded-full bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-sm transition-transform active:scale-95 ${disabled ? 'opacity-40 pointer-events-none' : ''} ${className}`
 
   if (href) {
     return (
