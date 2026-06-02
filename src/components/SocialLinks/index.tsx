@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Button } from '@/components/Button'
 import { Tooltip } from '@/components/Tooltip'
 import styles from './SocialLinks.module.css'
@@ -10,11 +10,7 @@ interface SocialLinksProps {
 }
 
 export function SocialLinks({ open }: SocialLinksProps) {
-  const [showTooltip, setShowTooltip] = useState<boolean[]>([])
-
-  useEffect(() => {
-    setShowTooltip(links.map(() => false))
-  }, [])
+  const [showTooltip, setShowTooltip] = useState<boolean[]>(() => links.map(() => false))
 
   const handleClick = (index: number) =>
     setShowTooltip((values) => values.map((_, i) => (index === i ? !values[i] : false)))
