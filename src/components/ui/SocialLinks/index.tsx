@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
-import { Button } from '@/components/Button'
-import { Tooltip } from '@/components/Tooltip'
+import { Button } from '@/components/ui/Button'
+import { Tooltip } from '@/components/ui/Tooltip'
 import styles from './SocialLinks.module.css'
 import { links, type LinkItem } from './constants'
 

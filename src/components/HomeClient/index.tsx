@@ -1,9 +1,9 @@
 'use client'
 import { useRef, useEffect, useState } from 'react'
 import type { Post } from '@/lib/posts'
-import { Title } from '@/components/Title'
-import { Button } from '@/components/Button'
-import { SocialLinks } from '@/components/SocialLinks'
+import { Title } from '@/components/ui/Title'
+import { Button } from '@/components/ui/Button'
+import { SocialLinks } from '@/components/ui/SocialLinks'
 
 interface HomeClientProps {
   posts: Post[]
