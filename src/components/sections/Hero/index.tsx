@@ -48,7 +48,7 @@ function safePos(x: number, y: number, w: number, h: number): { x: number; y: nu
 export function Hero({ locale, posts }: Props) {
   const t = useTranslations('hero')
   const tResume = useTranslations('resume')
-  const { openWindow } = useWindowManager()
+  const { openWindow, focusWindow } = useWindowManager()
 
   const homeW = 560
   const homeH = 320
@@ -91,6 +91,8 @@ export function Hero({ locale, posts }: Props) {
       isExpanded: false,
       isMinimized: false,
     })
+    // bring blog list back to front so it stays above the post
+    setTimeout(() => focusWindow('blog'), 0)
   }
 
   const openBlog = () => {
