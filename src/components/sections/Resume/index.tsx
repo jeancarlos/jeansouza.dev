@@ -1,6 +1,7 @@
 'use client'
 import { useTranslations } from 'next-intl'
 import { TimelineItem } from './TimelineItem'
+import { BlueprintGrid } from './BlueprintGrid'
 import { Section } from '@/components/layout/Section'
 import type { TimelineEntry } from '@/content/resume/timeline'
 
@@ -18,9 +19,10 @@ export function Resume({ entries, locale }: Props) {
       bg="#eff1f5"
       mode="grid"
       dotColor="#1e66f5"
-      className="min-h-screen px-6 py-24"
+      className="relative min-h-screen px-6 py-24"
     >
-      <div className="mx-auto max-w-3xl">
+      <BlueprintGrid />
+      <div className="relative z-10 mx-auto max-w-3xl">
         <p className="text-latte-subtext mb-8 font-mono text-sm">$ {t('command')}</p>
         <div className="space-y-4">
           {entries.map((entry, i) => (
