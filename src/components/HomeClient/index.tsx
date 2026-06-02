@@ -1,17 +1,13 @@
 'use client'
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect } from 'react'
 import type { Post } from '@/lib/posts'
-import { Title } from '@/components/ui/Title'
-import { Button } from '@/components/ui/Button'
-import { SocialLinks } from '@/components/ui/SocialLinks'
+import { Hero } from '@/components/sections/Hero'
 
 interface HomeClientProps {
   posts: Post[]
 }
 
 export function HomeClient({ posts }: HomeClientProps) {
-  const [socialOpen, setSocialOpen] = useState(false)
-  const heroRef = useRef<HTMLDivElement>(null)
   const postRefs = useRef<(HTMLElement | null)[]>([])
 
   useEffect(() => {
@@ -21,11 +17,12 @@ export function HomeClient({ posts }: HomeClientProps) {
       threshold: 0,
     }
 
-    if (heroRef.current) {
+    const heroEl = document.getElementById('hero')
+    if (heroEl) {
       const obs = new IntersectionObserver(([entry]) => {
         if (entry.isIntersecting) history.pushState(null, '', '/')
       }, options)
-      obs.observe(heroRef.current)
+      obs.observe(heroEl)
       observers.push(obs)
     }
 
@@ -45,75 +42,7 @@ export function HomeClient({ posts }: HomeClientProps) {
 
   return (
     <div className="flex flex-col items-center">
-      {/* Hero */}
-      <div
-        ref={heroRef}
-        className="relative flex min-h-screen w-full flex-col items-center justify-center px-6 py-16"
-      >
-        <header className="text-center">
-          <Title>
-            Hi, I&apos;m <strong>Jean</strong>,{' '}
-            <span className="whitespace-nowrap">Front-End Engineer</span>
-            <span>.</span>
-          </Title>
-        </header>
-
-        <article className="mt-6 max-w-lg text-center">
-          <p className="text-base leading-relaxed font-normal">
-            15 years shipping web interfaces — from jQuery to React 19.
-            <br />
-            Most front-end devs stop at the browser. I also run the server: 50+ containers, 3 years
-            of uptime 🖥️.
-          </p>
-          <p className="mt-3 text-sm leading-relaxed font-normal opacity-60">
-            Cats 🐱 · games 🎮 · too many open terminals
-          </p>
-        </article>
-
-        <ul className="mt-8 mb-2 flex list-none flex-wrap items-center justify-center gap-2 p-0">
-          <li>
-            <Button href="https://github.com/jeancarlos">
-              <i className="fab fa-github mr-1" /> GitHub
-            </Button>
-          </li>
-          <li>
-            <Button href="https://bsky.app/profile/jeansouza.dev">
-              <i className="fab fa-bluesky mr-1" /> Bluesky
-            </Button>
-          </li>
-          <li>
-            <Button href="https://www.linkedin.com/in/jeancarlosudi/">
-              <i className="fab fa-linkedin mr-1" /> LinkedIn
-            </Button>
-          </li>
-          <li>
-            <button
-              className="text-text/70 hover:text-text cursor-pointer px-2 py-1 text-sm font-semibold transition-colors"
-              aria-expanded={socialOpen}
-              onClick={() => setSocialOpen((v) => !v)}
-            >
-              <span className="block whitespace-nowrap">More links</span>
-              <i
-                className={`fas fa-chevron-down block transition-transform duration-200 ${socialOpen ? 'rotate-180' : ''}`}
-              />
-            </button>
-          </li>
-        </ul>
-
-        <SocialLinks open={socialOpen} />
-
-        {/* Scroll-to-blog arrow */}
-        {posts.length > 0 && (
-          <button
-            onClick={() => postRefs.current[0]?.scrollIntoView({ behavior: 'smooth' })}
-            aria-label="Scroll to blog"
-            className="text-text/40 hover:text-text/80 absolute bottom-10 left-1/2 flex -translate-x-1/2 cursor-pointer flex-col items-center gap-1 transition-colors"
-          >
-            <span className="text-xs font-normal tracking-widest uppercase opacity-80">Blog</span>
-            <i className="fas fa-chevron-down animate-bounce text-lg" />
-          </button>
-        )}
-      </div>
+      <Hero />
 
       {/* Blog posts — scroll inline */}
       {posts.map((post, i) => (
