@@ -5,6 +5,7 @@
   "homepage": "https://jeansouza.dev",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
+    "framer-motion": "^12.40.0",
     "gray-matter": "^4.0.3",
     "next": "^15.5.14",
     "next-intl": "^4.13.0",
