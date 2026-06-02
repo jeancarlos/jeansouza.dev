@@ -17,7 +17,6 @@ export function Resume({ entries, locale }: Props) {
     <Section
       id="resume"
       bg="#eff1f5"
-      mode="grid"
       dotColor="#1e66f5"
       className="relative min-h-screen px-6 py-24"
     >

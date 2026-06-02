@@ -13,7 +13,6 @@ export function Hero() {
     <Section
       id="hero"
       bg="#11111b"
-      mode="bow"
       dotColor="#a6e3a1"
       className="flex min-h-screen items-center justify-center px-6 py-16"
     >

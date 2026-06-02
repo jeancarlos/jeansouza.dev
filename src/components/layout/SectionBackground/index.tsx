@@ -1,10 +1,9 @@
 'use client'
 import { createContext, useContext, useState, useCallback, useRef } from 'react'
-import { DotBackground, type DotMode } from '@/components/DotBackground'
+import { DotBackground } from '@/components/DotBackground'
 
 export type SectionConfig = {
   bg: string
-  mode: DotMode
   dotColor: string
 }
 
@@ -23,7 +22,6 @@ export function useBackground() {
 export function SectionBackground({ children }: { children: React.ReactNode }) {
   const [active, setActive] = useState<SectionConfig>({
     bg: '#11111b',
-    mode: 'bow',
     dotColor: '#a6e3a1',
   })
   const observers = useRef<Map<string, IntersectionObserver>>(new Map())
@@ -33,7 +31,10 @@ export function SectionBackground({ children }: { children: React.ReactNode }) {
       ([entry]) => {
         if (entry.isIntersecting) setActive(config)
       },
-      { threshold: 0.4 }
+      {
+        rootMargin: '0px 0px -50% 0px',
+        threshold: 0,
+      }
     )
     obs.observe(el)
     observers.current.set(id, obs)
@@ -50,9 +51,10 @@ export function SectionBackground({ children }: { children: React.ReactNode }) {
           backgroundColor: active.bg,
           transition: 'background-color 120ms ease',
           minHeight: '100vh',
+          isolation: 'isolate',
         }}
       >
-        <DotBackground mode={active.mode} color={active.dotColor} />
+        <DotBackground />
         {children}
       </div>
     </BackgroundContext.Provider>

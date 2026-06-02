@@ -1,27 +1,18 @@
 'use client'
 import { useEffect, useRef } from 'react'
-import { bowOffset } from './dots'
+import {
+  initStar,
+  projectStar,
+  advanceStar,
+  resetStar,
+  maybeGlitch,
+  TOTAL_DOTS,
+  SPEED,
+  type Star,
+} from './starfield'
 
-export type DotMode = 'bow' | 'grid' | 'lines'
-
-interface DotBackgroundProps {
-  mode?: DotMode
-  color?: string
-}
-
-const SPACING = 25
-const PARALLAX = 0.3
-
-export function DotBackground({ mode = 'bow', color = '#a6e3a1' }: DotBackgroundProps) {
+export function DotBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const modeRef = useRef(mode)
-  const colorRef = useRef(color)
-
-  // keep refs in sync without restarting the animation loop
-  useEffect(() => {
-    modeRef.current = mode
-    colorRef.current = color
-  }, [mode, color])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -29,76 +20,65 @@ export function DotBackground({ mode = 'bow', color = '#a6e3a1' }: DotBackground
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    let scrollY = window.scrollY
     let rafId: number
+    let w = 0
+    let h = 0
+    let stars: Star[] = []
 
     const resize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
+      w = canvas.width = window.innerWidth
+      h = canvas.height = window.innerHeight
+      stars = Array.from({ length: TOTAL_DOTS }, () => initStar(w, h))
+    }
+
+    const getDotColor = (alpha: number) => {
+      const rgb =
+        getComputedStyle(document.documentElement).getPropertyValue('--dot-color').trim() ||
+        '242, 184, 212'
+      return `rgba(${rgb}, ${alpha})`
     }
 
     const draw = () => {
-      const w = canvas.width
-      const h = canvas.height
-      const m = modeRef.current
-      const c = colorRef.current
-
       ctx.clearRect(0, 0, w, h)
-      ctx.fillStyle = c
-      ctx.strokeStyle = c
 
-      const offsetY = -(scrollY * PARALLAX) % SPACING
+      const dotColor = getDotColor(0.55)
+      const glitchColor = getDotColor(0.85)
 
-      for (let gx = 0; gx < w + SPACING; gx += SPACING) {
-        for (let gy = offsetY - SPACING; gy < h + SPACING; gy += SPACING) {
-          const nx = gx / w
-          const ny = gy / h
+      for (const star of stars) {
+        advanceStar(star, SPEED)
+        const { sx, sy, size } = projectStar(star, w, h)
 
-          if (m === 'bow') {
-            // Invert: push dots outward from center toward corners
-            const { x, y } = bowOffset(nx, ny, 1.5, SPACING * 0.9)
-            const px = gx + x
-            const py = gy + y
-            ctx.globalAlpha = 0.55
-            ctx.beginPath()
-            ctx.arc(px, py, 0.75, 0, Math.PI * 2)
-            ctx.fill()
-          } else if (m === 'grid') {
-            ctx.globalAlpha = 0.4
-            ctx.beginPath()
-            ctx.arc(gx, gy, 0.75, 0, Math.PI * 2)
-            ctx.fill()
-          } else if (m === 'lines') {
-            ctx.globalAlpha = 0.12
-            ctx.lineWidth = 0.75
-            ctx.beginPath()
-            ctx.moveTo(gx - SPACING * 0.4, gy)
-            ctx.lineTo(gx + SPACING * 0.4, gy)
-            ctx.stroke()
-          }
+        if (star.z <= 1 || sx < -50 || sx > w + 50 || sy < -50 || sy > h + 50) {
+          resetStar(star, w, h)
+          continue
+        }
 
-          ctx.globalAlpha = 1
+        maybeGlitch(star)
+
+        if (star.glitchTimer > 0) {
+          ctx.fillStyle = glitchColor
+          ctx.font = `${Math.max(8, size * 2)}px monospace`
+          ctx.fillText(star.glitchChar, sx - size, sy + size / 2)
+        } else {
+          ctx.fillStyle = dotColor
+          ctx.beginPath()
+          ctx.arc(sx, sy, Math.max(0.5, size), 0, Math.PI * 2)
+          ctx.fill()
         }
       }
 
       rafId = requestAnimationFrame(draw)
     }
 
-    const onScroll = () => {
-      scrollY = window.scrollY
-    }
-
     resize()
     window.addEventListener('resize', resize)
-    window.addEventListener('scroll', onScroll, { passive: true })
     rafId = requestAnimationFrame(draw)
 
     return () => {
       cancelAnimationFrame(rafId)
       window.removeEventListener('resize', resize)
-      window.removeEventListener('scroll', onScroll)
     }
-  }, []) // intentionally empty — mode/color read via refs
+  }, [])
 
   return (
     <canvas

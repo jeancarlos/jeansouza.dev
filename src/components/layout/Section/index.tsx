@@ -9,14 +9,14 @@ type Props = SectionConfig & {
   style?: React.CSSProperties
 }
 
-export function Section({ id, bg, mode, dotColor, children, className, style }: Props) {
+export function Section({ id, bg, dotColor, children, className, style }: Props) {
   const { register } = useBackground()
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!ref.current) return
-    return register(id, { bg, mode, dotColor }, ref.current)
-  }, [id, bg, mode, dotColor, register])
+    return register(id, { bg, dotColor }, ref.current)
+  }, [id, bg, dotColor, register])
 
   return (
     <section ref={ref} id={id} className={className} style={style}>

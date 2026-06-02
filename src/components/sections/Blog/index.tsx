@@ -15,7 +15,6 @@ export function Blog({ posts }: Props) {
     <Section
       id="blog"
       bg="#1e1e2e"
-      mode="lines"
       dotColor="#cba6f7"
       className="min-h-screen px-6 py-24"
       style={{
