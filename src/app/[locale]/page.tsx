@@ -1,5 +1,6 @@
 import { getAllPostsWithContent } from '@/lib/posts'
 import { HomeClient } from '@/components/HomeClient'
+import { SectionBackground } from '@/components/layout/SectionBackground'
 import { routing } from '@/i18n/routing'
 import { setRequestLocale } from 'next-intl/server'
 
@@ -13,5 +14,9 @@ export default async function HomePage({ params }: Props) {
   const { locale } = await params
   setRequestLocale(locale)
   const posts = await getAllPostsWithContent(locale as 'pt' | 'en')
-  return <HomeClient posts={posts} />
+  return (
+    <SectionBackground>
+      <HomeClient posts={posts} />
+    </SectionBackground>
+  )
 }

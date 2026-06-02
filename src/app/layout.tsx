@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Poppins, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import '@/styles/globals.css'
-import { DotBackground } from '@/components/DotBackground'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -43,10 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="pt"
       className={`${poppins.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
     >
-      <body className="font-sans">
-        <DotBackground />
-        {children}
-      </body>
+      <body className="font-sans">{children}</body>
     </html>
   )
 }
