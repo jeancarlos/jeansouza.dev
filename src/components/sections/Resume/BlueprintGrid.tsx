@@ -6,6 +6,8 @@ export function BlueprintGrid() {
   const hoveredRef = useRef(false)
   const alphaRef = useRef(0)
   const rafRef = useRef<number>(0)
+  const runningRef = useRef(false)
+  const drawRef = useRef<() => void>(() => {})
 
   const [hovered, setHovered] = useState(false)
 
@@ -36,6 +38,12 @@ export function BlueprintGrid() {
 
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
+      // if settled at 0 and not hovered, stop the loop
+      if (alphaRef.current < 0.001 && !hoveredRef.current) {
+        runningRef.current = false
+        return // don't reschedule
+      }
+
       if (alpha > 0.001) {
         ctx.strokeStyle = `rgba(30, 102, 245, ${alpha})`
         ctx.lineWidth = 0.5
@@ -55,13 +63,17 @@ export function BlueprintGrid() {
         }
       }
 
+      runningRef.current = true
       rafRef.current = requestAnimationFrame(draw)
     }
+
+    drawRef.current = draw
 
     const resizeObserver = new ResizeObserver(resize)
     if (canvas.parentElement) resizeObserver.observe(canvas.parentElement)
 
     resize()
+    runningRef.current = true
     rafRef.current = requestAnimationFrame(draw)
 
     return () => {
@@ -74,7 +86,13 @@ export function BlueprintGrid() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      onMouseEnter={() => setHovered(true)}
+      onMouseEnter={() => {
+        setHovered(true)
+        if (!runningRef.current && canvasRef.current) {
+          runningRef.current = true
+          rafRef.current = requestAnimationFrame(drawRef.current)
+        }
+      }}
       onMouseLeave={() => setHovered(false)}
       className="pointer-events-auto absolute inset-0 h-full w-full"
       style={{ zIndex: 0 }}

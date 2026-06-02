@@ -28,6 +28,24 @@ export function HomeClient({ posts, locale }: HomeClientProps) {
       observers.push(obs)
     }
 
+    const resumeEl = document.getElementById('resume')
+    if (resumeEl) {
+      const obs = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) history.pushState(null, '', `/${locale}/#resume`)
+      }, options)
+      obs.observe(resumeEl)
+      observers.push(obs)
+    }
+
+    const blogEl = document.getElementById('blog')
+    if (blogEl) {
+      const obs = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) history.pushState(null, '', `/${locale}/#blog`)
+      }, options)
+      obs.observe(blogEl)
+      observers.push(obs)
+    }
+
     return () => observers.forEach((o) => o.disconnect())
   }, [locale])
 
