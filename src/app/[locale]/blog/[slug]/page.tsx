@@ -1,14 +1,16 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { getPost, getAllSlugs } from '@/lib/posts'
+import { routing } from '@/i18n/routing'
+import { setRequestLocale } from 'next-intl/server'
 
 interface Props {
-  params: Promise<{ slug: string }>
+  params: Promise<{ locale: string; slug: string }>
 }
 
 export async function generateStaticParams() {
   const slugs = getAllSlugs()
-  return slugs.map((slug) => ({ slug }))
+  return routing.locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -27,7 +29,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function PostPage({ params }: Props) {
-  const { slug } = await params
+  const { locale, slug } = await params
+  setRequestLocale(locale)
   const post = await getPost(slug)
 
   return (

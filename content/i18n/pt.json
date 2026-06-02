@@ -1,0 +1,23 @@
+{
+  "nav": {
+    "blog": "Blog",
+    "resume": "Currículo"
+  },
+  "hero": {
+    "prompt": "jean souza",
+    "role": "engenheiro front-end sênior",
+    "cta": "explorar"
+  },
+  "resume": {
+    "command": "career --timeline",
+    "title": "Experiência"
+  },
+  "blog": {
+    "command": "ls posts/",
+    "title": "Blog",
+    "readMore": "ler post"
+  },
+  "lang": {
+    "switch": "EN"
+  }
+}
