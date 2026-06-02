@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Poppins, Roboto } from 'next/font/google'
+import { Poppins, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import '@/styles/globals.css'
 import { DotBackground } from '@/components/DotBackground'
@@ -11,11 +11,15 @@ const poppins = Poppins({
   display: 'swap',
 })
 
-const roboto = Roboto({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['400', '700'],
-  style: ['normal', 'italic'],
-  variable: '--font-roboto',
+  variable: '--font-space-grotesk',
+  display: 'swap',
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains-mono',
   display: 'swap',
 })
 
@@ -26,8 +30,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://jeansouza.dev'),
   openGraph: {
     title: 'Jean Souza - Senior Front-End Engineer',
-    description:
-      '15 years shipping web interfaces — from jQuery to React 19. React · Next.js · TypeScript · DevOps.',
+    description: '15 years shipping web interfaces — from jQuery to React 19.',
     url: 'https://jeansouza.dev',
     siteName: 'Jean Souza',
     type: 'website',
@@ -36,7 +39,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${poppins.variable} ${roboto.variable}`}>
+    <html
+      lang="pt"
+      className={`${poppins.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+    >
       <body className="font-sans">
         <DotBackground />
         {children}
