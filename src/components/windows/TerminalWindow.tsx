@@ -18,10 +18,12 @@ interface Props {
 
 function TrafficDot({
   label,
+  symbol,
   onClick,
   disabled,
 }: {
   label: string
+  symbol: string
   onClick: () => void
   disabled?: boolean
 }) {
@@ -36,7 +38,9 @@ function TrafficDot({
       }}
       className={`group relative inline-block rounded-full bg-gradient-to-r from-[#e84545] to-[#b33a73] p-px transition-transform active:scale-95 ${disabled ? 'pointer-events-none opacity-30' : ''}`}
     >
-      <span className="block h-3 w-3 rounded-full bg-[#3e3353] transition-colors duration-150 group-hover:bg-transparent" />
+      <span className="flex h-3 w-3 items-center justify-center rounded-full bg-[#3e3353] font-mono text-[8px] leading-none text-[#f2b8d4] transition-colors duration-150 group-hover:bg-transparent group-hover:text-white">
+        {symbol}
+      </span>
     </button>
   )
 }
@@ -88,9 +92,14 @@ export function TerminalWindow({
     >
       {/* Header */}
       <div className="flex shrink-0 cursor-grab items-center gap-2 bg-gradient-to-r from-[#e84545] to-[#b33a73] px-3 py-2 select-none active:cursor-grabbing">
-        <TrafficDot label="Close" onClick={() => closeWindow(id)} disabled={!closeable} />
-        <TrafficDot label="Minimize" onClick={() => minimizeWindow(id)} />
-        <TrafficDot label="Expand" onClick={() => expandWindow(id)} />
+        <TrafficDot
+          label="Close"
+          symbol="×"
+          onClick={() => closeWindow(id)}
+          disabled={!closeable}
+        />
+        <TrafficDot label="Minimize" symbol="−" onClick={() => minimizeWindow(id)} />
+        <TrafficDot label="Expand" symbol="+" onClick={() => expandWindow(id)} />
         <span className="ml-2 font-mono text-xs text-white/80">{title}</span>
       </div>
 
