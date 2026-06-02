@@ -5,7 +5,7 @@ import { getAllPosts, getPost, getAllSlugs, getAllPostsWithContent } from './pos
 
 const postsDir = path.join(process.cwd(), 'src/content/posts')
 const testSlug = '__test-post-2026-01-01'
-const testPath = path.join(postsDir, `${testSlug}.md`)
+const testPath = path.join(postsDir, `${testSlug}.pt.md`)
 
 beforeAll(() => {
   fs.writeFileSync(
@@ -48,14 +48,14 @@ describe('getAllPosts', () => {
 describe('getPost', () => {
   it('returns post with html content', async () => {
     const post = await getPost(testSlug)
-    expect(post.contentHtml).toContain('<h1>Hello</h1>')
-    expect(post.contentHtml).toContain('Test content here.')
+    expect(post!.contentHtml).toContain('<h1>Hello</h1>')
+    expect(post!.contentHtml).toContain('Test content here.')
   })
 
   it('returns correct metadata', async () => {
     const post = await getPost(testSlug)
-    expect(post.title).toBe('Test Post')
-    expect(post.slug).toBe(testSlug)
+    expect(post!.title).toBe('Test Post')
+    expect(post!.slug).toBe(testSlug)
   })
 })
 
@@ -72,5 +72,64 @@ describe('getAllPostsWithContent', () => {
     const found = posts.find((p) => p.slug === testSlug)
     expect(found).toBeDefined()
     expect(found!.contentHtml).toContain('<h1>Hello</h1>')
+  })
+})
+
+describe('bilingual posts', () => {
+  const testBase = '__test-bilingual-2026-01-01'
+
+  beforeAll(() => {
+    fs.writeFileSync(
+      path.join(postsDir, `${testBase}.pt.md`),
+      `---
+title: Teste PT
+date: 2026-01-01
+description: Descrição em português
+---
+Conteúdo em português.`
+    )
+    fs.writeFileSync(
+      path.join(postsDir, `${testBase}.en.md`),
+      `---
+title: Test EN
+date: 2026-01-01
+description: English description
+---
+English content.`
+    )
+  })
+
+  afterAll(() => {
+    fs.unlinkSync(path.join(postsDir, `${testBase}.pt.md`))
+    fs.unlinkSync(path.join(postsDir, `${testBase}.en.md`))
+  })
+
+  it('returns PT variant for pt locale', () => {
+    const posts = getAllPosts('pt')
+    const post = posts.find((p) => p.slug === testBase)
+    expect(post?.title).toBe('Teste PT')
+  })
+
+  it('returns EN variant for en locale', () => {
+    const posts = getAllPosts('en')
+    const post = posts.find((p) => p.slug === testBase)
+    expect(post?.title).toBe('Test EN')
+  })
+
+  it('falls back to available variant when locale missing', () => {
+    const enOnlyBase = '__test-en-only-2026-01-01'
+    fs.writeFileSync(
+      path.join(postsDir, `${enOnlyBase}.en.md`),
+      `---
+title: EN Only
+date: 2026-01-01
+description: Only in English
+---
+Content.`
+    )
+    const posts = getAllPosts('pt')
+    const post = posts.find((p) => p.slug === enOnlyBase)
+    expect(post?.title).toBe('EN Only')
+    fs.unlinkSync(path.join(postsDir, `${enOnlyBase}.en.md`))
   })
 })

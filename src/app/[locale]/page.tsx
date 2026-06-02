@@ -12,6 +12,6 @@ export function generateStaticParams() {
 export default async function HomePage({ params }: Props) {
   const { locale } = await params
   setRequestLocale(locale)
-  const posts = await getAllPostsWithContent()
+  const posts = await getAllPostsWithContent(locale as 'pt' | 'en')
   return <HomeClient posts={posts} />
 }

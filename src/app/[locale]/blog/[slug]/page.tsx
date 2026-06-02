@@ -14,8 +14,9 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params
-  const post = await getPost(slug)
+  const { locale, slug } = await params
+  const post = await getPost(slug, locale as 'pt' | 'en')
+  if (!post) return {}
   return {
     title: `${post.title} — Jean Souza`,
     description: post.description,
@@ -31,7 +32,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function PostPage({ params }: Props) {
   const { locale, slug } = await params
   setRequestLocale(locale)
-  const post = await getPost(slug)
+  const post = await getPost(slug, locale as 'pt' | 'en')
+
+  if (!post) return null
 
   return (
     <div className="flex min-h-screen flex-col items-center px-6 py-16">
