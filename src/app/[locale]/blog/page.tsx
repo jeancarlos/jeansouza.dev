@@ -1,6 +1,5 @@
 import { getAllPosts } from '@/lib/posts'
 import { Blog } from '@/components/sections/Blog'
-import { SectionBackground } from '@/components/layout/SectionBackground'
 import { setRequestLocale } from 'next-intl/server'
 
 type Props = { params: Promise<{ locale: string }> }
@@ -14,9 +13,5 @@ export default async function BlogPage({ params }: Props) {
   setRequestLocale(locale)
   const posts = getAllPosts(locale as 'pt' | 'en')
 
-  return (
-    <SectionBackground>
-      <Blog posts={posts} />
-    </SectionBackground>
-  )
+  return <Blog posts={posts} />
 }
