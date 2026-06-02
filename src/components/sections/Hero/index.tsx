@@ -36,12 +36,12 @@ interface Props {
 
 const SAFE = 20
 
-function centeredPos(w: number, h: number): { x: number; y: number } {
+function safePos(x: number, y: number, w: number, h: number): { x: number; y: number } {
   const vw = typeof window !== 'undefined' ? window.innerWidth : 1200
   const vh = typeof window !== 'undefined' ? window.innerHeight : 800
   return {
-    x: Math.max(SAFE, Math.min((vw - w) / 2, vw - w - SAFE)),
-    y: Math.max(SAFE, Math.min((vh - h) / 2, vh - h - SAFE)),
+    x: Math.max(SAFE, Math.min(x, vw - w - SAFE)),
+    y: Math.max(SAFE, Math.min(y, vh - h - SAFE)),
   }
 }
 
@@ -85,7 +85,7 @@ export function Hero({ locale, posts }: Props) {
       content: (
         <BlogPostWindowDynamic title={post.title} date={post.date} contentHtml={post.contentHtml} />
       ),
-      position: centeredPos(w, h),
+      position: safePos(homeX + 100, homeY + 100, w, h),
       size: { width: w, height: h },
       defaultSize: 'medium',
       isExpanded: false,
@@ -101,7 +101,7 @@ export function Hero({ locale, posts }: Props) {
       url: `/${locale}/blog`,
       title: '~/blog',
       content: <BlogListWindowDynamic posts={posts} onOpenPost={openBlogPost} />,
-      position: centeredPos(w, h),
+      position: safePos(homeX + 50, homeY + 50, w, h),
       size: { width: w, height: h },
       defaultSize: 'medium',
       isExpanded: false,
@@ -117,7 +117,7 @@ export function Hero({ locale, posts }: Props) {
       url: `/${locale}/#more`,
       title: '~/more',
       content: <MoreLinksWindowDynamic />,
-      position: { x: Math.max(SAFE, homeX + homeW + SAFE), y: homeY },
+      position: safePos(homeX + 50, homeY + 50, w, h),
       size: { width: w, height: h },
       defaultSize: 'compact',
       isExpanded: false,
