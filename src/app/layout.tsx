@@ -42,6 +42,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="pt"
       className={`${poppins.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
     >
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `(function(){var s=localStorage.getItem('theme');var p=s||(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',p);})();`,
+        }}
+      />
       <body className="font-sans">{children}</body>
     </html>
   )

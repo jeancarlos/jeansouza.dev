@@ -2,7 +2,7 @@
 @plugin '@tailwindcss/typography';
 
 @theme {
-  /* Catppuccin Mocha — dark sections */
+  /* Catppuccin Mocha — structure */
   --color-crust: #11111b;
   --color-mantle: #181825;
   --color-base: #1e1e2e;
@@ -10,24 +10,38 @@
   --color-overlay: #6c7086;
   --color-subtext: #bac2de;
   --color-text: #cdd6f4;
-  --color-green: #a6e3a1;
-  --color-mauve: #cba6f7;
-  --color-blue: #89b4fa;
-  --color-peach: #fab387;
 
-  /* Catppuccin Latte — blueprint/resume section */
+  /* Brand accent — replaces pastel mauve/green */
+  --color-brand-from: #e84545;
+  --color-brand-to: #b33a73;
+  --color-brand-text: #f2b8d4;
+  --color-brand-bg: #3e3353;
+
+  /* Dot color for starfield (RGB values only, used in rgba()) */
+  --dot-color: 242, 184, 212;
+
+  /* Catppuccin Latte — light mode */
   --color-latte-base: #eff1f5;
   --color-latte-mantle: #e6e9ef;
   --color-latte-text: #4c4f69;
   --color-latte-subtext: #6c6f85;
-  --color-latte-blue: #1e66f5;
-  --color-latte-sapphire: #209fb5;
-  --color-latte-mauve: #8839ef;
 
-  /* Fonts — wired to next/font CSS vars */
   --font-sans: var(--font-space-grotesk), sans-serif;
   --font-display: var(--font-poppins), sans-serif;
   --font-mono: var(--font-jetbrains-mono), monospace;
+}
+
+/* Dark/light mode via data-theme attribute */
+:root,
+[data-theme='dark'] {
+  --page-bg: var(--color-crust);
+  --page-text: var(--color-text);
+}
+
+[data-theme='light'] {
+  --page-bg: var(--color-latte-base);
+  --page-text: var(--color-latte-text);
+  --dot-color: 104, 57, 239;
 }
 
 @layer base {
@@ -42,12 +56,15 @@
   }
 
   body {
-    background-color: var(--color-crust);
-    color: var(--color-text);
+    background-color: var(--page-bg);
+    color: var(--page-text);
     font-family: var(--font-sans);
     font-feature-settings: 'liga', 'calt', 'ss01';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition:
+      background-color 300ms ease,
+      color 300ms ease;
   }
 
   * {
@@ -59,34 +76,32 @@
   .prose h1,
   .prose h2,
   .prose h3 {
-    color: var(--color-mauve);
+    color: var(--color-brand-from);
   }
   .prose a {
-    color: var(--color-blue);
-    text-decoration-color: color-mix(in srgb, var(--color-blue) 50%, transparent);
+    color: var(--color-brand-from);
   }
   .prose a:hover {
-    color: var(--color-mauve);
+    color: var(--color-brand-to);
   }
   .prose code {
-    background: color-mix(in srgb, var(--color-surface) 80%, transparent);
+    background: color-mix(in srgb, var(--color-brand-bg) 80%, transparent);
     border-radius: 4px;
     padding: 0.1em 0.4em;
     font-size: 0.875em;
     font-family: var(--font-mono);
-    font-feature-settings: 'liga', 'calt';
   }
   .prose pre {
-    background: var(--color-surface);
-    border: 1px solid var(--color-overlay);
+    background: var(--color-brand-bg);
+    border: 1px solid color-mix(in srgb, var(--color-brand-to) 40%, transparent);
   }
   .prose pre code {
     background: transparent;
     padding: 0;
   }
   .prose blockquote {
-    border-left-color: var(--color-mauve);
-    color: var(--color-subtext);
+    border-left-color: var(--color-brand-from);
+    color: var(--color-brand-text);
   }
   .prose hr {
     border-color: var(--color-surface);
