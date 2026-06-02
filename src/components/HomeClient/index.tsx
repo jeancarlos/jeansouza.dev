@@ -22,14 +22,14 @@ export function HomeClient({ posts, locale }: HomeClientProps) {
     const heroEl = document.getElementById('hero')
     if (heroEl) {
       const obs = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) history.pushState(null, '', '/')
+        if (entry.isIntersecting) history.pushState(null, '', `/${locale}/`)
       }, options)
       obs.observe(heroEl)
       observers.push(obs)
     }
 
     return () => observers.forEach((o) => o.disconnect())
-  }, [])
+  }, [locale])
 
   return (
     <div className="flex flex-col items-center">
