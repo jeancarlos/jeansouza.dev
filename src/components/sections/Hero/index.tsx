@@ -71,11 +71,7 @@ export function Hero({ locale, posts }: Props) {
       url: `/${locale}/blog/${post.slug}`,
       title: `~/blog/${post.slug}`,
       content: (
-        <BlogPostWindowDynamic
-          title={post.title}
-          date={post.date}
-          contentHtml={post.contentHtml}
-        />
+        <BlogPostWindowDynamic title={post.title} date={post.date} contentHtml={post.contentHtml} />
       ),
       position: { x: homeX + 100, y: homeY + 100 },
       size: { width: 680, height: 560 },
@@ -90,12 +86,7 @@ export function Hero({ locale, posts }: Props) {
       id: 'blog',
       url: `/${locale}/blog`,
       title: '~/blog',
-      content: (
-        <BlogListWindowDynamic
-          posts={posts}
-          onOpenPost={openBlogPost}
-        />
-      ),
+      content: <BlogListWindowDynamic posts={posts} onOpenPost={openBlogPost} />,
       position: { x: homeX + 50, y: homeY + 50 },
       size: { width: 680, height: 520 },
       defaultSize: 'medium',
@@ -131,7 +122,7 @@ export function Hero({ locale, posts }: Props) {
       closeable={false}
     >
       <div className="space-y-3 p-6 text-[#f2b8d4]">
-        <p className="text-[#b33a73] text-xs">~ jeansouza.dev</p>
+        <p className="text-xs text-[#b33a73]">~ jeansouza.dev</p>
         <p className="flex items-center gap-2">
           <span className="text-[#e84545] select-none">{'>'}</span>
           <Typewriter
@@ -147,7 +138,7 @@ export function Hero({ locale, posts }: Props) {
             _
           </motion.span>
         </p>
-        <p className="pl-5 text-[#b33a73] text-sm">
+        <p className="pl-5 text-sm text-[#b33a73]">
           <Typewriter text={t('role')} delay={0.8} />
         </p>
         <div className="flex flex-wrap gap-2 pt-4 pl-5">
