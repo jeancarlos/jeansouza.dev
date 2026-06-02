@@ -2,12 +2,15 @@
 import { useRef, useEffect } from 'react'
 import type { Post } from '@/lib/posts'
 import { Hero } from '@/components/sections/Hero'
+import { Resume } from '@/components/sections/Resume'
+import { timeline } from '@/content/resume/timeline'
 
 interface HomeClientProps {
   posts: Post[]
+  locale: 'pt' | 'en'
 }
 
-export function HomeClient({ posts }: HomeClientProps) {
+export function HomeClient({ posts, locale }: HomeClientProps) {
   const postRefs = useRef<(HTMLElement | null)[]>([])
 
   useEffect(() => {
@@ -43,6 +46,8 @@ export function HomeClient({ posts }: HomeClientProps) {
   return (
     <div className="flex flex-col items-center">
       <Hero />
+
+      <Resume entries={timeline} locale={locale} />
 
       {/* Blog posts — scroll inline */}
       {posts.map((post, i) => (

@@ -16,7 +16,7 @@ export default async function HomePage({ params }: Props) {
   const posts = await getAllPostsWithContent(locale as 'pt' | 'en')
   return (
     <SectionBackground>
-      <HomeClient posts={posts} />
+      <HomeClient posts={posts} locale={locale as 'pt' | 'en'} />
     </SectionBackground>
   )
 }
