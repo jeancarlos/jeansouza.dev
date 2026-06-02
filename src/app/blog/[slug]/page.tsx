@@ -31,19 +31,19 @@ export default async function PostPage({ params }: Props) {
   const post = await getPost(slug)
 
   return (
-    <div className="min-h-screen flex flex-col items-center py-16 px-6">
+    <div className="flex min-h-screen flex-col items-center px-6 py-16">
       <div className="w-full max-w-2xl">
         <Link
           href="/"
-          className="text-brand-text opacity-60 hover:opacity-100 transition-opacity font-body font-normal text-sm mb-8 inline-block"
+          className="mb-8 inline-block font-body text-sm font-normal text-brand-text opacity-60 transition-opacity hover:opacity-100"
         >
           ← Jean Souza
         </Link>
         <article>
-          <h1 className="bg-brand-gradient bg-clip-text text-transparent text-3xl font-bold mb-2">
+          <h1 className="mb-2 bg-brand-gradient bg-clip-text text-3xl font-bold text-transparent">
             {post.title}
           </h1>
-          <time className="block text-sm opacity-60 mb-8 font-body font-normal">
+          <time className="mb-8 block font-body text-sm font-normal opacity-60">
             {new Date(post.date + 'T12:00:00').toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'long',
@@ -52,7 +52,7 @@ export default async function PostPage({ params }: Props) {
           </time>
           {/* Author-controlled markdown content — no user input, no XSS risk */}
           <div
-            className="prose prose-invert prose-pink max-w-none font-body font-normal"
+            className="prose prose-pink prose-invert max-w-none font-body font-normal"
             dangerouslySetInnerHTML={{ __html: post.contentHtml }}
           />
         </article>

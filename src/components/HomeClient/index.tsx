@@ -48,7 +48,7 @@ export function HomeClient({ posts }: HomeClientProps) {
       {/* Hero */}
       <div
         ref={heroRef}
-        className="relative flex flex-col items-center justify-center min-h-screen px-6 py-16 w-full"
+        className="relative flex min-h-screen w-full flex-col items-center justify-center px-6 py-16"
       >
         <header className="text-center">
           <Title>
@@ -59,18 +59,18 @@ export function HomeClient({ posts }: HomeClientProps) {
         </header>
 
         <article className="mt-6 max-w-lg text-center">
-          <p className="font-body font-normal text-base leading-relaxed">
+          <p className="font-body text-base font-normal leading-relaxed">
             15 years shipping web interfaces — from jQuery to React 19.
             <br />
-            Most front-end devs stop at the browser.
-            I also run the server: 50+ containers, 3 years of uptime 🖥️.
+            Most front-end devs stop at the browser. I also run the server: 50+ containers, 3 years
+            of uptime 🖥️.
           </p>
-          <p className="font-body font-normal text-sm leading-relaxed mt-3 opacity-60">
+          <p className="mt-3 font-body text-sm font-normal leading-relaxed opacity-60">
             Cats 🐱 · games 🎮 · too many open terminals
           </p>
         </article>
 
-        <ul className="flex flex-wrap justify-center items-center gap-2 mt-8 mb-2 p-0 list-none">
+        <ul className="mb-2 mt-8 flex list-none flex-wrap items-center justify-center gap-2 p-0">
           <li>
             <Button href="https://github.com/jeancarlos">
               <i className="fab fa-github mr-1" /> GitHub
@@ -88,7 +88,7 @@ export function HomeClient({ posts }: HomeClientProps) {
           </li>
           <li>
             <button
-              className="text-brand-text/70 hover:text-brand-text cursor-pointer font-semibold text-sm transition-colors px-2 py-1"
+              className="cursor-pointer px-2 py-1 text-sm font-semibold text-brand-text/70 transition-colors hover:text-brand-text"
               aria-expanded={socialOpen}
               onClick={() => setSocialOpen((v) => !v)}
             >
@@ -107,12 +107,12 @@ export function HomeClient({ posts }: HomeClientProps) {
           <button
             onClick={() => postRefs.current[0]?.scrollIntoView({ behavior: 'smooth' })}
             aria-label="Scroll to blog"
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-brand-text/40 hover:text-brand-text/80 transition-colors cursor-pointer"
+            className="absolute bottom-10 left-1/2 flex -translate-x-1/2 cursor-pointer flex-col items-center gap-1 text-brand-text/40 transition-colors hover:text-brand-text/80"
           >
-            <span className="font-body font-normal text-xs tracking-widest uppercase opacity-80">
+            <span className="font-body text-xs font-normal uppercase tracking-widest opacity-80">
               Blog
             </span>
-            <i className="fas fa-chevron-down text-lg animate-bounce" />
+            <i className="fas fa-chevron-down animate-bounce text-lg" />
           </button>
         )}
       </div>
@@ -124,12 +124,12 @@ export function HomeClient({ posts }: HomeClientProps) {
           ref={(el) => {
             postRefs.current[i] = el
           }}
-          className="w-full max-w-2xl px-6 py-20 border-t border-brand-dot/30"
+          className="w-full max-w-2xl border-t border-brand-dot/30 px-6 py-20"
         >
-          <h2 className="bg-brand-gradient bg-clip-text text-transparent text-2xl font-bold mb-2">
+          <h2 className="mb-2 bg-brand-gradient bg-clip-text text-2xl font-bold text-transparent">
             {post.title}
           </h2>
-          <time className="block text-sm opacity-50 mb-10 font-body font-normal">
+          <time className="mb-10 block font-body text-sm font-normal opacity-50">
             {new Date(post.date + 'T12:00:00').toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'long',
@@ -138,7 +138,7 @@ export function HomeClient({ posts }: HomeClientProps) {
           </time>
           {/* Author-controlled markdown content — no user input, no XSS risk */}
           <div
-            className="prose prose-invert prose-pink max-w-none font-body font-normal"
+            className="prose prose-pink prose-invert max-w-none font-body font-normal"
             dangerouslySetInnerHTML={{ __html: post.contentHtml }}
           />
         </article>

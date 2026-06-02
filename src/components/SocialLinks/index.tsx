@@ -15,8 +15,7 @@ export function SocialLinks({ open }: SocialLinksProps) {
   const handleClick = (index: number) =>
     setShowTooltip((values) => values.map((_, i) => (index === i ? !values[i] : false)))
 
-  const handleClose = () =>
-    setShowTooltip((values) => values.map(() => false))
+  const handleClose = () => setShowTooltip((values) => values.map(() => false))
 
   const renderLink = (item: LinkItem, index: number) => {
     const key = item.name.replace(/\s/g, '')
@@ -42,8 +41,6 @@ export function SocialLinks({ open }: SocialLinksProps) {
   }
 
   return (
-    <ul className={`${styles.SocialLinks} ${open ? styles.open : ''}`}>
-      {links.map(renderLink)}
-    </ul>
+    <ul className={`${styles.SocialLinks} ${open ? styles.open : ''}`}>{links.map(renderLink)}</ul>
   )
 }

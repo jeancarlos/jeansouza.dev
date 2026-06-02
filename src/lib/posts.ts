@@ -28,10 +28,7 @@ export function getAllPosts(): PostMeta[] {
       const { data } = matter(fileContents)
 
       const rawDate = data.date
-      const date =
-        rawDate instanceof Date
-          ? rawDate.toISOString().slice(0, 10)
-          : String(rawDate)
+      const date = rawDate instanceof Date ? rawDate.toISOString().slice(0, 10) : String(rawDate)
 
       return {
         slug,
@@ -55,10 +52,7 @@ export async function getPost(slug: string): Promise<Post> {
   const contentHtml = processedContent.toString()
 
   const rawDate = data.date
-  const date =
-    rawDate instanceof Date
-      ? rawDate.toISOString().slice(0, 10)
-      : String(rawDate)
+  const date = rawDate instanceof Date ? rawDate.toISOString().slice(0, 10) : String(rawDate)
 
   return {
     slug,
@@ -71,9 +65,7 @@ export async function getPost(slug: string): Promise<Post> {
 
 export function getAllSlugs(): string[] {
   const fileNames = fs.readdirSync(postsDirectory)
-  return fileNames
-    .filter((name) => name.endsWith('.md'))
-    .map((name) => name.replace(/\.md$/, ''))
+  return fileNames.filter((name) => name.endsWith('.md')).map((name) => name.replace(/\.md$/, ''))
 }
 
 export async function getAllPostsWithContent(): Promise<Post[]> {
