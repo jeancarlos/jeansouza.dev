@@ -42,7 +42,6 @@ export function DotBackground() {
       ctx.clearRect(0, 0, w, h)
 
       const dotColor = getDotColor(0.55)
-      const glitchColor = getDotColor(0.85)
 
       for (const star of stars) {
         advanceStar(star, SPEED)
@@ -53,18 +52,10 @@ export function DotBackground() {
           continue
         }
 
-        maybeGlitch(star)
-
-        if (star.glitchTimer > 0) {
-          ctx.fillStyle = glitchColor
-          ctx.font = `${Math.max(8, size * 2)}px monospace`
-          ctx.fillText(star.glitchChar, sx - size, sy + size / 2)
-        } else {
-          ctx.fillStyle = dotColor
-          ctx.beginPath()
-          ctx.arc(sx, sy, Math.max(0.5, size), 0, Math.PI * 2)
-          ctx.fill()
-        }
+        ctx.fillStyle = dotColor
+        ctx.beginPath()
+        ctx.arc(sx, sy, Math.max(0.5, size), 0, Math.PI * 2)
+        ctx.fill()
       }
 
       rafId = requestAnimationFrame(draw)

@@ -86,29 +86,31 @@ export function TerminalWindow({
         focusWindow(id)
         history.pushState(null, '', url)
       }}
-      className="flex flex-col overflow-hidden rounded-lg border border-[#b33a73]/40 shadow-2xl"
+      className="rounded-lg bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-2xl"
       role="dialog"
       aria-label={title}
     >
-      {/* Header */}
-      <div className="flex shrink-0 cursor-grab items-center gap-2 bg-gradient-to-r from-[#e84545] to-[#b33a73] px-3 py-2 select-none active:cursor-grabbing">
-        <TrafficDot
-          label="Close"
-          symbol="×"
-          onClick={() => closeWindow(id)}
-          disabled={!closeable}
-        />
-        <TrafficDot label="Minimize" symbol="−" onClick={() => minimizeWindow(id)} />
-        <TrafficDot label="Expand" symbol="+" onClick={() => expandWindow(id)} />
-        <span className="ml-2 font-mono text-xs text-white/80">{title}</span>
-      </div>
-
-      {/* Body */}
-      {!isMinimized && (
-        <div className="flex-1 overflow-y-auto bg-[#3e3353] font-mono text-[#f2b8d4]">
-          {children}
+      <div className="flex h-full w-full flex-col overflow-hidden rounded-[6px]">
+        {/* Header */}
+        <div className="flex shrink-0 cursor-grab items-center gap-2 bg-gradient-to-r from-[#e84545] to-[#b33a73] px-3 py-2 select-none active:cursor-grabbing">
+          <TrafficDot
+            label="Close"
+            symbol="×"
+            onClick={() => closeWindow(id)}
+            disabled={!closeable}
+          />
+          <TrafficDot label="Minimize" symbol="−" onClick={() => minimizeWindow(id)} />
+          <TrafficDot label="Expand" symbol="+" onClick={() => expandWindow(id)} />
+          <span className="ml-2 font-mono text-xs text-white/80">{title}</span>
         </div>
-      )}
+
+        {/* Body */}
+        {!isMinimized && (
+          <div className="flex-1 overflow-y-auto bg-[#3e3353] font-mono text-[#f2b8d4]">
+            {children}
+          </div>
+        )}
+      </div>
     </motion.div>
   )
 }
