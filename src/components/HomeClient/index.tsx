@@ -2,9 +2,8 @@
 import { useEffect } from 'react'
 import type { Post } from '@/lib/posts'
 import { Hero } from '@/components/sections/Hero'
-import { Resume } from '@/components/sections/Resume'
-import { Blog } from '@/components/sections/Blog'
-import { timeline } from '@/content/resume/timeline'
+import { TerminalWindow } from '@/components/windows/TerminalWindow'
+import { useWindowManager } from '@/components/windows/WindowManager'
 
 interface HomeClientProps {
   posts: Post[]
@@ -12,50 +11,42 @@ interface HomeClientProps {
 }
 
 export function HomeClient({ posts, locale }: HomeClientProps) {
+  const { windows, closeWindow } = useWindowManager()
+
+  // Push home URL on mount
   useEffect(() => {
-    const observers: IntersectionObserver[] = []
-    const options: IntersectionObserverInit = {
-      rootMargin: '0px 0px -80% 0px',
-      threshold: 0,
-    }
-
-    const heroEl = document.getElementById('hero')
-    if (heroEl) {
-      const obs = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) history.pushState(null, '', `/${locale}/`)
-      }, options)
-      obs.observe(heroEl)
-      observers.push(obs)
-    }
-
-    const resumeEl = document.getElementById('resume')
-    if (resumeEl) {
-      const obs = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) history.pushState(null, '', `/${locale}/#resume`)
-      }, options)
-      obs.observe(resumeEl)
-      observers.push(obs)
-    }
-
-    const blogEl = document.getElementById('blog')
-    if (blogEl) {
-      const obs = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) history.pushState(null, '', `/${locale}/#blog`)
-      }, options)
-      obs.observe(blogEl)
-      observers.push(obs)
-    }
-
-    return () => observers.forEach((o) => o.disconnect())
+    history.pushState(null, '', `/${locale}/`)
   }, [locale])
 
+  // Escape key closes topmost non-home window
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape' || windows.length === 0) return
+      const top = windows.reduce((a, b) => (a.zIndex > b.zIndex ? a : b))
+      if (top.id !== 'home') closeWindow(top.id)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [windows, closeWindow])
+
   return (
-    <div className="flex flex-col items-center">
-      <Hero />
-
-      <Resume entries={timeline} locale={locale} />
-
-      <Blog posts={posts} />
-    </div>
+    <>
+      <Hero locale={locale} posts={posts} />
+      {windows.map((win) => (
+        <TerminalWindow
+          key={win.id}
+          id={win.id}
+          url={win.url}
+          title={win.title}
+          position={win.position}
+          size={win.size}
+          isExpanded={win.isExpanded}
+          isMinimized={win.isMinimized}
+          zIndex={win.zIndex}
+        >
+          {win.content}
+        </TerminalWindow>
+      ))}
+    </>
   )
 }

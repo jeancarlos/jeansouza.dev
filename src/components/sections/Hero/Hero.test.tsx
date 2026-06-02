@@ -1,13 +1,22 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { Hero } from './index'
+import { WindowManagerProvider } from '@/components/windows/WindowManager'
 
 vi.mock('next-intl', () => ({
   useTranslations: () => (key: string) => key,
 }))
 
+vi.mock('@/i18n/navigation', () => ({
+  useRouter: () => ({ replace: vi.fn() }),
+  usePathname: () => '/',
+}))
+
 vi.mock('framer-motion', () => ({
   motion: {
+    div: ({ children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+      <div {...props}>{children}</div>
+    ),
     span: ({ children, ...props }: React.HTMLAttributes<HTMLSpanElement>) => (
       <span {...props}>{children}</span>
     ),
@@ -16,22 +25,37 @@ vi.mock('framer-motion', () => ({
   steps: () => undefined,
 }))
 
-vi.mock('@/components/layout/SectionBackground', () => ({
-  useBackground: () => ({ register: () => () => {} }),
+vi.mock('next/dynamic', () => ({
+  default: () => () => <div data-testid="more-links" />,
 }))
 
-vi.mock('@/components/ui/SocialLinks', () => ({
-  SocialLinks: () => <div data-testid="social-links" />,
-}))
+function renderHero() {
+  return render(
+    <WindowManagerProvider>
+      <Hero locale="pt" posts={[]} />
+    </WindowManagerProvider>
+  )
+}
 
 describe('Hero', () => {
   it('renders the terminal prompt character', () => {
-    render(<Hero />)
+    renderHero()
     expect(screen.getByText('>')).toBeInTheDocument()
   })
 
-  it('renders a CTA button', () => {
-    render(<Hero />)
-    expect(screen.getByRole('button')).toBeInTheDocument()
+  it('renders the GitHub and LinkedIn links', () => {
+    renderHero()
+    expect(screen.getByText('GitHub')).toBeInTheDocument()
+    expect(screen.getByText('LinkedIn')).toBeInTheDocument()
+  })
+
+  it('renders the locale toggle button', () => {
+    renderHero()
+    expect(screen.getByLabelText('Switch to EN')).toBeInTheDocument()
+  })
+
+  it('renders the more links button', () => {
+    renderHero()
+    expect(screen.getByLabelText('More links')).toBeInTheDocument()
   })
 })

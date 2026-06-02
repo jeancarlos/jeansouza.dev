@@ -24,13 +24,13 @@ export function TimelineItem({ entry, locale, index }: Props) {
       className="border-latte-mantle hover:border-latte-blue border bg-white/70 p-5 backdrop-blur-sm transition-colors"
     >
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <span className="text-latte-blue shrink-0 font-mono text-sm">▸ {entry.year}</span>
+        <span className="text-latte-blue shrink-0 font-mono text-sm">▸ {entry.year[locale]}</span>
         <span className="font-display text-latte-text font-bold">{entry.role[locale]}</span>
         <span className="text-latte-subtext text-sm">
           @ <span>{entry.company}</span>
         </span>
       </div>
-      <p className="text-latte-subtext mt-2 pl-10 text-sm leading-relaxed">
+      <p className="text-latte-subtext mt-2 pl-10 text-sm leading-relaxed whitespace-pre-line">
         {entry.description[locale]}
       </p>
     </motion.div>

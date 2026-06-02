@@ -23,7 +23,7 @@ vi.mock('@/components/layout/SectionBackground', () => ({
 const mockEntries: TimelineEntry[] = [
   {
     id: 'e1',
-    year: '2024',
+    year: { pt: '2024', en: '2024' },
     role: { pt: 'Dev Sênior', en: 'Senior Dev' },
     company: 'ACME',
     description: { pt: 'Descrição', en: 'Description' },

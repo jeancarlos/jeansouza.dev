@@ -1,6 +1,6 @@
 import { getAllPostsWithContent } from '@/lib/posts'
 import { HomeClient } from '@/components/HomeClient'
-import { SectionBackground } from '@/components/layout/SectionBackground'
+import { WindowManagerProvider } from '@/components/windows/WindowManager'
 import { routing } from '@/i18n/routing'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import type { Metadata } from 'next'
@@ -33,8 +33,8 @@ export default async function HomePage({ params }: Props) {
   setRequestLocale(locale)
   const posts = await getAllPostsWithContent(locale as 'pt' | 'en')
   return (
-    <SectionBackground>
+    <WindowManagerProvider>
       <HomeClient posts={posts} locale={locale as 'pt' | 'en'} />
-    </SectionBackground>
+    </WindowManagerProvider>
   )
 }
