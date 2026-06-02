@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Poppins, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import '@/styles/globals.css'
+import { DotBackground } from '@/components/DotBackground'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -47,7 +48,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           __html: `(function(){var s=localStorage.getItem('theme');var p=s||(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',p);})();`,
         }}
       />
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        <DotBackground />
+        {children}
+      </body>
     </html>
   )
 }

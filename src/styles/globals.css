@@ -17,9 +17,6 @@
   --color-brand-text: #f2b8d4;
   --color-brand-bg: #3e3353;
 
-  /* Dot color for starfield (RGB values only, used in rgba()) */
-  --dot-color: 242, 184, 212;
-
   /* Catppuccin Latte — light mode */
   --color-latte-base: #eff1f5;
   --color-latte-mantle: #e6e9ef;
@@ -36,6 +33,7 @@
 [data-theme='dark'] {
   --page-bg: var(--color-crust);
   --page-text: var(--color-text);
+  --dot-color: 242, 184, 212;
 }
 
 [data-theme='light'] {
