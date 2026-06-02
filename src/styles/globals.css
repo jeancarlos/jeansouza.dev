@@ -1,16 +1,33 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
 
-:root {
-  --bg: #3e3353;
-  --text: #f2b8d4;
-  --gradient: linear-gradient(to right, #e84545, #b33a73);
-  --dot-color: #75688c;
-  --dot-space: 25px;
-  --dot-size: 1px;
-  --shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0px 0px 10px rgba(0, 0, 0, 0.2);
+@theme {
+  /* Catppuccin Mocha — dark sections */
+  --color-crust: #11111b;
+  --color-mantle: #181825;
+  --color-base: #1e1e2e;
+  --color-surface: #313244;
+  --color-overlay: #6c7086;
+  --color-subtext: #bac2de;
+  --color-text: #cdd6f4;
+  --color-green: #a6e3a1;
+  --color-mauve: #cba6f7;
+  --color-blue: #89b4fa;
+  --color-peach: #fab387;
+
+  /* Catppuccin Latte — blueprint/resume section */
+  --color-latte-base: #eff1f5;
+  --color-latte-mantle: #e6e9ef;
+  --color-latte-text: #4c4f69;
+  --color-latte-subtext: #6c6f85;
+  --color-latte-blue: #1e66f5;
+  --color-latte-sapphire: #209fb5;
+  --color-latte-mauve: #8839ef;
+
+  /* Fonts — will be wired to next/font CSS vars in Task 1.3 */
+  --font-sans: 'Space Grotesk', sans-serif;
+  --font-display: 'Poppins', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 @layer base {
@@ -25,68 +42,53 @@
   }
 
   body {
-    background-color: var(--bg);
-    color: var(--text);
-    font-weight: 600;
-    letter-spacing: 0.05em;
+    background-color: var(--color-crust);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-feature-settings: 'liga', 'calt', 'ss01';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   * {
-    -webkit-backface-visibility: hidden;
     -webkit-tap-highlight-color: transparent;
   }
 }
 
 @layer components {
-  /* Blog prose overrides — keep brand palette */
   .prose h1,
   .prose h2,
   .prose h3 {
-    background: linear-gradient(to right, #e84545, #b33a73);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--color-mauve);
   }
-
   .prose a {
-    color: #e84545;
-    text-decoration-color: #e8454580;
+    color: var(--color-blue);
+    text-decoration-color: color-mix(in srgb, var(--color-blue) 50%, transparent);
   }
-
   .prose a:hover {
-    color: #b33a73;
+    color: var(--color-mauve);
   }
-
   .prose code {
-    background: rgba(117, 104, 140, 0.25);
+    background: color-mix(in srgb, var(--color-surface) 80%, transparent);
     border-radius: 4px;
     padding: 0.1em 0.4em;
     font-size: 0.875em;
+    font-family: var(--font-mono);
+    font-feature-settings: 'liga', 'calt';
   }
-
+  .prose pre {
+    background: var(--color-surface);
+    border: 1px solid var(--color-overlay);
+  }
   .prose pre code {
     background: transparent;
     padding: 0;
   }
-
-  .prose pre {
-    background: rgba(62, 51, 83, 0.8);
-    border: 1px solid rgba(117, 104, 140, 0.3);
-  }
-
   .prose blockquote {
-    border-left-color: #e84545;
-    color: #f2b8d4;
-    opacity: 0.8;
+    border-left-color: var(--color-mauve);
+    color: var(--color-subtext);
   }
-
   .prose hr {
-    border-color: rgba(117, 104, 140, 0.3);
-  }
-
-  .prose table th {
-    color: #f2b8d4;
+    border-color: var(--color-surface);
   }
 }

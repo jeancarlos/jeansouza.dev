@@ -35,15 +35,15 @@ export default async function PostPage({ params }: Props) {
       <div className="w-full max-w-2xl">
         <Link
           href="/"
-          className="mb-8 inline-block font-body text-sm font-normal text-brand-text opacity-60 transition-opacity hover:opacity-100"
+          className="text-text mb-8 inline-block text-sm font-normal opacity-60 transition-opacity hover:opacity-100"
         >
           ← Jean Souza
         </Link>
         <article>
-          <h1 className="mb-2 bg-brand-gradient bg-clip-text text-3xl font-bold text-transparent">
+          <h1 className="mb-2 bg-[linear-gradient(to_right,var(--color-mauve),var(--color-blue))] bg-clip-text text-3xl font-bold text-transparent">
             {post.title}
           </h1>
-          <time className="mb-8 block font-body text-sm font-normal opacity-60">
+          <time className="mb-8 block text-sm font-normal opacity-60">
             {new Date(post.date + 'T12:00:00').toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'long',
@@ -52,7 +52,7 @@ export default async function PostPage({ params }: Props) {
           </time>
           {/* Author-controlled markdown content — no user input, no XSS risk */}
           <div
-            className="prose prose-pink prose-invert max-w-none font-body font-normal"
+            className="prose prose-pink prose-invert max-w-none font-normal"
             dangerouslySetInnerHTML={{ __html: post.contentHtml }}
           />
         </article>
