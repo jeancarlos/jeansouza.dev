@@ -66,7 +66,7 @@ export function TerminalWindow({
 
   const mobileStyle = {
     width: '100vw' as string | number,
-    height: '100vh' as string | number,
+    height: '100dvh' as string | number,
     x: 0,
     y: 0,
   }
@@ -121,6 +121,7 @@ export function TerminalWindow({
       }}
       className={`${outerRounded} bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-2xl`}
       role="dialog"
+      aria-modal="true"
       aria-label={title}
     >
       <div className={`flex h-full w-full flex-col overflow-hidden ${innerRounded}`}>

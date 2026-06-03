@@ -2,8 +2,8 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
-import { LocaleSwitch } from '@/components/ui/LocaleSwitch'
 import { LocalePersist } from '@/components/i18n/LocalePersist'
+import { Topbar } from '@/components/layout/Topbar'
 
 interface Props {
   children: React.ReactNode
@@ -24,7 +24,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <NextIntlClientProvider messages={messages}>
       <LocalePersist />
-      <LocaleSwitch />
+      <Topbar />
       {children}
     </NextIntlClientProvider>
   )

@@ -24,6 +24,7 @@ export function LocalePersist() {
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, locale)
+    document.documentElement.lang = locale
   }, [locale])
 
   return null

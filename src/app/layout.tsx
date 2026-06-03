@@ -23,6 +23,11 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 })
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+}
+
 export const metadata: Metadata = {
   title: 'Jean Souza - Senior Front-End Engineer',
   description:
