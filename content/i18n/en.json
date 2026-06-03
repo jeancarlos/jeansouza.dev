@@ -9,8 +9,15 @@
     "cta": "explore"
   },
   "resume": {
-    "command": "career --timeline",
-    "title": "Experience"
+    "command": "$ cat ~/resume",
+    "experience": "Experience",
+    "education": "Education",
+    "languages": "Languages",
+    "download": {
+      "label": "Download résumé",
+      "pdf": "PDF",
+      "docx": "DOCX"
+    }
   },
   "blog": {
     "command": "ls posts/",

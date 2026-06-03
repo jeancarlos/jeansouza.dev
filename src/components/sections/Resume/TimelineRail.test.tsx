@@ -1,0 +1,24 @@
+import { describe, it, expect } from 'vitest'
+import { render } from '@testing-library/react'
+import { TimelineRail } from './TimelineRail'
+
+describe('TimelineRail', () => {
+  it('renders one element with aria-hidden', () => {
+    const { container: c } = render(<TimelineRail />)
+    const el = c.firstChild as HTMLElement
+    expect(el).toBeTruthy()
+    expect(el.getAttribute('aria-hidden')).toBe('true')
+  })
+
+  it('includes md responsive class for centering', () => {
+    const { container: c } = render(<TimelineRail />)
+    const el = c.firstChild as HTMLElement
+    expect(el.className).toContain('md:left-1/2')
+  })
+
+  it('includes max-md class for single column', () => {
+    const { container: c } = render(<TimelineRail />)
+    const el = c.firstChild as HTMLElement
+    expect(el.className).toContain('max-md:left-[7px]')
+  })
+})

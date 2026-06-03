@@ -8,6 +8,7 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./src/test/setup.ts'],
+    exclude: ['**/node_modules/**', '**/.worktrees/**'],
     alias: {
       'next/font/google': path.resolve(__dirname, 'src/test/__mocks__/next/font/google.ts'),
     },
