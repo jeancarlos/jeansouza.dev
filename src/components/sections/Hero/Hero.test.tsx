@@ -32,7 +32,7 @@ vi.mock('next/dynamic', () => ({
 function renderHero() {
   return render(
     <WindowManagerProvider>
-      <Hero locale="pt" posts={[]} />
+      <Hero locale="pt" onOpenBlog={() => {}} />
     </WindowManagerProvider>
   )
 }
@@ -47,11 +47,6 @@ describe('Hero', () => {
     renderHero()
     expect(screen.getByText('GitHub')).toBeInTheDocument()
     expect(screen.getByText('LinkedIn')).toBeInTheDocument()
-  })
-
-  it('renders the locale toggle button', () => {
-    renderHero()
-    expect(screen.getByLabelText('Switch to EN')).toBeInTheDocument()
   })
 
   it('renders the more links button', () => {

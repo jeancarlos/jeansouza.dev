@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useContext, useReducer, useCallback, type ReactNode } from 'react'
+import { createContext, useContext, useReducer, useCallback, useRef, type ReactNode } from 'react'
 
 export interface WindowConfig {
   id: string
@@ -26,6 +26,8 @@ type Action =
   | { type: 'MOVE'; id: string; position: { x: number; y: number } }
 
 const BASE_Z = 20
+const CASCADE = 50
+const SAFE = 20
 
 function maxZ(windows: WindowState[]): number {
   return windows.reduce((m, w) => Math.max(m, w.zIndex), BASE_Z)
@@ -73,10 +75,32 @@ const WindowManagerContext = createContext<ContextValue | null>(null)
 
 export function WindowManagerProvider({ children }: { children: ReactNode }) {
   const [windows, dispatch] = useReducer(reducer, [])
+  // Always-fresh ref — set synchronously in render so callbacks never see stale state
+  const windowsRef = useRef<WindowState[]>(windows)
+  windowsRef.current = windows
 
   const openWindow = useCallback((config: WindowConfig) => {
-    dispatch({ type: 'OPEN', window: config })
-    history.pushState(null, '', config.url)
+    const current = windowsRef.current
+    const alreadyOpen = current.some((w) => w.id === config.id)
+
+    const newConfig = (() => {
+      if (alreadyOpen || current.length === 0) return config
+      const top = current.reduce((a, b) => (a.zIndex > b.zIndex ? a : b))
+      const vw = typeof window !== 'undefined' ? window.innerWidth : 1200
+      const vh = typeof window !== 'undefined' ? window.innerHeight : 800
+      const w = typeof config.size.width === 'number' ? config.size.width : 600
+      const h = typeof config.size.height === 'number' ? config.size.height : 400
+      return {
+        ...config,
+        position: {
+          x: Math.max(SAFE, Math.min(top.position.x + CASCADE, vw - w - SAFE)),
+          y: Math.max(SAFE, Math.min(top.position.y + CASCADE, vh - h - SAFE)),
+        },
+      }
+    })()
+
+    dispatch({ type: 'OPEN', window: newConfig })
+    history.pushState(null, '', newConfig.url)
   }, [])
 
   const closeWindow = useCallback((id: string) => {
