@@ -54,8 +54,10 @@ export function LocaleToggle({ size }: { size?: 'default' | 'sm' }) {
 export function Topbar() {
   const isMobile = useIsMobile()
 
+  if (isMobile) return null
+
   return (
-    <div className={`pointer-events-none fixed inset-x-0 top-0 flex items-center justify-between px-4 ${isMobile ? 'z-[1] pt-3' : 'z-[9999] h-[75px]'}`}>
+    <div className="pointer-events-none fixed inset-x-0 top-0 z-[9999] flex h-[75px] items-center justify-between px-4">
       <div className="pointer-events-auto">
         <LocaleToggle size="sm" />
       </div>
