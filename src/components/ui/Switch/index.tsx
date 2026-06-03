@@ -7,11 +7,12 @@ export interface SwitchProps {
   onToggle: () => void
   'aria-label': string
   children: ReactNode
+  size?: 'default' | 'sm'
 }
 
-export function Switch({ on, onToggle, 'aria-label': ariaLabel, children }: SwitchProps) {
+export function Switch({ on, onToggle, 'aria-label': ariaLabel, children, size }: SwitchProps) {
   return (
-    <Button gradientDir={on ? 'l' : 'r'} onClick={onToggle} aria-label={ariaLabel}>
+    <Button gradientDir={on ? 'l' : 'r'} onClick={onToggle} aria-label={ariaLabel} size={size}>
       {children}
     </Button>
   )
