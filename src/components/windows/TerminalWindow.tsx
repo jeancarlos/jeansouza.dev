@@ -5,7 +5,6 @@ import { useWindowManager, type ButtonOrigin } from './WindowManager'
 import { TrafficDot } from './TrafficDot'
 import { ResizeHandle, RESIZE_DIRS } from './ResizeHandle'
 import { useIsMobile } from '@/lib/useIsMobile'
-import { ThemeToggle, LocaleToggle } from '@/components/layout/Topbar'
 import { TOPBAR_HEIGHT, clampPosition } from '@/lib/windowUtils'
 
 interface Props {
@@ -122,27 +121,21 @@ export function TerminalWindow({
       onPointerDown={() => {
         focusWindow(id)
       }}
-      className={`${outerRounded} bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-2xl`}
+      className={isMobile && isHome ? '' : `${outerRounded} bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-2xl`}
       role="dialog"
       aria-modal="true"
       aria-label={title}
     >
       <div className={`flex h-full w-full flex-col overflow-hidden ${innerRounded}`}>
-        {/* Header */}
-        <div
-          onPointerDown={(e) => {
-            if (!isMobile) dragControls.start(e)
-          }}
-          className="flex shrink-0 cursor-grab items-center gap-2 bg-gradient-to-r from-[#e84545] to-[#b33a73] px-3 py-2.5 select-none active:cursor-grabbing"
-        >
-          {isMobile ? (
-            isHome ? (
-              <>
-                <LocaleToggle size="sm" />
-                <span className="ml-auto mr-auto font-mono text-xs text-white/80">{title}</span>
-                <ThemeToggle size="sm" />
-              </>
-            ) : (
+        {/* Header — hidden on mobile home (switches float in Topbar) */}
+        {!(isMobile && isHome) && (
+          <div
+            onPointerDown={(e) => {
+              if (!isMobile) dragControls.start(e)
+            }}
+            className="flex shrink-0 cursor-grab items-center gap-2 bg-gradient-to-r from-[#e84545] to-[#b33a73] px-3 py-2.5 select-none active:cursor-grabbing"
+          >
+            {isMobile ? (
               <>
                 <button
                   onClick={() => closeWindow(id)}
@@ -153,34 +146,34 @@ export function TerminalWindow({
                 </button>
                 <span className="ml-3 font-mono text-xs text-white/80">{title}</span>
               </>
-            )
-          ) : (
-            <>
-              <TrafficDot
-                label="Close"
-                symbol="×"
-                color="#ff5f56"
-                onClick={() => closeWindow(id)}
-                disabled={!closeable}
-              />
-              <TrafficDot
-                label="Minimize"
-                symbol="−"
-                color="#eab308"
-                onClick={() => minimizeWindow(id)}
-                disabled={!minimizable}
-              />
-              <TrafficDot
-                label="Expand"
-                symbol="+"
-                color="#22c55e"
-                onClick={() => expandWindow(id)}
-                disabled={!expandable}
-              />
-              <span className="ml-2 font-mono text-xs text-white/80">{title}</span>
-            </>
-          )}
-        </div>
+            ) : (
+              <>
+                <TrafficDot
+                  label="Close"
+                  symbol="×"
+                  color="#ff5f56"
+                  onClick={() => closeWindow(id)}
+                  disabled={!closeable}
+                />
+                <TrafficDot
+                  label="Minimize"
+                  symbol="−"
+                  color="#eab308"
+                  onClick={() => minimizeWindow(id)}
+                  disabled={!minimizable}
+                />
+                <TrafficDot
+                  label="Expand"
+                  symbol="+"
+                  color="#22c55e"
+                  onClick={() => expandWindow(id)}
+                  disabled={!expandable}
+                />
+                <span className="ml-2 font-mono text-xs text-white/80">{title}</span>
+              </>
+            )}
+          </div>
+        )}
 
         {/* Body */}
         {!isMinimized && (
