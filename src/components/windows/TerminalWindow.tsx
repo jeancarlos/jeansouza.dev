@@ -180,7 +180,11 @@ export function TerminalWindow({
 
         {/* Body */}
         {!isMinimized && (
-          <div className="flex-1 overflow-y-auto rounded-[14px] bg-[#11111b] font-mono text-[#f2b8d4]">
+          <div
+            className={`flex-1 overflow-y-auto ${innerRounded} font-mono text-[#f2b8d4] ${
+              isMobile && isHome ? 'bg-transparent' : 'bg-[#11111b]'
+            }`}
+          >
             {children}
           </div>
         )}
