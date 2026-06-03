@@ -78,6 +78,7 @@ export function TerminalWindow({
       : normalStyle
 
   const outerRounded = isMobile && !isHome ? 'rounded-none' : 'rounded-2xl'
+  const innerRounded = isMobile && !isHome ? 'rounded-none' : 'rounded-[14px]'
 
   return (
     <motion.div
@@ -122,7 +123,7 @@ export function TerminalWindow({
       role="dialog"
       aria-label={title}
     >
-      <div className="flex h-full w-full flex-col overflow-hidden rounded-[14px]">
+      <div className={`flex h-full w-full flex-col overflow-hidden ${innerRounded}`}>
         {/* Header */}
         <div
           onPointerDown={(e) => {
