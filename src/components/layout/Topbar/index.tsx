@@ -6,11 +6,13 @@ import { Switch } from '@/components/ui/Switch'
 import { useIsMobile } from '@/lib/useIsMobile'
 
 export function ThemeToggle({ size }: { size?: 'default' | 'sm' }) {
+  const [mounted, setMounted] = useState(false)
   const [theme, setTheme] = useState<'dark' | 'light'>('dark')
 
   useEffect(() => {
     const stored = localStorage.getItem('theme')
     if (stored === 'light' || stored === 'dark') setTheme(stored)
+    setMounted(true)
   }, [])
 
   const toggle = useCallback(() => {
@@ -21,6 +23,8 @@ export function ThemeToggle({ size }: { size?: 'default' | 'sm' }) {
       return next
     })
   }, [])
+
+  if (!mounted) return null
 
   return (
     <Switch on={theme === 'light'} onToggle={toggle} aria-label="Toggle dark/light mode" size={size}>

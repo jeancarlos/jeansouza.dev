@@ -122,7 +122,7 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
     })()
 
     dispatch({ type: 'OPEN', window: newConfig })
-    if (typeof window !== 'undefined' && window.location.pathname !== newConfig.url) {
+    if (!alreadyOpen && typeof window !== 'undefined' && window.location.pathname !== newConfig.url) {
       history.pushState(null, '', newConfig.url)
     }
   }, [])

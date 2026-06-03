@@ -1,6 +1,6 @@
 // src/components/windows/ResizeHandle.tsx
 'use client'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import type React from 'react'
 import { useWindowManager } from './WindowManager'
 
@@ -68,6 +68,10 @@ export function ResizeHandle({
   const dragRef = useRef<DragState | null>(null)
   const pendingRef = useRef<PendingResize | null>(null)
   const rafRef = useRef<number | null>(null)
+
+  useEffect(() => () => {
+    if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
+  }, [])
 
   const flushPending = (): void => {
     if (rafRef.current !== null) {

@@ -50,7 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${poppins.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
-      <head>
+      <body className="font-sans">
         <Script
           id="theme-init"
           strategy="beforeInteractive"
@@ -58,8 +58,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: `(function(){var s=localStorage.getItem('theme');var p=s||(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',p);})();`,
           }}
         />
-      </head>
-      <body className="font-sans">
         <DotBackground />
         {children}
       </body>

@@ -6,7 +6,7 @@ import { TrafficDot } from './TrafficDot'
 import { ResizeHandle, RESIZE_DIRS } from './ResizeHandle'
 import { useIsMobile } from '@/lib/useIsMobile'
 import { ThemeToggle, LocaleToggle } from '@/components/layout/Topbar'
-import { TOPBAR_HEIGHT } from '@/lib/windowUtils'
+import { TOPBAR_HEIGHT, clampPosition } from '@/lib/windowUtils'
 
 interface Props {
   id: string
@@ -87,9 +87,12 @@ export function TerminalWindow({
       dragControls={dragControls}
       dragMomentum={false}
       dragConstraints={{ top: isMobile ? 0 : TOPBAR_HEIGHT }}
-      onDragEnd={(_, info) =>
-        moveWindow(id, { x: position.x + info.offset.x, y: position.y + info.offset.y })
-      }
+      onDragEnd={(_, info) => {
+        const w = typeof size.width === 'number' ? size.width : 600
+        const h = typeof size.height === 'number' ? size.height : 400
+        const raw = { x: position.x + info.offset.x, y: position.y + info.offset.y }
+        moveWindow(id, clampPosition({ x: raw.x, y: Math.max(TOPBAR_HEIGHT, raw.y) }, { width: w, height: h }))
+      }}
       initial={
         origin
           ? { x: origin.x, y: origin.y, width: origin.width, height: origin.height, opacity: 0 }

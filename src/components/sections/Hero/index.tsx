@@ -39,12 +39,17 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
   const [resumeSize, setResumeSize] = useState<{ width: number; height: number } | null>(null)
 
   useEffect(() => {
-    const topOffset = isMobile ? 0 : TOPBAR_HEIGHT
-    const w = isMobile ? Math.min(getViewport().vw - 32, HOME_W) : HOME_W
-    setHomeW(w)
-    setHomePos(centeredPosition(w, HOME_H, topOffset))
-    const { vw, vh } = getViewport()
-    setResumeSize({ width: Math.min(1024, vw - WINDOW_SAFE * 2), height: vh - WINDOW_SAFE * 2 - topOffset })
+    const recalc = () => {
+      const topOffset = isMobile ? 0 : TOPBAR_HEIGHT
+      const { vw, vh } = getViewport()
+      const w = isMobile ? Math.min(vw - 32, HOME_W) : HOME_W
+      setHomeW(w)
+      setHomePos(centeredPosition(w, HOME_H, topOffset))
+      setResumeSize({ width: Math.min(1024, vw - WINDOW_SAFE * 2), height: vh - WINDOW_SAFE * 2 - topOffset })
+    }
+    recalc()
+    window.addEventListener('resize', recalc)
+    return () => window.removeEventListener('resize', recalc)
   }, [isMobile])
 
   if (!homePos || !resumeSize) return null
