@@ -1,19 +1,32 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { Tooltip } from '@/components/ui/Tooltip'
 import { links } from '@/components/ui/SocialLinks/constants'
+
+const COPY_FEEDBACK_MS = 2000
 
 // Show all links except GitHub (primary button in hero)
 const extraLinks = links.filter((l) => l.name !== 'Source for this website')
 
 export function MoreLinksWindow() {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current !== null) clearTimeout(timerRef.current)
+    }
+  }, [])
 
   const handleCopyContent = (content: string, index: number) => {
     void navigator.clipboard.writeText(content)
     setCopiedIndex(index)
-    setTimeout(() => setCopiedIndex(null), 2000)
+    if (timerRef.current !== null) clearTimeout(timerRef.current)
+    timerRef.current = setTimeout(() => {
+      setCopiedIndex(null)
+      timerRef.current = null
+    }, COPY_FEEDBACK_MS)
   }
 
   return (

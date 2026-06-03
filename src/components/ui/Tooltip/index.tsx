@@ -1,10 +1,10 @@
 'use client'
-import { useRef, useEffect, useState, Fragment, type ElementType } from 'react'
+import { useLayoutEffect, useRef, useState, type ElementType, type ReactNode } from 'react'
 import styles from './Tooltip.module.css'
 
 interface TooltipProps {
-  children: React.ReactNode
-  onMouseLeave?: () => void
+  children: ReactNode
+  onDismiss?: () => void
   component?: ElementType
   show?: boolean
   className?: string
@@ -12,36 +12,39 @@ interface TooltipProps {
 
 export function Tooltip({
   children,
-  onMouseLeave,
+  onDismiss,
   component: Component = 'div',
   show = false,
   className = '',
 }: TooltipProps) {
-  const btRef = useRef<HTMLElement>(null)
+  const ref = useRef<HTMLElement>(null)
   const [buttonMargin, setButtonMargin] = useState(0)
+
+  useLayoutEffect(() => {
+    if (!ref.current) return
+    const el = ref.current
+    setButtonMargin(el.offsetWidth / 2)
+    const observer = new ResizeObserver(() => {
+      setButtonMargin(el.offsetWidth / 2)
+    })
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   const transform = show
     ? `scale(1) translate(-${buttonMargin}px, 0)`
     : `scale(0) translate(-${buttonMargin}px, 40px)`
 
-  useEffect(() => {
-    if (btRef.current) {
-      setButtonMargin(btRef.current.offsetWidth / 2)
-    }
-  }, [])
-
   return (
-    <Fragment>
-      <Component
-        ref={btRef}
-        onClick={onMouseLeave}
-        onMouseLeave={onMouseLeave}
-        className={`${styles.Tooltip} ${className}`}
-        role="tooltip"
-        style={{ transform }}
-      >
-        {children}
-      </Component>
-    </Fragment>
+    <Component
+      ref={ref}
+      onClick={onDismiss}
+      onMouseLeave={onDismiss}
+      className={`${styles.Tooltip} ${className}`}
+      role="tooltip"
+      style={{ transform }}
+    >
+      {children}
+    </Component>
   )
 }

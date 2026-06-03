@@ -6,12 +6,13 @@ type MQLCallback = (e: MediaQueryListEvent) => void
 
 function mockMatchMedia(matches: boolean) {
   const listeners: MQLCallback[] = []
-  const mql = {
+  const mql: { matches: boolean } & Record<string, unknown> = {
     matches,
     addEventListener: vi.fn((_: string, fn: MQLCallback) => listeners.push(fn)),
     removeEventListener: vi.fn(),
     dispatchEvent: vi.fn(),
     _fire: (newMatches: boolean) => {
+      mql.matches = newMatches
       listeners.forEach((fn) => fn({ matches: newMatches } as MediaQueryListEvent))
     },
   }

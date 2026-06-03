@@ -1,5 +1,13 @@
 'use client'
-import { createContext, useContext, useReducer, useCallback, useRef, type ReactNode } from 'react'
+import {
+  createContext,
+  useContext,
+  useReducer,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  type ReactNode,
+} from 'react'
 import { WINDOW_SAFE, getViewport, clampPosition } from '@/lib/windowUtils'
 
 export interface ButtonOrigin {
@@ -97,10 +105,14 @@ const WindowManagerContext = createContext<ContextValue | null>(null)
 
 export function WindowManagerProvider({ children }: { children: ReactNode }) {
   const [windows, dispatch] = useReducer(reducer, [])
-  // Always-fresh ref — set synchronously in render so callbacks never see stale state
+  // Always-fresh ref — set in layout effect so callbacks never see stale state.
+  // useLayoutEffect runs synchronously after commit and before any user-fired
+  // event handler, preserving the "latest state in stable callback" guarantee
+  // without mutating refs during render.
   const windowsRef = useRef(windows)
-  // eslint-disable-next-line react-hooks/refs
-  windowsRef.current = windows
+  useLayoutEffect(() => {
+    windowsRef.current = windows
+  })
 
   const openWindow = useCallback((config: WindowConfig) => {
     const current = windowsRef.current

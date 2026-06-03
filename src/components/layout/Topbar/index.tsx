@@ -1,32 +1,13 @@
 'use client'
-import { useCallback, useEffect, useState } from 'react'
 import { useLocale } from 'next-intl'
 import { useRouter, usePathname } from '@/i18n/navigation'
 import { Switch } from '@/components/ui/Switch'
 import { useIsMobile } from '@/lib/useIsMobile'
+import { useTheme, useThemeToggle } from '@/lib/use-theme'
 
 export function ThemeToggle({ size }: { size?: 'default' | 'sm' }) {
-  const [mounted, setMounted] = useState(false)
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark')
-
-  useEffect(() => {
-    const stored = localStorage.getItem('theme')
-    // Reading localStorage on mount to hydrate theme state — intentional setState in effect
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (stored === 'light' || stored === 'dark') setTheme(stored)
-    setMounted(true)
-  }, [])
-
-  const toggle = useCallback(() => {
-    setTheme((prev) => {
-      const next = prev === 'dark' ? 'light' : 'dark'
-      document.documentElement.setAttribute('data-theme', next)
-      localStorage.setItem('theme', next)
-      return next
-    })
-  }, [])
-
-  if (!mounted) return null
+  const theme = useTheme()
+  const toggle = useThemeToggle()
 
   return (
     <Switch
@@ -35,7 +16,9 @@ export function ThemeToggle({ size }: { size?: 'default' | 'sm' }) {
       aria-label="Toggle dark/light mode"
       size={size}
     >
-      <span className="select-none">☀</span>
+      <span aria-hidden="true" className="select-none">
+        ☀
+      </span>
     </Switch>
   )
 }

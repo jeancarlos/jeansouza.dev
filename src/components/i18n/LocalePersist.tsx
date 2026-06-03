@@ -11,6 +11,7 @@ export function LocalePersist() {
   const pathname = usePathname()
 
   useEffect(() => {
+    if (typeof window === 'undefined') return
     const stored = localStorage.getItem(STORAGE_KEY)
     if (stored === 'pt' || stored === 'en') {
       if (stored !== locale) {
@@ -20,12 +21,8 @@ export function LocalePersist() {
     } else {
       localStorage.setItem(STORAGE_KEY, locale)
     }
-  }, [locale, router, pathname])
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, locale)
     document.documentElement.lang = locale
-  }, [locale])
+  }, [locale, router, pathname])
 
   return null
 }

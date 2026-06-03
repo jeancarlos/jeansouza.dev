@@ -1,8 +1,11 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import { remark } from 'remark'
-import html from 'remark-html'
+import { unified } from 'unified'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import rehypeSanitize from 'rehype-sanitize'
+import rehypeStringify from 'rehype-stringify'
 
 export interface PostMeta {
   slug: string
@@ -21,6 +24,12 @@ type Locale = 'pt' | 'en'
 const postsDirectory = path.join(process.cwd(), 'src/content/posts')
 
 const LOCALE_FILE_RE = /^(.+)\.(pt|en)\.md$/
+
+const processor = unified()
+  .use(remarkParse)
+  .use(remarkRehype)
+  .use(rehypeSanitize)
+  .use(rehypeStringify)
 
 function parseLocaleFromFilename(fileName: string): { slug: string; locale: Locale } | null {
   const match = LOCALE_FILE_RE.exec(fileName)
@@ -96,7 +105,7 @@ export async function getPost(slug: string, locale: Locale = 'pt'): Promise<Post
     data: Record<string, unknown>
     content: string
   }
-  const processedContent = await remark().use(html).process(content)
+  const processedContent = await processor.process(content)
   const rawDate = data.date
   const date = rawDate instanceof Date ? rawDate.toISOString().slice(0, 10) : String(rawDate)
   const usedLocale = filePath.endsWith(`.${locale}.md`) ? locale : fallback
@@ -107,7 +116,7 @@ export async function getPost(slug: string, locale: Locale = 'pt'): Promise<Post
     title: typeof data.title === 'string' ? data.title : '',
     date,
     description: typeof data.description === 'string' ? data.description : '',
-    contentHtml: processedContent.toString(),
+    contentHtml: String(processedContent),
   }
 }
 

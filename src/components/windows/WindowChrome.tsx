@@ -1,0 +1,82 @@
+'use client'
+import { type ReactNode } from 'react'
+import { motion, useDragControls, type PanInfo } from 'framer-motion'
+import { useWindowManager, type ButtonOrigin } from './WindowManager'
+import { TOPBAR_HEIGHT, clampPosition } from '@/lib/windowUtils'
+import { getAnimateStyle, getTransition, type WindowStyle } from './terminalStyles'
+
+interface WindowChromeProps {
+  id: string
+  title: string
+  isMobile: boolean
+  isFocused: boolean
+  isResizing: boolean
+  zIndex: number
+  position: { x: number; y: number }
+  size: { width: number | string; height: number | string }
+  origin?: ButtonOrigin
+  activeStyle: WindowStyle
+  outerClassName: string
+  innerRounded: string
+  children: ReactNode
+}
+
+export function WindowChrome({
+  id,
+  title,
+  isMobile,
+  isFocused,
+  isResizing,
+  zIndex,
+  position,
+  size,
+  origin,
+  activeStyle,
+  outerClassName,
+  innerRounded,
+  children,
+}: WindowChromeProps) {
+  const { focusWindow, moveWindow } = useWindowManager()
+  const dragControls = useDragControls()
+
+  const w = typeof size.width === 'number' ? size.width : 600
+  const h = typeof size.height === 'number' ? size.height : 400
+  const animateStyle = getAnimateStyle(activeStyle, isMobile, isFocused)
+  const transition = getTransition(isResizing)
+  const initial = origin
+    ? { x: origin.x, y: origin.y, width: origin.width, height: origin.height, opacity: 0 }
+    : { opacity: 0, scale: 0.75 }
+
+  const onDragEnd = (_: unknown, info: PanInfo) => {
+    const raw = { x: position.x + info.offset.x, y: position.y + info.offset.y }
+    moveWindow(
+      id,
+      clampPosition({ x: raw.x, y: Math.max(TOPBAR_HEIGHT, raw.y) }, { width: w, height: h })
+    )
+  }
+
+  return (
+    <motion.div
+      drag={isMobile ? false : true}
+      dragListener={false}
+      dragControls={dragControls}
+      dragMomentum={false}
+      dragConstraints={{ top: isMobile ? 0 : TOPBAR_HEIGHT }}
+      onDragEnd={onDragEnd}
+      initial={initial}
+      animate={{ ...animateStyle }}
+      exit={{ opacity: 0, scale: 0.9, filter: 'blur(4px)' }}
+      transition={transition}
+      style={{ ...activeStyle, zIndex, position: 'fixed' }}
+      onPointerDown={() => focusWindow(id)}
+      className={outerClassName}
+      role="dialog"
+      aria-modal="true"
+      aria-label={title}
+    >
+      <div className={`flex h-full w-full flex-col overflow-hidden ${innerRounded}`}>
+        {children}
+      </div>
+    </motion.div>
+  )
+}

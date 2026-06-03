@@ -76,15 +76,21 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
   )
 
   const mountedRef = useRef(false)
+  const initialPropsRef = useRef({ locale, openBlogList, initialPost, initialOpen })
+  useEffect(() => {
+    initialPropsRef.current = { locale, openBlogList, initialPost, initialOpen }
+  })
+
   useEffect(() => {
     if (mountedRef.current) return
     mountedRef.current = true
+    const { locale, openBlogList, initialPost, initialOpen } = initialPropsRef.current
     if (initialPost || initialOpen === 'blog') {
       openBlogList()
     } else {
       history.pushState(null, '', `/${locale}/`)
     }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [])
 
   const initialPostOpenedRef = useRef(false)
   useEffect(() => {

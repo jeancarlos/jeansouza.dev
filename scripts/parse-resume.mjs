@@ -1,8 +1,10 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-const fs = require('fs')
-const path = require('path')
-const yaml = require('js-yaml')
+#!/usr/bin/env node
+import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import yaml from 'js-yaml'
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const yamlPath = '/home/jean/Projects/curriculo/resume-base.yaml'
 const outputPath = path.join(__dirname, '../src/content/resume/timeline.ts')
 
@@ -18,7 +20,6 @@ try {
   const timelineEntries = data.jobs.map((job, index) => {
     const id = `job-${index + 1}`
 
-    // Join accomplishments with bullet points and newlines
     const accomplishmentsPt = job.accomplishments
       ? job.accomplishments.map((acc) => `• ${acc.pt}`).join('\n')
       : ''

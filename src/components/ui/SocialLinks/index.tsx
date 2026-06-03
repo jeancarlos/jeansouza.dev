@@ -26,7 +26,7 @@ export function SocialLinks({ open }: SocialLinksProps) {
             <Button onClick={() => handleClick(index)}>
               <i className={`${item.icon} mr-1`} /> {item.name}
             </Button>
-            <Tooltip component="span" show={showTooltip[index]} onMouseLeave={handleClose}>
+            <Tooltip component="span" show={showTooltip[index]} onDismiss={handleClose}>
               {item.content}
             </Tooltip>
           </>

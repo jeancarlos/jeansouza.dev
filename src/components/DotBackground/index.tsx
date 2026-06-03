@@ -10,6 +10,12 @@ import {
   type Star,
 } from './starfield'
 
+function readDotColor(): string {
+  if (typeof window === 'undefined') return '242, 184, 212'
+  const rgb = getComputedStyle(document.documentElement).getPropertyValue('--dot-color').trim()
+  return rgb || '242, 184, 212'
+}
+
 export function DotBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -23,6 +29,7 @@ export function DotBackground() {
     let w = 0
     let h = 0
     let stars: Star[] = []
+    let dotColor = readDotColor()
 
     const resize = () => {
       w = canvas.width = window.innerWidth
@@ -30,17 +37,12 @@ export function DotBackground() {
       stars = Array.from({ length: TOTAL_DOTS }, () => initStar(w, h))
     }
 
-    const getDotColor = (alpha: number) => {
-      const rgb =
-        getComputedStyle(document.documentElement).getPropertyValue('--dot-color').trim() ||
-        '242, 184, 212'
-      return `rgba(${rgb}, ${alpha})`
+    const refreshColor = () => {
+      dotColor = readDotColor()
     }
 
     const draw = () => {
       ctx.clearRect(0, 0, w, h)
-
-      const dotColor = getDotColor(0.55)
 
       for (const star of stars) {
         advanceStar(star, SPEED)
@@ -51,7 +53,7 @@ export function DotBackground() {
           continue
         }
 
-        ctx.fillStyle = dotColor
+        ctx.fillStyle = `rgba(${dotColor}, 0.55)`
         ctx.beginPath()
         ctx.arc(sx, sy, Math.max(0.5, size), 0, Math.PI * 2)
         ctx.fill()
@@ -61,12 +63,21 @@ export function DotBackground() {
     }
 
     resize()
+    refreshColor()
     window.addEventListener('resize', resize)
+
+    const themeObserver = new MutationObserver(refreshColor)
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    })
+
     rafId = requestAnimationFrame(draw)
 
     return () => {
       cancelAnimationFrame(rafId)
       window.removeEventListener('resize', resize)
+      themeObserver.disconnect()
     }
   }, [])
 

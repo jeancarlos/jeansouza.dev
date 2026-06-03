@@ -51,6 +51,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <body className="font-sans">
+        {/* Inline theme init — runs before React hydration to avoid
+            dark/light flash. The script is static, no user input. */}
         <Script
           id="theme-init"
           strategy="beforeInteractive"

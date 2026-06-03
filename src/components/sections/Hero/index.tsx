@@ -34,13 +34,22 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
   const t = useTranslations('hero')
   const tResume = useTranslations('resume')
   const isMobile = useIsMobile()
-  const [homePos, setHomePos] = useState<{ x: number; y: number } | null>(null)
-  const [homeW, setHomeW] = useState(HOME_W)
-  const [resumeSize, setResumeSize] = useState<{ width: number; height: number } | null>(null)
+  const topOffset = isMobile ? 0 : TOPBAR_HEIGHT
+
+  // Lazy initial state — guarantees SSR renders the home window
+  // (no null guard) and avoids layout shift on the first client paint.
+  const [homeW, setHomeW] = useState(() => (isMobile ? HOME_W - 32 : HOME_W))
+  const [homePos, setHomePos] = useState(() => centeredPosition(HOME_W, HOME_H, topOffset))
+  const [resumeSize, setResumeSize] = useState(() => {
+    const { vw, vh } = getViewport()
+    return {
+      width: Math.min(1024, vw - WINDOW_SAFE * 2),
+      height: vh - WINDOW_SAFE * 2 - topOffset,
+    }
+  })
 
   useEffect(() => {
     const recalc = () => {
-      const topOffset = isMobile ? 0 : TOPBAR_HEIGHT
       const { vw, vh } = getViewport()
       const w = isMobile ? Math.min(vw - 32, HOME_W) : HOME_W
       setHomeW(w)
@@ -53,9 +62,7 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
     recalc()
     window.addEventListener('resize', recalc)
     return () => window.removeEventListener('resize', recalc)
-  }, [isMobile])
-
-  if (!homePos || !resumeSize) return null
+  }, [isMobile, topOffset])
 
   return (
     <TerminalWindow
