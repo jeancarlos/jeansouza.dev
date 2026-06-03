@@ -1,6 +1,13 @@
 'use client'
 import { createContext, useContext, useReducer, useCallback, useRef, type ReactNode } from 'react'
 
+export interface ButtonOrigin {
+  x: number
+  y: number
+  width: number
+  height: number
+}
+
 export interface WindowConfig {
   id: string
   url: string
@@ -11,6 +18,7 @@ export interface WindowConfig {
   defaultSize: 'compact' | 'medium' | 'large' | 'fullscreen'
   isExpanded: boolean
   isMinimized: boolean
+  origin?: ButtonOrigin
 }
 
 export interface WindowState extends WindowConfig {
@@ -24,6 +32,7 @@ type Action =
   | { type: 'EXPAND'; id: string }
   | { type: 'MINIMIZE'; id: string }
   | { type: 'MOVE'; id: string; position: { x: number; y: number } }
+  | { type: 'RESIZE'; id: string; size: { width: number; height: number }; position: { x: number; y: number } }
 
 const BASE_Z = 20
 const CASCADE = 50
@@ -56,6 +65,12 @@ function reducer(state: WindowState[], action: Action): WindowState[] {
       )
     case 'MOVE':
       return state.map((w) => (w.id === action.id ? { ...w, position: action.position } : w))
+    case 'RESIZE':
+      return state.map((w) =>
+        w.id === action.id
+          ? { ...w, size: action.size, position: action.position }
+          : w
+      )
     default:
       return state
   }
@@ -69,6 +84,7 @@ interface ContextValue {
   expandWindow: (id: string) => void
   minimizeWindow: (id: string) => void
   moveWindow: (id: string, position: { x: number; y: number }) => void
+  resizeWindow: (id: string, size: { width: number; height: number }, position: { x: number; y: number }) => void
 }
 
 const WindowManagerContext = createContext<ContextValue | null>(null)
@@ -123,6 +139,13 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'MOVE', id, position })
   }, [])
 
+  const resizeWindow = useCallback(
+    (id: string, size: { width: number; height: number }, position: { x: number; y: number }) => {
+      dispatch({ type: 'RESIZE', id, size, position })
+    },
+    []
+  )
+
   return (
     <WindowManagerContext.Provider
       value={{
@@ -133,6 +156,7 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
         expandWindow,
         minimizeWindow,
         moveWindow,
+        resizeWindow,
       }}
     >
       {children}
