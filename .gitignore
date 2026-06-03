@@ -132,6 +132,9 @@ yarn-error.log*
 .claude
 docs/
 
+# git worktrees
+.worktrees/
+
 # AI assistant files
 CLAUDE.md
 GEMINI.md
