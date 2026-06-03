@@ -59,7 +59,7 @@ export function TerminalWindow({
   zIndex,
   closeable = true,
   isFocused = true,
-  origin: _origin,
+  origin,
 }: Props) {
   const { closeWindow, focusWindow, expandWindow, minimizeWindow } = useWindowManager()
 
@@ -84,14 +84,32 @@ export function TerminalWindow({
       drag
       dragMomentum={false}
       dragConstraints={{ top: 0 }}
+      initial={
+        origin
+          ? {
+              x: origin.x,
+              y: origin.y,
+              width: origin.width,
+              height: origin.height,
+              opacity: 0,
+            }
+          : { opacity: 0, scale: 0.75 }
+      }
       animate={{
         ...activeStyle,
         filter: isFocused ? 'blur(0px)' : 'blur(2px)',
         opacity: isFocused ? 1 : 0.6,
+        scale: 1,
       }}
+      exit={{ opacity: 0, scale: 0.9, filter: 'blur(4px)' }}
       transition={{
+        opacity: { type: 'tween', duration: 0.2, ease: 'easeOut' },
         filter: { type: 'tween', duration: 0.25, ease: 'easeOut' },
-        opacity: { type: 'tween', duration: 0.25, ease: 'easeOut' },
+        scale: { type: 'spring', stiffness: 400, damping: 22 },
+        width: { type: 'spring', stiffness: 350, damping: 28 },
+        height: { type: 'spring', stiffness: 350, damping: 28 },
+        x: { type: 'spring', stiffness: 350, damping: 28 },
+        y: { type: 'spring', stiffness: 350, damping: 28 },
       }}
       style={{ ...activeStyle, zIndex, position: 'fixed' as const }}
       onPointerDown={() => focusWindow(id)}
