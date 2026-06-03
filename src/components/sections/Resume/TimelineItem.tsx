@@ -33,7 +33,7 @@ export function TimelineItem({ entry, locale, side, index }: Props) {
     >
       <span
         aria-hidden
-        className="bg-brand-from ring-crust absolute top-6 h-3 w-3 rounded-full ring-4 shadow-[0_0_0_1px_#e84545] max-md:left-[-19px] md:right-auto md:left-auto md:-translate-x-1/2"
+        className="bg-brand-from ring-crust absolute top-6 h-3 w-3 rounded-full shadow-[0_0_0_1px_#e84545] ring-4 max-md:left-[-19px] md:right-auto md:left-auto md:-translate-x-1/2"
         style={side === 'left' ? { right: 'calc(-1.5rem - 6px)' } : { left: 'calc(-1.5rem - 6px)' }}
       />
       <motion.article
@@ -43,7 +43,9 @@ export function TimelineItem({ entry, locale, side, index }: Props) {
       >
         <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
           <span className="text-brand-text shrink-0 font-mono text-sm">▸ {entry.year[locale]}</span>
-          <h3 className="font-display text-text min-w-0 break-words font-bold">{entry.role[locale]}</h3>
+          <h3 className="font-display text-text min-w-0 font-bold break-words">
+            {entry.role[locale]}
+          </h3>
           <span className="text-subtext text-sm">@ {entry.company}</span>
         </header>
         <ul

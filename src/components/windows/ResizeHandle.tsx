@@ -69,9 +69,12 @@ export function ResizeHandle({
   const pendingRef = useRef<PendingResize | null>(null)
   const rafRef = useRef<number | null>(null)
 
-  useEffect(() => () => {
-    if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
-  }, [])
+  useEffect(
+    () => () => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
+    },
+    []
+  )
 
   const flushPending = (): void => {
     if (rafRef.current !== null) {

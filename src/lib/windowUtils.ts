@@ -17,7 +17,12 @@ export function centeredPosition(
   const usableHeight = vh - topOffset
   return {
     x: Math.max(WINDOW_SAFE, Math.min((vw - width) / 2, vw - width - WINDOW_SAFE)),
-    y: topOffset + Math.max(WINDOW_SAFE, Math.min((usableHeight - height) / 2, usableHeight - height - WINDOW_SAFE)),
+    y:
+      topOffset +
+      Math.max(
+        WINDOW_SAFE,
+        Math.min((usableHeight - height) / 2, usableHeight - height - WINDOW_SAFE)
+      ),
   }
 }
 

@@ -45,7 +45,10 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
       const w = isMobile ? Math.min(vw - 32, HOME_W) : HOME_W
       setHomeW(w)
       setHomePos(centeredPosition(w, HOME_H, topOffset))
-      setResumeSize({ width: Math.min(1024, vw - WINDOW_SAFE * 2), height: vh - WINDOW_SAFE * 2 - topOffset })
+      setResumeSize({
+        width: Math.min(1024, vw - WINDOW_SAFE * 2),
+        height: vh - WINDOW_SAFE * 2 - topOffset,
+      })
     }
     recalc()
     window.addEventListener('resize', recalc)
@@ -53,7 +56,6 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
   }, [isMobile])
 
   if (!homePos || !resumeSize) return null
-
 
   return (
     <TerminalWindow

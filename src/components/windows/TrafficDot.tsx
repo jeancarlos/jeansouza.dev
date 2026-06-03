@@ -23,7 +23,10 @@ export function TrafficDot({ label, symbol, color, onClick, disabled = false }: 
       }`}
       style={{ backgroundColor: color }}
     >
-      <span aria-hidden="true" className="pointer-events-none select-none text-[10px] font-bold leading-none text-white opacity-60 transition-opacity duration-150 group-hover:opacity-100">
+      <span
+        aria-hidden="true"
+        className="pointer-events-none text-[10px] leading-none font-bold text-white opacity-60 transition-opacity duration-150 select-none group-hover:opacity-100"
+      >
         {symbol}
       </span>
     </button>
