@@ -64,10 +64,10 @@ export function TerminalWindow({
   }
 
   const mobileStyle = {
-    width: '100vw' as string | number,
-    height: '100dvh' as string | number,
-    x: 0,
-    y: 0,
+    width: 'calc(100vw - 16px)' as string | number,
+    height: 'calc(100dvh - 16px)' as string | number,
+    x: 8,
+    y: 8,
   }
 
   const activeStyle = isMobile && !isHome
@@ -120,7 +120,7 @@ export function TerminalWindow({
       onPointerDown={() => {
         focusWindow(id)
       }}
-      className={isMobile ? '' : 'rounded-2xl bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-2xl'}
+      className={isMobile && isHome ? '' : `${isMobile ? 'rounded-[44px]' : 'rounded-2xl'} bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-2xl`}
       role="dialog"
       aria-modal="true"
       aria-label={title}
