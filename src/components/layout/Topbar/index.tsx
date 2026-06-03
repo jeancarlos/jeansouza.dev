@@ -1,16 +1,17 @@
 'use client'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useLocale } from 'next-intl'
 import { useRouter, usePathname } from '@/i18n/navigation'
 import { Switch } from '@/components/ui/Switch'
 import { useIsMobile } from '@/lib/useIsMobile'
 
 export function ThemeToggle({ size }: { size?: 'default' | 'sm' }) {
-  const [theme, setTheme] = useState<'dark' | 'light' | null>(() => {
-    if (typeof window === 'undefined') return null
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark')
+
+  useEffect(() => {
     const stored = localStorage.getItem('theme')
-    return stored === 'light' || stored === 'dark' ? stored : 'dark'
-  })
+    if (stored === 'light' || stored === 'dark') setTheme(stored)
+  }, [])
 
   const toggle = useCallback(() => {
     setTheme((prev) => {
@@ -20,8 +21,6 @@ export function ThemeToggle({ size }: { size?: 'default' | 'sm' }) {
       return next
     })
   }, [])
-
-  if (theme === null) return null
 
   return (
     <Switch on={theme === 'light'} onToggle={toggle} aria-label="Toggle dark/light mode" size={size}>
