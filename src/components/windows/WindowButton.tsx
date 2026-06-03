@@ -3,7 +3,7 @@ import { type ReactNode } from 'react'
 import { Button } from '@/components/ui/Button'
 import { useWindowManager } from './WindowManager'
 import type { WindowConfig } from './WindowManager'
-import { centeredPosition, getViewport, WINDOW_SAFE } from '@/lib/windowUtils'
+import { centeredPosition, getViewport, WINDOW_SAFE, TOPBAR_HEIGHT } from '@/lib/windowUtils'
 
 function fullscreenSize(): { width: number; height: number } {
   const { vw, vh } = getViewport()
@@ -45,7 +45,7 @@ export function WindowButton({
     const rect = e.currentTarget.getBoundingClientRect()
     const origin = { x: rect.left, y: rect.top, width: rect.width, height: rect.height }
     const size = fullscreen ? fullscreenSize() : (windowSize ?? { width: 600, height: 400 })
-    const pos = position ?? centeredPosition(size.width, size.height)
+    const pos = position ?? centeredPosition(size.width, size.height, TOPBAR_HEIGHT)
 
     openWindow({
       id: windowId,

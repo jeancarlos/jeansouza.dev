@@ -44,7 +44,7 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
     setHomeW(w)
     setHomePos(centeredPosition(w, HOME_H, topOffset))
     const { vw, vh } = getViewport()
-    setResumeSize({ width: Math.min(1024, vw - WINDOW_SAFE * 2), height: vh - WINDOW_SAFE * 2 })
+    setResumeSize({ width: Math.min(1024, vw - WINDOW_SAFE * 2), height: vh - WINDOW_SAFE * 2 - topOffset })
   }, [isMobile])
 
   if (!homePos || !resumeSize) return null

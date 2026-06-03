@@ -38,12 +38,12 @@ export function TimelineItem({ entry, locale, side, index }: Props) {
       />
       <motion.article
         data-side={side}
-        className="border-surface bg-base/60 hover:border-brand-from border p-5 backdrop-blur-sm transition-colors"
+        className="border-surface bg-base/60 hover:border-brand-from min-w-0 border p-5 backdrop-blur-sm transition-colors"
         whileHover={{ y: -2, transition: { duration: 0.15 } }}
       >
         <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
           <span className="text-brand-text shrink-0 font-mono text-sm">▸ {entry.year[locale]}</span>
-          <h3 className="font-display text-text font-bold">{entry.role[locale]}</h3>
+          <h3 className="font-display text-text min-w-0 break-words font-bold">{entry.role[locale]}</h3>
           <span className="text-subtext text-sm">@ {entry.company}</span>
         </header>
         <ul

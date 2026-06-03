@@ -1,5 +1,5 @@
 export const WINDOW_SAFE = 20
-export const TOPBAR_HEIGHT = 85
+export const TOPBAR_HEIGHT = 75
 
 export function getViewport(): { vw: number; vh: number } {
   return {

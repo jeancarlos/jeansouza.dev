@@ -52,7 +52,7 @@ export function Topbar() {
   if (isMobile) return null
 
   return (
-    <div className="pointer-events-none fixed inset-x-0 top-0 z-[9999] flex h-[85px] items-center justify-between px-4">
+    <div className="pointer-events-none fixed inset-x-0 top-0 z-[9999] flex h-[75px] items-center justify-between px-4">
       <div className="pointer-events-auto">
         <LocaleToggle size="sm" />
       </div>
