@@ -35,13 +35,13 @@ export function Resume({ entries, profile, education, assets, locale }: Props) {
   const isWide = useMediaQuery('(min-width: 768px)')
 
   return (
-    <div className="min-h-full px-6 py-24">
+    <div className="min-h-full p-6">
       <div className="mx-auto max-w-5xl">
         <p className="text-subtext mb-8 font-mono text-sm">{t('command')}</p>
         <Header profile={profile} locale={locale} />
         <Summary profile={profile} locale={locale} />
         <Section title={t('experience')}>
-          <ul className="relative grid grid-cols-[1fr_auto_1fr] gap-x-8 max-md:grid-cols-[auto_1fr] max-md:gap-x-4">
+          <ul className="relative grid grid-cols-[1fr_auto_1fr] gap-x-8 gap-y-6 max-md:grid-cols-[auto_1fr] max-md:gap-x-4">
             <TimelineRail />
             {entries.map((entry, i) => {
               const side = isWide && i % 2 === 0 ? 'left' : 'right'

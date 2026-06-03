@@ -22,9 +22,11 @@ export function Downloads({ assets, locale }: Props) {
             key={asset.filename}
             href={asset.url}
             download
-            className="border-surface bg-base/60 text-brand-text hover:border-brand-from hover:bg-surface border px-4 py-2 font-mono text-sm backdrop-blur-sm transition-colors"
+            className="group relative inline-block rounded-full bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-sm transition-all duration-150 ease-out hover:brightness-110 hover:shadow-md active:scale-90"
           >
-            ↓ {t(asset.format)}
+            <span className="block rounded-full bg-[#3e3353] px-3 py-1.5 text-sm text-[#f2b8d4] transition-colors duration-150 group-hover:bg-transparent group-hover:text-white">
+              ↓ {t(asset.format)}
+            </span>
           </a>
         ))}
       </div>

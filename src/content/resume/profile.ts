@@ -13,10 +13,10 @@ export interface Profile {
 }
 
 export const profile: Profile = {
-  name: 'Jean Carlos Souza',
+  name: 'Jean Souza',
   headline: {
-    pt: 'Engenheiro Front-End Sênior',
-    en: 'Senior Front-End Engineer',
+    pt: 'Desenvolvedor Frontend Senior | React · Next.js · TypeScript · DevOps',
+    en: 'Senior Frontend Engineer | React · Next.js · TypeScript · DevOps',
   },
   contacts: {
     email: 'contato@jeansouza.dev',
@@ -26,11 +26,11 @@ export const profile: Profile = {
     website: 'jeansouza.dev',
   },
   summary: {
-    pt: 'Engenheiro Front-End Sênior com mais de 13 anos de experiência construindo interfaces escaláveis e sistemas de design em React, Next.js e TypeScript. Liderou times técnicos e iniciativas de qualidade que resultaram em 70% de cobertura de testes, redução de 67% no tempo de build e queda de regressões de 25% para menos de 5%. Referência em micro-frontends, Web Components, acessibilidade WCAG e estratégias de renderização SSR/SSG com impacto direto em Core Web Vitals e SEO. Defensor de workflows com IA e automação de CI/CD para acelerar entregas sem sacrificar confiabilidade.',
-    en: 'Senior Front-End Engineer with 13+ years of experience building scalable interfaces and design systems in React, Next.js, and TypeScript. Led technical teams and quality initiatives that delivered 70% test coverage, a 67% reduction in build time, and a drop in bug regression from 25% to below 5%. Expert in micro-frontends, Web Components, WCAG accessibility, and SSR/SSG rendering strategies with measurable Core Web Vitals and SEO impact. Champion of AI-assisted workflows and CI/CD automation to accelerate delivery without compromising reliability.',
+    pt: 'Mais de 15 anos desenvolvendo interfaces web em produção, da era jQuery até React 19, Next.js 16 App Router, React Server Components e busca de dados com Suspense. Em healthtech, e-commerce e telecom, entreguei design systems, arquiteturas de micro-frontends em escala e bibliotecas open source. Diferencial real: homelab em produção com 50+ containers Docker, deploys blue/green e automação em Python. Três anos de ops real, não projeto paralelo. Uso Claude Code e Windsurf como parte central do fluxo de trabalho. Inglês C2 certificado (EF SET 82/100).',
+    en: "15+ years building production web interfaces, from the jQuery era through React 19, Next.js 16 App Router, React Server Components, and Suspense-driven data fetching. Across healthtech, e-commerce, and telecom I've shipped design systems, micro-frontend architectures at scale, and open source libraries. Real differentiator: production homelab running 50+ Docker containers with blue/green deployments and Python automation. Three years of real ops, not side projects. I use Claude Code and Windsurf as a core part of my daily engineering workflow. C2 English certified (EF SET 82/100).",
   },
   languages: {
-    pt: 'Português (nativo) · Inglês (C1 — EF SET)',
-    en: 'Portuguese (native) · English (C1 — EF SET)',
+    pt: 'Português (nativo) · Inglês C2 — EF SET 82/100',
+    en: 'Portuguese (native) · English C2 — EF SET 82/100',
   },
 }

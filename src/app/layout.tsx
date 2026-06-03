@@ -42,12 +42,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="pt"
       className={`${poppins.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
     >
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `(function(){var s=localStorage.getItem('theme');var p=s||(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',p);})();`,
-        }}
-      />
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var s=localStorage.getItem('theme');var p=s||(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',p);})();`,
+          }}
+        />
+      </head>
       <body className="font-sans">
         <DotBackground />
         {children}

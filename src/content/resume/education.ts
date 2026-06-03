@@ -23,8 +23,8 @@ export const education: EducationEntry[] = [
     id: 'efset',
     institution: 'EF SET',
     degree: {
-      pt: 'Certificação de Inglês C1',
-      en: 'English C1 Certificate',
+      pt: 'Certificação de Inglês C2 — 82/100',
+      en: 'English C2 Certificate — 82/100',
     },
     period: {
       pt: '2023',

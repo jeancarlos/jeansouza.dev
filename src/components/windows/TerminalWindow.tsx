@@ -18,6 +18,7 @@ interface Props {
   closeable?: boolean
   minimizable?: boolean
   expandable?: boolean
+  resizable?: boolean
   isFocused?: boolean
   origin?: ButtonOrigin
 }
@@ -35,6 +36,7 @@ export function TerminalWindow({
   closeable = true,
   minimizable = true,
   expandable = true,
+  resizable = true,
   isFocused = true,
   origin,
 }: Props) {
@@ -148,7 +150,8 @@ export function TerminalWindow({
       </div>
 
       {/* Resize handles — outside overflow container so they're not clipped */}
-      {!isExpanded &&
+      {resizable &&
+        !isExpanded &&
         !isMinimized &&
         RESIZE_DIRS.map((dir) => (
           <ResizeHandle

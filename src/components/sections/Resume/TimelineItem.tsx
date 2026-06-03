@@ -19,9 +19,10 @@ export function TimelineItem({ entry, locale, side, index }: Props) {
 
   return (
     <motion.li
+      style={{ gridRow: index + 1 }}
       className={cn(
         'relative pt-2',
-        side === 'left' && 'md:col-start-1 md:pr-8 md:text-right',
+        side === 'left' && 'md:col-start-1 md:pr-8',
         side === 'right' && 'md:col-start-3 md:pl-8',
         'max-md:col-start-2 max-md:pl-6'
       )}
@@ -40,12 +41,7 @@ export function TimelineItem({ entry, locale, side, index }: Props) {
         className="border-surface bg-base/60 hover:border-brand-from border p-5 backdrop-blur-sm transition-colors"
         whileHover={{ y: -2, transition: { duration: 0.15 } }}
       >
-        <header
-          className={cn(
-            'flex flex-wrap items-baseline gap-x-3 gap-y-1',
-            side === 'left' && 'md:flex-row-reverse md:justify-start'
-          )}
-        >
+        <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
           <span className="text-brand-text shrink-0 font-mono text-sm">▸ {entry.year[locale]}</span>
           <h3 className="font-display text-text font-bold">{entry.role[locale]}</h3>
           <span className="text-subtext text-sm">@ {entry.company}</span>

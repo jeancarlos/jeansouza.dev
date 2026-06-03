@@ -11,7 +11,7 @@ export function Blog({ posts }: Props) {
   const t = useTranslations('blog')
 
   return (
-    <div className="min-h-full px-6 py-24">
+    <div className="min-h-full p-6">
       <div className="mx-auto max-w-3xl">
         <p className="text-overlay mb-8 font-mono text-sm">$ {t('command')}</p>
         <div className="space-y-6">

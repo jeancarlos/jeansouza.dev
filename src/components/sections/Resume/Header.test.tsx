@@ -23,24 +23,14 @@ describe('Header', () => {
     expect(screen.getByText('Jean Test')).toBeInTheDocument()
   })
 
-  it('renders pt headline', () => {
+  it('renders headline on page', () => {
     render(<Header profile={mockProfile} locale="pt" />)
     expect(screen.getByText('Dev Sênior PT')).toBeInTheDocument()
-    expect(screen.queryByText('Senior Dev EN')).not.toBeInTheDocument()
   })
 
-  it('renders en headline', () => {
-    render(<Header profile={mockProfile} locale="en" />)
-    expect(screen.getByText('Senior Dev EN')).toBeInTheDocument()
-  })
-
-  it('renders email contact', () => {
+  it('does not render contact info on page', () => {
     render(<Header profile={mockProfile} locale="pt" />)
-    expect(screen.getByText('test@test.dev')).toBeInTheDocument()
-  })
-
-  it('renders linkedin contact', () => {
-    render(<Header profile={mockProfile} locale="pt" />)
-    expect(screen.getByText('linkedin.com/in/test')).toBeInTheDocument()
+    expect(screen.queryByText('test@test.dev')).not.toBeInTheDocument()
+    expect(screen.queryByText('linkedin.com/in/test')).not.toBeInTheDocument()
   })
 })

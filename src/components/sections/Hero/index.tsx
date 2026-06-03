@@ -1,5 +1,5 @@
 'use client'
-import { useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { motion, steps } from 'framer-motion'
 import dynamic from 'next/dynamic'
@@ -8,7 +8,7 @@ import { WindowButton } from '@/components/windows/WindowButton'
 import { Typewriter } from '@/components/ui/Typewriter'
 import { Button } from '@/components/ui/Button'
 import type { ButtonOrigin } from '@/components/windows/WindowManager'
-import { centeredPosition } from '@/lib/windowUtils'
+import { centeredPosition, getViewport, WINDOW_SAFE } from '@/lib/windowUtils'
 
 const MoreLinksWindowDynamic = dynamic(
   async () => import('@/components/windows/MoreLinksWindow').then((m) => m.MoreLinksWindow),
@@ -32,7 +32,17 @@ const HOME_H = 320
 export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
   const t = useTranslations('hero')
   const tResume = useTranslations('resume')
-  const homePos = useMemo(() => centeredPosition(HOME_W, HOME_H), [])
+  const [homePos, setHomePos] = useState<{ x: number; y: number } | null>(null)
+  const [resumeSize, setResumeSize] = useState<{ width: number; height: number } | null>(null)
+
+  useEffect(() => {
+    setHomePos(centeredPosition(HOME_W, HOME_H))
+    const { vw, vh } = getViewport()
+    setResumeSize({ width: Math.min(1024, vw - WINDOW_SAFE * 2), height: vh - WINDOW_SAFE * 2 })
+  }, [])
+
+  if (!homePos || !resumeSize) return null
+
 
   return (
     <TerminalWindow
@@ -47,6 +57,7 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
       closeable={false}
       minimizable={false}
       expandable={false}
+      resizable={false}
       isFocused={isFocused}
     >
       <div className="space-y-3 p-6 text-[#f2b8d4]">
@@ -81,7 +92,8 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
             windowUrl={`/${locale}/#resume`}
             windowTitle="~/resume"
             windowContent={<ResumeWindowDynamic locale={locale} />}
-            fullscreen
+            windowSize={resumeSize}
+            defaultSize="large"
           >
             <i className="fas fa-file-alt mr-1" aria-hidden="true" /> {tResume('title')}
           </WindowButton>
