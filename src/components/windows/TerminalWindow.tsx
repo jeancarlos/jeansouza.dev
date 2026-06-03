@@ -76,8 +76,8 @@ export function TerminalWindow({
       ? expandedStyle
       : normalStyle
 
-  const outerRounded = isMobile && !isHome ? 'rounded-none' : isMobile && isHome ? 'rounded-[44px]' : 'rounded-2xl'
-  const innerRounded = isMobile && !isHome ? 'rounded-none' : isMobile && isHome ? 'rounded-[42px]' : 'rounded-[14px]'
+  const outerRounded = isMobile && !isHome ? 'rounded-[44px]' : isMobile && isHome ? '' : 'rounded-2xl'
+  const innerRounded = isMobile && !isHome ? 'rounded-[42px]' : isMobile && isHome ? '' : 'rounded-[14px]'
 
   return (
     <motion.div
@@ -121,7 +121,7 @@ export function TerminalWindow({
       onPointerDown={() => {
         focusWindow(id)
       }}
-      className={`${outerRounded} bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-2xl`}
+      className={isMobile ? outerRounded : `${outerRounded} bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-2xl`}
       role="dialog"
       aria-modal="true"
       aria-label={title}
@@ -133,7 +133,7 @@ export function TerminalWindow({
             onPointerDown={(e) => {
               if (!isMobile) dragControls.start(e)
             }}
-            className="flex shrink-0 cursor-grab items-center gap-2 bg-gradient-to-r from-[#e84545] to-[#b33a73] px-3 py-2.5 select-none active:cursor-grabbing"
+            className={`flex shrink-0 items-center gap-2 px-3 py-2.5 select-none ${isMobile ? 'bg-transparent' : 'cursor-grab bg-gradient-to-r from-[#e84545] to-[#b33a73] active:cursor-grabbing'}`}
           >
             {isMobile ? (
               <>
