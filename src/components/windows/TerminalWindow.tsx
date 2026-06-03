@@ -1,7 +1,9 @@
 'use client'
-import { type ReactNode, useState, useRef } from 'react'
+import { type ReactNode, useState } from 'react'
 import { motion, useDragControls } from 'framer-motion'
 import { useWindowManager, type ButtonOrigin } from './WindowManager'
+import { TrafficDot } from './TrafficDot'
+import { ResizeHandle, RESIZE_DIRS } from './ResizeHandle'
 
 interface Props {
   id: string
@@ -14,192 +16,14 @@ interface Props {
   isMinimized: boolean
   zIndex: number
   closeable?: boolean
+  minimizable?: boolean
+  expandable?: boolean
   isFocused?: boolean
   origin?: ButtonOrigin
 }
 
-function TrafficDot({
-  label,
-  symbol,
-  onClick,
-  disabled,
-}: {
-  label: string
-  symbol: string
-  onClick: () => void
-  disabled?: boolean
-}) {
-  return (
-    <button
-      data-traffic-dot
-      aria-label={label}
-      disabled={disabled}
-      onClick={(e) => {
-        e.stopPropagation()
-        onClick()
-      }}
-      className={`group relative inline-block rounded-full bg-gradient-to-r from-[#e84545] to-[#b33a73] p-px transition-transform active:scale-95 ${disabled ? 'pointer-events-none opacity-30' : ''}`}
-    >
-      <span className="flex h-3 w-3 items-center justify-center rounded-full bg-[#3e3353] font-mono text-[8px] leading-none text-[#f2b8d4] transition-colors duration-150 group-hover:bg-transparent group-hover:text-white">
-        {symbol}
-      </span>
-    </button>
-  )
-}
-
-const MIN_W = 200
-const MIN_H = 100
-
-type ResizeDir = 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw'
-
-const RESIZE_CURSORS: Record<ResizeDir, string> = {
-  n: 'ns-resize',
-  s: 'ns-resize',
-  e: 'ew-resize',
-  w: 'ew-resize',
-  ne: 'nesw-resize',
-  sw: 'nesw-resize',
-  nw: 'nwse-resize',
-  se: 'nwse-resize',
-}
-
-const RESIZE_STYLES: Record<ResizeDir, React.CSSProperties> = {
-  n: { top: 0, left: 12, right: 12, height: 6 },
-  s: { bottom: 0, left: 12, right: 12, height: 6 },
-  e: { right: 0, top: 12, bottom: 12, width: 6 },
-  w: { left: 0, top: 12, bottom: 12, width: 6 },
-  ne: { top: 0, right: 0, width: 12, height: 12 },
-  nw: { top: 0, left: 0, width: 12, height: 12 },
-  se: { bottom: 0, right: 0, width: 12, height: 12 },
-  sw: { bottom: 0, left: 0, width: 12, height: 12 },
-}
-
-const RESIZE_DIRS: ResizeDir[] = ['n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw']
-
-interface ResizeHandleProps {
-  direction: ResizeDir
-  windowId: string
-  size: { width: number | string; height: number | string }
-  position: { x: number; y: number }
-  onResizeStart: () => void
-  onResizeEnd: () => void
-}
-
-interface DragState {
-  startX: number
-  startY: number
-  startW: number
-  startH: number
-  startPosX: number
-  startPosY: number
-}
-
-interface PendingResize {
-  size: { width: number; height: number }
-  position: { x: number; y: number }
-}
-
-function ResizeHandle({
-  direction,
-  windowId,
-  size,
-  position,
-  onResizeStart,
-  onResizeEnd,
-}: ResizeHandleProps) {
-  const { resizeWindow, focusWindow } = useWindowManager()
-  const dragRef = useRef<DragState | null>(null)
-  const pendingRef = useRef<PendingResize | null>(null)
-  const rafRef = useRef<number | null>(null)
-
-  const flushPending = () => {
-    if (rafRef.current !== null) {
-      cancelAnimationFrame(rafRef.current)
-      rafRef.current = null
-    }
-    if (pendingRef.current) {
-      resizeWindow(windowId, pendingRef.current.size, pendingRef.current.position)
-      pendingRef.current = null
-    }
-  }
-
-  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    e.stopPropagation()
-    focusWindow(windowId)
-    e.currentTarget.setPointerCapture(e.pointerId)
-    dragRef.current = {
-      startX: e.clientX,
-      startY: e.clientY,
-      startW: typeof size.width === 'number' ? size.width : 600,
-      startH: typeof size.height === 'number' ? size.height : 400,
-      startPosX: position.x,
-      startPosY: position.y,
-    }
-    onResizeStart()
-  }
-
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!dragRef.current) return
-    const { startX, startY, startW, startH, startPosX, startPosY } = dragRef.current
-    const dx = e.clientX - startX
-    const dy = e.clientY - startY
-    let newW = startW
-    let newH = startH
-    let newX = startPosX
-    let newY = startPosY
-
-    if (direction.includes('e')) newW = Math.max(MIN_W, startW + dx)
-    if (direction.includes('w')) {
-      newW = Math.max(MIN_W, startW - dx)
-      newX = startPosX + (startW - newW)
-    }
-    if (direction.includes('s')) newH = Math.max(MIN_H, startH + dy)
-    if (direction.includes('n')) {
-      newH = Math.max(MIN_H, startH - dy)
-      newY = startPosY + (startH - newH)
-    }
-
-    pendingRef.current = {
-      size: { width: newW, height: newH },
-      position: { x: newX, y: newY },
-    }
-    if (rafRef.current !== null) return
-    rafRef.current = requestAnimationFrame(() => {
-      if (pendingRef.current) {
-        resizeWindow(windowId, pendingRef.current.size, pendingRef.current.position)
-        pendingRef.current = null
-      }
-      rafRef.current = null
-    })
-  }
-
-  const endDrag = () => {
-    flushPending()
-    dragRef.current = null
-    onResizeEnd()
-  }
-
-  return (
-    <div
-      data-resize-handle
-      style={{
-        position: 'absolute',
-        zIndex: 20,
-        cursor: RESIZE_CURSORS[direction],
-        ...RESIZE_STYLES[direction],
-      }}
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={endDrag}
-      onPointerCancel={endDrag}
-      onClick={(e) => e.stopPropagation()}
-    />
-  )
-}
-
 export function TerminalWindow({
   id,
-  url,
   title,
   children,
   position,
@@ -208,10 +32,13 @@ export function TerminalWindow({
   isMinimized,
   zIndex,
   closeable = true,
+  minimizable = true,
+  expandable = true,
   isFocused = true,
   origin,
 }: Props) {
-  const { closeWindow, focusWindow, expandWindow, minimizeWindow, moveWindow } = useWindowManager()
+  const { closeWindow, focusWindow, expandWindow, minimizeWindow, moveWindow } =
+    useWindowManager()
   const [isResizing, setIsResizing] = useState(false)
   const dragControls = useDragControls()
 
@@ -243,13 +70,7 @@ export function TerminalWindow({
       }
       initial={
         origin
-          ? {
-              x: origin.x,
-              y: origin.y,
-              width: origin.width,
-              height: origin.height,
-              opacity: 0,
-            }
+          ? { x: origin.x, y: origin.y, width: origin.width, height: origin.height, opacity: 0 }
           : { opacity: 0, scale: 0.75 }
       }
       animate={{
@@ -273,51 +94,60 @@ export function TerminalWindow({
             }
       }
       style={{ ...activeStyle, zIndex, position: 'fixed' as const }}
-      onPointerDown={() => focusWindow(id)}
-      onClick={() => history.pushState(null, '', url)}
+      onPointerDown={() => { focusWindow(id) }}
       className="rounded-2xl bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-2xl"
       role="dialog"
       aria-label={title}
     >
       <div className="flex h-full w-full flex-col overflow-hidden rounded-[14px]">
-        {/* Header */}
+        {/* Header / drag handle */}
         <div
-          onPointerDown={(e) => dragControls.start(e)}
+          onPointerDown={(e) => { dragControls.start(e) }}
           className="flex shrink-0 cursor-grab items-center gap-2 bg-gradient-to-r from-[#e84545] to-[#b33a73] px-3 py-2 select-none active:cursor-grabbing"
         >
           <TrafficDot
             label="Close"
             symbol="×"
-            onClick={() => closeWindow(id)}
+            color="#ef4444"
+            onClick={() => { closeWindow(id) }}
             disabled={!closeable}
           />
-          <TrafficDot label="Minimize" symbol="−" onClick={() => minimizeWindow(id)} />
-          <TrafficDot label="Expand" symbol="+" onClick={() => expandWindow(id)} />
+          <TrafficDot
+            label="Minimize"
+            symbol="−"
+            color="#eab308"
+            onClick={() => { minimizeWindow(id) }}
+            disabled={!minimizable}
+          />
+          <TrafficDot
+            label="Expand"
+            symbol="+"
+            color="#22c55e"
+            onClick={() => { expandWindow(id) }}
+            disabled={!expandable}
+          />
           <span className="ml-2 font-mono text-xs text-white/80">{title}</span>
         </div>
 
         {/* Body */}
         {!isMinimized && (
-          <div className="flex-1 overflow-y-auto rounded-[14px] bg-[#11111b] font-mono text-[#f2b8d4]">
+          <div className="relative min-h-0 flex-1 overflow-auto bg-[#2a2040]">
             {children}
+            {!isExpanded &&
+              RESIZE_DIRS.map((dir) => (
+                <ResizeHandle
+                  key={dir}
+                  direction={dir}
+                  windowId={id}
+                  size={size}
+                  position={position}
+                  onResizeStart={() => { setIsResizing(true) }}
+                  onResizeEnd={() => { setIsResizing(false) }}
+                />
+              ))}
           </div>
         )}
       </div>
-
-      {/* Resize handles — only when window is interactive */}
-      {!isExpanded &&
-        !isMinimized &&
-        RESIZE_DIRS.map((dir) => (
-          <ResizeHandle
-            key={dir}
-            direction={dir}
-            windowId={id}
-            size={size}
-            position={position}
-            onResizeStart={() => setIsResizing(true)}
-            onResizeEnd={() => setIsResizing(false)}
-          />
-        ))}
     </motion.div>
   )
 }
