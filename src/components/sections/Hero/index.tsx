@@ -6,7 +6,6 @@ import { TerminalWindow } from '@/components/windows/TerminalWindow'
 import { WindowButton } from '@/components/windows/WindowButton'
 import { Typewriter } from '@/components/ui/Typewriter'
 import { Button } from '@/components/ui/Button'
-import { useWindowManager } from '@/components/windows/WindowManager'
 import type { ButtonOrigin } from '@/components/windows/WindowManager'
 
 const MoreLinksWindowDynamic = dynamic(
@@ -30,7 +29,6 @@ const SAFE = 20
 export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
   const t = useTranslations('hero')
   const tResume = useTranslations('resume')
-  const { focusWindow } = useWindowManager()
 
   const homeW = 560
   const homeH = 320
@@ -103,10 +101,6 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
             windowContent={<MoreLinksWindowDynamic />}
             windowSize={{ width: 320, height: 280 }}
             defaultSize="compact"
-            position={{
-              x: Math.min(homeX + homeW + SAFE, (typeof window !== 'undefined' ? window.innerWidth : 1200) - 320 - SAFE),
-              y: Math.max(SAFE, homeY),
-            }}
             aria-label="More links"
           >
             +
