@@ -36,13 +36,16 @@ export function LocaleSwitch() {
           <motion.div
             className="absolute inset-0 rounded-full bg-gradient-to-r from-[#e84545] to-[#b33a73]"
             style={{ width: '50%' }}
+            initial={{ x: displayLocale === 'pt' ? 0 : '100%' }}
             animate={{ x: displayLocale === 'pt' ? 0 : '100%' }}
             transition={{ type: 'spring', stiffness: 400, damping: 30 }}
           />
           {LOCALES.map((loc) => (
             <button
               key={loc}
-              onClick={() => { handleSwitch(loc) }}
+              onClick={() => {
+                handleSwitch(loc)
+              }}
               aria-label={`Switch to ${loc.toUpperCase()}`}
               aria-pressed={locale === loc}
               className="relative z-10 rounded-full px-3 py-1.5 text-sm font-medium transition-colors duration-200"

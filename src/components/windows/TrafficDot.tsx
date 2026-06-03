@@ -18,12 +18,12 @@ export function TrafficDot({ label, symbol, color, onClick, disabled = false }: 
         e.stopPropagation()
         onClick()
       }}
-      className={`group relative inline-flex h-3.5 w-3.5 items-center justify-center rounded-full ring-1 ring-white/40 transition-transform active:scale-95 ${
-        disabled ? 'pointer-events-none opacity-50' : ''
+      className={`group relative inline-flex h-3.5 w-3.5 items-center justify-center rounded-full ring-1 ring-white/40 transition-all duration-150 hover:scale-110 active:scale-95 ${
+        disabled ? 'pointer-events-none opacity-40' : ''
       }`}
       style={{ backgroundColor: color }}
     >
-      <span className="pointer-events-none select-none font-mono text-[10px] font-bold leading-none text-white opacity-0 transition-opacity duration-150 group-hover:opacity-100">
+      <span className="pointer-events-none select-none text-[14px] font-bold leading-none text-white opacity-60 transition-opacity duration-150 group-hover:opacity-100">
         {symbol}
       </span>
     </button>

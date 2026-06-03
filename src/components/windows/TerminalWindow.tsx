@@ -107,7 +107,7 @@ export function TerminalWindow({
           onPointerDown={(e) => {
             dragControls.start(e)
           }}
-          className="flex shrink-0 cursor-grab items-center gap-2 bg-gradient-to-r from-[#e84545] to-[#b33a73] px-3 py-2 select-none active:cursor-grabbing"
+          className="flex shrink-0 cursor-grab items-center gap-2 bg-gradient-to-r from-[#e84545] to-[#b33a73] px-3 py-2.5 select-none active:cursor-grabbing"
         >
           <TrafficDot
             label="Close"
@@ -141,27 +141,30 @@ export function TerminalWindow({
 
         {/* Body */}
         {!isMinimized && (
-          <div className="relative min-h-0 flex-1 overflow-auto bg-[#2a2040]">
+          <div className="flex-1 overflow-y-auto rounded-[14px] bg-[#11111b] font-mono text-[#f2b8d4]">
             {children}
-            {!isExpanded &&
-              RESIZE_DIRS.map((dir) => (
-                <ResizeHandle
-                  key={dir}
-                  direction={dir}
-                  windowId={id}
-                  size={size}
-                  position={position}
-                  onResizeStart={() => {
-                    setIsResizing(true)
-                  }}
-                  onResizeEnd={() => {
-                    setIsResizing(false)
-                  }}
-                />
-              ))}
           </div>
         )}
       </div>
+
+      {/* Resize handles — outside overflow container so they're not clipped */}
+      {!isExpanded &&
+        !isMinimized &&
+        RESIZE_DIRS.map((dir) => (
+          <ResizeHandle
+            key={dir}
+            direction={dir}
+            windowId={id}
+            size={size}
+            position={position}
+            onResizeStart={() => {
+              setIsResizing(true)
+            }}
+            onResizeEnd={() => {
+              setIsResizing(false)
+            }}
+          />
+        ))}
     </motion.div>
   )
 }
