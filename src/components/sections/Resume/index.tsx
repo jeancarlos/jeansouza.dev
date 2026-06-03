@@ -24,7 +24,7 @@ interface Props {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="mb-12">
-      <h2 className="text-latte-blue mb-6 font-mono text-xs tracking-widest uppercase">{title}</h2>
+      <h2 className="text-brand-text mb-6 font-mono text-xs tracking-widest uppercase">{title}</h2>
       {children}
     </section>
   )
@@ -37,7 +37,7 @@ export function Resume({ entries, profile, education, assets, locale }: Props) {
   return (
     <div className="min-h-full px-6 py-24">
       <div className="mx-auto max-w-5xl">
-        <p className="text-latte-subtext mb-8 font-mono text-sm">$ {t('command')}</p>
+        <p className="text-subtext mb-8 font-mono text-sm">{t('command')}</p>
         <Header profile={profile} locale={locale} />
         <Summary profile={profile} locale={locale} />
         <Section title={t('experience')}>

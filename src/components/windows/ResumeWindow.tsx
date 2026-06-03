@@ -12,7 +12,7 @@ export function ResumeWindow({ locale }: Props) {
   const assets = getCurriculoAssets()
 
   return (
-    <div className="min-h-full bg-[#3e3353]">
+    <div className="min-h-full">
       <Resume
         entries={timeline}
         profile={profile}

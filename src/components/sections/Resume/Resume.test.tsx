@@ -12,10 +12,14 @@ vi.mock('next-intl', () => ({
 vi.mock('framer-motion', () => ({
   motion: {
     li: ({ children, className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-      <li className={className} {...props}>{children}</li>
+      <li className={className} {...props}>
+        {children}
+      </li>
     ),
     article: ({ children, className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-      <article className={className} {...props}>{children}</article>
+      <article className={className} {...props}>
+        {children}
+      </article>
     ),
   },
   useReducedMotion: () => false,
@@ -63,42 +67,78 @@ const mockEducation: EducationEntry[] = [
 describe('Resume', () => {
   it('renders header with name', () => {
     render(
-      <Resume entries={[mockEntry]} profile={mockProfile} education={mockEducation} assets={[]} locale="pt" />
+      <Resume
+        entries={[mockEntry]}
+        profile={mockProfile}
+        education={mockEducation}
+        assets={[]}
+        locale="pt"
+      />
     )
     expect(screen.getByText('Jean Test')).toBeInTheDocument()
   })
 
   it('renders summary', () => {
     render(
-      <Resume entries={[mockEntry]} profile={mockProfile} education={mockEducation} assets={[]} locale="pt" />
+      <Resume
+        entries={[mockEntry]}
+        profile={mockProfile}
+        education={mockEducation}
+        assets={[]}
+        locale="pt"
+      />
     )
     expect(screen.getByText('Resumo PT.')).toBeInTheDocument()
   })
 
   it('renders company name', () => {
     render(
-      <Resume entries={[mockEntry]} profile={mockProfile} education={mockEducation} assets={[]} locale="pt" />
+      <Resume
+        entries={[mockEntry]}
+        profile={mockProfile}
+        education={mockEducation}
+        assets={[]}
+        locale="pt"
+      />
     )
     expect(screen.getByText('@ ACME')).toBeInTheDocument()
   })
 
   it('renders education institution', () => {
     render(
-      <Resume entries={[mockEntry]} profile={mockProfile} education={mockEducation} assets={[]} locale="pt" />
+      <Resume
+        entries={[mockEntry]}
+        profile={mockProfile}
+        education={mockEducation}
+        assets={[]}
+        locale="pt"
+      />
     )
     expect(screen.getByText('ESAMC')).toBeInTheDocument()
   })
 
   it('renders languages', () => {
     render(
-      <Resume entries={[mockEntry]} profile={mockProfile} education={mockEducation} assets={[]} locale="pt" />
+      <Resume
+        entries={[mockEntry]}
+        profile={mockProfile}
+        education={mockEducation}
+        assets={[]}
+        locale="pt"
+      />
     )
     expect(screen.getByText('Português (nativo)')).toBeInTheDocument()
   })
 
   it('renders in English correctly', () => {
     render(
-      <Resume entries={[mockEntry]} profile={mockProfile} education={mockEducation} assets={[]} locale="en" />
+      <Resume
+        entries={[mockEntry]}
+        profile={mockProfile}
+        education={mockEducation}
+        assets={[]}
+        locale="en"
+      />
     )
     expect(screen.getByText('Senior Dev EN')).toBeInTheDocument()
     expect(screen.getByText('Summary EN.')).toBeInTheDocument()
@@ -106,7 +146,13 @@ describe('Resume', () => {
 
   it('uses left side for even entries at wide viewport', () => {
     const { container } = render(
-      <Resume entries={[mockEntry]} profile={mockProfile} education={mockEducation} assets={[]} locale="pt" />
+      <Resume
+        entries={[mockEntry]}
+        profile={mockProfile}
+        education={mockEducation}
+        assets={[]}
+        locale="pt"
+      />
     )
     const li = container.querySelector('li[class*="md:col-start-1"]')
     expect(li).toBeTruthy()

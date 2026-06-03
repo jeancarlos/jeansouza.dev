@@ -8,22 +8,18 @@ interface Props {
 export function Education({ entries, locale }: Props) {
   return (
     <ul className="space-y-4">
-      {entries.map(entry => (
+      {entries.map((entry) => (
         <li
           key={entry.id}
-          className="border border-latte-surface1 bg-latte-base/70 p-5 backdrop-blur-sm"
+          className="border-surface bg-base/60 border p-5 backdrop-blur-sm"
         >
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <h3 className="font-display font-bold text-latte-text">
-              {entry.institution}
-            </h3>
-            <span className="font-mono text-sm text-latte-blue">
-              ▸ {entry.period[locale]}
-            </span>
+            <h3 className="font-display text-text font-bold">{entry.institution}</h3>
+            <span className="text-brand-text font-mono text-sm">▸ {entry.period[locale]}</span>
           </div>
-          <p className="mt-1 text-sm text-latte-subtext">{entry.degree[locale]}</p>
+          <p className="text-subtext mt-1 text-sm">{entry.degree[locale]}</p>
           {entry.description && (
-            <p className="mt-2 text-sm leading-relaxed text-latte-subtext">
+            <p className="text-subtext mt-2 text-sm leading-relaxed">
               {entry.description[locale]}
             </p>
           )}

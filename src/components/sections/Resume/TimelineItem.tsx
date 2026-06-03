@@ -32,12 +32,12 @@ export function TimelineItem({ entry, locale, side, index }: Props) {
     >
       <span
         aria-hidden
-        className="bg-latte-blue ring-latte-base shadow-[0_0_0_1px_theme(colors.latte.blue)] absolute top-6 h-3 w-3 rounded-full ring-4 max-md:left-[-19px] md:right-auto md:left-auto md:-translate-x-1/2"
+        className="bg-brand-from ring-crust absolute top-6 h-3 w-3 rounded-full ring-4 shadow-[0_0_0_1px_#e84545] max-md:left-[-19px] md:right-auto md:left-auto md:-translate-x-1/2"
         style={side === 'left' ? { right: 'calc(-1.5rem - 6px)' } : { left: 'calc(-1.5rem - 6px)' }}
       />
       <motion.article
         data-side={side}
-        className="border-latte-surface1 bg-latte-base/70 hover:border-latte-blue border p-5 backdrop-blur-sm transition-colors"
+        className="border-surface bg-base/60 hover:border-brand-from border p-5 backdrop-blur-sm transition-colors"
         whileHover={{ y: -2, transition: { duration: 0.15 } }}
       >
         <header
@@ -46,13 +46,13 @@ export function TimelineItem({ entry, locale, side, index }: Props) {
             side === 'left' && 'md:flex-row-reverse md:justify-start'
           )}
         >
-          <span className="text-latte-blue shrink-0 font-mono text-sm">▸ {entry.year[locale]}</span>
-          <h3 className="font-display text-latte-text font-bold">{entry.role[locale]}</h3>
-          <span className="text-latte-subtext text-sm">@ {entry.company}</span>
+          <span className="text-brand-text shrink-0 font-mono text-sm">▸ {entry.year[locale]}</span>
+          <h3 className="font-display text-text font-bold">{entry.role[locale]}</h3>
+          <span className="text-subtext text-sm">@ {entry.company}</span>
         </header>
         <ul
           className={cn(
-            'text-latte-subtext marker:text-latte-blue mt-3 list-disc space-y-1 text-sm leading-relaxed',
+            'text-subtext marker:text-brand-text mt-3 list-disc space-y-1 text-sm leading-relaxed',
             'pl-5'
           )}
         >

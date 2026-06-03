@@ -8,15 +8,13 @@ interface Props {
 export function Header({ profile, locale }: Props) {
   return (
     <header className="mb-10">
-      <h1 className="font-display text-3xl font-bold text-latte-text">
-        {profile.name}
-      </h1>
-      <p className="mt-1 text-lg text-latte-blue">{profile.headline[locale]}</p>
-      <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-1 font-mono text-xs text-latte-subtext">
+      <h1 className="font-display text-text text-3xl font-bold">{profile.name}</h1>
+      <p className="text-brand-text mt-1 text-lg">{profile.headline[locale]}</p>
+      <ul className="text-subtext mt-4 flex flex-wrap gap-x-5 gap-y-1 font-mono text-xs">
         <li>
           <a
             href={`mailto:${profile.contacts.email}`}
-            className="hover:text-latte-blue transition-colors"
+            className="hover:text-brand-text transition-colors"
           >
             {profile.contacts.email}
           </a>
@@ -26,7 +24,7 @@ export function Header({ profile, locale }: Props) {
             href={`https://${profile.contacts.linkedin}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-latte-blue transition-colors"
+            className="hover:text-brand-text transition-colors"
           >
             {profile.contacts.linkedin}
           </a>
@@ -36,7 +34,7 @@ export function Header({ profile, locale }: Props) {
             href={`https://${profile.contacts.github}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-latte-blue transition-colors"
+            className="hover:text-brand-text transition-colors"
           >
             {profile.contacts.github}
           </a>
@@ -46,7 +44,7 @@ export function Header({ profile, locale }: Props) {
             href={`https://${profile.contacts.website}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-latte-blue transition-colors"
+            className="hover:text-brand-text transition-colors"
           >
             {profile.contacts.website}
           </a>

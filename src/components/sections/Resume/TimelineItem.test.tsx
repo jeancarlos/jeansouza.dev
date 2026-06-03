@@ -6,10 +6,14 @@ import type { TimelineEntry } from '@/content/resume/timeline'
 vi.mock('framer-motion', () => ({
   motion: {
     li: ({ children, className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-      <li className={className} {...props}>{children}</li>
+      <li className={className} {...props}>
+        {children}
+      </li>
     ),
     article: ({ children, className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-      <article className={className} {...props}>{children}</article>
+      <article className={className} {...props}>
+        {children}
+      </article>
     ),
   },
   useReducedMotion: () => false,
@@ -45,7 +49,9 @@ describe('TimelineItem', () => {
 
   it('renders 3 bullets', () => {
     render(<TimelineItem entry={mockEntry} locale="pt" side="right" index={0} />)
-    const bullets = screen.getAllByRole('listitem').filter(el => el.tagName === 'LI' && el.textContent !== '')
+    const bullets = screen
+      .getAllByRole('listitem')
+      .filter((el) => el.tagName === 'LI' && el.textContent !== '')
     expect(bullets.length).toBeGreaterThanOrEqual(3)
   })
 
