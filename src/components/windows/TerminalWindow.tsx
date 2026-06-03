@@ -112,7 +112,7 @@ export function TerminalWindow({
           <TrafficDot
             label="Close"
             symbol="×"
-            color="#ef4444"
+            color="#ff5f56"
             onClick={() => {
               closeWindow(id)
             }}
