@@ -8,6 +8,7 @@ export interface ButtonProps {
   disabled?: boolean
   'aria-label'?: string
   gradientDir?: 'r' | 'l'
+  size?: 'default' | 'sm'
 }
 
 export function Button({
@@ -18,9 +19,17 @@ export function Button({
   disabled,
   'aria-label': ariaLabel,
   gradientDir = 'r',
+  size = 'default',
 }: ButtonProps) {
+  const sizeClass =
+    size === 'sm'
+      ? 'px-2 py-0.5 text-xs'
+      : 'px-3 py-1.5 text-sm'
+
   const inner = (
-    <span className="block rounded-full bg-[#3e3353] px-3 py-1.5 text-sm text-[#f2b8d4] transition-colors duration-150 group-hover:bg-transparent group-hover:text-white">
+    <span
+      className={`block rounded-full bg-[#3e3353] ${sizeClass} text-[#f2b8d4] transition-colors duration-150 group-hover:bg-transparent group-hover:text-white`}
+    >
       {children}
     </span>
   )

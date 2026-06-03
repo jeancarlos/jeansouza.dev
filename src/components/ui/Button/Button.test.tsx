@@ -24,4 +24,20 @@ describe('Button', () => {
     const wrapper = container.firstChild as HTMLElement
     expect(wrapper.className).toContain('rounded-full')
   })
+
+  it('applies sm padding and text size when size="sm"', () => {
+    const { container } = render(<Button size="sm">X</Button>)
+    const inner = container.querySelector('span') as HTMLElement
+    expect(inner.className).toContain('px-2')
+    expect(inner.className).toContain('py-0.5')
+    expect(inner.className).toContain('text-xs')
+  })
+
+  it('applies default padding when size omitted', () => {
+    const { container } = render(<Button>X</Button>)
+    const inner = container.querySelector('span') as HTMLElement
+    expect(inner.className).toContain('px-3')
+    expect(inner.className).toContain('py-1.5')
+    expect(inner.className).toContain('text-sm')
+  })
 })
