@@ -1,9 +1,10 @@
 'use client'
 import type { Post } from '@/lib/posts'
+import type { ButtonOrigin } from '@/components/windows/WindowManager'
 
 interface Props {
   posts: Post[]
-  onOpenPost: (post: Post) => void
+  onOpenPost: (post: Post, origin: ButtonOrigin) => void
 }
 
 export function BlogListWindow({ posts, onOpenPost }: Props) {
@@ -14,7 +15,10 @@ export function BlogListWindow({ posts, onOpenPost }: Props) {
       {posts.map((post) => (
         <button
           key={post.slug}
-          onClick={() => onOpenPost(post)}
+          onClick={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect()
+            onOpenPost(post, { x: rect.left, y: rect.top, width: rect.width, height: rect.height })
+          }}
           className="group block w-full border-l-2 border-[#b33a73] py-2 pl-4 text-left transition-colors hover:border-[#e84545]"
         >
           <p className="mb-1 font-mono text-xs text-[#b33a73]">drwxr-xr-x {post.date}</p>

@@ -1,7 +1,7 @@
 'use client'
 import { type ReactNode } from 'react'
 import { motion } from 'framer-motion'
-import { useWindowManager } from './WindowManager'
+import { useWindowManager, type ButtonOrigin } from './WindowManager'
 
 interface Props {
   id: string
@@ -15,6 +15,7 @@ interface Props {
   zIndex: number
   closeable?: boolean
   isFocused?: boolean
+  origin?: ButtonOrigin
 }
 
 function TrafficDot({
@@ -58,6 +59,7 @@ export function TerminalWindow({
   zIndex,
   closeable = true,
   isFocused = true,
+  origin: _origin,
 }: Props) {
   const { closeWindow, focusWindow, expandWindow, minimizeWindow } = useWindowManager()
 
@@ -114,7 +116,7 @@ export function TerminalWindow({
 
         {/* Body */}
         {!isMinimized && (
-          <div className="flex-1 overflow-y-auto rounded-b-[14px] bg-[#11111b] font-mono text-[#f2b8d4]">
+          <div className="flex-1 overflow-y-auto rounded-[14px] bg-[#11111b] font-mono text-[#f2b8d4]">
             {children}
           </div>
         )}

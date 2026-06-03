@@ -7,6 +7,7 @@ import { WindowButton } from '@/components/windows/WindowButton'
 import { Typewriter } from '@/components/ui/Typewriter'
 import { Button } from '@/components/ui/Button'
 import { useWindowManager } from '@/components/windows/WindowManager'
+import type { ButtonOrigin } from '@/components/windows/WindowManager'
 
 const MoreLinksWindowDynamic = dynamic(
   () => import('@/components/windows/MoreLinksWindow').then((m) => m.MoreLinksWindow),
@@ -20,7 +21,7 @@ const ResumeWindowDynamic = dynamic(
 
 interface Props {
   locale: 'pt' | 'en'
-  onOpenBlog: () => void
+  onOpenBlog: (origin: ButtonOrigin) => void
   isFocused?: boolean
 }
 
@@ -86,7 +87,12 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
             <i className="fas fa-file-alt mr-1" aria-hidden="true" /> {tResume('title')}
           </WindowButton>
 
-          <Button onClick={onOpenBlog}>
+          <Button
+            onClick={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect()
+              onOpenBlog({ x: rect.left, y: rect.top, width: rect.width, height: rect.height })
+            }}
+          >
             <i className="fas fa-book mr-1" aria-hidden="true" /> Blog
           </Button>
 
