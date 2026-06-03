@@ -76,8 +76,8 @@ export function TerminalWindow({
       ? expandedStyle
       : normalStyle
 
-  const outerRounded = isMobile && !isHome ? 'rounded-none' : 'rounded-2xl'
-  const innerRounded = isMobile && !isHome ? 'rounded-none' : 'rounded-[14px]'
+  const outerRounded = isMobile && !isHome ? 'rounded-none' : isMobile && isHome ? 'rounded-[44px]' : 'rounded-2xl'
+  const innerRounded = isMobile && !isHome ? 'rounded-none' : isMobile && isHome ? 'rounded-[42px]' : 'rounded-[14px]'
 
   return (
     <motion.div
