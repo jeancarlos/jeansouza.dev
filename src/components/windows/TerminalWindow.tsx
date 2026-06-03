@@ -121,7 +121,7 @@ export function TerminalWindow({
       onPointerDown={() => {
         focusWindow(id)
       }}
-      className={isMobile && isHome ? '' : `${outerRounded} bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-2xl`}
+      className={`${outerRounded} bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-2xl`}
       role="dialog"
       aria-modal="true"
       aria-label={title}
