@@ -7,6 +7,7 @@ import type { ButtonOrigin } from '@/components/windows/WindowManager'
 import { Hero } from '@/components/sections/Hero'
 import { TerminalWindow } from '@/components/windows/TerminalWindow'
 import { useWindowManager } from '@/components/windows/WindowManager'
+import { centeredPosition } from '@/lib/windowUtils'
 
 const BlogListWindowDynamic = dynamic(
   () => import('@/components/windows/BlogListWindow').then((m) => m.BlogListWindow),
@@ -17,8 +18,6 @@ const BlogPostWindowDynamic = dynamic(
   () => import('@/components/windows/BlogPostWindow').then((m) => m.BlogPostWindow),
   { ssr: false }
 )
-
-const SAFE = 20
 
 interface HomeClientProps {
   posts: Post[]
@@ -34,8 +33,6 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
     (post: Post, origin?: ButtonOrigin) => {
       const w = 820
       const h = 660
-      const vw = typeof window !== 'undefined' ? window.innerWidth : 1200
-      const vh = typeof window !== 'undefined' ? window.innerHeight : 800
       openWindow({
         id: `post-${post.slug}`,
         url: `/${locale}/blog/${post.slug}`,
@@ -47,10 +44,7 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
             contentHtml={post.contentHtml}
           />
         ),
-        position: {
-          x: Math.max(SAFE, Math.min((vw - w) / 2, vw - w - SAFE)),
-          y: Math.max(SAFE, Math.min((vh - h) / 2, vh - h - SAFE)),
-        },
+        position: centeredPosition(w, h),
         size: { width: w, height: h },
         defaultSize: 'medium',
         isExpanded: false,
@@ -65,17 +59,12 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
     (origin?: ButtonOrigin) => {
       const w = 820
       const h = 620
-      const vw = typeof window !== 'undefined' ? window.innerWidth : 1200
-      const vh = typeof window !== 'undefined' ? window.innerHeight : 800
       openWindow({
         id: 'blog',
         url: `/${locale}/blog`,
         title: '~/blog',
         content: <BlogListWindowDynamic posts={posts} onOpenPost={openBlogPost} />,
-        position: {
-          x: Math.max(SAFE, Math.min((vw - w) / 2, vw - w - SAFE)),
-          y: Math.max(SAFE, Math.min((vh - h) / 2, vh - h - SAFE)),
-        },
+        position: centeredPosition(w, h),
         size: { width: w, height: h },
         defaultSize: 'medium',
         isExpanded: false,

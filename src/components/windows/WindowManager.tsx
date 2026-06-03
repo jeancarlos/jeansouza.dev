@@ -1,5 +1,6 @@
 'use client'
 import { createContext, useContext, useReducer, useCallback, useRef, type ReactNode } from 'react'
+import { WINDOW_SAFE, getViewport, clampPosition } from '@/lib/windowUtils'
 
 export interface ButtonOrigin {
   x: number
@@ -35,8 +36,6 @@ type Action =
   | { type: 'RESIZE'; id: string; size: { width: number; height: number }; position: { x: number; y: number } }
 
 const BASE_Z = 20
-const CASCADE = 50
-const SAFE = 20
 
 function maxZ(windows: WindowState[]): number {
   return windows.reduce((m, w) => Math.max(m, w.zIndex), BASE_Z)
@@ -99,19 +98,18 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
     const current = windowsRef.current
     const alreadyOpen = current.some((w) => w.id === config.id)
 
+    const CASCADE = 50
     const newConfig = (() => {
       if (alreadyOpen || current.length === 0) return config
       const top = current.reduce((a, b) => (a.zIndex > b.zIndex ? a : b))
-      const vw = typeof window !== 'undefined' ? window.innerWidth : 1200
-      const vh = typeof window !== 'undefined' ? window.innerHeight : 800
       const w = typeof config.size.width === 'number' ? config.size.width : 600
       const h = typeof config.size.height === 'number' ? config.size.height : 400
       return {
         ...config,
-        position: {
-          x: Math.max(SAFE, Math.min(top.position.x + CASCADE, vw - w - SAFE)),
-          y: Math.max(SAFE, Math.min(top.position.y + CASCADE, vh - h - SAFE)),
-        },
+        position: clampPosition(
+          { x: top.position.x + CASCADE, y: top.position.y + CASCADE },
+          { width: w, height: h }
+        ),
       }
     })()
 
@@ -147,20 +145,14 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
         dispatch({ type: 'RESIZE', id, size, position })
         return
       }
-      const vw = window.innerWidth
-      const vh = window.innerHeight
+      const { vw, vh } = getViewport()
       const MIN_W = 200
       const MIN_H = 100
-      const SAFE = 20
       const clampedSize = {
-        width: Math.max(MIN_W, Math.min(size.width, vw - SAFE * 2)),
-        height: Math.max(MIN_H, Math.min(size.height, vh - SAFE * 2)),
+        width: Math.max(MIN_W, Math.min(size.width, vw - WINDOW_SAFE * 2)),
+        height: Math.max(MIN_H, Math.min(size.height, vh - WINDOW_SAFE * 2)),
       }
-      const clampedPosition = {
-        x: Math.max(SAFE, Math.min(position.x, vw - clampedSize.width - SAFE)),
-        y: Math.max(SAFE, Math.min(position.y, vh - clampedSize.height - SAFE)),
-      }
-      dispatch({ type: 'RESIZE', id, size: clampedSize, position: clampedPosition })
+      dispatch({ type: 'RESIZE', id, size: clampedSize, position: clampPosition(position, clampedSize) })
     },
     []
   )
