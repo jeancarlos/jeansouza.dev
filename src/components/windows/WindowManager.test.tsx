@@ -23,37 +23,6 @@ function Probe({ onCapture }: { onCapture: (ctx: ReturnType<typeof useWindowMana
   return null
 }
 
-it('resizeWindow updates size and position', () => {
-  let ctx!: ReturnType<typeof useWindowManager>
-  render(
-    <WindowManagerProvider>
-      <Probe onCapture={(c) => { ctx = c }} />
-    </WindowManagerProvider>
-  )
-
-  act(() => ctx.openWindow(baseConfig))
-  act(() => ctx.resizeWindow('test', { width: 600, height: 500 }, { x: 50, y: 80 }))
-
-  const win = ctx.windows.find((w) => w.id === 'test')!
-  expect(win.size).toEqual({ width: 600, height: 500 })
-  expect(win.position).toEqual({ x: 50, y: 80 })
-})
-
-it('openWindow stores origin when provided', () => {
-  let ctx!: ReturnType<typeof useWindowManager>
-  render(
-    <WindowManagerProvider>
-      <Probe onCapture={(c) => { ctx = c }} />
-    </WindowManagerProvider>
-  )
-
-  const origin = { x: 10, y: 20, width: 80, height: 36 }
-  act(() => ctx.openWindow({ ...baseConfig, origin }))
-
-  const win = ctx.windows.find((w) => w.id === 'test')!
-  expect(win.origin).toEqual(origin)
-})
-
 function TestConsumer() {
   const { windows, openWindow, closeWindow } = useWindowManager()
   return (
@@ -121,5 +90,50 @@ describe('WindowManager', () => {
     await userEvent.click(screen.getByText('open'))
     await userEvent.click(screen.getByText('open'))
     expect(screen.getByTestId('count').textContent).toBe('1')
+  })
+
+  it('resizeWindow updates size and position', () => {
+    let ctx!: ReturnType<typeof useWindowManager>
+    render(
+      <WindowManagerProvider>
+        <Probe onCapture={(c) => { ctx = c }} />
+      </WindowManagerProvider>
+    )
+
+    act(() => ctx.openWindow(baseConfig))
+    act(() => ctx.resizeWindow('test', { width: 600, height: 500 }, { x: 50, y: 80 }))
+
+    const win = ctx.windows.find((w) => w.id === 'test')!
+    expect(win.size).toEqual({ width: 600, height: 500 })
+    expect(win.position).toEqual({ x: 50, y: 80 })
+  })
+
+  it('openWindow stores origin when provided', () => {
+    let ctx!: ReturnType<typeof useWindowManager>
+    render(
+      <WindowManagerProvider>
+        <Probe onCapture={(c) => { ctx = c }} />
+      </WindowManagerProvider>
+    )
+
+    const origin = { x: 10, y: 20, width: 80, height: 36 }
+    act(() => ctx.openWindow({ ...baseConfig, origin }))
+
+    const win = ctx.windows.find((w) => w.id === 'test')!
+    expect(win.origin).toEqual(origin)
+  })
+
+  it('resizeWindow with nonexistent id leaves state unchanged', () => {
+    let ctx!: ReturnType<typeof useWindowManager>
+    render(
+      <WindowManagerProvider>
+        <Probe onCapture={(c) => { ctx = c }} />
+      </WindowManagerProvider>
+    )
+    act(() => ctx.openWindow(baseConfig))
+    const before = ctx.windows.length
+    act(() => ctx.resizeWindow('nonexistent', { width: 999, height: 999 }, { x: 0, y: 0 }))
+    expect(ctx.windows.length).toBe(before)
+    expect(ctx.windows[0].size).toEqual({ width: 400, height: 300 })
   })
 })
