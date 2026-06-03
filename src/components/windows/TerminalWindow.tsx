@@ -86,11 +86,11 @@ export function TerminalWindow({
         focusWindow(id)
         history.pushState(null, '', url)
       }}
-      className="rounded-lg bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-2xl"
+      className="rounded-2xl bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-2xl"
       role="dialog"
       aria-label={title}
     >
-      <div className="flex h-full w-full flex-col overflow-hidden rounded-[6px]">
+      <div className="flex h-full w-full flex-col overflow-hidden rounded-[14px]">
         {/* Header */}
         <div className="flex shrink-0 cursor-grab items-center gap-2 bg-gradient-to-r from-[#e84545] to-[#b33a73] px-3 py-2 select-none active:cursor-grabbing">
           <TrafficDot
@@ -106,7 +106,7 @@ export function TerminalWindow({
 
         {/* Body */}
         {!isMinimized && (
-          <div className="flex-1 overflow-y-auto bg-[#3e3353] font-mono text-[#f2b8d4]">
+          <div className="flex-1 overflow-y-auto bg-[#11111b] font-mono text-[#f2b8d4]">
             {children}
           </div>
         )}

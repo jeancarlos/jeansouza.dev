@@ -4,6 +4,7 @@ import { useRouter, usePathname } from '@/i18n/navigation'
 import { motion, steps } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { TerminalWindow } from '@/components/windows/TerminalWindow'
+import { WindowButton } from '@/components/windows/WindowButton'
 import { Typewriter } from '@/components/ui/Typewriter'
 import { Button } from '@/components/ui/Button'
 import { useWindowManager } from '@/components/windows/WindowManager'
@@ -36,15 +37,6 @@ interface Props {
 
 const SAFE = 20
 
-function safePos(x: number, y: number, w: number, h: number): { x: number; y: number } {
-  const vw = typeof window !== 'undefined' ? window.innerWidth : 1200
-  const vh = typeof window !== 'undefined' ? window.innerHeight : 800
-  return {
-    x: Math.max(SAFE, Math.min(x, vw - w - SAFE)),
-    y: Math.max(SAFE, Math.min(y, vh - h - SAFE)),
-  }
-}
-
 export function Hero({ locale, posts }: Props) {
   const t = useTranslations('hero')
   const tResume = useTranslations('resume')
@@ -59,22 +51,7 @@ export function Hero({ locale, posts }: Props) {
   const router = useRouter()
   const pathname = usePathname()
 
-  const openResume = () => {
-    const vw = typeof window !== 'undefined' ? window.innerWidth : 1200
-    const vh = typeof window !== 'undefined' ? window.innerHeight : 800
-    openWindow({
-      id: 'resume',
-      url: `/${locale}/#resume`,
-      title: '~/resume',
-      content: <ResumeWindowDynamic locale={locale} />,
-      position: { x: SAFE + 20, y: SAFE + 20 },
-      size: { width: vw - (SAFE + 20) * 2, height: vh - (SAFE + 20) * 2 },
-      defaultSize: 'fullscreen',
-      isExpanded: true,
-      isMinimized: false,
-    })
-  }
-
+  // Blog post needs dynamic data from the list's onOpenPost callback — keep as function
   const openBlogPost = (post: Post) => {
     const w = 820
     const h = 660
@@ -85,46 +62,21 @@ export function Hero({ locale, posts }: Props) {
       content: (
         <BlogPostWindowDynamic title={post.title} date={post.date} contentHtml={post.contentHtml} />
       ),
-      position: safePos(homeX + 100, homeY + 100, w, h),
+      position: (() => {
+        const vw = typeof window !== 'undefined' ? window.innerWidth : 1200
+        const vh = typeof window !== 'undefined' ? window.innerHeight : 800
+        return {
+          x: Math.max(SAFE, Math.min((vw - w) / 2, vw - w - SAFE)),
+          y: Math.max(SAFE, Math.min((vh - h) / 2, vh - h - SAFE)),
+        }
+      })(),
       size: { width: w, height: h },
       defaultSize: 'medium',
       isExpanded: false,
       isMinimized: false,
     })
-    // bring blog list back to front so it stays above the post
+    // keep blog list on top
     setTimeout(() => focusWindow('blog'), 0)
-  }
-
-  const openBlog = () => {
-    const w = 820
-    const h = 620
-    openWindow({
-      id: 'blog',
-      url: `/${locale}/blog`,
-      title: '~/blog',
-      content: <BlogListWindowDynamic posts={posts} onOpenPost={openBlogPost} />,
-      position: safePos(homeX + 50, homeY + 50, w, h),
-      size: { width: w, height: h },
-      defaultSize: 'medium',
-      isExpanded: false,
-      isMinimized: false,
-    })
-  }
-
-  const openMoreLinks = () => {
-    const w = 320
-    const h = 280
-    openWindow({
-      id: 'more-links',
-      url: `/${locale}/#more`,
-      title: '~/more',
-      content: <MoreLinksWindowDynamic />,
-      position: safePos(homeX + 50, homeY + 50, w, h),
-      size: { width: w, height: h },
-      defaultSize: 'compact',
-      isExpanded: false,
-      isMinimized: false,
-    })
   }
 
   return (
@@ -142,7 +94,7 @@ export function Hero({ locale, posts }: Props) {
       <div className="space-y-3 p-6 text-[#f2b8d4]">
         <p className="text-xs text-[#b33a73]">~ jeansouza.dev</p>
         <p className="flex items-center gap-2">
-          <span className="text-[#e84545] select-none">{'>'}</span>
+          <span className="select-none text-[#e84545]">{'>'}</span>
           <Typewriter
             text={t('prompt')}
             className="font-display text-2xl font-bold text-[#f2b8d4]"
@@ -172,15 +124,42 @@ export function Hero({ locale, posts }: Props) {
           >
             {locale.toUpperCase()}
           </Button>
-          <Button onClick={openResume}>
+
+          <WindowButton
+            windowId="resume"
+            windowUrl={`/${locale}/#resume`}
+            windowTitle="~/resume"
+            windowContent={<ResumeWindowDynamic locale={locale} />}
+            fullscreen
+          >
             <i className="fas fa-file-alt mr-1" aria-hidden="true" /> {tResume('title')}
-          </Button>
-          <Button onClick={openBlog}>
+          </WindowButton>
+
+          <WindowButton
+            windowId="blog"
+            windowUrl={`/${locale}/blog`}
+            windowTitle="~/blog"
+            windowContent={<BlogListWindowDynamic posts={posts} onOpenPost={openBlogPost} />}
+            windowSize={{ width: 820, height: 620 }}
+          >
             <i className="fas fa-book mr-1" aria-hidden="true" /> Blog
-          </Button>
-          <Button onClick={openMoreLinks} aria-label="More links">
+          </WindowButton>
+
+          <WindowButton
+            windowId="more-links"
+            windowUrl={`/${locale}/#more`}
+            windowTitle="~/more"
+            windowContent={<MoreLinksWindowDynamic />}
+            windowSize={{ width: 320, height: 280 }}
+            defaultSize="compact"
+            position={{
+              x: Math.min(homeX + homeW + SAFE, (typeof window !== 'undefined' ? window.innerWidth : 1200) - 320 - SAFE),
+              y: Math.max(SAFE, homeY),
+            }}
+            aria-label="More links"
+          >
             +
-          </Button>
+          </WindowButton>
         </div>
       </div>
     </TerminalWindow>
