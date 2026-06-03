@@ -1,22 +1,33 @@
 'use client'
-import { useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useLocale } from 'next-intl'
 import { useRouter, usePathname } from '@/i18n/navigation'
-import { Button } from '@/components/ui/Button'
+import { Switch } from '@/components/ui/Switch'
 
 function ThemeToggle() {
-  const toggle = useCallback(() => {
-    const html = document.documentElement
-    const current = html.getAttribute('data-theme') ?? 'dark'
-    const next = current === 'dark' ? 'light' : 'dark'
-    html.setAttribute('data-theme', next)
-    localStorage.setItem('theme', next)
+  const [theme, setTheme] = useState<'dark' | 'light' | null>(null)
+
+  useEffect(() => {
+    const stored = localStorage.getItem('theme')
+    const initial = stored === 'light' || stored === 'dark' ? stored : 'dark'
+    setTheme(initial)
   }, [])
 
+  const toggle = useCallback(() => {
+    setTheme((prev) => {
+      const next = prev === 'dark' ? 'light' : 'dark'
+      document.documentElement.setAttribute('data-theme', next)
+      localStorage.setItem('theme', next)
+      return next
+    })
+  }, [])
+
+  if (theme === null) return null
+
   return (
-    <Button onClick={toggle} aria-label="Toggle dark/light mode">
+    <Switch on={theme === 'light'} onToggle={toggle} aria-label="Toggle dark/light mode">
       <span className="select-none">☀</span>
-    </Button>
+    </Switch>
   )
 }
 
@@ -27,12 +38,13 @@ function LocaleToggle() {
   const next = locale === 'pt' ? 'en' : 'pt'
 
   return (
-    <Button
-      onClick={() => router.replace(pathname, { locale: next })}
+    <Switch
+      on={locale === 'en'}
+      onToggle={() => router.replace(pathname, { locale: next })}
       aria-label={`Switch to ${next.toUpperCase()}`}
     >
       {locale.toUpperCase()}
-    </Button>
+    </Switch>
   )
 }
 
