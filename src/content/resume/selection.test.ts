@@ -2,7 +2,9 @@ import { describe, it, expect } from 'vitest'
 import { selectTopBullets, getBulletsForEntry } from './selection'
 import type { TimelineEntry } from './timeline'
 
-const makeEntry = (accomplishments: { tags: string[]; pt: string; en: string }[]): TimelineEntry => ({
+const makeEntry = (
+  accomplishments: { tags: string[]; pt: string; en: string }[]
+): TimelineEntry => ({
   id: 'test',
   year: { pt: '2024', en: '2024' },
   role: { pt: 'Dev', en: 'Dev' },
@@ -39,7 +41,7 @@ describe('selectTopBullets', () => {
       { tags: ['typescript'], pt: 'third', en: 'third' },
     ])
     const result = selectTopBullets(entry, 'senior', 3)
-    expect(result.map(r => r.pt)).toEqual(['first', 'second', 'third'])
+    expect(result.map((r) => r.pt)).toEqual(['first', 'second', 'third'])
   })
 
   it('returns at most n results', () => {
@@ -64,9 +66,7 @@ describe('selectTopBullets', () => {
 
 describe('getBulletsForEntry', () => {
   it('uses selectedSeniorFront when it has exactly 3', () => {
-    const entry = makeEntry([
-      { tags: ['react', 'nextjs'], pt: 'big score', en: 'big score' },
-    ])
+    const entry = makeEntry([{ tags: ['react', 'nextjs'], pt: 'big score', en: 'big score' }])
     const selected = [
       { tags: [], pt: 'selected-1', en: 'selected-1' },
       { tags: [], pt: 'selected-2', en: 'selected-2' },
@@ -88,9 +88,7 @@ describe('getBulletsForEntry', () => {
   })
 
   it('falls back when selectedSeniorFront has fewer than 3', () => {
-    const entry = makeEntry([
-      { tags: ['react'], pt: 'a', en: 'a' },
-    ])
+    const entry = makeEntry([{ tags: ['react'], pt: 'a', en: 'a' }])
     entry.selectedSeniorFront = [entry.accomplishments[0], entry.accomplishments[0]]
     const result = getBulletsForEntry(entry)
     expect(result).toHaveLength(1)

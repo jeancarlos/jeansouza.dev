@@ -20,7 +20,9 @@ describe('centeredPosition', () => {
     vi.stubGlobal('innerWidth', 1200)
     vi.stubGlobal('innerHeight', 800)
   })
-  afterEach(() => { vi.unstubAllGlobals() })
+  afterEach(() => {
+    vi.unstubAllGlobals()
+  })
 
   it('centers a 600x400 window in 1200x800 viewport', () => {
     const pos = centeredPosition(600, 400)
@@ -41,7 +43,9 @@ describe('clampPosition', () => {
     vi.stubGlobal('innerWidth', 1200)
     vi.stubGlobal('innerHeight', 800)
   })
-  afterEach(() => { vi.unstubAllGlobals() })
+  afterEach(() => {
+    vi.unstubAllGlobals()
+  })
 
   it('returns position unchanged when already within bounds', () => {
     const pos = clampPosition({ x: 100, y: 100 }, { width: 400, height: 300 })

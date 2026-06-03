@@ -14,10 +14,7 @@ export default tseslint.config(
   // Type-aware TypeScript strict rules for .ts/.tsx files
   {
     files: ['**/*.{ts,tsx}'],
-    extends: [
-      ...tseslint.configs.strictTypeChecked,
-      ...tseslint.configs.stylisticTypeChecked,
-    ],
+    extends: [...tseslint.configs.strictTypeChecked, ...tseslint.configs.stylisticTypeChecked],
     languageOptions: {
       parserOptions: {
         project: true,
@@ -107,5 +104,5 @@ export default tseslint.config(
   },
 
   // Prettier — must be last to disable all formatting rules
-  prettier,
+  prettier
 )

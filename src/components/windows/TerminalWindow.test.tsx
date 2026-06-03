@@ -1,3 +1,4 @@
+// src/components/windows/TerminalWindow.test.tsx
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { TerminalWindow } from './TerminalWindow'
@@ -8,10 +9,8 @@ vi.mock('framer-motion', () => ({
       children,
       style,
       className,
-      onClick,
-      ...rest
     }: React.HTMLAttributes<HTMLDivElement> & { style?: React.CSSProperties }) => (
-      <div style={style} className={className} onClick={onClick}>
+      <div style={style} className={className}>
         {children}
       </div>
     ),
@@ -78,5 +77,27 @@ describe('TerminalWindow', () => {
     )
     const dots = container.querySelectorAll('[data-traffic-dot]')
     expect(dots.length).toBe(3)
+  })
+
+  it('minimize dot is disabled when minimizable=false', () => {
+    const { container } = render(
+      <TerminalWindow {...baseProps} minimizable={false}>
+        <p>x</p>
+      </TerminalWindow>
+    )
+    const dots = container.querySelectorAll('[data-traffic-dot]')
+    // dots: [close, minimize, expand] — minimize is index 1
+    expect(dots[1]).toHaveAttribute('disabled')
+  })
+
+  it('expand dot is disabled when expandable=false', () => {
+    const { container } = render(
+      <TerminalWindow {...baseProps} expandable={false}>
+        <p>x</p>
+      </TerminalWindow>
+    )
+    const dots = container.querySelectorAll('[data-traffic-dot]')
+    // dots: [close, minimize, expand] — expand is index 2
+    expect(dots[2]).toHaveAttribute('disabled')
   })
 })

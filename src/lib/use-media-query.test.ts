@@ -12,7 +12,7 @@ function mockMatchMedia(matches: boolean) {
     removeEventListener: vi.fn(),
     dispatchEvent: vi.fn(),
     _fire: (newMatches: boolean) => {
-      listeners.forEach(fn => fn({ matches: newMatches } as MediaQueryListEvent))
+      listeners.forEach((fn) => fn({ matches: newMatches } as MediaQueryListEvent))
     },
   }
   Object.defineProperty(window, 'matchMedia', {

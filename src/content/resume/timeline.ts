@@ -51,7 +51,15 @@ const zydon: TimelineEntry = {
       en: 'Infrastructure and CI/CD pipelines deployed and maintained on AWS.',
     },
     {
-      tags: ['redux', 'hooks', 'nextjs', 'core-web-vitals', 'performance', 'state-management', 'figma'],
+      tags: [
+        'redux',
+        'hooks',
+        'nextjs',
+        'core-web-vitals',
+        'performance',
+        'state-management',
+        'figma',
+      ],
       pt: 'Refatoração crítica da arquitetura de estados utilizando Redux e hooks customizados em Next.js a partir de especificações no Figma, reduzindo o consumo de memória client-side e otimizando os índices de Core Web Vitals do portal principal.',
       en: "Executed critical state management refactoring using Redux and Next.js custom hooks from Figma specs, lowering client-side memory footprint and optimizing the portal's Core Web Vitals indices.",
     },
@@ -198,7 +206,7 @@ const luizalabs: TimelineEntry = {
     {
       tags: ['figma', 'design-system'],
       pt: 'Liderança na automação do pipeline de release utilizando Git Flow e Conventional Commits, integrando fluxos de design system mapeados no Figma e permitindo deploys frequentes e seguros em produção (Continuous Delivery).',
-      en: "Spearheaded release pipeline automation using Git Flow and Conventional Commits, integrating design system flows mapped in Figma, unlocking frequent and safe production deployments (Continuous Delivery).",
+      en: 'Spearheaded release pipeline automation using Git Flow and Conventional Commits, integrating design system flows mapped in Figma, unlocking frequent and safe production deployments (Continuous Delivery).',
     },
     {
       tags: ['react-query', 'state-management'],
@@ -238,7 +246,7 @@ const vitta: TimelineEntry = {
     {
       tags: [],
       pt: 'Microserviço Node + Express + Puppeteer que centraliza a geração de documentos imprimíveis de toda a plataforma, usado em 100% dos fluxos clínicos por médicos e pacientes.',
-      en: "Node + Express + Puppeteer microservice built to centralize printable document generation across the platform — used in 100% of clinical workflows by doctors and patients.",
+      en: 'Node + Express + Puppeteer microservice built to centralize printable document generation across the platform — used in 100% of clinical workflows by doctors and patients.',
     },
     {
       tags: ['typescript'],
@@ -258,7 +266,7 @@ const vitta: TimelineEntry = {
     {
       tags: ['storybook', 'design-system'],
       pt: 'Vi-Ui documentado com Storybook — catálogo interativo de componentes que serviu como referência do time de design e facilitou a contribuição open source.',
-      en: 'Vi-Ui documented with Storybook — interactive component catalog used as the design team\'s reference and a key resource for open source contributions.',
+      en: "Vi-Ui documented with Storybook — interactive component catalog used as the design team's reference and a key resource for open source contributions.",
     },
   ],
 }
@@ -313,11 +321,4 @@ luxcontrol.selectedSeniorFront = [
   luxcontrol.accomplishments[0],
 ]
 
-export const timeline: TimelineEntry[] = [
-  zydon,
-  mutant,
-  runrunit,
-  luizalabs,
-  vitta,
-  luxcontrol,
-]
+export const timeline: TimelineEntry[] = [zydon, mutant, runrunit, luizalabs, vitta, luxcontrol]

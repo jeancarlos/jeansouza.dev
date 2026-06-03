@@ -96,7 +96,11 @@ describe('WindowManager', () => {
     let ctx!: ReturnType<typeof useWindowManager>
     render(
       <WindowManagerProvider>
-        <Probe onCapture={(c) => { ctx = c }} />
+        <Probe
+          onCapture={(c) => {
+            ctx = c
+          }}
+        />
       </WindowManagerProvider>
     )
 
@@ -112,7 +116,11 @@ describe('WindowManager', () => {
     let ctx!: ReturnType<typeof useWindowManager>
     render(
       <WindowManagerProvider>
-        <Probe onCapture={(c) => { ctx = c }} />
+        <Probe
+          onCapture={(c) => {
+            ctx = c
+          }}
+        />
       </WindowManagerProvider>
     )
 
@@ -127,7 +135,11 @@ describe('WindowManager', () => {
     let ctx!: ReturnType<typeof useWindowManager>
     render(
       <WindowManagerProvider>
-        <Probe onCapture={(c) => { ctx = c }} />
+        <Probe
+          onCapture={(c) => {
+            ctx = c
+          }}
+        />
       </WindowManagerProvider>
     )
     act(() => ctx.openWindow(baseConfig))
