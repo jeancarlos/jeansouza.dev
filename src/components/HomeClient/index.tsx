@@ -129,9 +129,11 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
     return () => window.removeEventListener('keydown', onKey)
   }, [windows, closeWindow])
 
+  const topZ = windows.length > 0 ? windows.reduce((a, b) => (a.zIndex > b.zIndex ? a : b)).zIndex : 0
+
   return (
     <>
-      <Hero locale={locale} onOpenBlog={openBlogList} />
+      <Hero locale={locale} onOpenBlog={openBlogList} isFocused={windows.length === 0} />
       {windows.map((win) => (
         <TerminalWindow
           key={win.id}
@@ -143,6 +145,7 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
           isExpanded={win.isExpanded}
           isMinimized={win.isMinimized}
           zIndex={win.zIndex}
+          isFocused={win.zIndex === topZ}
         >
           {win.content}
         </TerminalWindow>

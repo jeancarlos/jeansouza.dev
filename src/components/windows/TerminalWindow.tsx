@@ -14,6 +14,7 @@ interface Props {
   isMinimized: boolean
   zIndex: number
   closeable?: boolean
+  isFocused?: boolean
 }
 
 function TrafficDot({
@@ -56,6 +57,7 @@ export function TerminalWindow({
   isMinimized,
   zIndex,
   closeable = true,
+  isFocused = true,
 }: Props) {
   const { closeWindow, focusWindow, expandWindow, minimizeWindow } = useWindowManager()
 
@@ -80,12 +82,18 @@ export function TerminalWindow({
       drag
       dragMomentum={false}
       dragConstraints={{ top: 0 }}
-      animate={activeStyle}
-      style={{ ...activeStyle, zIndex, position: 'fixed' as const }}
-      onClick={() => {
-        focusWindow(id)
-        history.pushState(null, '', url)
+      animate={{
+        ...activeStyle,
+        filter: isFocused ? 'blur(0px)' : 'blur(2px)',
+        opacity: isFocused ? 1 : 0.6,
       }}
+      transition={{
+        filter: { type: 'tween', duration: 0.25, ease: 'easeOut' },
+        opacity: { type: 'tween', duration: 0.25, ease: 'easeOut' },
+      }}
+      style={{ ...activeStyle, zIndex, position: 'fixed' as const }}
+      onPointerDown={() => focusWindow(id)}
+      onClick={() => history.pushState(null, '', url)}
       className="rounded-2xl bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-2xl"
       role="dialog"
       aria-label={title}

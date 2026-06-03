@@ -21,11 +21,12 @@ const ResumeWindowDynamic = dynamic(
 interface Props {
   locale: 'pt' | 'en'
   onOpenBlog: () => void
+  isFocused?: boolean
 }
 
 const SAFE = 20
 
-export function Hero({ locale, onOpenBlog }: Props) {
+export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
   const t = useTranslations('hero')
   const tResume = useTranslations('resume')
   const { focusWindow } = useWindowManager()
@@ -46,6 +47,7 @@ export function Hero({ locale, onOpenBlog }: Props) {
       isMinimized={false}
       zIndex={10}
       closeable={false}
+      isFocused={isFocused}
     >
       <div className="space-y-3 p-6 text-[#f2b8d4]">
         <p className="text-xs text-[#b33a73]">~ jeansouza.dev</p>
