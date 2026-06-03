@@ -9,6 +9,7 @@
     "cta": "explorar"
   },
   "resume": {
+    "title": "Currículo",
     "command": "$ cat ~/resume",
     "experience": "Experiência",
     "education": "Formação",

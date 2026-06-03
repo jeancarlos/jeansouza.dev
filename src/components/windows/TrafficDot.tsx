@@ -8,13 +8,7 @@ interface TrafficDotProps {
   disabled?: boolean
 }
 
-export function TrafficDot({
-  label,
-  symbol,
-  color,
-  onClick,
-  disabled = false,
-}: TrafficDotProps) {
+export function TrafficDot({ label, symbol, color, onClick, disabled = false }: TrafficDotProps) {
   return (
     <button
       data-traffic-dot
@@ -24,12 +18,12 @@ export function TrafficDot({
         e.stopPropagation()
         onClick()
       }}
-      className={`group relative inline-flex h-3 w-3 items-center justify-center rounded-full transition-transform active:scale-95 ${
-        disabled ? 'pointer-events-none opacity-30' : ''
+      className={`group relative inline-flex h-3 w-3 items-center justify-center rounded-full ring-1 ring-black/25 transition-transform active:scale-95 ${
+        disabled ? 'pointer-events-none opacity-50' : ''
       }`}
       style={{ backgroundColor: color }}
     >
-      <span className="pointer-events-none select-none font-mono text-[8px] leading-none text-white opacity-0 transition-opacity duration-150 group-hover:opacity-100">
+      <span className="pointer-events-none font-mono text-[8px] leading-none text-white opacity-0 transition-opacity duration-150 select-none group-hover:opacity-100">
         {symbol}
       </span>
     </button>
