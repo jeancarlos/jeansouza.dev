@@ -24,9 +24,7 @@ interface Props {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="mb-12">
-      <h2 className="mb-6 font-mono text-xs uppercase tracking-widest text-latte-blue">
-        {title}
-      </h2>
+      <h2 className="text-latte-blue mb-6 font-mono text-xs tracking-widest uppercase">{title}</h2>
       {children}
     </section>
   )
@@ -39,22 +37,18 @@ export function Resume({ entries, profile, education, assets, locale }: Props) {
   return (
     <div className="min-h-full px-6 py-24">
       <div className="mx-auto max-w-5xl">
-        <p className="mb-8 font-mono text-sm text-latte-subtext">$ {t('command')}</p>
+        <p className="text-latte-subtext mb-8 font-mono text-sm">$ {t('command')}</p>
         <Header profile={profile} locale={locale} />
         <Summary profile={profile} locale={locale} />
         <Section title={t('experience')}>
-          <ul className="relative grid grid-cols-[1fr_auto_1fr] gap-x-8
-                         max-md:grid-cols-[auto_1fr] max-md:gap-x-4">
+          <ul className="relative grid grid-cols-[1fr_auto_1fr] gap-x-8 max-md:grid-cols-[auto_1fr] max-md:gap-x-4">
             <TimelineRail />
-            {entries.map((entry, i) => (
-              <TimelineItem
-                key={entry.id}
-                entry={entry}
-                locale={locale}
-                side={isWide ? (i % 2 === 0 ? 'left' : 'right') : 'right'}
-                index={i}
-              />
-            ))}
+            {entries.map((entry, i) => {
+              const side = isWide && i % 2 === 0 ? 'left' : 'right'
+              return (
+                <TimelineItem key={entry.id} entry={entry} locale={locale} side={side} index={i} />
+              )
+            })}
           </ul>
         </Section>
         <Section title={t('education')}>

@@ -11,7 +11,7 @@ export function MoreLinksWindow() {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
 
   const handleCopyContent = (content: string, index: number) => {
-    navigator.clipboard.writeText(content)
+    void navigator.clipboard.writeText(content)
     setCopiedIndex(index)
     setTimeout(() => setCopiedIndex(null), 2000)
   }

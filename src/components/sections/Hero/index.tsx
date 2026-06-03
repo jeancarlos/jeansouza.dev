@@ -11,12 +11,12 @@ import type { ButtonOrigin } from '@/components/windows/WindowManager'
 import { centeredPosition } from '@/lib/windowUtils'
 
 const MoreLinksWindowDynamic = dynamic(
-  () => import('@/components/windows/MoreLinksWindow').then((m) => m.MoreLinksWindow),
+  async () => import('@/components/windows/MoreLinksWindow').then((m) => m.MoreLinksWindow),
   { ssr: false }
 )
 
 const ResumeWindowDynamic = dynamic(
-  () => import('@/components/windows/ResumeWindow').then((m) => m.ResumeWindow),
+  async () => import('@/components/windows/ResumeWindow').then((m) => m.ResumeWindow),
   { ssr: false }
 )
 
@@ -52,7 +52,7 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
       <div className="space-y-3 p-6 text-[#f2b8d4]">
         <p className="text-xs text-[#b33a73]">~ jeansouza.dev</p>
         <p className="flex items-center gap-2">
-          <span className="select-none text-[#e84545]">{'>'}</span>
+          <span className="text-[#e84545] select-none">{'>'}</span>
           <Typewriter
             text={t('prompt')}
             className="font-display text-2xl font-bold text-[#f2b8d4]"

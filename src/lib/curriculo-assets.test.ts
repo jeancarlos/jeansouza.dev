@@ -7,31 +7,45 @@ vi.mock('node:fs', () => ({
   existsSync: mockExistsSync,
 }))
 
-const { getCurriculoAssets } = await import('./curriculo-assets')
+const { getCurriculoAssets, getCurriculoAssetsServer } = await import('./curriculo-assets')
 
 describe('getCurriculoAssets', () => {
-  beforeEach(() => mockExistsSync.mockReset())
-
-  it('returns 4 assets when all files exist', () => {
-    mockExistsSync.mockReturnValue(true)
+  it('returns all 4 candidates with correct urls', () => {
     const assets = getCurriculoAssets()
     expect(assets).toHaveLength(4)
-    expect(assets.map(a => a.format)).toEqual(['pdf', 'docx', 'pdf', 'docx'])
-    expect(assets.map(a => a.locale)).toEqual(['pt', 'pt', 'en', 'en'])
+    expect(assets.map((a) => a.format)).toEqual(['pdf', 'docx', 'pdf', 'docx'])
+    expect(assets.map((a) => a.locale)).toEqual(['pt', 'pt', 'en', 'en'])
   })
 
-  it('returns empty array when no files exist', () => {
+  it('builds correct url from filename', () => {
+    const [asset] = getCurriculoAssets()
+    expect(asset.url).toBe('/curriculo/jean-souza-curriculo-pt.pdf')
+  })
+})
+
+describe('getCurriculoAssetsServer', () => {
+  beforeEach(() => mockExistsSync.mockReset())
+
+  it('returns 4 assets when all files exist', async () => {
+    mockExistsSync.mockReturnValue(true)
+    const assets = await getCurriculoAssetsServer()
+    expect(assets).toHaveLength(4)
+    expect(assets.map((a) => a.format)).toEqual(['pdf', 'docx', 'pdf', 'docx'])
+    expect(assets.map((a) => a.locale)).toEqual(['pt', 'pt', 'en', 'en'])
+  })
+
+  it('returns empty array when no files exist', async () => {
     mockExistsSync.mockReturnValue(false)
-    expect(getCurriculoAssets()).toHaveLength(0)
+    expect(await getCurriculoAssetsServer()).toHaveLength(0)
   })
 
-  it('returns only existing files (partial)', () => {
+  it('returns only existing files (partial)', async () => {
     mockExistsSync
       .mockReturnValueOnce(true)
       .mockReturnValueOnce(false)
       .mockReturnValueOnce(true)
       .mockReturnValueOnce(false)
-    const assets = getCurriculoAssets()
+    const assets = await getCurriculoAssetsServer()
     expect(assets).toHaveLength(2)
     expect(assets[0].locale).toBe('pt')
     expect(assets[1].locale).toBe('en')
@@ -39,9 +53,9 @@ describe('getCurriculoAssets', () => {
     expect(assets[1].format).toBe('pdf')
   })
 
-  it('builds correct url from filename', () => {
+  it('builds correct url from filename', async () => {
     mockExistsSync.mockReturnValueOnce(true).mockReturnValue(false)
-    const [asset] = getCurriculoAssets()
+    const [asset] = await getCurriculoAssetsServer()
     expect(asset.url).toBe('/curriculo/jean-souza-curriculo-pt.pdf')
   })
 })

@@ -1,10 +1,8 @@
 export const WINDOW_SAFE = 20
 
 export function getViewport(): { vw: number; vh: number } {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return {
     vw: typeof window !== 'undefined' ? window.innerWidth : 1200,
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     vh: typeof window !== 'undefined' ? window.innerHeight : 800,
   }
 }

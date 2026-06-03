@@ -20,24 +20,27 @@ type Locale = 'pt' | 'en'
 
 const postsDirectory = path.join(process.cwd(), 'src/content/posts')
 
+const LOCALE_FILE_RE = /^(.+)\.(pt|en)\.md$/
+
 function parseLocaleFromFilename(fileName: string): { slug: string; locale: Locale } | null {
-  const match = fileName.match(/^(.+)\.(pt|en)\.md$/)
+  const match = LOCALE_FILE_RE.exec(fileName)
   if (!match) return null
   return { slug: match[1], locale: match[2] as Locale }
 }
 
 function readPostMeta(fileName: string): PostMeta & { locale: Locale } {
-  const parsed = parseLocaleFromFilename(fileName)!
+  const parsed = parseLocaleFromFilename(fileName)
+  if (!parsed) throw new Error(`Invalid post filename: ${fileName}`)
   const fullPath = path.join(postsDirectory, fileName)
-  const { data } = matter(fs.readFileSync(fullPath, 'utf8'))
+  const { data } = matter(fs.readFileSync(fullPath, 'utf8')) as { data: Record<string, unknown> }
   const rawDate = data.date
   const date = rawDate instanceof Date ? rawDate.toISOString().slice(0, 10) : String(rawDate)
   return {
     slug: parsed.slug,
     locale: parsed.locale,
-    title: String(data.title ?? ''),
+    title: typeof data.title === 'string' ? data.title : '',
     date,
-    description: String(data.description ?? ''),
+    description: typeof data.description === 'string' ? data.description : '',
   }
 }
 
@@ -49,7 +52,7 @@ export function getAllPosts(locale: Locale = 'pt'): PostMeta[] {
     const parsed = parseLocaleFromFilename(fileName)
     if (!parsed) continue
     if (!bySlug.has(parsed.slug)) bySlug.set(parsed.slug, new Map())
-    bySlug.get(parsed.slug)!.set(parsed.locale, fileName)
+    bySlug.get(parsed.slug)?.set(parsed.locale, fileName)
   }
 
   const fallback: Locale = locale === 'pt' ? 'en' : 'pt'
@@ -79,16 +82,20 @@ export async function getPost(slug: string, locale: Locale = 'pt'): Promise<Post
   const preferred = path.join(postsDirectory, `${slug}.${locale}.md`)
   const fallbackPath = path.join(postsDirectory, `${slug}.${fallback}.md`)
 
-  const filePath = fs.existsSync(preferred)
-    ? preferred
-    : fs.existsSync(fallbackPath)
-      ? fallbackPath
-      : null
+  let filePath: string | null = null
+  if (fs.existsSync(preferred)) {
+    filePath = preferred
+  } else if (fs.existsSync(fallbackPath)) {
+    filePath = fallbackPath
+  }
 
   if (!filePath) return null
 
   const fileContents = fs.readFileSync(filePath, 'utf8')
-  const { data, content } = matter(fileContents)
+  const { data, content } = matter(fileContents) as {
+    data: Record<string, unknown>
+    content: string
+  }
   const processedContent = await remark().use(html).process(content)
   const rawDate = data.date
   const date = rawDate instanceof Date ? rawDate.toISOString().slice(0, 10) : String(rawDate)
@@ -97,15 +104,15 @@ export async function getPost(slug: string, locale: Locale = 'pt'): Promise<Post
   return {
     slug,
     locale: usedLocale,
-    title: String(data.title ?? ''),
+    title: typeof data.title === 'string' ? data.title : '',
     date,
-    description: String(data.description ?? ''),
+    description: typeof data.description === 'string' ? data.description : '',
     contentHtml: processedContent.toString(),
   }
 }
 
 export async function getAllPostsWithContent(locale: Locale = 'pt'): Promise<Post[]> {
   const slugs = getAllSlugs()
-  const posts = await Promise.all(slugs.map((slug) => getPost(slug, locale)))
+  const posts = await Promise.all(slugs.map(async (slug) => getPost(slug, locale)))
   return (posts.filter(Boolean) as Post[]).sort((a, b) => (a.date > b.date ? -1 : 1))
 }

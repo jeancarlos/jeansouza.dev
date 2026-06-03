@@ -5,7 +5,7 @@ import { routing } from '@/i18n/routing'
 import { LocaleSwitch } from '@/components/ui/LocaleSwitch'
 import { LocalePersist } from '@/components/i18n/LocalePersist'
 
-type Props = {
+interface Props {
   children: React.ReactNode
   params: Promise<{ locale: string }>
 }

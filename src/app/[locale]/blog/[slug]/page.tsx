@@ -6,7 +6,9 @@ import { setRequestLocale } from 'next-intl/server'
 import { HomeClient } from '@/components/HomeClient'
 import { WindowManagerProvider } from '@/components/windows/WindowManager'
 
-type Props = { params: Promise<{ locale: string; slug: string }> }
+interface Props {
+  params: Promise<{ locale: string; slug: string }>
+}
 
 export async function generateStaticParams() {
   const slugs = getAllSlugs()

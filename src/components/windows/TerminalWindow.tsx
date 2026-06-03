@@ -22,6 +22,7 @@ interface Props {
   origin?: ButtonOrigin
 }
 
+// eslint-disable-next-line complexity
 export function TerminalWindow({
   id,
   title,
@@ -37,8 +38,7 @@ export function TerminalWindow({
   isFocused = true,
   origin,
 }: Props) {
-  const { closeWindow, focusWindow, expandWindow, minimizeWindow, moveWindow } =
-    useWindowManager()
+  const { closeWindow, focusWindow, expandWindow, minimizeWindow, moveWindow } = useWindowManager()
   const [isResizing, setIsResizing] = useState(false)
   const dragControls = useDragControls()
 
@@ -94,7 +94,9 @@ export function TerminalWindow({
             }
       }
       style={{ ...activeStyle, zIndex, position: 'fixed' as const }}
-      onPointerDown={() => { focusWindow(id) }}
+      onPointerDown={() => {
+        focusWindow(id)
+      }}
       className="rounded-2xl bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-2xl"
       role="dialog"
       aria-label={title}
@@ -102,28 +104,36 @@ export function TerminalWindow({
       <div className="flex h-full w-full flex-col overflow-hidden rounded-[14px]">
         {/* Header / drag handle */}
         <div
-          onPointerDown={(e) => { dragControls.start(e) }}
+          onPointerDown={(e) => {
+            dragControls.start(e)
+          }}
           className="flex shrink-0 cursor-grab items-center gap-2 bg-gradient-to-r from-[#e84545] to-[#b33a73] px-3 py-2 select-none active:cursor-grabbing"
         >
           <TrafficDot
             label="Close"
             symbol="×"
             color="#ef4444"
-            onClick={() => { closeWindow(id) }}
+            onClick={() => {
+              closeWindow(id)
+            }}
             disabled={!closeable}
           />
           <TrafficDot
             label="Minimize"
             symbol="−"
             color="#eab308"
-            onClick={() => { minimizeWindow(id) }}
+            onClick={() => {
+              minimizeWindow(id)
+            }}
             disabled={!minimizable}
           />
           <TrafficDot
             label="Expand"
             symbol="+"
             color="#22c55e"
-            onClick={() => { expandWindow(id) }}
+            onClick={() => {
+              expandWindow(id)
+            }}
             disabled={!expandable}
           />
           <span className="ml-2 font-mono text-xs text-white/80">{title}</span>
@@ -141,8 +151,12 @@ export function TerminalWindow({
                   windowId={id}
                   size={size}
                   position={position}
-                  onResizeStart={() => { setIsResizing(true) }}
-                  onResizeEnd={() => { setIsResizing(false) }}
+                  onResizeStart={() => {
+                    setIsResizing(true)
+                  }}
+                  onResizeEnd={() => {
+                    setIsResizing(false)
+                  }}
                 />
               ))}
           </div>

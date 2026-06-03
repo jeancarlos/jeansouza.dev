@@ -3,7 +3,9 @@ import { HomeClient } from '@/components/HomeClient'
 import { WindowManagerProvider } from '@/components/windows/WindowManager'
 import { setRequestLocale } from 'next-intl/server'
 
-type Props = { params: Promise<{ locale: string }> }
+interface Props {
+  params: Promise<{ locale: string }>
+}
 
 export function generateStaticParams() {
   return [{ locale: 'pt' }, { locale: 'en' }]

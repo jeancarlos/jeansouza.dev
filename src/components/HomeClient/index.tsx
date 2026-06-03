@@ -10,12 +10,12 @@ import { useWindowManager } from '@/components/windows/WindowManager'
 import { centeredPosition } from '@/lib/windowUtils'
 
 const BlogListWindowDynamic = dynamic(
-  () => import('@/components/windows/BlogListWindow').then((m) => m.BlogListWindow),
+  async () => import('@/components/windows/BlogListWindow').then((m) => m.BlogListWindow),
   { ssr: false }
 )
 
 const BlogPostWindowDynamic = dynamic(
-  () => import('@/components/windows/BlogPostWindow').then((m) => m.BlogPostWindow),
+  async () => import('@/components/windows/BlogPostWindow').then((m) => m.BlogPostWindow),
   { ssr: false }
 )
 

@@ -5,7 +5,6 @@ import {
   projectStar,
   advanceStar,
   resetStar,
-  maybeGlitch,
   TOTAL_DOTS,
   SPEED,
   type Star,

@@ -33,7 +33,12 @@ type Action =
   | { type: 'EXPAND'; id: string }
   | { type: 'MINIMIZE'; id: string }
   | { type: 'MOVE'; id: string; position: { x: number; y: number } }
-  | { type: 'RESIZE'; id: string; size: { width: number; height: number }; position: { x: number; y: number } }
+  | {
+      type: 'RESIZE'
+      id: string
+      size: { width: number; height: number }
+      position: { x: number; y: number }
+    }
 
 const BASE_Z = 20
 
@@ -66,9 +71,7 @@ function reducer(state: WindowState[], action: Action): WindowState[] {
       return state.map((w) => (w.id === action.id ? { ...w, position: action.position } : w))
     case 'RESIZE':
       return state.map((w) =>
-        w.id === action.id
-          ? { ...w, size: action.size, position: action.position }
-          : w
+        w.id === action.id ? { ...w, size: action.size, position: action.position } : w
       )
     default:
       return state
@@ -83,7 +86,11 @@ interface ContextValue {
   expandWindow: (id: string) => void
   minimizeWindow: (id: string) => void
   moveWindow: (id: string, position: { x: number; y: number }) => void
-  resizeWindow: (id: string, size: { width: number; height: number }, position: { x: number; y: number }) => void
+  resizeWindow: (
+    id: string,
+    size: { width: number; height: number },
+    position: { x: number; y: number }
+  ) => void
 }
 
 const WindowManagerContext = createContext<ContextValue | null>(null)
@@ -91,7 +98,8 @@ const WindowManagerContext = createContext<ContextValue | null>(null)
 export function WindowManagerProvider({ children }: { children: ReactNode }) {
   const [windows, dispatch] = useReducer(reducer, [])
   // Always-fresh ref — set synchronously in render so callbacks never see stale state
-  const windowsRef = useRef<WindowState[]>(windows)
+  const windowsRef = useRef(windows)
+  // eslint-disable-next-line react-hooks/refs
   windowsRef.current = windows
 
   const openWindow = useCallback((config: WindowConfig) => {
@@ -152,7 +160,12 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
         width: Math.max(MIN_W, Math.min(size.width, vw - WINDOW_SAFE * 2)),
         height: Math.max(MIN_H, Math.min(size.height, vh - WINDOW_SAFE * 2)),
       }
-      dispatch({ type: 'RESIZE', id, size: clampedSize, position: clampPosition(position, clampedSize) })
+      dispatch({
+        type: 'RESIZE',
+        id,
+        size: clampedSize,
+        position: clampPosition(position, clampedSize),
+      })
     },
     []
   )

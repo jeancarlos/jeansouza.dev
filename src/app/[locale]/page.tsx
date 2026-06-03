@@ -5,7 +5,9 @@ import { routing } from '@/i18n/routing'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import type { Metadata } from 'next'
 
-type Props = { params: Promise<{ locale: string }> }
+interface Props {
+  params: Promise<{ locale: string }>
+}
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))

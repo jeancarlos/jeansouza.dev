@@ -1,17 +1,15 @@
 'use client'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useLocale } from 'next-intl'
 import { useRouter, usePathname } from '@/i18n/navigation'
 import { Switch } from '@/components/ui/Switch'
 
 function ThemeToggle() {
-  const [theme, setTheme] = useState<'dark' | 'light' | null>(null)
-
-  useEffect(() => {
+  const [theme, setTheme] = useState<'dark' | 'light' | null>(() => {
+    if (typeof window === 'undefined') return null
     const stored = localStorage.getItem('theme')
-    const initial = stored === 'light' || stored === 'dark' ? stored : 'dark'
-    setTheme(initial)
-  }, [])
+    return stored === 'light' || stored === 'dark' ? stored : 'dark'
+  })
 
   const toggle = useCallback(() => {
     setTheme((prev) => {
