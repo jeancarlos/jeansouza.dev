@@ -1,4 +1,5 @@
 'use client'
+import { useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { motion, steps } from 'framer-motion'
 import dynamic from 'next/dynamic'
@@ -7,6 +8,7 @@ import { WindowButton } from '@/components/windows/WindowButton'
 import { Typewriter } from '@/components/ui/Typewriter'
 import { Button } from '@/components/ui/Button'
 import type { ButtonOrigin } from '@/components/windows/WindowManager'
+import { centeredPosition } from '@/lib/windowUtils'
 
 const MoreLinksWindowDynamic = dynamic(
   () => import('@/components/windows/MoreLinksWindow').then((m) => m.MoreLinksWindow),
@@ -24,28 +26,27 @@ interface Props {
   isFocused?: boolean
 }
 
-const SAFE = 20
+const HOME_W = 560
+const HOME_H = 320
 
 export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
   const t = useTranslations('hero')
   const tResume = useTranslations('resume')
-
-  const homeW = 560
-  const homeH = 320
-  const homeX = typeof window !== 'undefined' ? Math.max(SAFE, (window.innerWidth - homeW) / 2) : 100
-  const homeY = typeof window !== 'undefined' ? Math.max(SAFE + 40, (window.innerHeight - homeH) / 2) : 100
+  const homePos = useMemo(() => centeredPosition(HOME_W, HOME_H), [])
 
   return (
     <TerminalWindow
       id="home"
       url={`/${locale}/`}
       title="~ jeansouza.dev"
-      position={{ x: homeX, y: homeY }}
-      size={{ width: homeW, height: homeH }}
+      position={homePos}
+      size={{ width: HOME_W, height: HOME_H }}
       isExpanded={false}
       isMinimized={false}
       zIndex={10}
       closeable={false}
+      minimizable={false}
+      expandable={false}
       isFocused={isFocused}
     >
       <div className="space-y-3 p-6 text-[#f2b8d4]">
@@ -84,7 +85,6 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
           >
             <i className="fas fa-file-alt mr-1" aria-hidden="true" /> {tResume('title')}
           </WindowButton>
-
           <Button
             onClick={(e) => {
               const rect = e.currentTarget.getBoundingClientRect()
@@ -93,7 +93,6 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
           >
             <i className="fas fa-book mr-1" aria-hidden="true" /> Blog
           </Button>
-
           <WindowButton
             windowId="more-links"
             windowUrl={`/${locale}/#more`}
