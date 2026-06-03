@@ -64,19 +64,19 @@ export function TerminalWindow({
   }
 
   const mobileStyle = {
-    width: 'calc(100vw - 16px)' as string | number,
-    height: 'calc(100dvh - 16px)' as string | number,
-    x: 8,
-    y: 8,
+    width: '100vw' as string | number,
+    height: '100dvh' as string | number,
+    x: 0,
+    y: 0,
   }
 
-  const activeStyle = isMobile && !isHome
-    ? mobileStyle
-    : isExpanded
-      ? expandedStyle
-      : normalStyle
+  let activeStyle = normalStyle
+  if (isMobile && !isHome) activeStyle = mobileStyle
+  else if (isExpanded) activeStyle = expandedStyle
 
-  const innerRounded = isMobile && isHome ? '' : isMobile ? 'rounded-[42px]' : 'rounded-[14px]'
+  let innerRounded = 'rounded-[14px]'
+  if (isMobile && isHome) innerRounded = ''
+  else if (isMobile) innerRounded = 'rounded-[42px]'
 
   return (
     <motion.div
@@ -89,7 +89,10 @@ export function TerminalWindow({
         const w = typeof size.width === 'number' ? size.width : 600
         const h = typeof size.height === 'number' ? size.height : 400
         const raw = { x: position.x + info.offset.x, y: position.y + info.offset.y }
-        moveWindow(id, clampPosition({ x: raw.x, y: Math.max(TOPBAR_HEIGHT, raw.y) }, { width: w, height: h }))
+        moveWindow(
+          id,
+          clampPosition({ x: raw.x, y: Math.max(TOPBAR_HEIGHT, raw.y) }, { width: w, height: h })
+        )
       }}
       initial={
         origin
@@ -120,7 +123,11 @@ export function TerminalWindow({
       onPointerDown={() => {
         focusWindow(id)
       }}
-      className={isMobile && isHome ? '' : `${isMobile ? '' : 'rounded-2xl'} bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-2xl`}
+      className={
+        isMobile && isHome
+          ? ''
+          : `${isMobile ? '' : 'rounded-2xl'} bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-2xl`
+      }
       role="dialog"
       aria-modal="true"
       aria-label={title}

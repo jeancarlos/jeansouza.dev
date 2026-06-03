@@ -11,6 +11,8 @@ export function ThemeToggle({ size }: { size?: 'default' | 'sm' }) {
 
   useEffect(() => {
     const stored = localStorage.getItem('theme')
+    // Reading localStorage on mount to hydrate theme state — intentional setState in effect
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (stored === 'light' || stored === 'dark') setTheme(stored)
     setMounted(true)
   }, [])
@@ -27,7 +29,12 @@ export function ThemeToggle({ size }: { size?: 'default' | 'sm' }) {
   if (!mounted) return null
 
   return (
-    <Switch on={theme === 'light'} onToggle={toggle} aria-label="Toggle dark/light mode" size={size}>
+    <Switch
+      on={theme === 'light'}
+      onToggle={toggle}
+      aria-label="Toggle dark/light mode"
+      size={size}
+    >
       <span className="select-none">☀</span>
     </Switch>
   )
@@ -56,8 +63,10 @@ export function Topbar() {
 
   if (isMobile) return null
 
+  // z-[19] — below all windows (BASE_Z=20), but visible in the 75px reserved zone
+  // where dragConstraints prevent windows from entering
   return (
-    <div className="pointer-events-none fixed inset-x-0 top-0 z-[9999] flex h-[75px] items-center justify-between px-4">
+    <div className="pointer-events-none fixed inset-x-0 top-0 z-[19] flex h-[75px] items-center justify-between px-4">
       <div className="pointer-events-auto">
         <LocaleToggle size="sm" />
       </div>
