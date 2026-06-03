@@ -76,8 +76,7 @@ export function TerminalWindow({
       ? expandedStyle
       : normalStyle
 
-  const outerRounded = isMobile && !isHome ? 'rounded-[44px]' : isMobile && isHome ? '' : 'rounded-2xl'
-  const innerRounded = isMobile && !isHome ? 'rounded-[42px]' : isMobile && isHome ? '' : 'rounded-[14px]'
+  const innerRounded = isMobile && isHome ? '' : isMobile ? 'rounded-[42px]' : 'rounded-[14px]'
 
   return (
     <motion.div
@@ -121,7 +120,7 @@ export function TerminalWindow({
       onPointerDown={() => {
         focusWindow(id)
       }}
-      className={isMobile ? outerRounded : `${outerRounded} bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-2xl`}
+      className={isMobile && isHome ? '' : `${isMobile ? 'rounded-[44px]' : 'rounded-2xl'} bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-2xl`}
       role="dialog"
       aria-modal="true"
       aria-label={title}
@@ -179,7 +178,7 @@ export function TerminalWindow({
         {!isMinimized && (
           <div
             className={`flex-1 overflow-y-auto ${innerRounded} font-mono text-[#f2b8d4] ${
-              isMobile ? 'bg-transparent' : 'bg-[#11111b]'
+              isMobile && isHome ? 'bg-transparent' : 'bg-[#11111b]'
             }`}
           >
             {children}
