@@ -35,12 +35,14 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
   const tResume = useTranslations('resume')
   const isMobile = useIsMobile()
   const [homePos, setHomePos] = useState<{ x: number; y: number } | null>(null)
+  const [homeW, setHomeW] = useState(HOME_W)
   const [resumeSize, setResumeSize] = useState<{ width: number; height: number } | null>(null)
 
   useEffect(() => {
     const topOffset = isMobile ? 0 : TOPBAR_HEIGHT
-    const mobileW = Math.min(getViewport().vw - 32, HOME_W)
-    setHomePos(centeredPosition(isMobile ? mobileW : HOME_W, HOME_H, topOffset))
+    const w = isMobile ? Math.min(getViewport().vw - 32, HOME_W) : HOME_W
+    setHomeW(w)
+    setHomePos(centeredPosition(w, HOME_H, topOffset))
     const { vw, vh } = getViewport()
     setResumeSize({ width: Math.min(1024, vw - WINDOW_SAFE * 2), height: vh - WINDOW_SAFE * 2 })
   }, [isMobile])
@@ -54,7 +56,7 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
       url={`/${locale}/`}
       title="~ jeansouza.dev"
       position={homePos}
-      size={{ width: HOME_W, height: HOME_H }}
+      size={{ width: homeW, height: HOME_H }}
       isExpanded={false}
       isMinimized={false}
       zIndex={10}
