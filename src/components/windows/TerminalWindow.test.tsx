@@ -16,6 +16,7 @@ vi.mock('framer-motion', () => ({
       </div>
     ),
   },
+  useDragControls: () => ({ start: vi.fn() }),
 }))
 
 vi.mock('./WindowManager', () => ({
@@ -24,6 +25,8 @@ vi.mock('./WindowManager', () => ({
     focusWindow: vi.fn(),
     expandWindow: vi.fn(),
     minimizeWindow: vi.fn(),
+    moveWindow: vi.fn(),
+    resizeWindow: vi.fn(),
   }),
 }))
 

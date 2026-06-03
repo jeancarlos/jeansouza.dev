@@ -23,6 +23,7 @@ vi.mock('framer-motion', () => ({
   },
   AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   steps: () => undefined,
+  useDragControls: () => ({ start: vi.fn() }),
 }))
 
 vi.mock('next/dynamic', () => ({

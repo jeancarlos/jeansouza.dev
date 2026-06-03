@@ -116,7 +116,9 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
     })()
 
     dispatch({ type: 'OPEN', window: newConfig })
-    history.pushState(null, '', newConfig.url)
+    if (typeof window !== 'undefined' && window.location.pathname !== newConfig.url) {
+      history.pushState(null, '', newConfig.url)
+    }
   }, [])
 
   const closeWindow = useCallback((id: string) => {
@@ -141,7 +143,24 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
 
   const resizeWindow = useCallback(
     (id: string, size: { width: number; height: number }, position: { x: number; y: number }) => {
-      dispatch({ type: 'RESIZE', id, size, position })
+      if (typeof window === 'undefined') {
+        dispatch({ type: 'RESIZE', id, size, position })
+        return
+      }
+      const vw = window.innerWidth
+      const vh = window.innerHeight
+      const MIN_W = 200
+      const MIN_H = 100
+      const SAFE = 20
+      const clampedSize = {
+        width: Math.max(MIN_W, Math.min(size.width, vw - SAFE * 2)),
+        height: Math.max(MIN_H, Math.min(size.height, vh - SAFE * 2)),
+      }
+      const clampedPosition = {
+        x: Math.max(SAFE, Math.min(position.x, vw - clampedSize.width - SAFE)),
+        y: Math.max(SAFE, Math.min(position.y, vh - clampedSize.height - SAFE)),
+      }
+      dispatch({ type: 'RESIZE', id, size: clampedSize, position: clampedPosition })
     },
     []
   )

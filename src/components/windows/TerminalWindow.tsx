@@ -1,6 +1,6 @@
 'use client'
 import { type ReactNode, useState, useRef } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useDragControls } from 'framer-motion'
 import { useWindowManager, type ButtonOrigin } from './WindowManager'
 
 interface Props {
@@ -85,6 +85,20 @@ interface ResizeHandleProps {
   onResizeEnd: () => void
 }
 
+interface DragState {
+  startX: number
+  startY: number
+  startW: number
+  startH: number
+  startPosX: number
+  startPosY: number
+}
+
+interface PendingResize {
+  size: { width: number; height: number }
+  position: { x: number; y: number }
+}
+
 function ResizeHandle({
   direction,
   windowId,
@@ -94,14 +108,20 @@ function ResizeHandle({
   onResizeEnd,
 }: ResizeHandleProps) {
   const { resizeWindow, focusWindow } = useWindowManager()
-  const dragRef = useRef<{
-    startX: number
-    startY: number
-    startW: number
-    startH: number
-    startPosX: number
-    startPosY: number
-  } | null>(null)
+  const dragRef = useRef<DragState | null>(null)
+  const pendingRef = useRef<PendingResize | null>(null)
+  const rafRef = useRef<number | null>(null)
+
+  const flushPending = () => {
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current)
+      rafRef.current = null
+    }
+    if (pendingRef.current) {
+      resizeWindow(windowId, pendingRef.current.size, pendingRef.current.position)
+      pendingRef.current = null
+    }
+  }
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     e.stopPropagation()
@@ -139,16 +159,29 @@ function ResizeHandle({
       newY = startPosY + (startH - newH)
     }
 
-    resizeWindow(windowId, { width: newW, height: newH }, { x: newX, y: newY })
+    pendingRef.current = {
+      size: { width: newW, height: newH },
+      position: { x: newX, y: newY },
+    }
+    if (rafRef.current !== null) return
+    rafRef.current = requestAnimationFrame(() => {
+      if (pendingRef.current) {
+        resizeWindow(windowId, pendingRef.current.size, pendingRef.current.position)
+        pendingRef.current = null
+      }
+      rafRef.current = null
+    })
   }
 
-  const handlePointerUp = () => {
+  const endDrag = () => {
+    flushPending()
     dragRef.current = null
     onResizeEnd()
   }
 
   return (
     <div
+      data-resize-handle
       style={{
         position: 'absolute',
         zIndex: 20,
@@ -157,7 +190,9 @@ function ResizeHandle({
       }}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerUp}
+      onPointerUp={endDrag}
+      onPointerCancel={endDrag}
+      onClick={(e) => e.stopPropagation()}
     />
   )
 }
@@ -176,8 +211,9 @@ export function TerminalWindow({
   isFocused = true,
   origin,
 }: Props) {
-  const { closeWindow, focusWindow, expandWindow, minimizeWindow } = useWindowManager()
+  const { closeWindow, focusWindow, expandWindow, minimizeWindow, moveWindow } = useWindowManager()
   const [isResizing, setIsResizing] = useState(false)
+  const dragControls = useDragControls()
 
   const expandedStyle = {
     width: 'calc(100vw - 80px)' as string | number,
@@ -198,8 +234,13 @@ export function TerminalWindow({
   return (
     <motion.div
       drag
+      dragListener={false}
+      dragControls={dragControls}
       dragMomentum={false}
       dragConstraints={{ top: 0 }}
+      onDragEnd={(_, info) =>
+        moveWindow(id, { x: position.x + info.offset.x, y: position.y + info.offset.y })
+      }
       initial={
         origin
           ? {
@@ -225,10 +266,10 @@ export function TerminalWindow({
               opacity: { type: 'tween', duration: 0.2, ease: 'easeOut' },
               filter: { type: 'tween', duration: 0.25, ease: 'easeOut' },
               scale: { type: 'spring', stiffness: 400, damping: 22 },
-              width: { type: 'spring', stiffness: 350, damping: 28 },
-              height: { type: 'spring', stiffness: 350, damping: 28 },
-              x: { type: 'spring', stiffness: 350, damping: 28 },
-              y: { type: 'spring', stiffness: 350, damping: 28 },
+              width: { type: 'tween', duration: 0.15, ease: 'easeOut' },
+              height: { type: 'tween', duration: 0.15, ease: 'easeOut' },
+              x: { type: 'tween', duration: 0.15, ease: 'easeOut' },
+              y: { type: 'tween', duration: 0.15, ease: 'easeOut' },
             }
       }
       style={{ ...activeStyle, zIndex, position: 'fixed' as const }}
@@ -240,7 +281,10 @@ export function TerminalWindow({
     >
       <div className="flex h-full w-full flex-col overflow-hidden rounded-[14px]">
         {/* Header */}
-        <div className="flex shrink-0 cursor-grab items-center gap-2 bg-gradient-to-r from-[#e84545] to-[#b33a73] px-3 py-2 select-none active:cursor-grabbing">
+        <div
+          onPointerDown={(e) => dragControls.start(e)}
+          className="flex shrink-0 cursor-grab items-center gap-2 bg-gradient-to-r from-[#e84545] to-[#b33a73] px-3 py-2 select-none active:cursor-grabbing"
+        >
           <TrafficDot
             label="Close"
             symbol="×"
@@ -261,7 +305,8 @@ export function TerminalWindow({
       </div>
 
       {/* Resize handles — only when window is interactive */}
-      {!isExpanded && !isMinimized &&
+      {!isExpanded &&
+        !isMinimized &&
         RESIZE_DIRS.map((dir) => (
           <ResizeHandle
             key={dir}
