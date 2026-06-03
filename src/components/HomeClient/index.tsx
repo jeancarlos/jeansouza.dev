@@ -7,7 +7,7 @@ import type { ButtonOrigin } from '@/components/windows/WindowManager'
 import { Hero } from '@/components/sections/Hero'
 import { TerminalWindow } from '@/components/windows/TerminalWindow'
 import { useWindowManager } from '@/components/windows/WindowManager'
-import { centeredPosition } from '@/lib/windowUtils'
+import { centeredPosition, TOPBAR_HEIGHT } from '@/lib/windowUtils'
 
 const BlogListWindowDynamic = dynamic(
   async () => import('@/components/windows/BlogListWindow').then((m) => m.BlogListWindow),
@@ -44,7 +44,7 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
             contentHtml={post.contentHtml}
           />
         ),
-        position: centeredPosition(w, h),
+        position: centeredPosition(w, h, TOPBAR_HEIGHT),
         size: { width: w, height: h },
         defaultSize: 'medium',
         isExpanded: false,
@@ -64,7 +64,7 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
         url: `/${locale}/blog`,
         title: '~/blog',
         content: <BlogListWindowDynamic posts={posts} onOpenPost={openBlogPost} />,
-        position: centeredPosition(w, h),
+        position: centeredPosition(w, h, TOPBAR_HEIGHT),
         size: { width: w, height: h },
         defaultSize: 'medium',
         isExpanded: false,

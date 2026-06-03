@@ -8,7 +8,8 @@ import { WindowButton } from '@/components/windows/WindowButton'
 import { Typewriter } from '@/components/ui/Typewriter'
 import { Button } from '@/components/ui/Button'
 import type { ButtonOrigin } from '@/components/windows/WindowManager'
-import { centeredPosition, getViewport, WINDOW_SAFE } from '@/lib/windowUtils'
+import { useIsMobile } from '@/lib/useIsMobile'
+import { centeredPosition, getViewport, WINDOW_SAFE, TOPBAR_HEIGHT } from '@/lib/windowUtils'
 
 const MoreLinksWindowDynamic = dynamic(
   async () => import('@/components/windows/MoreLinksWindow').then((m) => m.MoreLinksWindow),
@@ -32,14 +33,17 @@ const HOME_H = 320
 export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
   const t = useTranslations('hero')
   const tResume = useTranslations('resume')
+  const isMobile = useIsMobile()
   const [homePos, setHomePos] = useState<{ x: number; y: number } | null>(null)
   const [resumeSize, setResumeSize] = useState<{ width: number; height: number } | null>(null)
 
   useEffect(() => {
-    setHomePos(centeredPosition(HOME_W, HOME_H))
+    const topOffset = isMobile ? 0 : TOPBAR_HEIGHT
+    const mobileW = Math.min(getViewport().vw - 32, HOME_W)
+    setHomePos(centeredPosition(isMobile ? mobileW : HOME_W, HOME_H, topOffset))
     const { vw, vh } = getViewport()
     setResumeSize({ width: Math.min(1024, vw - WINDOW_SAFE * 2), height: vh - WINDOW_SAFE * 2 })
-  }, [])
+  }, [isMobile])
 
   if (!homePos || !resumeSize) return null
 
