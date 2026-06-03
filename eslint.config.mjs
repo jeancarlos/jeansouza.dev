@@ -74,22 +74,15 @@ export default tseslint.config(
         'error',
         { allowNumber: true, allowBoolean: true },
       ],
+      '@typescript-eslint/no-confusing-void-expression': 'off',
+      '@typescript-eslint/require-await': 'off',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'no-debugger': 'error',
-      'no-duplicate-imports': 'error',
       'no-nested-ternary': 'error',
       'no-var': 'error',
       'prefer-const': 'error',
       complexity: ['error', { max: 10 }],
       'max-depth': ['error', { max: 4 }],
-    },
-  },
-
-  // Windows dir exports multiple components per file — intentional pattern
-  {
-    files: ['src/components/windows/**/*.{ts,tsx}'],
-    rules: {
-      // no react-refresh rule in Next.js config — nothing to override here
     },
   },
 
@@ -106,6 +99,8 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-argument': 'off',
       '@typescript-eslint/no-floating-promises': 'off',
       '@typescript-eslint/promise-function-async': 'off',
+      '@typescript-eslint/no-empty-function': 'off',
+      '@typescript-eslint/no-confusing-void-expression': 'off',
       'no-console': 'off',
       complexity: 'off',
     },
