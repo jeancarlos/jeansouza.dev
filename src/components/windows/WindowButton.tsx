@@ -57,7 +57,9 @@ export function WindowButton({
 }: WindowButtonProps) {
   const { openWindow } = useWindowManager()
 
-  const handleOpen = () => {
+  const handleOpen = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const origin = { x: rect.left, y: rect.top, width: rect.width, height: rect.height }
     const size = fullscreen ? fullscreenSize() : (windowSize ?? { width: 600, height: 400 })
     const pos = position ?? centeredPos(size.width, size.height)
 
@@ -71,6 +73,7 @@ export function WindowButton({
       defaultSize: fullscreen ? 'fullscreen' : defaultSize,
       isExpanded: fullscreen,
       isMinimized: false,
+      origin,
     })
 
     onOpen?.()
