@@ -23,6 +23,7 @@ export function LocaleSwitch() {
   const handleSwitch = (loc: Locale): void => {
     if (loc === displayLocale) return
     setDisplayLocale(loc)
+    localStorage.setItem('locale', loc)
     if (timerRef.current !== null) clearTimeout(timerRef.current)
     timerRef.current = setTimeout(() => {
       router.replace(pathname, { locale: loc })

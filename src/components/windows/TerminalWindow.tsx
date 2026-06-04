@@ -92,6 +92,7 @@ export function TerminalWindow({
         activeStyle={activeStyle}
         outerClassName={outerClassName}
         innerRounded={innerRounded}
+        dragControls={dragControls}
       >
         {showHeader && (
           <WindowHeader

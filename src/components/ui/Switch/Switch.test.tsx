@@ -20,29 +20,25 @@ describe('Switch', () => {
         X
       </Switch>
     )
-    await userEvent.click(screen.getByRole('button'))
+    await userEvent.click(screen.getByRole('switch'))
     expect(onToggle).toHaveBeenCalledTimes(1)
   })
 
-  it('uses ltr gradient when off', () => {
-    const { container } = render(
+  it('has aria-checked=false when off', () => {
+    render(
       <Switch on={false} onToggle={() => {}} aria-label="off">
         X
       </Switch>
     )
-    const wrapper = container.firstChild as HTMLElement
-    expect(wrapper.className).toContain('bg-gradient-to-r')
-    expect(wrapper.className).not.toContain('bg-gradient-to-l')
+    expect(screen.getByRole('switch')).toHaveAttribute('aria-checked', 'false')
   })
 
-  it('uses rtl gradient when on', () => {
-    const { container } = render(
+  it('has aria-checked=true when on', () => {
+    render(
       <Switch on={true} onToggle={() => {}} aria-label="on">
         X
       </Switch>
     )
-    const wrapper = container.firstChild as HTMLElement
-    expect(wrapper.className).toContain('bg-gradient-to-l')
-    expect(wrapper.className).not.toContain('bg-gradient-to-r')
+    expect(screen.getByRole('switch')).toHaveAttribute('aria-checked', 'true')
   })
 })

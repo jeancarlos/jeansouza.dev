@@ -1,6 +1,6 @@
 'use client'
 import { type ReactNode } from 'react'
-import { motion, useDragControls, type PanInfo } from 'framer-motion'
+import { motion, type DragControls, type PanInfo } from 'framer-motion'
 import { useWindowManager, type ButtonOrigin } from './WindowManager'
 import { TOPBAR_HEIGHT, clampPosition } from '@/lib/windowUtils'
 import { getAnimateStyle, getTransition, type WindowStyle } from './terminalStyles'
@@ -18,6 +18,7 @@ interface WindowChromeProps {
   activeStyle: WindowStyle
   outerClassName: string
   innerRounded: string
+  dragControls: DragControls
   children: ReactNode
 }
 
@@ -34,10 +35,10 @@ export function WindowChrome({
   activeStyle,
   outerClassName,
   innerRounded,
+  dragControls,
   children,
 }: WindowChromeProps) {
   const { focusWindow, moveWindow } = useWindowManager()
-  const dragControls = useDragControls()
 
   const w = typeof size.width === 'number' ? size.width : 600
   const h = typeof size.height === 'number' ? size.height : 400
