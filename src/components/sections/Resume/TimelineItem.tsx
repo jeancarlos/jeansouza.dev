@@ -24,6 +24,7 @@ export function TimelineItem({ entry, locale, side, index }: Props) {
       className={joinClassNames(
         'relative flex flex-col gap-2',
         'col-start-2 pl-6',
+        index > 0 ? '@4xl:-mt-[22%]' : undefined,
         side === 'left' ? '@4xl:col-start-1 @4xl:pr-8 @4xl:pl-0' : undefined,
         side === 'right' ? '@4xl:col-start-3 @4xl:pl-8' : undefined
       )}

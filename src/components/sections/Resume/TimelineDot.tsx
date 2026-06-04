@@ -14,13 +14,10 @@ export function TimelineDot({ side }: TimelineDotProps) {
     <span
       aria-hidden
       className={joinClassNames(
-        'absolute top-0',
-        // Mobile: always right of the rail, pointing right
-        'left-[-21px]',
-        // Desktop alternating layout
+        'absolute top-[-18px] bg-crust left-[-9px] [transform:scaleX(-1)]',
         side === 'left'
-          ? '@4xl:right-[-21px] @4xl:left-auto @4xl:[transform:scaleX(-1)]'
-          : '@4xl:left-[-21px]'
+          ? '@4xl:right-[-17px] @4xl:left-auto @4xl:[transform:scaleX(1)]'
+          : '@4xl:left-[-17px]'
       )}
     >
       <svg

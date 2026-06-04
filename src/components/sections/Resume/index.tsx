@@ -40,7 +40,7 @@ export function Resume({ entries, profile, education, assets, locale }: Props) {
         <Summary profile={profile} locale={locale} />
         <Section title={t('experience')}>
           <div className="@container">
-            <ul className="relative grid grid-cols-[auto_1fr] gap-x-4 gap-y-6 @4xl:grid-cols-[1fr_auto_1fr] @4xl:gap-x-8">
+            <ul className="relative grid grid-cols-[auto_1fr] gap-x-4 gap-y-6 @4xl:grid-cols-[1fr_auto_1fr]">
               <TimelineRail />
               {entries.map((entry, i) => {
                 const side = i % 2 === 0 ? 'left' : 'right'
