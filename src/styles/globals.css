@@ -54,7 +54,7 @@
   --page-text: var(--color-latte-text);
   --dot-color: 104, 57, 239;
   --button-inner-bg: var(--color-latte-mantle);
-  --button-text: white;
+  --button-text: var(--color-latte-text);
   --button-hover-text: white;
 }
 
