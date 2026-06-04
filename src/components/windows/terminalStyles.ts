@@ -46,7 +46,9 @@ export function getInnerRounded(isMobile: boolean, isHome: boolean): string {
 
 export function getOuterClassName(isMobile: boolean, isHome: boolean): string {
   if (isMobile && isHome) return ''
-  return 'rounded-2xl bg-gradient-to-r from-brand-from to-brand-to p-[2px] shadow-2xl'
+  const base = 'rounded-2xl bg-gradient-to-r from-brand-from to-brand-to p-[2px] shadow-2xl'
+  if (isHome) return base
+  return `${base} max-md:!w-screen max-md:!h-dvh max-md:!translate-x-0 max-md:!translate-y-0 max-md:!top-0 max-md:!left-0`
 }
 
 export function getBodyClassName(isMobile: boolean, isHome: boolean, innerRounded: string): string {

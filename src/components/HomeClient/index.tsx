@@ -130,7 +130,8 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
   useEffect(() => {
     const onPopstate = (e: PopStateEvent) => {
       // Ignore entries not pushed by this app (Next.js router, external navigation).
-      if (!e.state?._appWindow) return
+      const appState = e.state as { _appWindow?: string } | null
+      if (!appState?._appWindow) return
       const pathname = location.pathname
       const current = windowsRef.current
       // Close the topmost window whose URL no longer matches the current location.

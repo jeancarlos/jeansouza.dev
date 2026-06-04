@@ -56,10 +56,7 @@ export function TerminalWindow({
   const isHome = id === 'home'
   const activeStyle = getActiveStyle(isMobile, isHome, isExpanded, isMinimized, size, position)
   const innerRounded = getInnerRounded(isMobile, isHome)
-  const outerClassBase = getOuterClassName(isMobile, isHome)
-  const outerClassName = isHome
-    ? outerClassBase
-    : `${outerClassBase} max-md:!w-screen max-md:!h-dvh max-md:!translate-x-0 max-md:!translate-y-0 max-md:!top-0 max-md:!left-0`
+  const outerClassName = getOuterClassName(isMobile, isHome)
   const bodyClassName = getBodyClassName(isMobile, isHome, innerRounded)
   const { showHeader, showBody, showResizeHandles } = getWindowVisibility(
     isMobile,
