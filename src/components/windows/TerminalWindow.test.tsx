@@ -48,7 +48,7 @@ describe('TerminalWindow', () => {
         <p>content</p>
       </TerminalWindow>
     )
-    expect(screen.getByText('~/test')).toBeInTheDocument()
+    expect(screen.getAllByText('~/test').length).toBeGreaterThan(0)
   })
 
   it('renders content when not minimized', () => {

@@ -10,7 +10,8 @@ const listeners = new Set<() => void>()
 function read(): Theme {
   if (typeof window === 'undefined') return DEFAULT_THEME
   const stored = window.localStorage.getItem(STORAGE_KEY)
-  return stored === 'light' || stored === 'dark' ? stored : DEFAULT_THEME
+  if (stored === 'light' || stored === 'dark') return stored
+  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
 }
 
 let current: Theme = read()

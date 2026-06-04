@@ -47,8 +47,7 @@ export function LocaleSwitch() {
               }}
               aria-label={`Switch to ${loc.toUpperCase()}`}
               aria-pressed={locale === loc}
-              className="relative z-10 rounded-full px-3 py-1.5 text-sm font-medium transition-colors duration-200"
-              style={{ color: displayLocale === loc ? '#fff' : 'var(--color-brand-to)' }}
+              className={`relative z-10 rounded-full px-3 py-1.5 text-sm font-medium transition-colors duration-200 ${displayLocale === loc ? 'text-white' : 'text-brand-to'}`}
             >
               {loc.toUpperCase()}
             </button>
