@@ -44,12 +44,16 @@
   --page-bg: var(--color-crust);
   --page-text: var(--color-text);
   --dot-color: 242, 184, 212;
+  --button-inner-bg: var(--color-brand-bg);
+  --button-hover-text: white;
 }
 
 [data-theme='light'] {
   --page-bg: var(--color-latte-base);
   --page-text: var(--color-latte-text);
   --dot-color: 104, 57, 239;
+  --button-inner-bg: var(--color-latte-mantle);
+  --button-hover-text: var(--color-latte-text);
 }
 
 @layer base {

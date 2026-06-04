@@ -23,7 +23,7 @@ export function Switch({ on, onToggle, 'aria-label': ariaLabel, children, size =
       aria-label={ariaLabel}
       className={`relative inline-flex ${pillClass} cursor-pointer rounded-full ${gradientDir} from-brand-from to-brand-to p-[2px] transition-all hover:brightness-110 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-from`}
     >
-      <span className="flex h-full w-full rounded-full bg-crust">
+      <span className="flex h-full w-full rounded-full bg-[var(--button-inner-bg)]">
         <span
           className={`flex aspect-square h-full items-center justify-center rounded-full ${gradientDir} from-brand-from to-brand-to text-[9px] font-bold text-white shadow-sm transition-transform duration-200 ${on ? translateOn : 'translate-x-0'}`}
         >

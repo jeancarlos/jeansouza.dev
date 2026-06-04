@@ -22,17 +22,18 @@ export function Button({
   size = 'default',
 }: ButtonProps) {
   const sizeClass = size === 'sm' ? 'px-2 py-0.5 text-xs' : 'px-3 py-1.5 text-sm'
+  const disabledClass = disabled ? 'opacity-40 pointer-events-none' : ' cursor-pointer'
 
   const inner = (
     <span
-      className={`bg-brand-bg block rounded-full ${sizeClass} text-brand-text transition-colors duration-150 group-hover:bg-transparent group-hover:text-white`}
+      className={`bg-[var(--button-inner-bg)] block rounded-full ${sizeClass} text-brand-text transition-colors duration-150 group-hover:bg-transparent group-hover:text-[var(--button-hover-text)]`}
     >
       {children}
     </span>
   )
 
   const gradientClass = gradientDir === 'l' ? 'bg-gradient-to-l' : 'bg-gradient-to-r'
-  const wrapperClass = `group relative inline-block rounded-full ${gradientClass} from-brand-from to-brand-to p-[2px] shadow-sm transition-all duration-150 ease-out hover:brightness-110 hover:shadow-md active:scale-90 ${disabled ? 'opacity-40 pointer-events-none' : ''} ${className}`
+  const wrapperClass = `group relative inline-block rounded-full ${disabledClass} ${gradientClass} from-brand-from to-brand-to p-[2px] shadow-sm transition-all duration-150 ease-out hover:brightness-110 hover:shadow-md active:scale-90 ${className}`
 
   if (href) {
     return (
