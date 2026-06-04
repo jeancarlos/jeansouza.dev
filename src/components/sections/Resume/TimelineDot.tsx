@@ -19,7 +19,7 @@ export function TimelineDot({ side }: TimelineDotProps) {
         'left-[-21px]',
         // Desktop alternating layout
         side === 'left'
-          ? '@4xl:left-auto @4xl:right-[-21px] @4xl:[transform:scaleX(-1)]'
+          ? '@4xl:right-[-21px] @4xl:left-auto @4xl:[transform:scaleX(-1)]'
           : '@4xl:left-[-21px]'
       )}
     >
