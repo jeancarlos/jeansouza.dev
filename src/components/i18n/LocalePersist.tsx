@@ -2,8 +2,7 @@
 import { useEffect } from 'react'
 import { useLocale } from 'next-intl'
 import { useRouter, usePathname } from '@/i18n/navigation'
-
-const STORAGE_KEY = 'locale'
+import { LOCALE_STORAGE_KEY } from '@/lib/locale-storage'
 
 export function LocalePersist() {
   const locale = useLocale()
@@ -12,14 +11,14 @@ export function LocalePersist() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return
-    const stored = localStorage.getItem(STORAGE_KEY)
+    const stored = localStorage.getItem(LOCALE_STORAGE_KEY)
     if (stored === 'pt' || stored === 'en') {
       if (stored !== locale) {
         router.replace(pathname, { locale: stored })
         return
       }
     } else {
-      localStorage.setItem(STORAGE_KEY, locale)
+      localStorage.setItem(LOCALE_STORAGE_KEY, locale)
     }
     document.documentElement.lang = locale
   }, [locale, router, pathname])

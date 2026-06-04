@@ -3,6 +3,7 @@ import { useLocale } from 'next-intl'
 import { useRouter, usePathname } from '@/i18n/navigation'
 import { Switch } from '@/components/ui/Switch'
 import { useTheme, useThemeToggle } from '@/lib/use-theme'
+import { LOCALE_STORAGE_KEY } from '@/lib/locale-storage'
 
 function SunIcon() {
   return (
@@ -57,8 +58,6 @@ export function ThemeToggle({ size }: { size?: 'default' | 'sm' }) {
     </Switch>
   )
 }
-
-const LOCALE_STORAGE_KEY = 'locale'
 
 export function LocaleToggle({ size }: { size?: 'default' | 'sm' }) {
   const locale = useLocale()

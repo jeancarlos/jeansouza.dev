@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useLocale } from 'next-intl'
 import { useRouter, usePathname } from '@/i18n/navigation'
 import { motion } from 'framer-motion'
+import { LOCALE_STORAGE_KEY } from '@/lib/locale-storage'
 
 const LOCALES = ['pt', 'en'] as const
 type Locale = (typeof LOCALES)[number]
@@ -15,6 +16,10 @@ export function LocaleSwitch() {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
+    setDisplayLocale(locale)
+  }, [locale])
+
+  useEffect(() => {
     return () => {
       if (timerRef.current !== null) clearTimeout(timerRef.current)
     }
@@ -23,7 +28,7 @@ export function LocaleSwitch() {
   const handleSwitch = (loc: Locale): void => {
     if (loc === displayLocale) return
     setDisplayLocale(loc)
-    localStorage.setItem('locale', loc)
+    localStorage.setItem(LOCALE_STORAGE_KEY, loc)
     if (timerRef.current !== null) clearTimeout(timerRef.current)
     timerRef.current = setTimeout(() => {
       router.replace(pathname, { locale: loc })
