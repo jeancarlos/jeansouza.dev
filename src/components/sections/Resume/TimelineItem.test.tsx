@@ -60,7 +60,7 @@ describe('TimelineItem', () => {
       <TimelineItem entry={mockEntry} locale="pt" side="left" index={0} />
     )
     const li = container.querySelector('li')
-    expect(li?.className).toContain('md:col-start-1')
+    expect(li?.className).toContain('@4xl:col-start-1')
   })
 
   it('applies right grid class when side is right', () => {
@@ -68,7 +68,7 @@ describe('TimelineItem', () => {
       <TimelineItem entry={mockEntry} locale="pt" side="right" index={0} />
     )
     const li = container.querySelector('li')
-    expect(li?.className).toContain('md:col-start-3')
+    expect(li?.className).toContain('@4xl:col-start-3')
   })
 
   it('uses selectedSeniorFront when provided', () => {

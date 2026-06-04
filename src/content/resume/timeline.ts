@@ -9,6 +9,7 @@ export interface TimelineEntry {
   year: { pt: string; en: string }
   role: { pt: string; en: string }
   company: string
+  location?: { pt: string; en: string }
   accomplishments: Accomplishment[]
   selectedSeniorFront?: Accomplishment[]
 }
@@ -16,14 +17,15 @@ export interface TimelineEntry {
 const zydon: TimelineEntry = {
   id: 'zydon',
   year: {
-    pt: 'outubro 2024 – março 2026 · Uberlândia, MG',
-    en: 'October 2024 – March 2026 · Uberlândia, Brazil',
+    pt: 'outubro 2024 – março 2026',
+    en: 'October 2024 – March 2026',
   },
   role: {
     pt: 'Desenvolvedor Front-End Senior (React/Next.js/TypeScript)',
     en: 'Senior Front-End Engineer (React/Next.js/TypeScript)',
   },
   company: 'Zydon',
+  location: { pt: 'Uberlândia, MG', en: 'Uberlândia, Brazil' },
   accomplishments: [
     {
       tags: ['testing', 'coverage', 'micro-frontends'],
@@ -61,14 +63,15 @@ zydon.selectedSeniorFront = [
 const mutant: TimelineEntry = {
   id: 'mutant',
   year: {
-    pt: 'janeiro 2024 – agosto 2024 · São Paulo, SP',
-    en: 'January 2024 – August 2024 · São Paulo, Brazil',
+    pt: 'janeiro 2024 – agosto 2024',
+    en: 'January 2024 – August 2024',
   },
   role: {
     pt: 'Desenvolvedor Front-End Senior (TypeScript)',
     en: 'Senior Front-End Engineer (TypeScript)',
   },
   company: 'Mutant',
+  location: { pt: 'São Paulo, SP', en: 'São Paulo, Brazil' },
   accomplishments: [
     {
       tags: ['web-components', 'lit', 'micro-frontends'],
@@ -96,14 +99,15 @@ mutant.selectedSeniorFront = [
 const runrunit: TimelineEntry = {
   id: 'runrunit',
   year: {
-    pt: 'agosto 2022 – outubro 2023 · São Paulo, SP',
-    en: 'August 2022 – October 2023 · São Paulo, Brazil',
+    pt: 'agosto 2022 – outubro 2023',
+    en: 'August 2022 – October 2023',
   },
   role: {
     pt: 'Desenvolvedor Front-End Senior (React)',
     en: 'Senior Front-End Engineer (React)',
   },
   company: 'Runrun.it',
+  location: { pt: 'São Paulo, SP', en: 'São Paulo, Brazil' },
   accomplishments: [
     {
       tags: ['react', 'hooks'],
@@ -131,14 +135,15 @@ runrunit.selectedSeniorFront = [
 const luizalabs: TimelineEntry = {
   id: 'luizalabs',
   year: {
-    pt: 'janeiro 2020 – junho 2022 · Uberlândia, MG',
-    en: 'January 2020 – June 2022 · Uberlândia, Brazil',
+    pt: 'janeiro 2020 – junho 2022',
+    en: 'January 2020 – June 2022',
   },
   role: {
     pt: 'Desenvolvedor Front-End Senior (React/TypeScript)',
     en: 'Senior Front-End Engineer (React/TypeScript)',
   },
   company: 'Luizalabs',
+  location: { pt: 'Uberlândia, MG', en: 'Uberlândia, Brazil' },
   accomplishments: [
     {
       tags: ['testing', 'coverage', 'jest', 'rtl', 'tdd'],
@@ -166,14 +171,15 @@ luizalabs.selectedSeniorFront = [
 const vitta: TimelineEntry = {
   id: 'vitta',
   year: {
-    pt: 'agosto 2017 – janeiro 2020 · Uberlândia, MG',
-    en: 'August 2017 – January 2020 · Uberlândia, Brazil',
+    pt: 'agosto 2017 – janeiro 2020',
+    en: 'August 2017 – January 2020',
   },
   role: {
     pt: 'Desenvolvedor Full-Stack (Vue/TypeScript/Node)',
     en: 'Full-Stack Engineer (Vue/TypeScript/Node)',
   },
   company: 'Vitta',
+  location: { pt: 'Uberlândia, MG', en: 'Uberlândia, Brazil' },
   accomplishments: [
     {
       tags: ['design-system'],
@@ -206,14 +212,15 @@ vitta.selectedSeniorFront = [
 const luxcontrol: TimelineEntry = {
   id: 'luxcontrol',
   year: {
-    pt: 'abril 2012 – julho 2017 · Uberlândia, MG',
-    en: 'April 2012 – July 2017 · Uberlândia, Brazil',
+    pt: 'abril 2012 – julho 2017',
+    en: 'April 2012 – July 2017',
   },
   role: {
     pt: 'Desenvolvedor Front-End Senior',
     en: 'Senior Front-End Engineer',
   },
   company: 'LuxControl Automação Residencial',
+  location: { pt: 'Uberlândia, MG', en: 'Uberlândia, Brazil' },
   accomplishments: [
     {
       tags: ['performance'],
@@ -238,4 +245,95 @@ luxcontrol.selectedSeniorFront = [
   luxcontrol.accomplishments[2],
 ]
 
-export const timeline: TimelineEntry[] = [zydon, mutant, runrunit, luizalabs, vitta, luxcontrol]
+const bockz: TimelineEntry = {
+  id: 'bockz',
+  year: {
+    pt: 'setembro 2011 – abril 2012',
+    en: 'September 2011 – April 2012',
+  },
+  role: {
+    pt: 'Desenvolvedor Full-Stack (PHP/MySQL)',
+    en: 'Full-Stack Developer (PHP/MySQL)',
+  },
+  company: 'Bockz',
+  accomplishments: [
+    {
+      tags: ['php', 'mysql', 'wordpress', 'seo'],
+      pt: 'Desenvolvimento full-stack com PHP e MySQL, incluindo customização profunda de temas e plugins WordPress. Foco em SEO on-page, semântica e performance de sites institucionais.',
+      en: 'Full-stack development using PHP and MySQL, including deep WordPress theme and plugin customization. Heavy focus on on-page SEO, semantic structure, and page speed for corporate sites.',
+    },
+  ],
+}
+
+const openk: TimelineEntry = {
+  id: 'openk',
+  year: {
+    pt: 'janeiro 2011 – agosto 2011',
+    en: 'January 2011 – August 2011',
+  },
+  role: {
+    pt: 'Desenvolvedor Full-Stack',
+    en: 'Full-Stack Developer',
+  },
+  company: 'OpenK Tecnologia',
+  accomplishments: [
+    {
+      tags: ['java', 'php', 'html', 'css', 'seo'],
+      pt: 'Portais corporativos em Java (JSP/Servlets) e PHP com layouts em HTML5/CSS3. Aplicação de boas práticas de acessibilidade e SEO técnico em ambiente de equipe.',
+      en: 'Corporate portals built with Java (JSP/Servlets) and PHP, integrating responsive layouts in HTML5/CSS3 with web accessibility and basic technical SEO best practices.',
+    },
+  ],
+}
+
+const webroom: TimelineEntry = {
+  id: 'webroom',
+  year: {
+    pt: 'novembro 2008 – fevereiro 2010',
+    en: 'November 2008 – February 2010',
+  },
+  role: {
+    pt: 'Programador de Interface',
+    en: 'Interface Programmer',
+  },
+  company: 'Webroom Soluções Interativas',
+  accomplishments: [
+    {
+      tags: ['jquery', 'javascript', 'html', 'css', 'seo'],
+      pt: 'Interfaces dinâmicas com jQuery e Vanilla JS em agência digital. Foco em performance de carregamento, compatibilidade cross-browser e SEO para portais de e-commerce e sites institucionais.',
+      en: 'Dynamic interfaces using jQuery and Vanilla JavaScript at a digital agency. Focused on page load performance, cross-browser consistency, and on-page SEO for e-commerce and corporate sites.',
+    },
+  ],
+}
+
+const lalli: TimelineEntry = {
+  id: 'lalli',
+  year: {
+    pt: 'abril 2008 – novembro 2008',
+    en: 'April 2008 – November 2008',
+  },
+  role: {
+    pt: 'Web Designer',
+    en: 'Web Designer',
+  },
+  company: 'Lalli Bureau',
+  accomplishments: [
+    {
+      tags: ['webdesign', 'html', 'css', 'photoshop'],
+      pt: 'Primeiro contato com TI: UI design com Photoshop e Fireworks, design gráfico e diagramação impressa (Illustrator, InDesign, CorelDraw). Conversão de layouts para HTML/CSS semântico e otimizado para SEO.',
+      en: 'First contact with IT: UI design using Photoshop and Fireworks, print graphic design and layout for magazines and catalogs. Hand-coded layouts to semantic, accessible, SEO-optimized HTML/CSS.',
+    },
+  ],
+}
+
+export const timeline: TimelineEntry[] = [
+  zydon,
+  mutant,
+  runrunit,
+  luizalabs,
+  vitta,
+  luxcontrol,
+  bockz,
+  openk,
+  webroom,
+  lalli,
+]

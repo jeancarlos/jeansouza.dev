@@ -1,6 +1,5 @@
 'use client'
 import { useTranslations } from 'next-intl'
-import { useMediaQuery } from '@/lib/use-media-query'
 import { Header } from './Header'
 import { Summary } from './Summary'
 import { TimelineRail } from './TimelineRail'
@@ -32,7 +31,6 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 export function Resume({ entries, profile, education, assets, locale }: Props) {
   const t = useTranslations('resume')
-  const isWide = useMediaQuery('(min-width: 768px)')
 
   return (
     <div className="min-h-full p-6">
@@ -41,15 +39,17 @@ export function Resume({ entries, profile, education, assets, locale }: Props) {
         <Header profile={profile} locale={locale} />
         <Summary profile={profile} locale={locale} />
         <Section title={t('experience')}>
-          <ul className="relative grid grid-cols-[1fr_auto_1fr] gap-x-8 gap-y-6 max-md:grid-cols-[auto_1fr] max-md:gap-x-4">
-            <TimelineRail />
-            {entries.map((entry, i) => {
-              const side = isWide && i % 2 === 0 ? 'left' : 'right'
-              return (
-                <TimelineItem key={entry.id} entry={entry} locale={locale} side={side} index={i} />
-              )
-            })}
-          </ul>
+          <div className="@container">
+            <ul className="relative grid grid-cols-[auto_1fr] gap-x-4 gap-y-6 @4xl:grid-cols-[1fr_auto_1fr] @4xl:gap-x-8">
+              <TimelineRail />
+              {entries.map((entry, i) => {
+                const side = i % 2 === 0 ? 'left' : 'right'
+                return (
+                  <TimelineItem key={entry.id} entry={entry} locale={locale} side={side} index={i} />
+                )
+              })}
+            </ul>
+          </div>
         </Section>
         <Section title={t('education')}>
           <Education entries={education} locale={locale} />

@@ -21,10 +21,10 @@ export function TimelineItem({ entry, locale, side, index }: Props) {
     <motion.li
       style={{ gridRow: index + 1 }}
       className={cn(
-        'relative pt-2',
-        side === 'left' && 'md:col-start-1 md:pr-8',
-        side === 'right' && 'md:col-start-3 md:pl-8',
-        'max-md:col-start-2 max-md:pl-6'
+        'relative flex flex-col gap-2',
+        'col-start-2 pl-6',
+        side === 'left' && '@4xl:col-start-1 @4xl:pr-8 @4xl:pl-0',
+        side === 'right' && '@4xl:col-start-3 @4xl:pl-8'
       )}
       initial={{ opacity: 0, x: initialX }}
       whileInView={{ opacity: 1, x: 0 }}
@@ -33,27 +33,37 @@ export function TimelineItem({ entry, locale, side, index }: Props) {
     >
       <span
         aria-hidden
-        className="bg-brand-from ring-crust absolute top-6 h-3 w-3 rounded-full shadow-[0_0_0_1px_var(--color-brand-from)] ring-4 max-md:left-[-19px] md:right-auto md:left-auto md:-translate-x-1/2"
-        style={side === 'left' ? { right: 'calc(-1.5rem - 6px)' } : { left: 'calc(-1.5rem - 6px)' }}
+        className={cn(
+          'bg-brand-from ring-crust absolute h-3 w-3 rounded-full shadow-[0_0_0_1px_var(--color-brand-from)] ring-4',
+          'top-[6px] left-[-19px]',
+          side === 'left' ? '@4xl:right-[-22px] @4xl:left-auto' : '@4xl:left-[-22px]'
+        )}
       />
+      <time
+        className={cn(
+          'font-mono text-xs tracking-widest uppercase leading-none text-[var(--color-brand-text,var(--color-brand-from))]',
+          side === 'left' && '@4xl:text-right'
+        )}
+      >
+        {entry.year[locale]}
+      </time>
       <motion.article
         data-side={side}
         className="border-surface bg-base/60 hover:border-brand-from min-w-0 border p-5 backdrop-blur-sm transition-colors"
         whileHover={{ y: -2, transition: { duration: 0.15 } }}
       >
         <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <span className="text-brand-text shrink-0 font-mono text-sm">▸ {entry.year[locale]}</span>
-          <h3 className="font-display text-text min-w-0 font-bold break-words">
+          <h3 className="font-display text-text min-w-0 font-bold break-words hyphens-auto [overflow-wrap:break-word]">
             {entry.role[locale]}
           </h3>
-          <span className="text-subtext text-sm">@ {entry.company}</span>
+          <span className="text-subtext basis-full text-sm">
+            @ {entry.company}
+            {entry.location && (
+              <span className="text-overlay ml-2">· {entry.location[locale]}</span>
+            )}
+          </span>
         </header>
-        <ul
-          className={cn(
-            'text-subtext marker:text-brand-text mt-3 list-disc space-y-1 text-sm leading-relaxed',
-            'pl-5'
-          )}
-        >
+        <ul className="text-subtext marker:text-brand-text mt-3 list-disc space-y-1 pl-5 text-sm leading-relaxed">
           {bullets.map((b, i) => (
             <li key={i}>{b[locale]}</li>
           ))}

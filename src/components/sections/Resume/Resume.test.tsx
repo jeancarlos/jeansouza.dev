@@ -25,9 +25,6 @@ vi.mock('framer-motion', () => ({
   useReducedMotion: () => false,
 }))
 
-vi.mock('@/lib/use-media-query', () => ({
-  useMediaQuery: () => true,
-}))
 
 const mockEntry: TimelineEntry = {
   id: 'e1',
@@ -144,7 +141,7 @@ describe('Resume', () => {
     expect(screen.getByText('Summary EN.')).toBeInTheDocument()
   })
 
-  it('uses left side for even entries at wide viewport', () => {
+  it('uses left side for even entries (index 0)', () => {
     const { container } = render(
       <Resume
         entries={[mockEntry]}
@@ -154,7 +151,7 @@ describe('Resume', () => {
         locale="pt"
       />
     )
-    const li = container.querySelector('li[class*="md:col-start-1"]')
+    const li = container.querySelector('li[class*="@4xl:col-start-1"]')
     expect(li).toBeTruthy()
   })
 })

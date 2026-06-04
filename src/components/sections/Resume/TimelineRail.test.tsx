@@ -10,15 +10,15 @@ describe('TimelineRail', () => {
     expect(el.getAttribute('aria-hidden')).toBe('true')
   })
 
-  it('includes md responsive class for centering', () => {
+  it('includes container query class for centering', () => {
     const { container: c } = render(<TimelineRail />)
     const el = c.firstChild as HTMLElement
-    expect(el.className).toContain('md:left-1/2')
+    expect(el.className).toContain('@4xl:left-1/2')
   })
 
-  it('includes max-md class for single column', () => {
+  it('includes default class for single column', () => {
     const { container: c } = render(<TimelineRail />)
     const el = c.firstChild as HTMLElement
-    expect(el.className).toContain('max-md:left-[7px]')
+    expect(el.className).toContain('left-[7px]')
   })
 })
