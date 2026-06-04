@@ -6,34 +6,31 @@ Nunca adicionar "Co-Authored-By" em commits. Não incluir nenhuma assinatura de 
 
 ## Maintainability Loop
 
-Check de manteinabilidade roda embutido no `npm run lint` (sem comando extra). Gate completo de qualidade:
+A check de manteinabilidade é parte do gate de qualidade. Roda via:
 
 ```bash
-npm run lint              # eslint + scan estático próprio (maintainability)
-npm run format:check      # prettier
-npm test                  # vitest
-npm run build             # next build
+npm run maintainability   # scan estático próprio
+npm run check             # full gate: lint + format + maintainability + test + build
 ```
 
 ### Princípios
 
-- **Validação real, não custom.** p/ problemas conhecidos (XSS, focus trap, schemas, dates), usar libs consagradas. Exemplos aplicados: `focus-trap-react` p/ modal a11y, `react-markdown` + `rehype-sanitize` p/ MD→React seguro, `useSyncExternalStore` p/ fontes externas de estado, `MutationObserver` p/ mudanças de atributo.
-- **s/ disables de lint como atalho.** Quando regra dispara, refatorar código até regra ser satisfeita. Nenhuma exceção legítima remanescente.
-- **fns/componentes pequenos.** Helpers puros mesmo arquivo; componentes c/ responsabilidades distintas em arquivos separados. Target: < 200 linhas por arquivo, complexidade < 10.
-- **Tipos estritos.** s/ `any`. s/ casts desnecessários. Custo: tipar de forma que compilador ajude.
-- **Efeitos síncronos antes paint usam `useLayoutEffect`.** Estado externo (localStorage, media queries, observers) usa `useSyncExternalStore`. Refs não são mutados em render.
-- **SSR-safe.** Estado inicial via lazy initializer p/ evitar `return null` server. C/ `useSyncExternalStore`, garantir q cliente e server batem (ou usar CSS puro p/ show/hide baseado em viewport, evitando flash de hydration).
-- **Show/hide por viewport:** usar Tailwind `hidden md:flex` em vez de `if (isMobile) return null` — CSS puro não tem hydration mismatch.
+- **Validação real, não custom.** Para problemas conhecidos (XSS, focus trap, schemas, dates), usar libs consagradas. Exemplos já aplicados: `focus-trap-react` para modal a11y, `rehype-sanitize` para MD→HTML seguro, `useSyncExternalStore` para fontes externas de estado, `MutationObserver` para mudanças de atributo.
+- **Sem disables de lint como atalho.** Quando uma regra dispara, refatorar o código até a regra ser satisfeita. Exceções legítimas (ex.: `dangerouslySetInnerHTML` em MD sanitizado) recebem comentário inline explicando a decisão.
+- **Funções/componentes pequenos.** Helpers puros no mesmo arquivo; componentes com responsabilidades distintas em arquivos separados. Target: < 200 linhas por arquivo, complexidade < 10.
+- **Tipos estritos.** Sem `any`. Sem casts desnecessários. Custo: tipar de forma que o compilador ajude.
+- **Efeitos síncronos antes do paint usam `useLayoutEffect`.** Estado externo (localStorage, media queries, observers) usa `useSyncExternalStore`. Refs não são mutados em render.
+- **SSR-safe.** Estado inicial via lazy initializer para evitar `return null` no server. Cuidado com hydration mismatch em hooks client-only.
 
 ### Workflow de loop
 
-1. Rodar `npm run lint && npm test && npm run build` p/ mapear falhas.
-2. p/ cada finding, classificar:
+1. Rodar `npm run check` para mapear falhas.
+2. Para cada finding, classificar:
    - **Real bug/perf** → corrigir agora.
    - **Anti-pattern** → extrair helper, mover p/ hook canônico, ou trocar por lib.
-   - **Falso positivo da regra** → refinar a regra (regex) p/ não flagar o caso legítimo.
-3. Re-rodar. Iterar até zero errors e findings.
-4. Build 100% + tests 100% + lint 0 + prettier 0 + maintainability 0.
+   - **Decisão consciente** → comentário inline justificando + suprimir (raro).
+3. Re-rodar `npm run check`. Iterar até zero errors e findings apenas nas decisões conscientes documentadas.
+4. Build 100% + tests 100% + lint 0 + prettier 0 + maintainability só com exceções justificadas.
 
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:ca08a54f -->
 

@@ -33,7 +33,7 @@ export function TimelineItem({ entry, locale, side, index }: Props) {
     >
       <span
         aria-hidden
-        className="bg-brand-from ring-crust absolute top-6 h-3 w-3 rounded-full shadow-[0_0_0_1px_#e84545] ring-4 max-md:left-[-19px] md:right-auto md:left-auto md:-translate-x-1/2"
+        className="bg-brand-from ring-crust absolute top-6 h-3 w-3 rounded-full shadow-[0_0_0_1px_var(--color-brand-from)] ring-4 max-md:left-[-19px] md:right-auto md:left-auto md:-translate-x-1/2"
         style={side === 'left' ? { right: 'calc(-1.5rem - 6px)' } : { left: 'calc(-1.5rem - 6px)' }}
       />
       <motion.article

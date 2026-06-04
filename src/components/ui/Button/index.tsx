@@ -25,14 +25,14 @@ export function Button({
 
   const inner = (
     <span
-      className={`block rounded-full bg-[#3e3353] ${sizeClass} text-[#f2b8d4] transition-colors duration-150 group-hover:bg-transparent group-hover:text-white`}
+      className={`bg-brand-bg block rounded-full ${sizeClass} text-brand-text transition-colors duration-150 group-hover:bg-transparent group-hover:text-white`}
     >
       {children}
     </span>
   )
 
   const gradientClass = gradientDir === 'l' ? 'bg-gradient-to-l' : 'bg-gradient-to-r'
-  const wrapperClass = `group relative inline-block rounded-full ${gradientClass} from-[#e84545] to-[#b33a73] p-[2px] shadow-sm transition-all duration-150 ease-out hover:brightness-110 hover:shadow-md active:scale-90 ${disabled ? 'opacity-40 pointer-events-none' : ''} ${className}`
+  const wrapperClass = `group relative inline-block rounded-full ${gradientClass} from-brand-from to-brand-to p-[2px] shadow-sm transition-all duration-150 ease-out hover:brightness-110 hover:shadow-md active:scale-90 ${disabled ? 'opacity-40 pointer-events-none' : ''} ${className}`
 
   if (href) {
     return (

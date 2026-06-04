@@ -38,11 +38,7 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
         url: `/${locale}/blog/${post.slug}`,
         title: `~/blog/${post.slug}`,
         content: (
-          <BlogPostWindowDynamic
-            title={post.title}
-            date={post.date}
-            contentHtml={post.contentHtml}
-          />
+          <BlogPostWindowDynamic title={post.title} date={post.date} content={post.content} />
         ),
         position: centeredPosition(w, h, TOPBAR_HEIGHT),
         size: { width: w, height: h },

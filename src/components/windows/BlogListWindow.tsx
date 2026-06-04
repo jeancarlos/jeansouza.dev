@@ -9,9 +9,9 @@ interface Props {
 
 export function BlogListWindow({ posts, onOpenPost }: Props) {
   return (
-    <div className="space-y-4 p-6 text-[#f2b8d4]">
-      <p className="mb-4 text-xs text-[#b33a73]">$ ls posts/</p>
-      {posts.length === 0 && <p className="text-sm text-[#b33a73]">drwxr-xr-x (empty)</p>}
+    <div className="text-brand-text space-y-4 p-6">
+      <p className="text-brand-to mb-4 text-xs">$ ls posts/</p>
+      {posts.length === 0 && <p className="text-brand-to text-sm">drwxr-xr-x (empty)</p>}
       {posts.map((post) => (
         <button
           key={post.slug}
@@ -19,13 +19,13 @@ export function BlogListWindow({ posts, onOpenPost }: Props) {
             const rect = e.currentTarget.getBoundingClientRect()
             onOpenPost(post, { x: rect.left, y: rect.top, width: rect.width, height: rect.height })
           }}
-          className="group block w-full border-l-2 border-[#b33a73] py-2 pl-4 text-left transition-colors hover:border-[#e84545]"
+          className="group border-brand-to hover:border-brand-from block w-full border-l-2 py-2 pl-4 text-left transition-colors"
         >
-          <p className="mb-1 font-mono text-xs text-[#b33a73]">drwxr-xr-x {post.date}</p>
-          <p className="font-display font-bold text-[#f2b8d4] transition-colors group-hover:text-white">
+          <p className="text-brand-to mb-1 font-mono text-xs">drwxr-xr-x {post.date}</p>
+          <p className="font-display text-brand-text font-bold transition-colors group-hover:text-white">
             {post.title}
           </p>
-          <p className="mt-1 text-sm leading-relaxed text-[#b33a73]">{post.description}</p>
+          <p className="text-brand-to mt-1 text-sm leading-relaxed">{post.description}</p>
         </button>
       ))}
     </div>

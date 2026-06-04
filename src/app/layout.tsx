@@ -51,15 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <body className="font-sans">
-        {/* Inline theme init — runs before React hydration to avoid
-            dark/light flash. The script is static, no user input. */}
-        <Script
-          id="theme-init"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `(function(){var s=localStorage.getItem('theme');var p=s||(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',p);})();`,
-          }}
-        />
+        <Script id="theme-init" strategy="beforeInteractive" src="/theme-init.js" />
         <DotBackground />
         {children}
       </body>

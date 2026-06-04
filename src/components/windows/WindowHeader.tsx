@@ -17,7 +17,7 @@ interface WindowHeaderProps {
 const HEADER_CLASS_MOBILE =
   'flex shrink-0 items-center gap-2 px-3 py-2.5 select-none bg-transparent'
 const HEADER_CLASS_DESKTOP =
-  'flex shrink-0 items-center gap-2 px-3 py-2.5 select-none cursor-grab bg-gradient-to-r from-[#e84545] to-[#b33a73] active:cursor-grabbing'
+  'flex shrink-0 items-center gap-2 px-3 py-2.5 select-none cursor-grab bg-gradient-to-r from-brand-from to-brand-to active:cursor-grabbing'
 
 export function WindowHeader({
   id,
@@ -54,21 +54,21 @@ export function WindowHeader({
       <TrafficDot
         label="Close"
         symbol="×"
-        color="#ff5f56"
+        color="var(--color-traffic-close)"
         onClick={() => closeWindow(id)}
         disabled={!closeable}
       />
       <TrafficDot
         label="Minimize"
         symbol="−"
-        color="#eab308"
+        color="var(--color-traffic-minimize)"
         onClick={() => minimizeWindow(id)}
         disabled={!minimizable}
       />
       <TrafficDot
         label="Expand"
         symbol="+"
-        color="#22c55e"
+        color="var(--color-traffic-expand)"
         onClick={() => expandWindow(id)}
         disabled={!expandable}
       />

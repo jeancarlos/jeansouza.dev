@@ -14,7 +14,7 @@ export function generateStaticParams() {
 export default async function BlogPage({ params }: Props) {
   const { locale } = await params
   setRequestLocale(locale)
-  const posts = await getAllPostsWithContent(locale as 'pt' | 'en')
+  const posts = getAllPostsWithContent(locale as 'pt' | 'en')
 
   return (
     <WindowManagerProvider>

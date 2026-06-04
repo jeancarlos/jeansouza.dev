@@ -48,12 +48,12 @@ export function getInnerRounded(isMobile: boolean, isHome: boolean): string {
 export function getOuterClassName(isMobile: boolean, isHome: boolean): string {
   if (isMobile && isHome) return ''
   const base = isMobile ? '' : 'rounded-2xl'
-  return `${base} bg-gradient-to-r from-[#e84545] to-[#b33a73] p-[2px] shadow-2xl`
+  return `${base} bg-gradient-to-r from-brand-from to-brand-to p-[2px] shadow-2xl`
 }
 
 export function getBodyClassName(isMobile: boolean, isHome: boolean, innerRounded: string): string {
-  const bg = isMobile && isHome ? 'bg-transparent' : 'bg-[#11111b]'
-  return `flex-1 overflow-y-auto ${innerRounded} font-mono text-[#f2b8d4] ${bg}`
+  const bg = isMobile && isHome ? 'bg-transparent' : 'bg-crust'
+  return `flex-1 overflow-y-auto ${innerRounded} font-mono text-brand-text ${bg}`
 }
 
 export interface AnimateStyle {

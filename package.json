@@ -12,6 +12,7 @@
     "next-intl": "^4.13.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "react-markdown": "^10.1.0",
     "rehype-sanitize": "^6.0.0",
     "rehype-stringify": "^10.0.1",
     "remark": "^15.0.1",
@@ -23,12 +24,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint .",
+    "lint": "eslint . && node scripts/maintainability.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "vitest run",
-    "maintainability": "node scripts/maintainability.mjs",
-    "check": "npm run lint && npm run format:check && npm run maintainability && npm run test && npm run build"
+    "test": "vitest run"
   },
   "browserslist": {
     "production": [

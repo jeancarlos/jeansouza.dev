@@ -17,7 +17,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params
-  const posts = await getAllPostsWithContent(locale as 'pt' | 'en')
+  const posts = getAllPostsWithContent(locale as 'pt' | 'en')
   const post = posts.find((p) => p.slug === slug)
   if (!post) return {}
   return {
@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function PostPage({ params }: Props) {
   const { locale, slug } = await params
   setRequestLocale(locale)
-  const posts = await getAllPostsWithContent(locale as 'pt' | 'en')
+  const posts = getAllPostsWithContent(locale as 'pt' | 'en')
   const initialPost = posts.find((p) => p.slug === slug)
   if (!initialPost) notFound()
 

@@ -17,6 +17,16 @@
   --color-brand-text: #f2b8d4;
   --color-brand-bg: #3e3353;
 
+  /* MacOS traffic light dots */
+  --color-traffic-close: #ff5f56;
+  --color-traffic-minimize: #eab308;
+  --color-traffic-expand: #22c55e;
+
+  /* Catppuccin Mocha pastels — used by the static Terminal demo */
+  --color-pastel-red: #f38ba8;
+  --color-pastel-yellow: #f9e2af;
+  --color-pastel-green: #a6e3a1;
+
   /* Catppuccin Latte — light mode */
   --color-latte-base: #eff1f5;
   --color-latte-mantle: #e6e9ef;

@@ -30,8 +30,8 @@ export function MoreLinksWindow() {
   }
 
   return (
-    <div className="space-y-2 p-4 text-sm text-[#f2b8d4]">
-      <p className="mb-3 text-xs text-[#b33a73]">$ ls more/</p>
+    <div className="text-brand-text space-y-2 p-4 text-sm">
+      <p className="text-brand-to mb-3 text-xs">$ ls more/</p>
       <div className="flex flex-wrap gap-2">
         {extraLinks.map((link, index) => (
           <div key={link.name} className="relative">

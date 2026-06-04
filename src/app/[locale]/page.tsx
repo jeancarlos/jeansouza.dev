@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function HomePage({ params }: Props) {
   const { locale } = await params
   setRequestLocale(locale)
-  const posts = await getAllPostsWithContent(locale as 'pt' | 'en')
+  const posts = getAllPostsWithContent(locale as 'pt' | 'en')
   return (
     <WindowManagerProvider>
       <HomeClient posts={posts} locale={locale as 'pt' | 'en'} />

@@ -36,16 +36,13 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
   const isMobile = useIsMobile()
   const topOffset = isMobile ? 0 : TOPBAR_HEIGHT
 
-  // Lazy initial state — guarantees SSR renders the home window
-  // (no null guard) and avoids layout shift on the first client paint.
-  const [homeW, setHomeW] = useState(() => (isMobile ? HOME_W - 32 : HOME_W))
-  const [homePos, setHomePos] = useState(() => centeredPosition(HOME_W, HOME_H, topOffset))
-  const [resumeSize, setResumeSize] = useState(() => {
-    const { vw, vh } = getViewport()
-    return {
-      width: Math.min(1024, vw - WINDOW_SAFE * 2),
-      height: vh - WINDOW_SAFE * 2 - topOffset,
-    }
+  // SSR-safe initial state — matches server fallback (vw=1200, vh=800).
+  // useEffect below recalculates for the real viewport immediately after mount.
+  const [homeW, setHomeW] = useState(HOME_W)
+  const [homePos, setHomePos] = useState(() => centeredPosition(HOME_W, HOME_H, TOPBAR_HEIGHT))
+  const [resumeSize, setResumeSize] = useState({
+    width: Math.min(1024, 1200 - WINDOW_SAFE * 2),
+    height: 800 - WINDOW_SAFE * 2 - TOPBAR_HEIGHT,
   })
 
   useEffect(() => {
@@ -80,16 +77,16 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
       resizable={false}
       isFocused={isFocused}
     >
-      <div className="space-y-3 p-6 text-[#f2b8d4]">
-        <p className="text-xs text-[#b33a73]">~ jeansouza.dev</p>
+      <div className="text-brand-text space-y-3 p-6">
+        <p className="text-brand-to text-xs">~ jeansouza.dev</p>
         <p className="flex items-center gap-2">
-          <span className="text-[#e84545] select-none">{'>'}</span>
+          <span className="text-brand-from select-none">{'>'}</span>
           <Typewriter
             text={t('prompt')}
-            className="font-display text-2xl font-bold text-[#f2b8d4]"
+            className="font-display text-brand-text text-2xl font-bold"
           />
           <motion.span
-            className="text-[#e84545]"
+            className="text-brand-from"
             animate={{ opacity: [1, 0, 1] }}
             transition={{ duration: 1, repeat: Infinity, ease: steps(2, 'start') }}
             aria-hidden="true"
@@ -97,7 +94,7 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
             _
           </motion.span>
         </p>
-        <p className="pl-5 text-sm text-[#b33a73]">
+        <p className="text-brand-to pl-5 text-sm">
           <Typewriter text={t('role')} delay={0.8} />
         </p>
         <div className="flex flex-wrap gap-2 pt-4 pl-5">

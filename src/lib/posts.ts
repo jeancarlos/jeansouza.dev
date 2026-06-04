@@ -1,11 +1,6 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import { unified } from 'unified'
-import remarkParse from 'remark-parse'
-import remarkRehype from 'remark-rehype'
-import rehypeSanitize from 'rehype-sanitize'
-import rehypeStringify from 'rehype-stringify'
 
 export interface PostMeta {
   slug: string
@@ -16,7 +11,7 @@ export interface PostMeta {
 }
 
 export interface Post extends PostMeta {
-  contentHtml: string
+  content: string
 }
 
 type Locale = 'pt' | 'en'
@@ -24,12 +19,6 @@ type Locale = 'pt' | 'en'
 const postsDirectory = path.join(process.cwd(), 'src/content/posts')
 
 const LOCALE_FILE_RE = /^(.+)\.(pt|en)\.md$/
-
-const processor = unified()
-  .use(remarkParse)
-  .use(remarkRehype)
-  .use(rehypeSanitize)
-  .use(rehypeStringify)
 
 function parseLocaleFromFilename(fileName: string): { slug: string; locale: Locale } | null {
   const match = LOCALE_FILE_RE.exec(fileName)
@@ -86,7 +75,7 @@ export function getAllSlugs(): string[] {
   return Array.from(slugs)
 }
 
-export async function getPost(slug: string, locale: Locale = 'pt'): Promise<Post | null> {
+export function getPost(slug: string, locale: Locale = 'pt'): Post | null {
   const fallback: Locale = locale === 'pt' ? 'en' : 'pt'
   const preferred = path.join(postsDirectory, `${slug}.${locale}.md`)
   const fallbackPath = path.join(postsDirectory, `${slug}.${fallback}.md`)
@@ -105,7 +94,6 @@ export async function getPost(slug: string, locale: Locale = 'pt'): Promise<Post
     data: Record<string, unknown>
     content: string
   }
-  const processedContent = await processor.process(content)
   const rawDate = data.date
   const date = rawDate instanceof Date ? rawDate.toISOString().slice(0, 10) : String(rawDate)
   const usedLocale = filePath.endsWith(`.${locale}.md`) ? locale : fallback
@@ -116,12 +104,12 @@ export async function getPost(slug: string, locale: Locale = 'pt'): Promise<Post
     title: typeof data.title === 'string' ? data.title : '',
     date,
     description: typeof data.description === 'string' ? data.description : '',
-    contentHtml: String(processedContent),
+    content,
   }
 }
 
-export async function getAllPostsWithContent(locale: Locale = 'pt'): Promise<Post[]> {
+export function getAllPostsWithContent(locale: Locale = 'pt'): Post[] {
   const slugs = getAllSlugs()
-  const posts = await Promise.all(slugs.map(async (slug) => getPost(slug, locale)))
-  return (posts.filter(Boolean) as Post[]).sort((a, b) => (a.date > b.date ? -1 : 1))
+  const posts = slugs.map((slug) => getPost(slug, locale))
+  return posts.filter((p): p is Post => p !== null).sort((a, b) => (a.date > b.date ? -1 : 1))
 }

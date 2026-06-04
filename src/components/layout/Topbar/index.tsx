@@ -2,7 +2,6 @@
 import { useLocale } from 'next-intl'
 import { useRouter, usePathname } from '@/i18n/navigation'
 import { Switch } from '@/components/ui/Switch'
-import { useIsMobile } from '@/lib/useIsMobile'
 import { useTheme, useThemeToggle } from '@/lib/use-theme'
 
 export function ThemeToggle({ size }: { size?: 'default' | 'sm' }) {
@@ -42,14 +41,12 @@ export function LocaleToggle({ size }: { size?: 'default' | 'sm' }) {
 }
 
 export function Topbar() {
-  const isMobile = useIsMobile()
-
-  if (isMobile) return null
-
-  // z-[19] — below all windows (BASE_Z=20), but visible in the 75px reserved zone
-  // where dragConstraints prevent windows from entering
+  // hidden md:flex = hidden below the 768px breakpoint, flex on md+.
+  // Using CSS instead of `if (isMobile) return null` avoids the SSR
+  // hydration flash (server has no matchMedia, client snapshot defaults
+  // to desktop and would briefly render the topbar on mobile).
   return (
-    <div className="pointer-events-none fixed inset-x-0 top-0 z-[19] flex h-[75px] items-center justify-between px-4">
+    <div className="pointer-events-none fixed inset-x-0 top-0 z-[19] hidden h-[75px] items-center justify-between px-4 md:flex">
       <div className="pointer-events-auto">
         <LocaleToggle size="sm" />
       </div>
