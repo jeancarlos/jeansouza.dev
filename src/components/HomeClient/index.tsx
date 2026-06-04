@@ -129,9 +129,11 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
   // Sync window state to browser back/forward navigation.
   useEffect(() => {
     const onPopstate = (e: PopStateEvent) => {
-      // Ignore entries not pushed by this app (Next.js router, external navigation).
       const appState = e.state as { _appWindow?: string } | null
+      // Ignore entries not pushed by this app — let Next.js handle those normally.
       if (!appState?._appWindow) return
+      // Block Next.js router from also handling this popstate and triggering a soft nav.
+      e.stopImmediatePropagation()
       const pathname = location.pathname
       const current = windowsRef.current
       // Close the topmost window whose URL no longer matches the current location.
@@ -142,8 +144,8 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
         closeWindow(toClose.id)
       }
     }
-    window.addEventListener('popstate', onPopstate)
-    return () => window.removeEventListener('popstate', onPopstate)
+    window.addEventListener('popstate', onPopstate, { capture: true })
+    return () => window.removeEventListener('popstate', onPopstate, { capture: true })
   }, [closeWindow])
 
   useEffect(() => {

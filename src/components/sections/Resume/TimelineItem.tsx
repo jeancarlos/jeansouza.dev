@@ -49,7 +49,7 @@ export function TimelineItem({ entry, locale, side, index }: Props) {
       </time>
       <motion.article
         data-side={side}
-        className="border-surface bg-base/60 hover:border-brand-from min-w-0 border p-5 backdrop-blur-sm transition-colors"
+        className="border-surface bg-[var(--button-inner-bg)] hover:border-brand-from min-w-0 border p-5 transition-colors"
         whileHover={{ y: -2, transition: { duration: 0.15 } }}
       >
         <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">

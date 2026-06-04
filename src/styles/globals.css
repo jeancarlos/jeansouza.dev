@@ -53,7 +53,7 @@
   --page-text: var(--color-latte-text);
   --dot-color: 104, 57, 239;
   --button-inner-bg: var(--color-latte-mantle);
-  --button-hover-text: var(--color-latte-text);
+  --button-hover-text: white;
 }
 
 @layer base {
