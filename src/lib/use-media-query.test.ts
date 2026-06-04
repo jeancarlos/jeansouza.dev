@@ -4,9 +4,17 @@ import { useMediaQuery } from './use-media-query'
 
 type MQLCallback = (e: MediaQueryListEvent) => void
 
+interface MockMQL {
+  matches: boolean
+  addEventListener: ReturnType<typeof vi.fn>
+  removeEventListener: ReturnType<typeof vi.fn>
+  dispatchEvent: ReturnType<typeof vi.fn>
+  _fire: (newMatches: boolean) => void
+}
+
 function mockMatchMedia(matches: boolean) {
   const listeners: MQLCallback[] = []
-  const mql: { matches: boolean } & Record<string, unknown> = {
+  const mql: MockMQL = {
     matches,
     addEventListener: vi.fn((_: string, fn: MQLCallback) => listeners.push(fn)),
     removeEventListener: vi.fn(),

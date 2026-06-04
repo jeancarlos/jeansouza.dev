@@ -1,19 +1,20 @@
 export const WINDOW_SAFE = 20
 export const TOPBAR_HEIGHT = 75
 
+export const DEFAULT_VIEWPORT = { vw: 1200, vh: 800 } as const
+
 export function getViewport(): { vw: number; vh: number } {
-  return {
-    vw: typeof window !== 'undefined' ? window.innerWidth : 1200,
-    vh: typeof window !== 'undefined' ? window.innerHeight : 800,
-  }
+  if (typeof window === 'undefined') return DEFAULT_VIEWPORT
+  return { vw: window.innerWidth, vh: window.innerHeight }
 }
 
 export function centeredPosition(
   width: number,
   height: number,
-  topOffset = 0
+  topOffset = 0,
+  viewport?: { vw: number; vh: number }
 ): { x: number; y: number } {
-  const { vw, vh } = getViewport()
+  const { vw, vh } = viewport ?? getViewport()
   const usableHeight = vh - topOffset
   return {
     x: Math.max(WINDOW_SAFE, Math.min((vw - width) / 2, vw - width - WINDOW_SAFE)),

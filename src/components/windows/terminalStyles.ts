@@ -41,14 +41,12 @@ export function getActiveStyle(
 
 export function getInnerRounded(isMobile: boolean, isHome: boolean): string {
   if (isMobile && isHome) return ''
-  if (isMobile) return 'rounded-[42px]'
   return 'rounded-[14px]'
 }
 
 export function getOuterClassName(isMobile: boolean, isHome: boolean): string {
   if (isMobile && isHome) return ''
-  const base = isMobile ? '' : 'rounded-2xl'
-  return `${base} bg-gradient-to-r from-brand-from to-brand-to p-[2px] shadow-2xl`
+  return 'rounded-2xl bg-gradient-to-r from-brand-from to-brand-to p-[2px] shadow-2xl'
 }
 
 export function getBodyClassName(isMobile: boolean, isHome: boolean, innerRounded: string): string {

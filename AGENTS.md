@@ -11,10 +11,10 @@ Nunca adicionar "Co-Authored-By" em commits. Não incluir nenhuma assinatura de 
 - **fns/componentes pequenos.** Helpers puros mesmo arquivo; componentes c/ responsabilidades distintas em arquivos separados. Target: < 200 linhas por arquivo, complexidade < 10.
 - **Tipos estritos.** s/ `any`. s/ casts desnecessários. Custo: tipar de forma que compilador ajude.
 - **Efeitos síncronos antes paint usam `useLayoutEffect`.** Estado externo (localStorage, media queries, observers) usa `useSyncExternalStore`. Refs não são mutados em render.
-- **SSR-safe.** Estado inicial via lazy initializer p/ evitar `return null` server. C/ `useSyncExternalStore`, garantir q cliente e server batem (ou usar CSS puro p/ show/hide baseado em viewport, evitando flash de hydration).
+- **SSR-safe.** Estado inicial via lazy initializer p/ evitar `return null` server. C/ `useSyncExternalStore`garantir q cliente e server batem (ou usar CSS puro p/ show/hide baseado em viewport, evitando flash de hydration).
 - **Show/hide por viewport:** usar Tailwind `hidden md:flex` em vez de `if (isMobile) return null` — CSS puro não tem hydration mismatch.
-- **Design tokens, não hex literais.** Cores no `@theme` do `globals.css`, referenciadas como classes Tailwind (`bg-brand-from`, `text-brand-text`). Tailwind v4 gera as utilities automaticamente a partir das CSS variables.
-- **MD→React via react-markdown, não HTML cru.** Sanitização no boundary via `rehype-sanitize`. Nenhum `dangerouslySetInnerHTML` deve aparecer no código.
+- **Design tokens, não hex literais.** Cores `@theme` `globals.css`referenciadas como classes Tailwind (`bg-brand-from` `text-brand-text`). Tailwind v4 gera utilities automaticamente partir CSS variables.
+- **MD→React via react-markdown, não HTML cru.** Sanitização boundary via `rehype-sanitize`. Nenhum `dangerouslySetInnerHTML` deve aparecer código.
 
 ### Quality gate
 
@@ -25,7 +25,7 @@ npm test                  # vitest
 npm run build             # next build
 ```
 
-Loop: rodar tudo, mapear falhas, corrigir, re-rodar. Iterar até zero errors em todos os gates.
+Loop: rodar tudo, mapear falhas, corrigir, re-rodar. Iterar até zero errors em todos gates.
 
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:ca08a54f -->
 

@@ -41,12 +41,8 @@ export function LocaleToggle({ size }: { size?: 'default' | 'sm' }) {
 }
 
 export function Topbar() {
-  // hidden md:flex = hidden below the 768px breakpoint, flex on md+.
-  // Using CSS instead of `if (isMobile) return null` avoids the SSR
-  // hydration flash (server has no matchMedia, client snapshot defaults
-  // to desktop and would briefly render the topbar on mobile).
   return (
-    <div className="pointer-events-none fixed inset-x-0 top-0 z-[19] hidden h-[75px] items-center justify-between px-4 md:flex">
+    <div className="pointer-events-none fixed inset-x-0 top-0 z-[19] flex h-[75px] items-center justify-between px-4">
       <div className="pointer-events-auto">
         <LocaleToggle size="sm" />
       </div>

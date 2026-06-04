@@ -5,3 +5,5 @@ dist
 docs
 coverage
 next-env.d.ts
+.beads
+

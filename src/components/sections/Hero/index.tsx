@@ -1,5 +1,4 @@
 'use client'
-import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { motion, steps } from 'framer-motion'
 import dynamic from 'next/dynamic'
@@ -9,7 +8,8 @@ import { Typewriter } from '@/components/ui/Typewriter'
 import { Button } from '@/components/ui/Button'
 import type { ButtonOrigin } from '@/components/windows/WindowManager'
 import { useIsMobile } from '@/lib/useIsMobile'
-import { centeredPosition, getViewport, WINDOW_SAFE, TOPBAR_HEIGHT } from '@/lib/windowUtils'
+import { useViewport } from '@/lib/useViewport'
+import { centeredPosition, WINDOW_SAFE, TOPBAR_HEIGHT } from '@/lib/windowUtils'
 
 const MoreLinksWindowDynamic = dynamic(
   async () => import('@/components/windows/MoreLinksWindow').then((m) => m.MoreLinksWindow),
@@ -33,33 +33,20 @@ const HOME_H = 320
 export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
   const t = useTranslations('hero')
   const tResume = useTranslations('resume')
+  const viewport = useViewport()
   const isMobile = useIsMobile()
-  const topOffset = isMobile ? 0 : TOPBAR_HEIGHT
+  const topOffset = TOPBAR_HEIGHT
 
-  // SSR-safe initial state — matches server fallback (vw=1200, vh=800).
-  // useEffect below recalculates for the real viewport immediately after mount.
-  const [homeW, setHomeW] = useState(HOME_W)
-  const [homePos, setHomePos] = useState(() => centeredPosition(HOME_W, HOME_H, TOPBAR_HEIGHT))
-  const [resumeSize, setResumeSize] = useState({
-    width: Math.min(1024, 1200 - WINDOW_SAFE * 2),
-    height: 800 - WINDOW_SAFE * 2 - TOPBAR_HEIGHT,
-  })
-
-  useEffect(() => {
-    const recalc = () => {
-      const { vw, vh } = getViewport()
-      const w = isMobile ? Math.min(vw - 32, HOME_W) : HOME_W
-      setHomeW(w)
-      setHomePos(centeredPosition(w, HOME_H, topOffset))
-      setResumeSize({
-        width: Math.min(1024, vw - WINDOW_SAFE * 2),
-        height: vh - WINDOW_SAFE * 2 - topOffset,
-      })
-    }
-    recalc()
-    window.addEventListener('resize', recalc)
-    return () => window.removeEventListener('resize', recalc)
-  }, [isMobile, topOffset])
+  // useViewport uses useSyncExternalStore with getServerSnapshot
+  // {vw:1200, vh:800}, so server and client first render return the same
+  // values — no hydration mismatch. After mount, the real viewport triggers
+  // a re-render and these derivations update automatically.
+  const homeW = isMobile ? Math.min(viewport.vw - 32, HOME_W) : HOME_W
+  const homePos = centeredPosition(homeW, HOME_H, topOffset, viewport)
+  const resumeSize = {
+    width: Math.min(1024, viewport.vw - WINDOW_SAFE * 2),
+    height: viewport.vh - WINDOW_SAFE * 2 - topOffset,
+  }
 
   return (
     <TerminalWindow

@@ -69,6 +69,7 @@ export function WindowChrome({
       transition={transition}
       style={{ ...activeStyle, zIndex, position: 'fixed' }}
       onPointerDown={() => focusWindow(id)}
+      suppressHydrationWarning
       className={outerClassName}
       role="dialog"
       aria-modal="true"
