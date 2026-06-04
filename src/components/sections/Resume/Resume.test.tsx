@@ -6,7 +6,27 @@ import type { Profile } from '@/content/resume/profile'
 import type { EducationEntry } from '@/content/resume/education'
 
 vi.mock('next-intl', () => ({
-  useTranslations: () => (key: string) => key,
+  useTranslations: (namespace: string) => {
+    const messages: Record<string, Record<string, string>> = {
+      resume: {
+        command: '$ cat ~/resume',
+        experience: 'Experience',
+        education: 'Education',
+        languages: 'Languages',
+        title: 'Resume',
+        'download.label': 'Download résumé',
+        pdf: 'PDF',
+        docx: 'DOCX',
+      },
+      'resume.download': {
+        label: 'Download résumé',
+        pdf: 'PDF',
+        docx: 'DOCX',
+      },
+    }
+    const ns = messages[namespace] ?? {}
+    return (key: string) => ns[key]
+  },
 }))
 
 vi.mock('framer-motion', () => ({
@@ -24,7 +44,6 @@ vi.mock('framer-motion', () => ({
   },
   useReducedMotion: () => false,
 }))
-
 
 const mockEntry: TimelineEntry = {
   id: 'e1',

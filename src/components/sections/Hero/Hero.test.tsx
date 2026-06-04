@@ -4,7 +4,16 @@ import { Hero } from './index'
 import { WindowManagerProvider } from '@/components/windows/WindowManager'
 
 vi.mock('next-intl', () => ({
-  useTranslations: () => (key: string) => key,
+  useTranslations: (namespace: string) => {
+    const messages: Record<string, Record<string, string>> = {
+      hero: { prompt: 'jean souza', role: 'role', cta: 'cta' },
+      nav: { blog: 'Blog', resume: 'Resume' },
+      resume: { title: 'Resume' },
+      more: { title: 'More links' },
+    }
+    const ns = messages[namespace] ?? {}
+    return (key: string) => ns[key]
+  },
 }))
 
 vi.mock('@/i18n/navigation', () => ({

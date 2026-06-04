@@ -8,6 +8,13 @@
     "role": "senior front-end engineer",
     "cta": "explore"
   },
+  "window": {
+    "back": "< back",
+    "backAria": "Go back",
+    "close": "Close",
+    "minimize": "Minimize",
+    "expand": "Expand"
+  },
   "resume": {
     "title": "Resume",
     "command": "$ cat ~/resume",
@@ -23,7 +30,19 @@
   "blog": {
     "command": "ls posts/",
     "title": "Blog",
-    "readMore": "read post"
+    "readMore": "read post",
+    "empty": "(empty)"
+  },
+  "more": {
+    "title": "More links",
+    "copy": "Copy {name}",
+    "copied": "Copied!"
+  },
+  "theme": {
+    "toggle": "Toggle dark/light mode"
+  },
+  "locale": {
+    "switchTo": "Switch to {locale}"
   },
   "lang": {
     "switch": "PT"

@@ -41,6 +41,9 @@ export const metadata: Metadata = {
     siteName: 'Jean Souza',
     type: 'website',
   },
+  icons: {
+    icon: '/favicon.svg',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

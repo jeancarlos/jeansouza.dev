@@ -26,7 +26,7 @@ export function Button({
 
   const inner = (
     <span
-      className={`bg-[var(--button-inner-bg)] block rounded-full ${sizeClass} text-[var(--button-text)] transition-colors duration-150 group-hover:bg-transparent group-hover:text-[var(--button-hover-text)]`}
+      className={`block rounded-full bg-[var(--button-inner-bg)] ${sizeClass} text-[var(--button-text)] transition-colors duration-150 group-hover:bg-transparent group-hover:text-[var(--button-hover-text)]`}
     >
       {children}
     </span>

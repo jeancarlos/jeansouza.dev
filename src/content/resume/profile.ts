@@ -15,8 +15,8 @@ export interface Profile {
 export const profile: Profile = {
   name: 'Jean Souza',
   headline: {
-    pt: 'Desenvolvedor Frontend Senior | React · Next.js · TypeScript · DevOps',
-    en: 'Senior Frontend Engineer | React · Next.js · TypeScript · DevOps',
+    pt: 'Engenheiro Frontend Senior',
+    en: 'Senior Frontend Engineer',
   },
   contacts: {
     email: 'contato@jeansouza.dev',

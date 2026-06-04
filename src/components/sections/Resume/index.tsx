@@ -45,7 +45,13 @@ export function Resume({ entries, profile, education, assets, locale }: Props) {
               {entries.map((entry, i) => {
                 const side = i % 2 === 0 ? 'left' : 'right'
                 return (
-                  <TimelineItem key={entry.id} entry={entry} locale={locale} side={side} index={i} />
+                  <TimelineItem
+                    key={entry.id}
+                    entry={entry}
+                    locale={locale}
+                    side={side}
+                    index={i}
+                  />
                 )
               })}
             </ul>

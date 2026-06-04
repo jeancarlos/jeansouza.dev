@@ -8,6 +8,13 @@
     "role": "engenheiro front-end sênior",
     "cta": "explorar"
   },
+  "window": {
+    "back": "< voltar",
+    "backAria": "Voltar",
+    "close": "Fechar",
+    "minimize": "Minimizar",
+    "expand": "Expandir"
+  },
   "resume": {
     "title": "Currículo",
     "command": "$ cat ~/resume",
@@ -23,7 +30,19 @@
   "blog": {
     "command": "ls posts/",
     "title": "Blog",
-    "readMore": "ler post"
+    "readMore": "ler post",
+    "empty": "(vazio)"
+  },
+  "more": {
+    "title": "Mais links",
+    "copy": "Copiar {name}",
+    "copied": "Copiado!"
+  },
+  "theme": {
+    "toggle": "Alternar modo claro/escuro"
+  },
+  "locale": {
+    "switchTo": "Mudar para {locale}"
   },
   "lang": {
     "switch": "EN"

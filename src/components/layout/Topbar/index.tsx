@@ -1,5 +1,5 @@
 'use client'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useRouter, usePathname } from '@/i18n/navigation'
 import { Switch } from '@/components/ui/Switch'
 import { useTheme, useThemeToggle } from '@/lib/use-theme'
@@ -31,12 +31,7 @@ function SunIcon() {
 
 function MoonIcon() {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className="h-3 w-3"
-      aria-hidden="true"
-    >
+    <svg viewBox="0 0 24 24" fill="currentColor" className="h-3 w-3" aria-hidden="true">
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
     </svg>
   )
@@ -45,15 +40,11 @@ function MoonIcon() {
 export function ThemeToggle({ size }: { size?: 'default' | 'sm' }) {
   const theme = useTheme()
   const toggle = useThemeToggle()
+  const t = useTranslations('theme')
   const isLight = theme === 'light'
 
   return (
-    <Switch
-      on={isLight}
-      onToggle={toggle}
-      aria-label="Toggle dark/light mode"
-      size={size}
-    >
+    <Switch on={isLight} onToggle={toggle} aria-label={t('toggle')} size={size}>
       {isLight ? <SunIcon /> : <MoonIcon />}
     </Switch>
   )
@@ -63,6 +54,7 @@ export function LocaleToggle({ size }: { size?: 'default' | 'sm' }) {
   const locale = useLocale()
   const router = useRouter()
   const pathname = usePathname()
+  const t = useTranslations('locale')
   const next = locale === 'pt' ? 'en' : 'pt'
 
   const handleToggle = () => {
@@ -74,7 +66,7 @@ export function LocaleToggle({ size }: { size?: 'default' | 'sm' }) {
     <Switch
       on={locale === 'en'}
       onToggle={handleToggle}
-      aria-label={`Switch to ${next.toUpperCase()}`}
+      aria-label={t('switchTo', { locale: next.toUpperCase() })}
       size={size}
     >
       {locale.toUpperCase()}

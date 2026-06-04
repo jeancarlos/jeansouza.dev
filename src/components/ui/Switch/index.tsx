@@ -9,7 +9,13 @@ export interface SwitchProps {
   size?: 'default' | 'sm'
 }
 
-export function Switch({ on, onToggle, 'aria-label': ariaLabel, children, size = 'default' }: SwitchProps) {
+export function Switch({
+  on,
+  onToggle,
+  'aria-label': ariaLabel,
+  children,
+  size = 'default',
+}: SwitchProps) {
   const isSmall = size === 'sm'
   const pillClass = isSmall ? 'h-6 w-12' : 'h-7 w-14'
   const translateOn = isSmall ? 'translate-x-6' : 'translate-x-7'
@@ -21,7 +27,7 @@ export function Switch({ on, onToggle, 'aria-label': ariaLabel, children, size =
       aria-checked={on}
       onClick={onToggle}
       aria-label={ariaLabel}
-      className={`relative inline-flex ${pillClass} cursor-pointer rounded-full ${gradientDir} from-brand-from to-brand-to p-[2px] transition-all hover:brightness-110 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-from`}
+      className={`relative inline-flex ${pillClass} cursor-pointer rounded-full ${gradientDir} from-brand-from to-brand-to focus-visible:outline-brand-from p-[2px] transition-all hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-95`}
     >
       <span className="flex h-full w-full rounded-full bg-[var(--button-inner-bg)]">
         <span

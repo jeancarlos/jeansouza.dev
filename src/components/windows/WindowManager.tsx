@@ -9,7 +9,7 @@ import {
   type ReactNode,
 } from 'react'
 import { WINDOW_SAFE, getViewport, clampPosition } from '@/lib/windowUtils'
-import { reducer } from './windowReducer'
+import { windowsReducer } from './windowReducer'
 import type { WindowConfig, WindowState } from './windowReducer'
 export type { ButtonOrigin, WindowConfig, WindowState } from './windowReducer'
 
@@ -31,7 +31,7 @@ interface ContextValue {
 const WindowManagerContext = createContext<ContextValue | null>(null)
 
 export function WindowManagerProvider({ children }: { children: ReactNode }) {
-  const [windows, dispatch] = useReducer(reducer, [])
+  const [windows, dispatch] = useReducer(windowsReducer, [])
   // Always-fresh ref — set in layout effect so callbacks never see stale state.
   // useLayoutEffect runs synchronously after commit and before any user-fired
   // event handler, preserving the "latest state in stable callback" guarantee

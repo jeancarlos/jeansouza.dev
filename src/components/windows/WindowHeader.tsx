@@ -1,6 +1,7 @@
 'use client'
 import { type PointerEvent } from 'react'
 import { type DragControls } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 import { useWindowManager } from './WindowManager'
 import { TrafficDot } from './TrafficDot'
 
@@ -29,6 +30,7 @@ export function WindowHeader({
   expandable,
 }: WindowHeaderProps) {
   const { closeWindow, minimizeWindow, expandWindow } = useWindowManager()
+  const t = useTranslations('window')
 
   const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
     dragControls.start(e)
@@ -42,9 +44,9 @@ export function WindowHeader({
           <button
             onClick={() => history.back()}
             className="font-mono text-xs text-white/90 hover:text-white"
-            aria-label="Go back"
+            aria-label={t('backAria')}
           >
-            {'< back'}
+            {t('back')}
           </button>
           <span className="ml-3 font-mono text-xs text-white/80">{title}</span>
         </div>
@@ -52,21 +54,21 @@ export function WindowHeader({
       {/* Desktop header: traffic dots + title — hidden below md */}
       <div onPointerDown={onPointerDown} className={HEADER_CLASS_DESKTOP}>
         <TrafficDot
-          label="Close"
+          label={t('close')}
           symbol="×"
           color="var(--color-traffic-close)"
           onClick={() => closeWindow(id)}
           disabled={!closeable}
         />
         <TrafficDot
-          label="Minimize"
+          label={t('minimize')}
           symbol="−"
           color="var(--color-traffic-minimize)"
           onClick={() => minimizeWindow(id)}
           disabled={!minimizable}
         />
         <TrafficDot
-          label="Expand"
+          label={t('expand')}
           symbol="+"
           color="var(--color-traffic-expand)"
           onClick={() => expandWindow(id)}

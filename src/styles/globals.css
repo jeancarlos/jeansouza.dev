@@ -27,10 +27,11 @@
   --color-pastel-yellow: #f9e2af;
   --color-pastel-green: #a6e3a1;
 
-  /* Catppuccin Latte — light mode */
+  /* a — light mode */
+  --color-latte-crust: #ffffff;
   --color-latte-base: #eff1f5;
   --color-latte-mantle: #e6e9ef;
-  --color-latte-text: #4c4f69;
+  --color-latte-text: #23151c;
   --color-latte-subtext: #6c6f85;
 
   --font-sans: var(--font-space-grotesk), sans-serif;
@@ -50,7 +51,15 @@
 }
 
 [data-theme='light'] {
-  --page-bg: var(--color-latte-base);
+  --color-crust: var(--color-latte-crust);
+  --color-base: var(--color-latte-base);
+  --color-mantle: var(--color-latte-mantle);
+  --color-surface: var(--color-latte-surface);
+  --color-overlay: var(--color-latte-overlay);
+  --color-subtext: var(--color-latte-subtext);
+  --color-text: var(--color-latte-text);
+  --color-brand-text: var(--color-brand-from);
+  --page-bg: var(--color-latte-crust);
   --page-text: var(--color-latte-text);
   --dot-color: 104, 57, 239;
   --button-inner-bg: var(--color-latte-mantle);
@@ -87,7 +96,14 @@
   }
 
   ::-webkit-scrollbar-button {
+    background: transparent;
     display: none;
+  }
+
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-corner,
+  ::-webkit-scrollbar-thumb {
+    background: transparent;
   }
 
   html,

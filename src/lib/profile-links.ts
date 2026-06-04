@@ -3,6 +3,7 @@ export interface LinkItem {
   url?: string
   content?: string
   icon: string
+  primary?: boolean
 }
 
 export const links: LinkItem[] = [
@@ -40,5 +41,8 @@ export const links: LinkItem[] = [
     name: 'Source for this website',
     url: 'https://github.com/jeancarlos/jeansouza.dev',
     icon: 'fab fa-github',
+    primary: true,
   },
 ]
+
+export const extraLinks: LinkItem[] = links.filter((l) => !l.primary)

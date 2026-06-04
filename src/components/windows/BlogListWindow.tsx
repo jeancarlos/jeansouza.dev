@@ -1,4 +1,5 @@
 'use client'
+import { useTranslations } from 'next-intl'
 import type { Post } from '@/lib/posts'
 import type { ButtonOrigin } from '@/components/windows/WindowManager'
 
@@ -8,10 +9,11 @@ interface Props {
 }
 
 export function BlogListWindow({ posts, onOpenPost }: Props) {
+  const t = useTranslations('blog')
   return (
     <div className="text-brand-text space-y-4 p-6">
       <p className="text-brand-to mb-4 text-xs">$ ls posts/</p>
-      {posts.length === 0 && <p className="text-brand-to text-sm">drwxr-xr-x (empty)</p>}
+      {posts.length === 0 && <p className="text-brand-to text-sm">drwxr-xr-x {t('empty')}</p>}
       {posts.map((post) => (
         <button
           key={post.slug}

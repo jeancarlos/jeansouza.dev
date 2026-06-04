@@ -32,7 +32,9 @@ const HOME_H = 320
 
 export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
   const t = useTranslations('hero')
+  const tNav = useTranslations('nav')
   const tResume = useTranslations('resume')
+  const tMore = useTranslations('more')
   const viewport = useViewport()
   const isMobile = useIsMobile()
   const topOffset = TOPBAR_HEIGHT
@@ -107,7 +109,7 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
               onOpenBlog({ x: rect.left, y: rect.top, width: rect.width, height: rect.height })
             }}
           >
-            <i className="fas fa-book mr-1" aria-hidden="true" /> Blog
+            <i className="fas fa-book mr-1" aria-hidden="true" /> {tNav('blog')}
           </Button>
           <WindowButton
             windowId="more-links"
@@ -116,7 +118,7 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
             windowContent={<MoreLinksWindowDynamic />}
             windowSize={{ width: 320, height: 280 }}
             defaultSize="compact"
-            aria-label="More links"
+            aria-label={tMore('title')}
           >
             +
           </WindowButton>

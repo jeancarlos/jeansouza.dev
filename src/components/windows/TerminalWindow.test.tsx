@@ -18,6 +18,22 @@ vi.mock('framer-motion', () => ({
   useDragControls: () => ({ start: vi.fn() }),
 }))
 
+vi.mock('next-intl', () => ({
+  useTranslations: (namespace: string) => {
+    const messages: Record<string, Record<string, string>> = {
+      window: {
+        back: '< back',
+        backAria: 'Go back',
+        close: 'Close',
+        minimize: 'Minimize',
+        expand: 'Expand',
+      },
+    }
+    const ns = messages[namespace] ?? {}
+    return (key: string) => ns[key]
+  },
+}))
+
 vi.mock('./WindowManager', () => ({
   useWindowManager: () => ({
     closeWindow: vi.fn(),

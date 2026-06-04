@@ -4,7 +4,17 @@ import { Downloads } from './Downloads'
 import type { CurriculoAsset } from '@/lib/curriculo-assets'
 
 vi.mock('next-intl', () => ({
-  useTranslations: () => (key: string) => key,
+  useTranslations: (namespace: string) => {
+    const messages: Record<string, Record<string, string>> = {
+      'resume.download': {
+        label: 'Download résumé',
+        pdf: 'PDF',
+        docx: 'DOCX',
+      },
+    }
+    const ns = messages[namespace] ?? {}
+    return (key: string) => ns[key]
+  },
 }))
 
 const allAssets: CurriculoAsset[] = [

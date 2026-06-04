@@ -44,7 +44,7 @@ function maxZ(windows: WindowState[]): number {
   return windows.reduce((m, w) => Math.max(m, w.zIndex), BASE_Z)
 }
 
-export function reducer(state: WindowState[], action: Action): WindowState[] {
+export function windowsReducer(state: WindowState[], action: Action): WindowState[] {
   switch (action.type) {
     case 'OPEN': {
       const exists = state.find((w) => w.id === action.window.id)

@@ -1,15 +1,14 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/Button'
 import { Tooltip } from '@/components/ui/Tooltip'
-import { links } from '@/components/ui/SocialLinks/constants'
+import { extraLinks } from '@/lib/profile-links'
 
 const COPY_FEEDBACK_MS = 2000
 
-// Show all links except GitHub (primary button in hero)
-const extraLinks = links.filter((l) => l.name !== 'Source for this website')
-
 export function MoreLinksWindow() {
+  const t = useTranslations('more')
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -44,14 +43,14 @@ export function MoreLinksWindow() {
               <>
                 <Button
                   onClick={() => link.content && handleCopyContent(link.content, index)}
-                  aria-label={`Copy ${link.name}`}
+                  aria-label={t('copy', { name: link.name })}
                 >
                   <i className={`${link.icon} mr-1`} aria-hidden="true" />
                   {link.name}
                 </Button>
                 {copiedIndex === index && (
                   <Tooltip show={true} component="span">
-                    Copied!
+                    {t('copied')}
                   </Tooltip>
                 )}
               </>
