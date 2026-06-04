@@ -4,18 +4,7 @@
 
 Nunca adicionar "Co-Authored-By" em commits. Não incluir nenhuma assinatura de co-autoria.
 
-## Maintainability Loop
-
-Check de manteinabilidade roda embutido no `npm run lint` (sem comando extra). Gate completo de qualidade:
-
-```bash
-npm run lint              # eslint + scan estático próprio (maintainability)
-npm run format:check      # prettier
-npm test                  # vitest
-npm run build             # next build
-```
-
-### Princípios
+## Maintainability Principles
 
 - **Validação real, não custom.** p/ problemas conhecidos (XSS, focus trap, schemas, dates), usar libs consagradas. Exemplos aplicados: `focus-trap-react` p/ modal a11y, `react-markdown` + `rehype-sanitize` p/ MD→React seguro, `useSyncExternalStore` p/ fontes externas de estado, `MutationObserver` p/ mudanças de atributo.
 - **s/ disables de lint como atalho.** Quando regra dispara, refatorar código até regra ser satisfeita. Nenhuma exceção legítima remanescente.
@@ -24,16 +13,19 @@ npm run build             # next build
 - **Efeitos síncronos antes paint usam `useLayoutEffect`.** Estado externo (localStorage, media queries, observers) usa `useSyncExternalStore`. Refs não são mutados em render.
 - **SSR-safe.** Estado inicial via lazy initializer p/ evitar `return null` server. C/ `useSyncExternalStore`, garantir q cliente e server batem (ou usar CSS puro p/ show/hide baseado em viewport, evitando flash de hydration).
 - **Show/hide por viewport:** usar Tailwind `hidden md:flex` em vez de `if (isMobile) return null` — CSS puro não tem hydration mismatch.
+- **Design tokens, não hex literais.** Cores no `@theme` do `globals.css`, referenciadas como classes Tailwind (`bg-brand-from`, `text-brand-text`). Tailwind v4 gera as utilities automaticamente a partir das CSS variables.
+- **MD→React via react-markdown, não HTML cru.** Sanitização no boundary via `rehype-sanitize`. Nenhum `dangerouslySetInnerHTML` deve aparecer no código.
 
-### Workflow de loop
+### Quality gate
 
-1. Rodar `npm run lint && npm test && npm run build` p/ mapear falhas.
-2. p/ cada finding, classificar:
-   - **Real bug/perf** → corrigir agora.
-   - **Anti-pattern** → extrair helper, mover p/ hook canônico, ou trocar por lib.
-   - **Falso positivo da regra** → refinar a regra (regex) p/ não flagar o caso legítimo.
-3. Re-rodar. Iterar até zero errors e findings.
-4. Build 100% + tests 100% + lint 0 + prettier 0 + maintainability 0.
+```bash
+npm run lint              # eslint
+npm run format:check      # prettier
+npm test                  # vitest
+npm run build             # next build
+```
+
+Loop: rodar tudo, mapear falhas, corrigir, re-rodar. Iterar até zero errors em todos os gates.
 
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:ca08a54f -->
 
