@@ -3,7 +3,6 @@ import { render, screen, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { WindowManagerProvider, useWindowManager } from './WindowManager'
 import type { WindowConfig } from './WindowManager'
-import React from 'react'
 
 const baseConfig: WindowConfig = {
   id: 'test',

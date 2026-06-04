@@ -15,37 +15,36 @@ interface Props {
 export function TimelineItem({ entry, locale, side, index }: Props) {
   const reduce = useReducedMotion()
   const bullets = getBulletsForEntry(entry)
-  const sideX = side === 'left' ? -40 : 40
-  const initialX = reduce ? 0 : sideX
+  const initialTranslation = side === 'left' ? -40 : 40
+  const translateX = reduce ? 0 : initialTranslation
 
   return (
-    <motion.li
+    <li
       style={{ gridRow: index + 1 }}
       className={joinClassNames(
         'relative flex flex-col gap-2',
         'col-start-2 pl-6',
-        index > 0 ? '@4xl:-mt-[22%]' : undefined,
         side === 'left' ? '@4xl:col-start-1 @4xl:pr-8 @4xl:pl-0' : undefined,
         side === 'right' ? '@4xl:col-start-3 @4xl:pl-8' : undefined
       )}
-      initial={{ opacity: 0, x: initialX }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.4, delay: index * 0.08, ease: 'easeOut' }}
     >
       <TimelineDot side={side} />
       <time
         className={joinClassNames(
           'font-mono text-xs leading-none tracking-widest text-[var(--color-brand-text,var(--color-brand-from))] uppercase',
-          side === 'left' && '@4xl:text-right'
+          side === 'left' && '@4xl:text-right @4xl:mr-[-20px]',
+          side === 'right' && '@4xl:text-left @4xl:ml-[-15px]'
         )}
       >
         {entry.year[locale]}
       </time>
       <motion.article
         data-side={side}
-        className="border-surface hover:border-brand-from min-w-0 border bg-[var(--button-inner-bg)] p-5 transition-colors"
-        whileHover={{ y: -2, transition: { duration: 0.15 } }}
+        className="border-surface rounded-2xl relative mt-[30px] min-w-0 border bg-[var(--button-inner-bg)] p-5 transition-colors"
+        initial={{ opacity: 0, left: translateX }}
+        whileInView={{ opacity: 1, left: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.4, delay: index * 0.08, ease: 'easeOut' }}
       >
         <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
           <h3 className="font-display text-text min-w-0 font-bold [overflow-wrap:break-word] break-words hyphens-auto">
@@ -64,6 +63,6 @@ export function TimelineItem({ entry, locale, side, index }: Props) {
           ))}
         </ul>
       </motion.article>
-    </motion.li>
+    </li>
   )
 }

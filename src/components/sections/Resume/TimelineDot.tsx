@@ -14,26 +14,30 @@ export function TimelineDot({ side }: TimelineDotProps) {
     <span
       aria-hidden
       className={joinClassNames(
-        'absolute top-[-18px] bg-crust left-[-9px] [transform:scaleX(-1)]',
+        'bg-crust absolute top-[-18px] left-[-9px] h-[48px] w-[18px]',
         side === 'left'
-          ? '@4xl:right-[-17px] @4xl:left-auto @4xl:[transform:scaleX(1)]'
+          ? '@4xl:right-[-17px] @4xl:left-auto @4xl:rotate-180'
           : '@4xl:left-[-17px]'
       )}
     >
       <svg
         width="18"
-        height="47"
-        viewBox="0 0 4.7871715 12.38686"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="text-brand-from"
-      >
-        <path
-          d="M 4.5225882,0 V 2.1901275 c 0,7.6525011 -4.2825462,6.0043265 -4.2578957,3.8902424 C 0.28073845,3.9663059 4.5225882,2.3463853 4.5225882,9.8194826 v 2.567407"
-          stroke="currentColor"
-          strokeWidth="0.529167"
-          strokeLinejoin="bevel"
-        />
+        height="48"
+        viewBox="0 0 4.762501 12.7"
+        version="1.1"
+        id="svg1"
+        xmlns="http://www.w3.org/2000/svg">
+        <defs
+          id="defs1" />
+        <g
+          id="layer1"
+          transform="translate(-7.9085903,-0.01571937)">
+          <path
+            stroke="#e84545"
+            strokeWidth="0.533958"
+            d="m 8.1755697,12.715719 v -2.245494 c 0,-7.8459563 4.2529153,-6.1561157 4.2284353,-3.9885875 C 12.379524,8.6491657 8.1755697,10.298362 8.1755697,2.6480152 V 0.01571937"
+            id="path1" />
+        </g>
       </svg>
     </span>
   )

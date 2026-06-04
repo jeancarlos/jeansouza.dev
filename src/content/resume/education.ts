@@ -15,20 +15,8 @@ export const education: EducationEntry[] = [
       en: 'Systems Analysis and Development',
     },
     period: {
-      pt: '2010 – 2012',
-      en: '2010 – 2012',
-    },
-  },
-  {
-    id: 'efset',
-    institution: 'EF SET',
-    degree: {
-      pt: 'Certificação de Inglês C2 — 82/100',
-      en: 'English C2 Certificate — 82/100',
-    },
-    period: {
-      pt: '2023',
-      en: '2023',
+      pt: '2010 – 2012 (incompleto)',
+      en: '2010 – 2012 (incomplete)',
     },
   },
 ]
