@@ -40,7 +40,7 @@ export function WindowHeader({
       {!isHome && (
         <div className={HEADER_CLASS_MOBILE}>
           <button
-            onClick={() => closeWindow(id)}
+            onClick={() => history.back()}
             className="font-mono text-xs text-white/90 hover:text-white"
             aria-label="Go back"
           >

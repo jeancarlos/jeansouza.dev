@@ -84,7 +84,7 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
     if (initialPost || initialOpen === 'blog') {
       openBlogList()
     } else {
-      history.pushState(null, '', `/${locale}/`)
+      history.pushState({ _appWindow: 'home' }, '', `/${locale}/`)
     }
   }, [])
 
@@ -97,19 +97,53 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
     openBlogPost(initialPost)
   }, [windows, initialPost, openBlogPost])
 
+  // Always-fresh snapshot of windows for use in event handlers.
+  const windowsRef = useRef(windows)
+  useEffect(() => {
+    windowsRef.current = windows
+  })
+
+  // Prevents the pushState below from firing when a close was triggered by popstate.
+  const popstateHandled = useRef(false)
+
   const prevWindowsLenRef = useRef(windows.length)
   useEffect(() => {
     const prevLen = prevWindowsLenRef.current
     prevWindowsLenRef.current = windows.length
     if (windows.length < prevLen) {
+      if (popstateHandled.current) {
+        // Close came from popstate (mobile back button) — history already moved back.
+        popstateHandled.current = false
+        return
+      }
+      // Close came from desktop (X button, Escape) — update URL to reflect new state.
       if (windows.length === 0) {
-        history.pushState(null, '', `/${locale}/`)
+        history.pushState({ _appWindow: 'home' }, '', `/${locale}/`)
       } else {
         const top = windows.reduce((a, b) => (a.zIndex > b.zIndex ? a : b))
-        history.pushState(null, '', top.url)
+        history.pushState({ _appWindow: top.id }, '', top.url)
       }
     }
   }, [windows, locale])
+
+  // Sync window state to browser back/forward navigation.
+  useEffect(() => {
+    const onPopstate = (e: PopStateEvent) => {
+      // Ignore entries not pushed by this app (Next.js router, external navigation).
+      if (!e.state?._appWindow) return
+      const pathname = location.pathname
+      const current = windowsRef.current
+      // Close the topmost window whose URL no longer matches the current location.
+      const sorted = [...current].sort((a, b) => b.zIndex - a.zIndex)
+      const toClose = sorted.find((w) => w.url !== pathname)
+      if (toClose) {
+        popstateHandled.current = true
+        closeWindow(toClose.id)
+      }
+    }
+    window.addEventListener('popstate', onPopstate)
+    return () => window.removeEventListener('popstate', onPopstate)
+  }, [closeWindow])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {

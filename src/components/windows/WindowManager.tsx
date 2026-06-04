@@ -66,7 +66,7 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
       typeof window !== 'undefined' &&
       window.location.pathname !== newConfig.url
     ) {
-      history.pushState(null, '', newConfig.url)
+      history.pushState({ _appWindow: newConfig.id }, '', newConfig.url)
     }
   }, [])
 
