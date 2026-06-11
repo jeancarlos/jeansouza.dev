@@ -7,7 +7,7 @@ import type { ButtonOrigin } from '@/components/windows/WindowManager'
 import { Hero } from '@/components/sections/Hero'
 import { TerminalWindow } from '@/components/windows/TerminalWindow'
 import { useWindowManager } from '@/components/windows/WindowManager'
-import { centeredPosition, TOPBAR_HEIGHT } from '@/lib/windowUtils'
+import { topAnchoredPosition, TOPBAR_HEIGHT } from '@/lib/windowUtils'
 
 const BlogListWindowDynamic = dynamic(
   async () => import('@/components/windows/BlogListWindow').then((m) => m.BlogListWindow),
@@ -32,7 +32,6 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
   const openBlogPost = useCallback(
     (post: Post, origin?: ButtonOrigin) => {
       const w = 820
-      const h = 660
       openWindow({
         id: `post-${post.slug}`,
         url: `/${locale}/blog/${post.slug}`,
@@ -40,8 +39,8 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
         content: (
           <BlogPostWindowDynamic title={post.title} date={post.date} content={post.content} />
         ),
-        position: centeredPosition(w, h, TOPBAR_HEIGHT),
-        size: { width: w, height: h },
+        position: topAnchoredPosition(w, TOPBAR_HEIGHT),
+        size: { width: w, height: 'auto' },
         defaultSize: 'medium',
         isExpanded: false,
         isMinimized: false,
@@ -54,14 +53,13 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
   const openBlogList = useCallback(
     (origin?: ButtonOrigin) => {
       const w = 820
-      const h = 620
       openWindow({
         id: 'blog',
         url: `/${locale}/blog`,
         title: '~/blog',
         content: <BlogListWindowDynamic posts={posts} onOpenPost={openBlogPost} />,
-        position: centeredPosition(w, h, TOPBAR_HEIGHT),
-        size: { width: w, height: h },
+        position: topAnchoredPosition(w, TOPBAR_HEIGHT),
+        size: { width: w, height: 'auto' },
         defaultSize: 'medium',
         isExpanded: false,
         isMinimized: false,

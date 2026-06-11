@@ -2,7 +2,7 @@
 import { type ReactNode } from 'react'
 import { motion, type DragControls, type PanInfo } from 'framer-motion'
 import { useWindowManager, type ButtonOrigin } from './WindowManager'
-import { TOPBAR_HEIGHT, clampPosition } from '@/lib/windowUtils'
+import { TOPBAR_HEIGHT, WINDOW_MAX_HEIGHT, clampPosition } from '@/lib/windowUtils'
 import { getAnimateStyle, getTransition, type WindowStyle } from './terminalStyles'
 
 interface WindowChromeProps {
@@ -68,14 +68,23 @@ export function WindowChrome({
       animate={{ ...animateStyle }}
       exit={{ opacity: 0, scale: 0.9, filter: 'blur(4px)' }}
       transition={transition}
-      style={{ ...activeStyle, zIndex, position: 'fixed' }}
+      style={{
+        ...activeStyle,
+        zIndex,
+        position: 'fixed',
+        // Content-sized windows grow with their content up to the usable
+        // viewport height (below the topbar, inside the safe margins).
+        ...(activeStyle.height === 'auto' && !isMobile && { maxHeight: WINDOW_MAX_HEIGHT }),
+      }}
       onPointerDown={() => focusWindow(id)}
-      className={outerClassName}
+      className={`${outerClassName} flex`}
       role="dialog"
       aria-modal="true"
       aria-label={title}
     >
-      <div className={`flex h-full w-full flex-col overflow-hidden ${innerRounded}`}>
+      {/* Stretched flex child instead of h-full: percentage heights don't
+          resolve when the window is content-sized (height auto + max-height). */}
+      <div className={`flex min-h-0 w-full flex-col overflow-hidden ${innerRounded}`}>
         {children}
       </div>
     </motion.div>

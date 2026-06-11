@@ -47,7 +47,9 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
 
     const CASCADE = 50
     const newConfig = (() => {
-      if (alreadyOpen || current.length === 0) return config
+      // Content-sized windows (height: auto) keep their anchored position so
+      // related windows (blog list/post) always open aligned on screen.
+      if (alreadyOpen || current.length === 0 || config.size.height === 'auto') return config
       const top = current.reduce((a, b) => (a.zIndex > b.zIndex ? a : b))
       const w = typeof config.size.width === 'number' ? config.size.width : 600
       const h = typeof config.size.height === 'number' ? config.size.height : 400

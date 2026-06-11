@@ -8,6 +8,25 @@ export function getViewport(): { vw: number; vh: number } {
   return { vw: window.innerWidth, vh: window.innerHeight }
 }
 
+/**
+ * CSS max-height for content-sized windows: full viewport minus the topbar
+ * offset and the safe margins above and below the window.
+ */
+export const WINDOW_MAX_HEIGHT = `calc(100dvh - ${TOPBAR_HEIGHT + WINDOW_SAFE * 2}px)`
+
+/** Top-anchored position for content-sized (height: auto) windows. */
+export function topAnchoredPosition(
+  width: number,
+  topOffset = 0,
+  viewport?: { vw: number; vh: number }
+): { x: number; y: number } {
+  const { vw } = viewport ?? getViewport()
+  return {
+    x: Math.max(WINDOW_SAFE, Math.min((vw - width) / 2, vw - width - WINDOW_SAFE)),
+    y: topOffset + WINDOW_SAFE,
+  }
+}
+
 export function centeredPosition(
   width: number,
   height: number,
