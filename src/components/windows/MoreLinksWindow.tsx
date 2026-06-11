@@ -9,7 +9,7 @@ const COPY_FEEDBACK_MS = 2000
 
 export function MoreLinksWindow() {
   const t = useTranslations('more')
-  const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
+  const [bubble, setBubble] = useState<{ index: number; text: string } | null>(null)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
@@ -18,16 +18,25 @@ export function MoreLinksWindow() {
     }
   }, [])
 
-  const handleCopyContent = (content: string, index: number) => {
-    navigator.clipboard.writeText(content).catch(() => {
-      // Clipboard permission denied — the bubble still shows the value copied.
-    })
-    setCopiedIndex(index)
+  const showBubble = (index: number, text: string, autoHide: boolean) => {
+    setBubble({ index, text })
     if (timerRef.current !== null) clearTimeout(timerRef.current)
-    timerRef.current = setTimeout(() => {
-      setCopiedIndex(null)
-      timerRef.current = null
-    }, COPY_FEEDBACK_MS)
+    timerRef.current = null
+    if (autoHide) {
+      timerRef.current = setTimeout(() => {
+        setBubble(null)
+        timerRef.current = null
+      }, COPY_FEEDBACK_MS)
+    }
+  }
+
+  const handleCopyContent = (content: string, index: number) => {
+    navigator.clipboard.writeText(content).then(
+      () => showBubble(index, t('copied'), true),
+      // Clipboard blocked — show the value itself so it can be copied by hand;
+      // stays open until clicked or the pointer leaves.
+      () => showBubble(index, content, false)
+    )
   }
 
   return (
@@ -50,9 +59,9 @@ export function MoreLinksWindow() {
                   <i className={`${link.icon} mr-1`} aria-hidden="true" />
                   {link.name}
                 </Button>
-                {copiedIndex === index && (
-                  <Tooltip show={true} component="span">
-                    {t('copied')}
+                {bubble?.index === index && (
+                  <Tooltip show={true} component="span" onDismiss={() => setBubble(null)}>
+                    {bubble.text}
                   </Tooltip>
                 )}
               </>
