@@ -43,7 +43,7 @@ export function WindowHeader({
         <div className={HEADER_CLASS_MOBILE}>
           <button
             onClick={() => history.back()}
-            className="font-mono text-xs text-white/90 hover:text-white"
+            className="cursor-pointer font-mono text-xs text-white/90 hover:text-white"
             aria-label={t('backAria')}
           >
             {t('back')}

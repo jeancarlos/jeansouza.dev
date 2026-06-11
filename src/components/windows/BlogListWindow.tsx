@@ -26,7 +26,7 @@ export function BlogListWindow({ posts, onOpenPost }: Props) {
             const rect = e.currentTarget.getBoundingClientRect()
             onOpenPost(post, { x: rect.left, y: rect.top, width: rect.width, height: rect.height })
           }}
-          className="group border-brand-to hover:border-brand-from block w-full border-l-2 py-2 pl-4 text-left transition-colors"
+          className="group border-brand-to hover:border-brand-from block w-full cursor-pointer border-l-2 py-2 pl-4 text-left transition-colors"
         >
           <p className="text-brand-to mb-1 font-mono text-xs">
             {DIRECTORY_PERMISSIONS} {post.date}
