@@ -33,22 +33,22 @@ const mockEntry: TimelineEntry = {
 
 describe('TimelineItem', () => {
   it('renders company name', () => {
-    render(<TimelineItem entry={mockEntry} locale="pt" side="right" />)
+    render(<TimelineItem entry={mockEntry} locale="pt" side="right" connectorAbove="solid" connectorBelow="solid" isLast={false} />)
     expect(screen.getByText('@ ACME')).toBeInTheDocument()
   })
 
   it('renders pt role when locale is pt', () => {
-    render(<TimelineItem entry={mockEntry} locale="pt" side="right" />)
+    render(<TimelineItem entry={mockEntry} locale="pt" side="right" connectorAbove="solid" connectorBelow="solid" isLast={false} />)
     expect(screen.getByText('Dev PT')).toBeInTheDocument()
   })
 
   it('renders en role when locale is en', () => {
-    render(<TimelineItem entry={mockEntry} locale="en" side="right" />)
+    render(<TimelineItem entry={mockEntry} locale="en" side="right" connectorAbove="solid" connectorBelow="solid" isLast={false} />)
     expect(screen.getByText('Dev EN')).toBeInTheDocument()
   })
 
   it('renders 3 bullets', () => {
-    render(<TimelineItem entry={mockEntry} locale="pt" side="right" />)
+    render(<TimelineItem entry={mockEntry} locale="pt" side="right" connectorAbove="solid" connectorBelow="solid" isLast={false} />)
     const bullets = screen
       .getAllByRole('listitem')
       .filter((el) => el.tagName === 'LI' && el.textContent !== '')
@@ -57,7 +57,7 @@ describe('TimelineItem', () => {
 
   it('applies left grid class when side is left', () => {
     const { container } = render(
-      <TimelineItem entry={mockEntry} locale="pt" side="left" />
+      <TimelineItem entry={mockEntry} locale="pt" side="left" connectorAbove="solid" connectorBelow="solid" isLast={false} />
     )
     const content = container.querySelector('li > div')
     expect(content?.className).toContain('@4xl:col-start-1')
@@ -65,7 +65,7 @@ describe('TimelineItem', () => {
 
   it('applies right grid class when side is right', () => {
     const { container } = render(
-      <TimelineItem entry={mockEntry} locale="pt" side="right" />
+      <TimelineItem entry={mockEntry} locale="pt" side="right" connectorAbove="solid" connectorBelow="solid" isLast={false} />
     )
     const content = container.querySelector('li > div')
     expect(content?.className).toContain('@4xl:col-start-3')
@@ -80,7 +80,16 @@ describe('TimelineItem', () => {
         { tags: [], pt: 'selected PT 3', en: 'selected EN 3' },
       ],
     }
-    render(<TimelineItem entry={entryWithSelected} locale="pt" side="right" />)
+    render(
+      <TimelineItem
+        entry={entryWithSelected}
+        locale="pt"
+        side="right"
+        connectorAbove="solid"
+        connectorBelow="solid"
+        isLast={false}
+      />
+    )
     expect(screen.getByText('selected PT')).toBeInTheDocument()
   })
 })

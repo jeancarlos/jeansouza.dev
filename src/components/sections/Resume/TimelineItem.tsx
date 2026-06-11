@@ -3,15 +3,25 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { joinClassNames } from '@/lib/utils'
 import { getBulletsForEntry } from '@/content/resume/selection'
 import type { TimelineEntry } from '@/content/resume/timeline'
-import { TimelineDot } from './TimelineDot'
+import { TimelineDot, type ConnectorStyle } from './TimelineDot'
 
 interface Props {
   entry: TimelineEntry
   locale: 'pt' | 'en'
   side: 'left' | 'right'
+  connectorAbove: ConnectorStyle
+  connectorBelow: ConnectorStyle
+  isLast: boolean
 }
 
-export function TimelineItem({ entry, locale, side }: Props) {
+export function TimelineItem({
+  entry,
+  locale,
+  side,
+  connectorAbove,
+  connectorBelow,
+  isLast,
+}: Props) {
   const reduce = useReducedMotion()
   const bullets = getBulletsForEntry(entry)
   const initialTranslation = side === 'left' ? -40 : 40
@@ -19,10 +29,11 @@ export function TimelineItem({ entry, locale, side }: Props) {
 
   return (
     <li className="grid grid-cols-[2rem_1fr] @4xl:grid-cols-[1fr_2rem_1fr]">
-      <TimelineDot />
+      <TimelineDot above={connectorAbove} below={connectorBelow} />
       <div
         className={joinClassNames(
           'col-start-2 row-start-1 flex min-w-0 flex-col gap-2 pl-2',
+          !isLast && 'pb-10',
           side === 'left'
             ? '@4xl:col-start-1 @4xl:items-end @4xl:pr-6 @4xl:pl-0'
             : '@4xl:col-start-3 @4xl:pl-6'

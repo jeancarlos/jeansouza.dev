@@ -2,7 +2,6 @@
 import { useTranslations } from 'next-intl'
 import { Header } from './Header'
 import { Summary } from './Summary'
-import { TimelineRail } from './TimelineRail'
 import { TimelineItem } from './TimelineItem'
 import { Education } from './Education'
 import { Languages } from './Languages'
@@ -40,16 +39,23 @@ export function Resume({ entries, profile, education, assets, locale }: Props) {
         <Summary profile={profile} locale={locale} />
         <Section title={t('experience')}>
           <div className="@container">
-            <ul className="relative flex flex-col gap-y-10">
-              <TimelineRail />
-              {entries.map((entry, i) => (
-                <TimelineItem
-                  key={entry.id}
-                  entry={entry}
-                  locale={locale}
-                  side={i % 2 === 0 ? 'left' : 'right'}
-                />
-              ))}
+            <ul className="relative flex flex-col">
+              {entries.map((entry, i) => {
+                const isLast = i === entries.length - 1
+                const dottedInto = entry.careerStart ? 'dotted' : 'solid'
+                const dottedOutOf = entries[i + 1]?.careerStart ? 'dotted' : 'solid'
+                return (
+                  <TimelineItem
+                    key={entry.id}
+                    entry={entry}
+                    locale={locale}
+                    side={i % 2 === 0 ? 'left' : 'right'}
+                    connectorAbove={i === 0 ? 'none' : dottedInto}
+                    connectorBelow={isLast ? 'none' : dottedOutOf}
+                    isLast={isLast}
+                  />
+                )
+              })}
             </ul>
           </div>
         </Section>

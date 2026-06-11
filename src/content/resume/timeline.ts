@@ -12,6 +12,8 @@ export interface TimelineEntry {
   location?: { pt: string; en: string }
   accomplishments: Accomplishment[]
   selectedSeniorFront?: Accomplishment[]
+  /** Marks where the career began; the timeline renders its connector dotted. */
+  careerStart?: boolean
 }
 
 const zydon: TimelineEntry = {
@@ -328,6 +330,7 @@ const webroom: TimelineEntry = {
 
 const lalli: TimelineEntry = {
   id: 'lalli',
+  careerStart: true,
   year: {
     pt: 'abril 2008 – novembro 2008',
     en: 'April 2008 – November 2008',
