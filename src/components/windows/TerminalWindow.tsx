@@ -22,6 +22,7 @@ interface Props {
   children: ReactNode
   position: { x: number; y: number }
   size: { width: number | string; height: number | string }
+  maxHeight?: string
   isExpanded: boolean
   isMinimized: boolean
   zIndex: number
@@ -39,6 +40,7 @@ export function TerminalWindow({
   children,
   position,
   size,
+  maxHeight,
   isExpanded,
   isMinimized,
   zIndex,
@@ -85,6 +87,7 @@ export function TerminalWindow({
         zIndex={zIndex}
         position={position}
         size={size}
+        maxHeight={maxHeight}
         origin={origin}
         activeStyle={activeStyle}
         outerClassName={outerClassName}

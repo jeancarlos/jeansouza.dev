@@ -14,6 +14,8 @@ export interface WindowConfig {
   content: ReactNode
   position: { x: number; y: number }
   size: { width: number | string; height: number | string }
+  /** CSS max-height override for content-sized (height: auto) windows. */
+  maxHeight?: string
   defaultSize: 'compact' | 'medium' | 'large' | 'fullscreen'
   isExpanded: boolean
   isMinimized: boolean

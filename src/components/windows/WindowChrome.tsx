@@ -14,6 +14,7 @@ interface WindowChromeProps {
   zIndex: number
   position: { x: number; y: number }
   size: { width: number | string; height: number | string }
+  maxHeight?: string
   origin?: ButtonOrigin
   activeStyle: WindowStyle
   outerClassName: string
@@ -31,6 +32,7 @@ export function WindowChrome({
   zIndex,
   position,
   size,
+  maxHeight,
   origin,
   activeStyle,
   outerClassName,
@@ -74,7 +76,8 @@ export function WindowChrome({
         position: 'fixed',
         // Content-sized windows grow with their content up to the usable
         // viewport height (below the topbar, inside the safe margins).
-        ...(activeStyle.height === 'auto' && !isMobile && { maxHeight: WINDOW_MAX_HEIGHT }),
+        ...(activeStyle.height === 'auto' &&
+          !isMobile && { maxHeight: maxHeight ?? WINDOW_MAX_HEIGHT }),
       }}
       onPointerDown={() => focusWindow(id)}
       className={`${outerClassName} flex`}

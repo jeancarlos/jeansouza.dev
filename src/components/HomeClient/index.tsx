@@ -7,7 +7,12 @@ import type { ButtonOrigin } from '@/components/windows/WindowManager'
 import { Hero } from '@/components/sections/Hero'
 import { TerminalWindow } from '@/components/windows/TerminalWindow'
 import { useWindowManager } from '@/components/windows/WindowManager'
-import { topAnchoredPosition, TOPBAR_HEIGHT } from '@/lib/windowUtils'
+import { topAnchoredPosition, TOPBAR_HEIGHT, WINDOW_MAX_HEIGHT } from '@/lib/windowUtils'
+
+// Posts open offset from the list and a bit shorter, so the two read as
+// stacked windows instead of one covering the other.
+const POST_OFFSET = 40
+const POST_MAX_HEIGHT = `calc(${WINDOW_MAX_HEIGHT} - 150px)`
 
 const BlogListWindowDynamic = dynamic(
   async () => import('@/components/windows/BlogListWindow').then((m) => m.BlogListWindow),
@@ -39,8 +44,12 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
         content: (
           <BlogPostWindowDynamic title={post.title} date={post.date} content={post.content} />
         ),
-        position: topAnchoredPosition(w, TOPBAR_HEIGHT),
+        position: (() => {
+          const anchor = topAnchoredPosition(w, TOPBAR_HEIGHT)
+          return { x: anchor.x + POST_OFFSET, y: anchor.y + POST_OFFSET }
+        })(),
         size: { width: w, height: 'auto' },
+        maxHeight: POST_MAX_HEIGHT,
         defaultSize: 'medium',
         isExpanded: false,
         isMinimized: false,
@@ -177,6 +186,7 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
             title={win.title}
             position={win.position}
             size={win.size}
+            maxHeight={win.maxHeight}
             isExpanded={win.isExpanded}
             isMinimized={win.isMinimized}
             zIndex={win.zIndex}
