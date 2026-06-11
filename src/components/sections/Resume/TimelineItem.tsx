@@ -9,60 +9,59 @@ interface Props {
   entry: TimelineEntry
   locale: 'pt' | 'en'
   side: 'left' | 'right'
-  index: number
 }
 
-export function TimelineItem({ entry, locale, side, index }: Props) {
+export function TimelineItem({ entry, locale, side }: Props) {
   const reduce = useReducedMotion()
   const bullets = getBulletsForEntry(entry)
   const initialTranslation = side === 'left' ? -40 : 40
   const translateX = reduce ? 0 : initialTranslation
 
   return (
-    <li
-      style={{ gridRow: index + 1 }}
-      className={joinClassNames(
-        'relative flex flex-col gap-2',
-        'col-start-2 pl-6',
-        side === 'left' ? '@4xl:col-start-1 @4xl:pr-8 @4xl:pl-0' : undefined,
-        side === 'right' ? '@4xl:col-start-3 @4xl:pl-8' : undefined
-      )}
-    >
-      <TimelineDot side={side} />
-      <time
+    <li className="grid grid-cols-[2rem_1fr] @4xl:grid-cols-[1fr_2rem_1fr]">
+      <TimelineDot />
+      <div
         className={joinClassNames(
-          'font-mono text-xs leading-none tracking-widest text-[var(--color-brand-text,var(--color-brand-from))] uppercase',
-          side === 'left' && '@4xl:text-right @4xl:mr-[-20px]',
-          side === 'right' && '@4xl:text-left @4xl:ml-[-15px]'
+          'col-start-2 row-start-1 flex min-w-0 flex-col gap-2 pl-2',
+          side === 'left'
+            ? '@4xl:col-start-1 @4xl:items-end @4xl:pr-6 @4xl:pl-0'
+            : '@4xl:col-start-3 @4xl:pl-6'
         )}
       >
-        {entry.year[locale]}
-      </time>
-      <motion.article
-        data-side={side}
-        className="border-surface rounded-2xl relative mt-[30px] min-w-0 border bg-[var(--button-inner-bg)] p-5 transition-colors"
-        initial={{ opacity: 0, left: translateX }}
-        whileInView={{ opacity: 1, left: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.4, delay: index * 0.08, ease: 'easeOut' }}
-      >
-        <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <h3 className="font-display text-text min-w-0 font-bold [overflow-wrap:break-word] break-words hyphens-auto">
-            {entry.role[locale]}
-          </h3>
-          <span className="text-subtext basis-full text-sm">
-            @ {entry.company}
-            {entry.location && (
-              <span className="text-overlay ml-2">· {entry.location[locale]}</span>
-            )}
-          </span>
-        </header>
-        <ul className="text-subtext marker:text-brand-text mt-3 list-disc space-y-1 pl-5 text-sm leading-relaxed">
-          {bullets.map((b, i) => (
-            <li key={i}>{b[locale]}</li>
-          ))}
-        </ul>
-      </motion.article>
+        <time
+          className={joinClassNames(
+            'font-mono text-xs leading-none tracking-widest text-[var(--color-brand-text,var(--color-brand-from))] uppercase',
+            side === 'left' && '@4xl:text-right'
+          )}
+        >
+          {entry.year[locale]}
+        </time>
+        <motion.article
+          data-side={side}
+          className="border-surface rounded-2xl w-full min-w-0 border bg-[var(--button-inner-bg)] p-5 transition-colors"
+          initial={{ opacity: 0, x: translateX }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.4, ease: 'easeOut' }}
+        >
+          <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h3 className="font-display text-text min-w-0 font-bold [overflow-wrap:break-word] break-words hyphens-auto">
+              {entry.role[locale]}
+            </h3>
+            <span className="text-subtext basis-full text-sm">
+              @ {entry.company}
+              {entry.location && (
+                <span className="text-overlay ml-2">· {entry.location[locale]}</span>
+              )}
+            </span>
+          </header>
+          <ul className="text-subtext marker:text-brand-text mt-3 list-disc space-y-1 pl-5 text-sm leading-relaxed">
+            {bullets.map((b, i) => (
+              <li key={i}>{b[locale]}</li>
+            ))}
+          </ul>
+        </motion.article>
+      </div>
     </li>
   )
 }

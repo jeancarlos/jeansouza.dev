@@ -40,20 +40,16 @@ export function Resume({ entries, profile, education, assets, locale }: Props) {
         <Summary profile={profile} locale={locale} />
         <Section title={t('experience')}>
           <div className="@container">
-            <ul className="relative grid grid-cols-[auto_1fr] gap-x-4 gap-y-6 @4xl:grid-cols-[1fr_auto_1fr]">
+            <ul className="relative flex flex-col gap-y-10">
               <TimelineRail />
-              {entries.map((entry, i) => {
-                const side = i % 2 === 0 ? 'left' : 'right'
-                return (
-                  <TimelineItem
-                    key={entry.id}
-                    entry={entry}
-                    locale={locale}
-                    side={side}
-                    index={i}
-                  />
-                )
-              })}
+              {entries.map((entry, i) => (
+                <TimelineItem
+                  key={entry.id}
+                  entry={entry}
+                  locale={locale}
+                  side={i % 2 === 0 ? 'left' : 'right'}
+                />
+              ))}
             </ul>
           </div>
         </Section>

@@ -170,7 +170,7 @@ describe('Resume', () => {
         locale="pt"
       />
     )
-    const li = container.querySelector('li[class*="@4xl:col-start-1"]')
-    expect(li).toBeTruthy()
+    const content = container.querySelector('li > div[class*="@4xl:col-start-1"]')
+    expect(content).toBeTruthy()
   })
 })

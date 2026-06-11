@@ -19,6 +19,6 @@ describe('TimelineRail', () => {
   it('includes default class for single column', () => {
     const { container: c } = render(<TimelineRail />)
     const el = c.firstChild as HTMLElement
-    expect(el.className).toContain('left-[7px]')
+    expect(el.className).toContain('left-4')
   })
 })
