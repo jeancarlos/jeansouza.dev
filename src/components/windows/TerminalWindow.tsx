@@ -105,7 +105,16 @@ export function TerminalWindow({
             expandable={expandable}
           />
         )}
-        {showBody && <div className={bodyClassName}>{children}</div>}
+        {showBody &&
+          (size.height === 'auto' && !isMobile ? (
+            <div className={bodyClassName}>
+              <div className="window-grow">
+                <div>{children}</div>
+              </div>
+            </div>
+          ) : (
+            <div className={bodyClassName}>{children}</div>
+          ))}
         {showResizeHandles && (
           <ResizeHandles
             id={id}

@@ -1,6 +1,5 @@
 'use client'
 import { useEffect, useCallback, useRef } from 'react'
-import dynamic from 'next/dynamic'
 import { AnimatePresence } from 'framer-motion'
 import type { Post } from '@/lib/posts'
 import type { ButtonOrigin } from '@/components/windows/WindowManager'
@@ -14,15 +13,6 @@ import { topAnchoredPosition, TOPBAR_HEIGHT, WINDOW_MAX_HEIGHT } from '@/lib/win
 const POST_OFFSET = 40
 const POST_MAX_HEIGHT = `calc(${WINDOW_MAX_HEIGHT} - 150px)`
 
-const BlogListWindowDynamic = dynamic(
-  async () => import('@/components/windows/BlogListWindow').then((m) => m.BlogListWindow),
-  { ssr: false }
-)
-
-const BlogPostWindowDynamic = dynamic(
-  async () => import('@/components/windows/BlogPostWindow').then((m) => m.BlogPostWindow),
-  { ssr: false }
-)
 
 interface HomeClientProps {
   posts: Post[]
@@ -34,16 +24,26 @@ interface HomeClientProps {
 export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClientProps) {
   const { windows, closeWindow, openWindow } = useWindowManager()
 
+  // Warm the blog window chunks so content exists on the window's first
+  // frame; otherwise height:auto jumps when the dynamic import resolves
+  // mid-open instead of animating the expansion.
+  useEffect(() => {
+    void import('@/components/windows/BlogListWindow')
+    void import('@/components/windows/BlogPostWindow')
+  }, [])
+
   const openBlogPost = useCallback(
-    (post: Post, origin?: ButtonOrigin) => {
+    async (post: Post, origin?: ButtonOrigin) => {
+      // Loaded before opening (chunk pre-warmed on mount): the window must
+      // have its content on the first animation frame, otherwise framer
+      // measures the empty height and the expansion jumps instead of animating.
+      const { BlogPostWindow } = await import('@/components/windows/BlogPostWindow')
       const w = 820
       openWindow({
         id: `post-${post.slug}`,
         url: `/${locale}/blog/${post.slug}`,
         title: `~/blog/${post.slug}`,
-        content: (
-          <BlogPostWindowDynamic title={post.title} date={post.date} content={post.content} />
-        ),
+        content: <BlogPostWindow title={post.title} date={post.date} content={post.content} />,
         position: (() => {
           const anchor = topAnchoredPosition(w, TOPBAR_HEIGHT)
           return { x: anchor.x + POST_OFFSET, y: anchor.y + POST_OFFSET }
@@ -60,13 +60,14 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
   )
 
   const openBlogList = useCallback(
-    (origin?: ButtonOrigin) => {
+    async (origin?: ButtonOrigin) => {
+      const { BlogListWindow } = await import('@/components/windows/BlogListWindow')
       const w = 820
       openWindow({
         id: 'blog',
         url: `/${locale}/blog`,
         title: '~/blog',
-        content: <BlogListWindowDynamic posts={posts} onOpenPost={openBlogPost} />,
+        content: <BlogListWindow posts={posts} onOpenPost={openBlogPost} />,
         position: topAnchoredPosition(w, TOPBAR_HEIGHT),
         size: { width: w, height: 'auto' },
         defaultSize: 'medium',

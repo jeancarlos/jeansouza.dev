@@ -46,8 +46,18 @@ export function WindowChrome({
   const h = typeof size.height === 'number' ? size.height : 400
   const animateStyle = getAnimateStyle(activeStyle, isMobile, isFocused)
   const transition = getTransition(isResizing)
+  // Content-sized windows leave height out of the entry animation: the CSS
+  // .window-grow transition drives the expansion, and a numeric from-height
+  // would make framer measure (and flash) the final size on the first frame.
+  const autoHeight = activeStyle.height === 'auto'
   const initial = origin
-    ? { x: origin.x, y: origin.y, width: origin.width, height: origin.height, opacity: 0 }
+    ? {
+        x: origin.x,
+        y: origin.y,
+        width: origin.width,
+        ...(autoHeight ? {} : { height: origin.height }),
+        opacity: 0,
+      }
     : { opacity: 0, scale: 0.75 }
 
   const onDragEnd = (_: unknown, info: PanInfo) => {
