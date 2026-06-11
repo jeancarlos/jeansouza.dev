@@ -1,4 +1,5 @@
 'use client'
+import { useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { motion, steps } from 'framer-motion'
 import dynamic from 'next/dynamic'
@@ -6,10 +7,10 @@ import { TerminalWindow } from '@/components/windows/TerminalWindow'
 import { WindowButton } from '@/components/windows/WindowButton'
 import { Typewriter } from '@/components/ui/Typewriter'
 import { Button } from '@/components/ui/Button'
-import type { ButtonOrigin } from '@/components/windows/WindowManager'
+import { useWindowManager, type ButtonOrigin } from '@/components/windows/WindowManager'
 import { useIsMobile } from '@/lib/useIsMobile'
 import { useViewport } from '@/lib/useViewport'
-import { centeredPosition, WINDOW_SAFE, TOPBAR_HEIGHT } from '@/lib/windowUtils'
+import { centeredPosition, getViewport, WINDOW_SAFE, TOPBAR_HEIGHT } from '@/lib/windowUtils'
 
 const MoreLinksWindowDynamic = dynamic(
   async () => import('@/components/windows/MoreLinksWindow').then((m) => m.MoreLinksWindow),
@@ -25,12 +26,14 @@ interface Props {
   locale: 'pt' | 'en'
   onOpenBlog: (origin: ButtonOrigin) => void
   isFocused?: boolean
+  /** Deep link support: opens this window on mount (/{locale}/resume/, /{locale}/more/). */
+  initialOpen?: 'resume' | 'more'
 }
 
 const HOME_W = 560
 const HOME_H = 320
 
-export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
+export function Hero({ locale, onOpenBlog, isFocused = true, initialOpen }: Props) {
   const t = useTranslations('hero')
   const tNav = useTranslations('nav')
   const tResume = useTranslations('resume')
@@ -38,6 +41,44 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
   const viewport = useViewport()
   const isMobile = useIsMobile()
   const topOffset = TOPBAR_HEIGHT
+  const { openWindow } = useWindowManager()
+
+  const initialOpenedRef = useRef(false)
+  useEffect(() => {
+    if (!initialOpen || initialOpenedRef.current) return
+    initialOpenedRef.current = true
+    const { vw, vh } = getViewport()
+    if (initialOpen === 'resume') {
+      const size = {
+        width: Math.min(1024, vw - WINDOW_SAFE * 2),
+        height: vh - WINDOW_SAFE * 2 - TOPBAR_HEIGHT,
+      }
+      openWindow({
+        id: 'resume',
+        url: `/${locale}/resume/`,
+        title: '~/resume',
+        content: <ResumeWindowDynamic locale={locale} />,
+        position: centeredPosition(size.width, size.height, TOPBAR_HEIGHT),
+        size,
+        defaultSize: 'large',
+        isExpanded: false,
+        isMinimized: false,
+      })
+    } else {
+      const size = { width: 320, height: 280 }
+      openWindow({
+        id: 'more-links',
+        url: `/${locale}/more/`,
+        title: '~/more',
+        content: <MoreLinksWindowDynamic />,
+        position: centeredPosition(size.width, size.height, TOPBAR_HEIGHT),
+        size,
+        defaultSize: 'compact',
+        isExpanded: false,
+        isMinimized: false,
+      })
+    }
+  }, [initialOpen, locale, openWindow])
 
   // useViewport uses useSyncExternalStore with getServerSnapshot
   // {vw:1200, vh:800}, so server and client first render return the same
@@ -95,7 +136,7 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
           </Button>
           <WindowButton
             windowId="resume"
-            windowUrl={`/${locale}/#resume`}
+            windowUrl={`/${locale}/resume/`}
             windowTitle="~/resume"
             windowContent={<ResumeWindowDynamic locale={locale} />}
             windowSize={resumeSize}
@@ -113,7 +154,7 @@ export function Hero({ locale, onOpenBlog, isFocused = true }: Props) {
           </Button>
           <WindowButton
             windowId="more-links"
-            windowUrl={`/${locale}/#more`}
+            windowUrl={`/${locale}/more/`}
             windowTitle="~/more"
             windowContent={<MoreLinksWindowDynamic />}
             windowSize={{ width: 320, height: 280 }}

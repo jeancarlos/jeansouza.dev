@@ -22,7 +22,7 @@ const BlogPostWindowDynamic = dynamic(
 interface HomeClientProps {
   posts: Post[]
   locale: 'pt' | 'en'
-  initialOpen?: 'blog'
+  initialOpen?: 'blog' | 'resume' | 'more'
   initialPost?: Post
 }
 
@@ -83,7 +83,8 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
     const { locale, openBlogList, initialPost, initialOpen } = initialPropsRef.current
     if (initialPost || initialOpen === 'blog') {
       openBlogList()
-    } else {
+    } else if (!initialOpen) {
+      // resume/more deep links keep their own URL; Hero opens the window.
       history.pushState({ _appWindow: 'home' }, '', `/${locale}/`)
     }
   }, [])
@@ -163,7 +164,12 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
 
   return (
     <>
-      <Hero locale={locale} onOpenBlog={openBlogList} isFocused={windows.length === 0} />
+      <Hero
+        locale={locale}
+        onOpenBlog={openBlogList}
+        isFocused={windows.length === 0}
+        initialOpen={initialOpen === 'resume' || initialOpen === 'more' ? initialOpen : undefined}
+      />
       <AnimatePresence>
         {windows.map((win) => (
           <TerminalWindow
