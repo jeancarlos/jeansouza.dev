@@ -11,12 +11,12 @@ export const education: EducationEntry[] = [
     id: 'esamc',
     institution: 'ESAMC Uberlândia',
     degree: {
-      pt: 'Análise e Desenvolvimento de Sistemas',
-      en: 'Systems Analysis and Development',
+      pt: 'Design Gráfico (Incompleto)',
+      en: 'Graphic Design (Incomplete)',
     },
     period: {
-      pt: '2010 – 2012 (incompleto)',
-      en: '2010 – 2012 (incomplete)',
+      pt: 'janeiro de 2008 – junho de 2010',
+      en: 'January 2008 – June 2010',
     },
   },
 ]

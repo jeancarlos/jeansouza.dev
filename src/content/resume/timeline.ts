@@ -29,11 +29,11 @@ const zydon: TimelineEntry = {
   accomplishments: [
     {
       tags: ['testing', 'coverage', 'micro-frontends'],
-      pt: 'Suite de testes criada do zero num ambiente multi-repo de micro-frontends: 70% de cobertura total onde antes não existia nenhuma.',
-      en: 'Built the testing suite from scratch across a multi-repo micro-frontend environment, reaching 70% total coverage where none had existed before.',
+      pt: 'Suíte de testes criada do zero num ambiente multi-repo de micro-frontends: 70% de cobertura total onde antes não existia nenhuma.',
+      en: 'Built the testing suite from scratch across a multi-repo micro-frontend environment: 70% total coverage where none had existed before.',
     },
     {
-      tags: [],
+      tags: ['performance'],
       pt: 'Pipeline de CI otimizado: tempo de build caiu de 1 hora para 20 minutos (redução de 67%), com observabilidade adicionada via instrumentação de logs e métricas.',
       en: 'CI pipeline optimized: build time dropped from 1 hour to 20 minutes (67% reduction), with observability added through log and metric instrumentation.',
     },
@@ -41,6 +41,16 @@ const zydon: TimelineEntry = {
       tags: ['testing'],
       pt: 'Taxa de regressão de bugs caiu de ~25% para abaixo de 5%, com padronização de code reviews e validações automáticas de CI em pull requests.',
       en: 'Bug regression rate dropped from ~25% to below 5% through standardized code reviews and automated CI validation on every pull request.',
+    },
+    {
+      tags: ['nextjs', 'react', 'redux', 'performance', 'figma'],
+      pt: 'Refatoração crítica da arquitetura de estados utilizando Redux e hooks customizados em Next.js a partir de especificações no Figma, reduzindo o consumo de memória client-side e otimizando os índices de Core Web Vitals do portal principal.',
+      en: "Executed critical state management refactoring using Redux and Next.js custom hooks from Figma specs, lowering client-side memory footprint and optimizing the portal's Core Web Vitals indices.",
+    },
+    {
+      tags: ['nextjs', 'ssr', 'performance', 'core-web-vitals'],
+      pt: 'Migração das páginas principais do portal para Next.js App Router com React Server Components e SSR, reduzindo o payload JavaScript no cliente e melhorando os scores de LCP e INP.',
+      en: 'Migrated core portal pages to Next.js App Router with React Server Components and SSR, cutting client-side JavaScript payload and improving LCP and INP scores across the product.',
     },
     {
       tags: [],
@@ -57,7 +67,8 @@ const zydon: TimelineEntry = {
 zydon.selectedSeniorFront = [
   zydon.accomplishments[0],
   zydon.accomplishments[1],
-  zydon.accomplishments[2],
+  zydon.accomplishments[3],
+  zydon.accomplishments[4],
 ]
 
 const mutant: TimelineEntry = {
@@ -147,18 +158,18 @@ const luizalabs: TimelineEntry = {
   accomplishments: [
     {
       tags: ['testing', 'coverage', 'jest', 'rtl', 'tdd'],
-      pt: '92% de cobertura de testes com Jest + RTL no projeto principal, o número que desbloqueou a adoção do pipeline de continuous delivery da empresa e virou referência interna.',
-      en: "92% test coverage with Jest + RTL on the main project, the milestone that unlocked the company's continuous delivery pipeline and became an internal quality benchmark.",
+      pt: 'Liderança colaborativa que ajudou a equipe a atingir 92% de cobertura de testes com Jest + RTL no projeto principal: o número que desbloqueou a adoção do pipeline de continuous delivery da empresa e virou referência interna.',
+      en: "Collaboratively helped the team achieve 92% test coverage with Jest + RTL on the main project: the milestone that unlocked the company's continuous delivery pipeline and became an internal quality benchmark.",
     },
     {
       tags: ['micro-frontends', 'state-management'],
-      pt: 'Micro-frontends arquitetados e integrados à plataforma interna do Magalu, com Git Flow e Conventional Commits como padrão de entrega.',
-      en: 'Micro-frontend applications architected and integrated into the Magalu internal platform, with Git Flow and Conventional Commits as delivery standards.',
+      pt: 'Micro-frontends de alta escala arquitetados e integrados à plataforma unificada do Magalu, estabelecendo padrões de orquestração no client-side, compartilhamento de estado seguro e fluxos automatizados com Git Flow e Conventional Commits.',
+      en: "High-scale micro-frontend applications architected and integrated into Magalu's unified platform, establishing client-side orchestration standards, secure state sharing, and automated release workflows via Git Flow and Conventional Commits.",
     },
     {
       tags: ['testing', 'coverage'],
-      pt: 'Projeto legado sem cobertura alguma recebeu testes unitários e passou a ter deploy automatizado, eliminando o risco de regressão manual em cada release.',
-      en: 'Introduced unit tests and automated deployments to a legacy project with zero coverage, eliminating manual regression checks on every release.',
+      pt: 'Projeto legado sem cobertura recebeu suíte de testes unitários e pipeline de deploy automatizado, reduzindo o tempo de release de 2 dias (manual) para apenas 1 hora com zero regressões.',
+      en: 'Introduced unit tests and an automated deployment pipeline to a legacy project with zero coverage, shrinking release times from 2 days (manual) to just 1 hour with zero regressions.',
     },
   ],
 }
@@ -201,12 +212,17 @@ const vitta: TimelineEntry = {
       pt: 'API Node + TypeScript para retorno de registros médicos em conformidade com a LGPD, com privacidade de dados garantida antes mesmo da lei entrar em vigor.',
       en: "Node + TypeScript API for medical record retrieval built in compliance with Brazil's LGPD (GDPR equivalent), ensuring data privacy protections were in place ahead of enforcement.",
     },
+    {
+      tags: ['seo', 'performance', 'core-web-vitals', 'ssr'],
+      pt: 'Otimização técnica do portal institucional da Vitta para mecanismos de busca (SEO) e Core Web Vitals, implementando renderização no lado do servidor (SSR) em Vue, semântica HTML estrita e dados estruturados, resultando em aumento substancial do tráfego orgânico.',
+      en: "Technical optimization of Vitta's corporate portal for search engines (SEO) and Core Web Vitals, implementing Server-Side Rendering (SSR) in Vue, strict HTML semantics, and structured data, resulting in a substantial increase in organic traffic.",
+    },
   ],
 }
 vitta.selectedSeniorFront = [
   vitta.accomplishments[0],
   vitta.accomplishments[1],
-  vitta.accomplishments[2],
+  vitta.accomplishments[4],
 ]
 
 const luxcontrol: TimelineEntry = {
@@ -237,12 +253,17 @@ const luxcontrol: TimelineEntry = {
       pt: 'React e consumo de APIs REST introduzidos no sistema legado sem interromper o serviço para clientes já em produção.',
       en: 'React and REST API consumption introduced to the legacy system without interrupting service for customers already running in production.',
     },
+    {
+      tags: ['seo', 'core-web-vitals', 'performance'],
+      pt: 'Otimização do site institucional da LuxControl focado em SEO e índices do Core Web Vitals (LCP, FID, CLS), elevando a pontuação no Google Lighthouse para acima de 95% e expandindo a presença digital da marca.',
+      en: "Optimized LuxControl's corporate website focusing on SEO and Core Web Vitals indices (LCP, FID, CLS), boosting Google Lighthouse scores above 95% and expanding the brand's digital presence.",
+    },
   ],
 }
 luxcontrol.selectedSeniorFront = [
   luxcontrol.accomplishments[0],
-  luxcontrol.accomplishments[1],
   luxcontrol.accomplishments[2],
+  luxcontrol.accomplishments[3],
 ]
 
 const bockz: TimelineEntry = {

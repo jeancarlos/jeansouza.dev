@@ -65,7 +65,11 @@ export function getBulletsForEntry(
   entry: TimelineEntry,
   level: ProfileLevel = 'senior'
 ): Accomplishment[] {
-  if (entry.selectedSeniorFront?.length === 3) {
+  if (
+    entry.selectedSeniorFront &&
+    entry.selectedSeniorFront.length >= 3 &&
+    entry.selectedSeniorFront.length <= 4
+  ) {
     return entry.selectedSeniorFront
   }
   return selectTopBullets(entry, level)
