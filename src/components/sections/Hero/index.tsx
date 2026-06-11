@@ -30,8 +30,11 @@ interface Props {
   initialOpen?: 'resume' | 'more'
 }
 
-const HOME_W = 560
-const HOME_H = 320
+// Wide enough for all action buttons on one row in pt (the longest locale);
+// on mobile the buttons wrap, so the box gets taller instead.
+const HOME_W = 600
+const HOME_H = 256
+const HOME_H_MOBILE = 360
 
 export function Hero({ locale, onOpenBlog, isFocused = true, initialOpen }: Props) {
   const t = useTranslations('hero')
@@ -85,7 +88,8 @@ export function Hero({ locale, onOpenBlog, isFocused = true, initialOpen }: Prop
   // values — no hydration mismatch. After mount, the real viewport triggers
   // a re-render and these derivations update automatically.
   const homeW = isMobile ? Math.min(viewport.vw - 32, HOME_W) : HOME_W
-  const homePos = centeredPosition(homeW, HOME_H, topOffset, viewport)
+  const homeH = isMobile ? HOME_H_MOBILE : HOME_H
+  const homePos = centeredPosition(homeW, homeH, topOffset, viewport)
   const resumeSize = {
     width: Math.min(1024, viewport.vw - WINDOW_SAFE * 2),
     height: viewport.vh - WINDOW_SAFE * 2 - topOffset,
@@ -97,7 +101,7 @@ export function Hero({ locale, onOpenBlog, isFocused = true, initialOpen }: Prop
       url={`/${locale}/`}
       title="~ jeansouza.dev"
       position={homePos}
-      size={{ width: homeW, height: HOME_H }}
+      size={{ width: homeW, height: homeH }}
       isExpanded={false}
       isMinimized={false}
       zIndex={10}

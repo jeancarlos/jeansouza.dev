@@ -37,7 +37,7 @@ function MoonIcon() {
   )
 }
 
-export function ThemeToggle({ size }: { size?: 'default' | 'sm' }) {
+function ThemeToggle({ size }: { size?: 'default' | 'sm' }) {
   const theme = useTheme()
   const toggle = useThemeToggle()
   const t = useTranslations('theme')
@@ -50,7 +50,7 @@ export function ThemeToggle({ size }: { size?: 'default' | 'sm' }) {
   )
 }
 
-export function LocaleToggle({ size }: { size?: 'default' | 'sm' }) {
+function LocaleToggle({ size }: { size?: 'default' | 'sm' }) {
   const locale = useLocale()
   const router = useRouter()
   const pathname = usePathname()

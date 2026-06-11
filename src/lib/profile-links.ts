@@ -6,7 +6,7 @@ export interface LinkItem {
   primary?: boolean
 }
 
-export const links: LinkItem[] = [
+const links: LinkItem[] = [
   {
     name: 'Instagram',
     url: 'https://www.instagram.com/jeancosouza/',

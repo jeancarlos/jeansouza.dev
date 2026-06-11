@@ -1,7 +1,7 @@
 export const WINDOW_SAFE = 20
 export const TOPBAR_HEIGHT = 75
 
-export const DEFAULT_VIEWPORT = { vw: 1200, vh: 800 } as const
+const DEFAULT_VIEWPORT = { vw: 1200, vh: 800 } as const
 
 export function getViewport(): { vw: number; vh: number } {
   if (typeof window === 'undefined') return DEFAULT_VIEWPORT

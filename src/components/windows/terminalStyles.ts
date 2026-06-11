@@ -7,14 +7,14 @@ export interface WindowStyle {
   y: number
 }
 
-export const EXPANDED_STYLE: WindowStyle = {
+const EXPANDED_STYLE: WindowStyle = {
   width: 'calc(100vw - 80px)',
   height: 'calc(100vh - 80px)',
   x: 40,
   y: 40,
 }
 
-export const MOBILE_STYLE: WindowStyle = {
+const MOBILE_STYLE: WindowStyle = {
   width: '100vw',
   height: '100dvh',
   x: 0,
