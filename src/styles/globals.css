@@ -1,6 +1,9 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
+/* `dark:` follows the data-theme attribute (and the default theme on :root) */
+@custom-variant dark (&:where([data-theme='dark'] *, :root:not([data-theme='light']) *));
+
 @theme {
   /* Catppuccin Mocha — structure */
   --color-crust: #11111b;
@@ -31,6 +34,8 @@
   --color-latte-crust: #ffffff;
   --color-latte-base: #eff1f5;
   --color-latte-mantle: #e6e9ef;
+  --color-latte-surface: #ccd0da;
+  --color-latte-overlay: #8c8fa1;
   --color-latte-text: #23151c;
   --color-latte-subtext: #6c6f85;
 
@@ -59,6 +64,7 @@
   --color-subtext: var(--color-latte-subtext);
   --color-text: var(--color-latte-text);
   --color-brand-text: var(--color-brand-from);
+  --color-brand-bg: #f3e2e8;
   --page-bg: var(--color-latte-crust);
   --page-text: var(--color-latte-text);
   --dot-color: 104, 57, 239;
@@ -158,7 +164,7 @@
   }
   .prose blockquote {
     border-left-color: var(--color-brand-from);
-    color: var(--color-brand-text);
+    color: var(--color-subtext);
   }
   .prose hr {
     border-color: var(--color-surface);
