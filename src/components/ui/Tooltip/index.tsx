@@ -32,8 +32,8 @@ export function Tooltip({
   }, [])
 
   const transform = show
-    ? `scale(1) translate(-${buttonMargin}px, 0)`
-    : `scale(0) translate(-${buttonMargin}px, 40px)`
+    ? `translate(-${buttonMargin}px, 0) scale(1)`
+    : `translate(-${buttonMargin}px, 8px) scale(0)`
 
   return (
     <Component

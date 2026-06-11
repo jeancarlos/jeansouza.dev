@@ -9,8 +9,13 @@ export interface LinkItem {
 const links: LinkItem[] = [
   {
     name: 'Instagram',
-    url: 'https://www.instagram.com/jeancosouza/',
+    url: 'https://www.instagram.com/jeansouza.dev/',
     icon: 'fab fa-instagram',
+  },
+  {
+    name: 'Bluesky',
+    url: 'https://bsky.app/profile/jeansouza.dev',
+    icon: 'fab fa-bluesky',
   },
   {
     name: 'Discord',

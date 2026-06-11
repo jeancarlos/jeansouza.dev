@@ -19,7 +19,9 @@ export function MoreLinksWindow() {
   }, [])
 
   const handleCopyContent = (content: string, index: number) => {
-    void navigator.clipboard.writeText(content)
+    navigator.clipboard.writeText(content).catch(() => {
+      // Clipboard permission denied — the bubble still shows the value copied.
+    })
     setCopiedIndex(index)
     if (timerRef.current !== null) clearTimeout(timerRef.current)
     timerRef.current = setTimeout(() => {
