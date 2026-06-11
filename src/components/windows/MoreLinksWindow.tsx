@@ -32,9 +32,9 @@ export function MoreLinksWindow() {
 
   const handleCopyContent = (content: string, index: number) => {
     navigator.clipboard.writeText(content).then(
-      () => showBubble(index, t('copied'), true),
-      // Clipboard blocked — show the value itself so it can be copied by hand;
-      // stays open until clicked or the pointer leaves.
+      () => showBubble(index, `${t('copied')} ${content}`, true),
+      // Clipboard blocked — keep the value on screen so it can be copied by
+      // hand; stays open until clicked or the pointer leaves.
       () => showBubble(index, content, false)
     )
   }
