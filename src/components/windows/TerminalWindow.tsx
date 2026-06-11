@@ -36,13 +36,16 @@ interface Props {
 
 function WindowBody({
   className,
-  grow,
+  height,
+  isMobile,
   children,
 }: {
   className: string
-  grow: boolean
+  height: number | string
+  isMobile: boolean
   children: ReactNode
 }) {
+  const grow = height === 'auto' && !isMobile
   if (!grow) return <div className={className}>{children}</div>
   return (
     <div className={className}>
@@ -125,7 +128,7 @@ export function TerminalWindow({
           />
         )}
         {showBody && (
-          <WindowBody className={bodyClassName} grow={size.height === 'auto' && !isMobile}>
+          <WindowBody className={bodyClassName} height={size.height} isMobile={isMobile}>
             {children}
           </WindowBody>
         )}
