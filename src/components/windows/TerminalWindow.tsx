@@ -34,6 +34,25 @@ interface Props {
   origin?: ButtonOrigin
 }
 
+function WindowBody({
+  className,
+  grow,
+  children,
+}: {
+  className: string
+  grow: boolean
+  children: ReactNode
+}) {
+  if (!grow) return <div className={className}>{children}</div>
+  return (
+    <div className={className}>
+      <div className="window-grow">
+        <div>{children}</div>
+      </div>
+    </div>
+  )
+}
+
 export function TerminalWindow({
   id,
   title,
@@ -105,16 +124,11 @@ export function TerminalWindow({
             expandable={expandable}
           />
         )}
-        {showBody &&
-          (size.height === 'auto' && !isMobile ? (
-            <div className={bodyClassName}>
-              <div className="window-grow">
-                <div>{children}</div>
-              </div>
-            </div>
-          ) : (
-            <div className={bodyClassName}>{children}</div>
-          ))}
+        {showBody && (
+          <WindowBody className={bodyClassName} grow={size.height === 'auto' && !isMobile}>
+            {children}
+          </WindowBody>
+        )}
         {showResizeHandles && (
           <ResizeHandles
             id={id}

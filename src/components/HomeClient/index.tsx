@@ -90,7 +90,7 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
     mountedRef.current = true
     const { locale, openBlogList, initialPost, initialOpen } = initialPropsRef.current
     if (initialPost || initialOpen === 'blog') {
-      openBlogList()
+      void openBlogList()
     } else if (!initialOpen) {
       // resume/more deep links keep their own URL; Hero opens the window.
       history.pushState({ _appWindow: 'home' }, '', `/${locale}/`)
@@ -103,7 +103,7 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
     const hasBlog = windows.some((w) => w.id === 'blog')
     if (!hasBlog) return
     initialPostOpenedRef.current = true
-    openBlogPost(initialPost)
+    void openBlogPost(initialPost)
   }, [windows, initialPost, openBlogPost])
 
   // Always-fresh snapshot of windows for use in event handlers.
