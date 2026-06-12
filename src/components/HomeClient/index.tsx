@@ -43,6 +43,7 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
         id: `post-${post.slug}`,
         url: `/${locale}/blog/${post.slug}`,
         title: `~/blog/${post.slug}`,
+        pageTitle: `${post.title} — Jean Souza`,
         content: <BlogPostWindow title={post.title} date={post.date} content={post.content} />,
         position: (() => {
           const anchor = topAnchoredPosition(w, TOPBAR_HEIGHT)
@@ -67,6 +68,7 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
         id: 'blog',
         url: `/${locale}/blog`,
         title: '~/blog',
+        pageTitle: `Jean Souza - Blog`,
         content: <BlogListWindow posts={posts} onOpenPost={openBlogPost} />,
         position: topAnchoredPosition(w, TOPBAR_HEIGHT),
         size: { width: w, height: 'auto' },
@@ -119,18 +121,27 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
   useEffect(() => {
     const prevLen = prevWindowsLenRef.current
     prevWindowsLenRef.current = windows.length
+    if (windows.length > prevLen) {
+      // Window opened — push its URL and update the tab title.
+      const top = windows.reduce((a, b) => (a.zIndex > b.zIndex ? a : b))
+      history.pushState({ _appWindow: top.id }, '', top.url)
+      document.title = top.pageTitle ?? document.title
+      return
+    }
     if (windows.length < prevLen) {
       if (popstateHandled.current) {
         // Close came from popstate (mobile back button) — history already moved back.
         popstateHandled.current = false
         return
       }
-      // Close came from desktop (X button, Escape) — update URL to reflect new state.
+      // Close came from desktop (X button, Escape) — update URL and title.
       if (windows.length === 0) {
         history.pushState({ _appWindow: 'home' }, '', `/${locale}/`)
+        document.title = 'Jean Souza'
       } else {
         const top = windows.reduce((a, b) => (a.zIndex > b.zIndex ? a : b))
         history.pushState({ _appWindow: top.id }, '', top.url)
+        document.title = top.pageTitle ?? document.title
       }
     }
   }, [windows, locale])

@@ -11,6 +11,7 @@ export interface WindowConfig {
   id: string
   url: string
   title: string
+  pageTitle?: string
   content: ReactNode
   position: { x: number; y: number }
   size: { width: number | string; height: number | string }
