@@ -31,7 +31,7 @@ export function BlogListWindow({ posts, onOpenPost }: Props) {
           <p className="text-brand-to mb-1 font-mono text-xs">
             {DIRECTORY_PERMISSIONS} {post.date}
           </p>
-          <p className="font-display text-brand-text font-bold transition-colors group-hover:text-white">
+          <p className="font-display text-brand-text font-bold transition-colors group-hover:text-brand-from">
             {post.title}
           </p>
           <p className="text-brand-to mt-1 text-sm leading-relaxed">{post.description}</p>

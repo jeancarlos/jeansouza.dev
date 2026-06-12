@@ -96,6 +96,13 @@ export function Hero({ locale, onOpenBlog, isFocused = true, initialOpen }: Prop
   }
 
   return (
+    <>
+      <span
+        aria-hidden="true"
+        className="pointer-events-none fixed left-1/2 top-1/2 z-[5] -translate-x-1/2 -translate-y-1/2 select-none text-[12px] hidden md:block"
+      >
+        👁️👄👁️
+      </span>
     <TerminalWindow
       id="home"
       url={`/${locale}/`}
@@ -170,5 +177,6 @@ export function Hero({ locale, onOpenBlog, isFocused = true, initialOpen }: Prop
         </div>
       </div>
     </TerminalWindow>
+    </>
   )
 }

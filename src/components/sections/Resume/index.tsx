@@ -34,7 +34,7 @@ export function Resume({ entries, profile, education, assets, locale }: Props) {
   return (
     <div className="min-h-full p-6">
       <div className="mx-auto max-w-5xl">
-        <p className="text-subtext mb-8 font-mono text-sm">{t('command')}</p>
+        <p className="text-brand-to mb-8 font-mono text-xs">{t('command')}</p>
         <Header profile={profile} locale={locale} />
         <Summary profile={profile} locale={locale} />
         <Section title={t('experience')}>
