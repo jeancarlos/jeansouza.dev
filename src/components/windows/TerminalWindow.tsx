@@ -111,6 +111,7 @@ export function TerminalWindow({
             id={id}
             title={title}
             isHome={isHome}
+            isExpanded={isExpanded}
             dragControls={dragControls}
             closeable={closeable}
             minimizable={minimizable}

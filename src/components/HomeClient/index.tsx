@@ -13,7 +13,6 @@ import { topAnchoredPosition, TOPBAR_HEIGHT, WINDOW_MAX_HEIGHT } from '@/lib/win
 const POST_OFFSET = 40
 const POST_MAX_HEIGHT = `calc(${WINDOW_MAX_HEIGHT} - 150px)`
 
-
 interface HomeClientProps {
   posts: Post[]
   locale: 'pt' | 'en'
@@ -44,7 +43,14 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
         url: `/${locale}/blog/${post.slug}`,
         title: `~/blog/${post.slug}`,
         pageTitle: `${post.title} — Jean Souza`,
-        content: <BlogPostWindow title={post.title} date={post.date} content={post.content} />,
+        content: (
+          <BlogPostWindow
+            slug={post.slug}
+            title={post.title}
+            date={post.date}
+            content={post.content}
+          />
+        ),
         position: (() => {
           const anchor = topAnchoredPosition(w, TOPBAR_HEIGHT)
           return { x: anchor.x + POST_OFFSET, y: anchor.y + POST_OFFSET }
