@@ -7,7 +7,6 @@ describe('initStar', () => {
     expect(star.z).toBeGreaterThan(0)
     expect(star.z).toBeLessThanOrEqual(MAX_DEPTH)
   })
-
 })
 
 describe('projectStar', () => {

@@ -4,7 +4,7 @@ interface TrafficDotProps {
   label: string
   symbol: string
   color: string
-  onClick: () => void
+  onClick?: () => void
   disabled?: boolean
 }
 
@@ -16,7 +16,7 @@ export function TrafficDot({ label, symbol, color, onClick, disabled = false }: 
       disabled={disabled}
       onClick={(e) => {
         e.stopPropagation()
-        onClick()
+        onClick?.()
       }}
       className={`group relative inline-flex h-3.5 w-3.5 items-center justify-center rounded-full ring-1 ring-white/40 transition-all duration-150 hover:scale-110 active:scale-95 ${
         disabled ? 'pointer-events-none opacity-40' : 'cursor-pointer'

@@ -44,7 +44,9 @@ createServer(async (req, res) => {
   for (const candidate of candidates) {
     const body = await tryRead(candidate)
     if (body) {
-      res.writeHead(200, { 'content-type': TYPES[extname(candidate)] ?? 'application/octet-stream' })
+      res.writeHead(200, {
+        'content-type': TYPES[extname(candidate)] ?? 'application/octet-stream',
+      })
       res.end(body)
       return
     }

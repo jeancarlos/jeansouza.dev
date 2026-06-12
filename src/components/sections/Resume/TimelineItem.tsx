@@ -49,7 +49,7 @@ export function TimelineItem({
         </time>
         <motion.article
           data-side={side}
-          className="border-surface rounded-2xl w-full min-w-0 border bg-[var(--button-inner-bg)] p-5 transition-colors"
+          className="border-surface w-full min-w-0 rounded-2xl border bg-[var(--button-inner-bg)] p-5 transition-colors"
           initial={{ opacity: 0, x: translateX }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: '-80px' }}

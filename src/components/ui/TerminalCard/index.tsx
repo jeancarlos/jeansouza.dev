@@ -31,23 +31,11 @@ export function TerminalCard({ title, children, maxWidth = 'max-w-md', onClose }
             label="Fechar"
             symbol="×"
             color="var(--color-traffic-close)"
-            onClick={onClose ?? (() => {})}
+            onClick={onClose}
             disabled={!onClose}
           />
-          <TrafficDot
-            label=""
-            symbol="−"
-            color="var(--color-traffic-minimize)"
-            onClick={() => {}}
-            disabled
-          />
-          <TrafficDot
-            label=""
-            symbol="+"
-            color="var(--color-traffic-expand)"
-            onClick={() => {}}
-            disabled
-          />
+          <TrafficDot label="" symbol="−" color="var(--color-traffic-minimize)" disabled />
+          <TrafficDot label="" symbol="+" color="var(--color-traffic-expand)" disabled />
           <span className="ml-2 text-xs text-white/80">{title}</span>
         </div>
         {/* mirrors WindowBody */}

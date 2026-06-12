@@ -9,7 +9,10 @@ export function Education({ entries, locale }: Props) {
   return (
     <ul className="space-y-4">
       {entries.map((entry) => (
-        <li key={entry.id} className="border-surface rounded-2xl border bg-[var(--button-inner-bg)] p-5">
+        <li
+          key={entry.id}
+          className="border-surface rounded-2xl border bg-[var(--button-inner-bg)] p-5"
+        >
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
             <h3 className="font-display text-text font-bold">{entry.institution}</h3>
             <span className="text-brand-text font-mono text-sm">▸ {entry.period[locale]}</span>

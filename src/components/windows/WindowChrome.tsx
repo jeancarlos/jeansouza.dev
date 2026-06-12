@@ -3,7 +3,7 @@ import { type ReactNode } from 'react'
 import { motion, type DragControls, type PanInfo } from 'framer-motion'
 import { useWindowManager, type ButtonOrigin } from './WindowManager'
 import { TOPBAR_HEIGHT, WINDOW_MAX_HEIGHT, clampPosition } from '@/lib/windowUtils'
-import { getAnimateStyle, getTransition, type WindowStyle } from './terminalStyles'
+import { getAnimateStyle, getInitialStyle, getTransition, type WindowStyle } from './terminalStyles'
 
 interface WindowChromeProps {
   id: string
@@ -46,19 +46,8 @@ export function WindowChrome({
   const h = typeof size.height === 'number' ? size.height : 400
   const animateStyle = getAnimateStyle(activeStyle, isMobile, isFocused)
   const transition = getTransition(isResizing)
-  // Content-sized windows leave height out of the entry animation so framer
-  // doesn't try to tween from the button height to auto (which it can't do).
-  // opacity:0 on the initial state hides the first frame at full content height.
   const autoHeight = activeStyle.height === 'auto'
-  const initial = origin
-    ? {
-        x: origin.x,
-        y: origin.y,
-        width: origin.width,
-        ...(autoHeight ? {} : { height: origin.height }),
-        opacity: 0,
-      }
-    : { opacity: 0, scale: 0.75 }
+  const initial = getInitialStyle(origin, autoHeight)
 
   const onDragEnd = (_: unknown, info: PanInfo) => {
     const raw = { x: position.x + info.offset.x, y: position.y + info.offset.y }
@@ -70,7 +59,7 @@ export function WindowChrome({
 
   return (
     <motion.div
-      drag={isMobile || activeStyle.width === '100vw' ? false : true}
+      drag={!isMobile && activeStyle.width !== '100vw'}
       dragListener={false}
       dragControls={dragControls}
       dragMomentum={false}

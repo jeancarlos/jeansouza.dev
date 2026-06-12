@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useSyncExternalStore } from 'react'
 import { motion, steps } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import { TerminalCard } from '@/components/ui/TerminalCard'
@@ -15,18 +15,25 @@ const messages = {
   },
 }
 
-export default function NotFound() {
-  const [locale, setLocale] = useState<'pt' | 'en'>('pt')
+// navigator.language never changes during the page's lifetime, so the store
+// never emits — useSyncExternalStore is only bridging the SSR/client snapshot.
+const subscribeNever = () => () => undefined
+const getClientLocale = (): 'pt' | 'en' => (navigator.language.startsWith('pt') ? 'pt' : 'en')
+const getServerLocale = (): 'pt' | 'en' => 'pt'
 
-  useEffect(() => {
-    setLocale(navigator.language.startsWith('pt') ? 'pt' : 'en')
-  }, [])
+export default function NotFound() {
+  const locale = useSyncExternalStore(subscribeNever, getClientLocale, getServerLocale)
 
   const m = messages[locale]
 
   return (
     <main className="flex min-h-dvh items-center justify-center p-4">
-      <TerminalCard title="~ jeansouza.dev" onClose={() => { window.location.href = '/' }}>
+      <TerminalCard
+        title="~ jeansouza.dev"
+        onClose={() => {
+          window.location.href = '/'
+        }}
+      >
         <div className="space-y-4">
           <p className="text-brand-to text-xs">~ jeansouza.dev</p>
           <p className="flex items-center gap-2">
@@ -42,7 +49,7 @@ export default function NotFound() {
             </motion.span>
           </p>
           <p className="text-subtext pl-5 text-sm leading-relaxed">{m.description}</p>
-          <div className="pl-5 pt-2">
+          <div className="pt-2 pl-5">
             <Button href="/">
               <i className="fas fa-home mr-1" aria-hidden="true" /> {m.back}
             </Button>

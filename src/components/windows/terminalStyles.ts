@@ -79,6 +79,20 @@ export function getAnimateStyle(
   }
 }
 
+// Content-sized windows leave height out of the entry animation so framer
+// doesn't try to tween from the button height to auto (which it can't do).
+// opacity:0 on the initial state hides the first frame at full content height.
+export function getInitialStyle(origin: ButtonOrigin | undefined, autoHeight: boolean) {
+  if (!origin) return { opacity: 0, scale: 0.75 }
+  return {
+    x: origin.x,
+    y: origin.y,
+    width: origin.width,
+    ...(autoHeight ? {} : { height: origin.height }),
+    opacity: 0,
+  }
+}
+
 export function getTransition(isResizing: boolean) {
   if (isResizing) return { duration: 0 }
   return {
