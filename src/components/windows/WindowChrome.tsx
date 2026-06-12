@@ -70,7 +70,7 @@ export function WindowChrome({
 
   return (
     <motion.div
-      drag={isMobile ? false : true}
+      drag={isMobile || activeStyle.width === '100vw' ? false : true}
       dragListener={false}
       dragControls={dragControls}
       dragMomentum={false}
