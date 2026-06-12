@@ -8,10 +8,10 @@ export interface WindowStyle {
 }
 
 const EXPANDED_STYLE: WindowStyle = {
-  width: 'calc(100vw - 80px)',
-  height: 'calc(100vh - 80px)',
-  x: 40,
-  y: 40,
+  width: '100vw',
+  height: '100dvh',
+  x: 0,
+  y: 0,
 }
 
 const MOBILE_STYLE: WindowStyle = {

@@ -1,14 +1,31 @@
 import { getAllPostsWithContent } from '@/lib/posts'
 import { HomeClient } from '@/components/HomeClient'
 import { WindowManagerProvider } from '@/components/windows/WindowManager'
-import { setRequestLocale } from 'next-intl/server'
+import { routing } from '@/i18n/routing'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+import type { Metadata } from 'next'
 
 interface Props {
   params: Promise<{ locale: string }>
 }
 
 export function generateStaticParams() {
-  return [{ locale: 'pt' }, { locale: 'en' }]
+  return routing.locales.map((locale) => ({ locale }))
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'nav' })
+  return {
+    title: `Jean Souza - ${t('blog')}`,
+    alternates: {
+      canonical: `https://jeansouza.dev/${locale}/blog/`,
+      languages: {
+        'pt-BR': 'https://jeansouza.dev/pt/blog/',
+        'en-US': 'https://jeansouza.dev/en/blog/',
+      },
+    },
+  }
 }
 
 export default async function BlogPage({ params }: Props) {

@@ -51,7 +51,7 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
         size: { width: w, height: 'auto' },
         maxHeight: POST_MAX_HEIGHT,
         defaultSize: 'medium',
-        isExpanded: false,
+        isExpanded: true,
         isMinimized: false,
         origin,
       })

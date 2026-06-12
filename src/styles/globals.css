@@ -170,22 +170,4 @@
     border-color: var(--color-surface);
   }
 
-  /* Content-sized windows mount collapsed (rows 0fr) and expand smoothly to
-     their content height; the inner cell clips while growing. */
-  .window-grow {
-    display: grid;
-    grid-template-rows: 1fr;
-    transition: grid-template-rows 350ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .window-grow > * {
-    min-height: 0;
-    overflow: hidden;
-  }
-
-  @starting-style {
-    .window-grow {
-      grid-template-rows: 0fr;
-    }
-  }
 }

@@ -46,9 +46,9 @@ export function WindowChrome({
   const h = typeof size.height === 'number' ? size.height : 400
   const animateStyle = getAnimateStyle(activeStyle, isMobile, isFocused)
   const transition = getTransition(isResizing)
-  // Content-sized windows leave height out of the entry animation: the CSS
-  // .window-grow transition drives the expansion, and a numeric from-height
-  // would make framer measure (and flash) the final size on the first frame.
+  // Content-sized windows leave height out of the entry animation so framer
+  // doesn't try to tween from the button height to auto (which it can't do).
+  // opacity:0 on the initial state hides the first frame at full content height.
   const autoHeight = activeStyle.height === 'auto'
   const initial = origin
     ? {
