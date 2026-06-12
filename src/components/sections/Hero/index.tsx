@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic'
 import { TerminalWindow } from '@/components/windows/TerminalWindow'
 import { WindowButton } from '@/components/windows/WindowButton'
 import { Typewriter } from '@/components/ui/Typewriter'
+import { Icon } from '@/components/ui/Icon'
 import { Button } from '@/components/ui/Button'
 import { useWindowManager, type ButtonOrigin } from '@/components/windows/WindowManager'
 import { useIsMobile } from '@/lib/useIsMobile'
@@ -140,10 +141,10 @@ export function Hero({ locale, onOpenBlog, isFocused = true, initialOpen }: Prop
           </p>
           <div className="flex flex-wrap gap-2 pt-4 pl-5">
             <Button href="https://github.com/jeancarlos">
-              <i className="fab fa-github mr-1" aria-hidden="true" /> GitHub
+              <Icon name="github" className="mr-1" /> GitHub
             </Button>
             <Button href="https://linkedin.com/in/jeancosouza">
-              <i className="fab fa-linkedin mr-1" aria-hidden="true" /> LinkedIn
+              <Icon name="linkedin" className="mr-1" /> LinkedIn
             </Button>
             <WindowButton
               windowId="resume"
@@ -153,7 +154,7 @@ export function Hero({ locale, onOpenBlog, isFocused = true, initialOpen }: Prop
               windowSize={resumeSize}
               defaultSize="large"
             >
-              <i className="fas fa-file-alt mr-1" aria-hidden="true" /> {tResume('title')}
+              <Icon name="file-alt" className="mr-1" /> {tResume('title')}
             </WindowButton>
             <Button
               onClick={(e) => {
@@ -161,7 +162,7 @@ export function Hero({ locale, onOpenBlog, isFocused = true, initialOpen }: Prop
                 onOpenBlog({ x: rect.left, y: rect.top, width: rect.width, height: rect.height })
               }}
             >
-              <i className="fas fa-book mr-1" aria-hidden="true" /> {tNav('blog')}
+              <Icon name="book" className="mr-1" /> {tNav('blog')}
             </Button>
             <WindowButton
               windowId="more-links"

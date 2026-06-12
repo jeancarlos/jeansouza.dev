@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
 import { Poppins, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
-import '@fortawesome/fontawesome-free/css/all.min.css'
 import '@/styles/globals.css'
 import { DotBackground } from '@/components/DotBackground'
 

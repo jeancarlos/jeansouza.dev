@@ -3,6 +3,7 @@ import { useSyncExternalStore } from 'react'
 import { motion, steps } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import { TerminalCard } from '@/components/ui/TerminalCard'
+import { Icon } from '@/components/ui/Icon'
 
 const messages = {
   pt: {
@@ -51,7 +52,7 @@ export default function NotFound() {
           <p className="text-subtext pl-5 text-sm leading-relaxed">{m.description}</p>
           <div className="pt-2 pl-5">
             <Button href="/">
-              <i className="fas fa-home mr-1" aria-hidden="true" /> {m.back}
+              <Icon name="home" className="mr-1" /> {m.back}
             </Button>
           </div>
         </div>
