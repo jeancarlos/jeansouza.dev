@@ -1,5 +1,5 @@
 ---
-title: 'Why I built this site the way I did'
+title: 'Why I built this site the way I built it'
 date: 2026-06-03
 description: This portfolio isn't a list of technologies. It's a series of deliberate decisions — and the code is open for anyone who wants to audit it.
 ---
