@@ -3,7 +3,9 @@ import { render, screen } from '@testing-library/react'
 import { Hero } from './index'
 import { WindowManagerProvider } from '@/components/windows/WindowManager'
 
-vi.mock('next-intl', () => ({
+vi.mock('@/i18n/react', () => ({
+  LocaleProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  useLocale: () => 'en',
   useTranslations: (namespace: string) => {
     const messages: Record<string, Record<string, string>> = {
       hero: { prompt: 'jean souza', role: 'role', cta: 'cta' },

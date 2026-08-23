@@ -1,5 +1,5 @@
 'use client'
-import { useLocale, useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from '../../../i18n/react'
 import { useRouter, usePathname } from '@/i18n/navigation'
 import { Switch } from '@/components/ui/Switch'
 import { useTheme, useThemeToggle } from '@/lib/use-theme'

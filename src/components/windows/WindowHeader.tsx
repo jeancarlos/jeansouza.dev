@@ -1,7 +1,7 @@
 'use client'
 import { type PointerEvent } from 'react'
 import { type DragControls } from 'framer-motion'
-import { useTranslations } from 'next-intl'
+import { useTranslations } from '../../i18n/react'
 import { useWindowManager } from './WindowManager'
 import { TrafficDot } from './TrafficDot'
 

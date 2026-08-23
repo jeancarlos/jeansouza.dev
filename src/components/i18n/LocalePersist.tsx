@@ -1,6 +1,6 @@
 'use client'
 import { useEffect } from 'react'
-import { useLocale } from 'next-intl'
+import { useLocale } from '../../i18n/react'
 import { useRouter, usePathname } from '@/i18n/navigation'
 import { LOCALE_STORAGE_KEY } from '@/lib/locale-storage'
 

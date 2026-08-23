@@ -1,5 +1,5 @@
 'use client'
-import { useTranslations } from 'next-intl'
+import { useTranslations } from '../../i18n/react'
 import type { Post } from '@/lib/posts'
 import type { ButtonOrigin } from '@/components/windows/WindowManager'
 import { DIRECTORY_PERMISSIONS } from '@/lib/format'

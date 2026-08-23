@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useRef } from 'react'
-import { useTranslations } from 'next-intl'
+import { useTranslations } from '../../../i18n/react'
 import { motion, steps } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { TerminalWindow } from '@/components/windows/TerminalWindow'

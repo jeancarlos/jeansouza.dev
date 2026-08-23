@@ -1,5 +1,5 @@
 'use client'
-import { useTranslations } from 'next-intl'
+import { useTranslations } from '../../../i18n/react'
 import { Header } from './Header'
 import { Summary } from './Summary'
 import { TimelineItem } from './TimelineItem'
