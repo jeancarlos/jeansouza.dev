@@ -1,0 +1,1677 @@
+{
+  "base": "http://127.0.0.1:4321",
+  "generated_by": "measure.mjs",
+  "runs": 3,
+  "pages": {
+    "/": {
+      "mobile": {
+        "median": {
+          "performance": 77,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 6291.59561699829,
+          "tbt_ms": 71,
+          "cls": 0,
+          "js_transfer_bytes": 677638,
+          "js_requests": 28
+        },
+        "runs": [
+          {
+            "performance": 77,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 6273.415999999999,
+            "tbt_ms": 71,
+            "cls": 0,
+            "js_transfer_bytes": 677638,
+            "js_requests": 28
+          },
+          {
+            "performance": 77,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 6291.59561699829,
+            "tbt_ms": 68.5,
+            "cls": 0,
+            "js_transfer_bytes": 667486,
+            "js_requests": 28
+          },
+          {
+            "performance": 77,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 6291.621200000001,
+            "tbt_ms": 84,
+            "cls": 0,
+            "js_transfer_bytes": 677638,
+            "js_requests": 28
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 97,
+          "accessibility": 95,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 1207.44375,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 621614,
+          "js_requests": 28
+        },
+        "runs": [
+          {
+            "performance": 97,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1207.44375,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 674643,
+            "js_requests": 28
+          },
+          {
+            "performance": 98,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1169.9799999999998,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 567187,
+            "js_requests": 28
+          },
+          {
+            "performance": 97,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1210.4760500000002,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 621614,
+            "js_requests": 28
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ]
+      }
+    },
+    "/en/": {
+      "mobile": {
+        "median": {
+          "performance": 69,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 8578.10125,
+          "tbt_ms": 300.5,
+          "cls": 0,
+          "js_transfer_bytes": 1050004,
+          "js_requests": 17
+        },
+        "runs": [
+          {
+            "performance": 68,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8578.830249999999,
+            "tbt_ms": 306,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 70,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8538.535249999999,
+            "tbt_ms": 258.5,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 69,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8578.10125,
+            "tbt_ms": 300.5,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 95,
+          "accessibility": 95,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 1554.0830000000003,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 1050004,
+          "js_requests": 17
+        },
+        "runs": [
+          {
+            "performance": 95,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1554.0830000000003,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 95,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1551.4427500000002,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 94,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1581.7884999999999,
+            "tbt_ms": 9,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ]
+      }
+    },
+    "/en/blog/": {
+      "mobile": {
+        "median": {
+          "performance": 75,
+          "accessibility": 95,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 8365.2745,
+          "tbt_ms": 108.5,
+          "cls": 0,
+          "js_transfer_bytes": 1050004,
+          "js_requests": 17
+        },
+        "runs": [
+          {
+            "performance": 71,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8503.97325,
+            "tbt_ms": 222.5,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 75,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8365.2745,
+            "tbt_ms": 108.5,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 75,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8356.46525,
+            "tbt_ms": 88,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 95,
+          "accessibility": 91,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 1516.664,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 1050004,
+          "js_requests": 17
+        },
+        "runs": [
+          {
+            "performance": 95,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1513.7287500000002,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 95,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1516.664,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 95,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1548.08,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 3,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 8,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ]
+      }
+    },
+    "/en/blog/2026-06-03-como-modernizei-meu-site/": {
+      "mobile": {
+        "median": {
+          "performance": 64,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 8688.415,
+          "tbt_ms": 422,
+          "cls": 0,
+          "js_transfer_bytes": 1050004,
+          "js_requests": 17
+        },
+        "runs": [
+          {
+            "performance": 66,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8682.5605,
+            "tbt_ms": 365,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 64,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8688.415,
+            "tbt_ms": 422,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 60,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8745.225749999998,
+            "tbt_ms": 539.5,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 94,
+          "accessibility": 91,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 1595.768,
+          "tbt_ms": 1,
+          "cls": 0,
+          "js_transfer_bytes": 1050004,
+          "js_requests": 17
+        },
+        "runs": [
+          {
+            "performance": 94,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1623.83375,
+            "tbt_ms": 9,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 94,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1595.768,
+            "tbt_ms": 1,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 94,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1590.78175,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 4,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          },
+          {
+            "id": "scrollable-region-focusable",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Scrollable region must have keyboard access"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 10,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ]
+      }
+    },
+    "/en/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/": {
+      "mobile": {
+        "median": {
+          "performance": 74,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 8387.7535,
+          "tbt_ms": 126.5,
+          "cls": 0,
+          "js_transfer_bytes": 1050004,
+          "js_requests": 17
+        },
+        "runs": [
+          {
+            "performance": 58,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8694.156500000001,
+            "tbt_ms": 652,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 74,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8387.7535,
+            "tbt_ms": 126.5,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 75,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8345.0885,
+            "tbt_ms": 86.5,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 95,
+          "accessibility": 91,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 1514.996,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 1050004,
+          "js_requests": 17
+        },
+        "runs": [
+          {
+            "performance": 95,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1514.996,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 95,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1512.3430000000003,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 95,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1531.5717499999998,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 4,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          },
+          {
+            "id": "scrollable-region-focusable",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Scrollable region must have keyboard access"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 10,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ]
+      }
+    },
+    "/en/more/": {
+      "mobile": {
+        "median": {
+          "performance": 68,
+          "accessibility": 95,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 8596.883749999999,
+          "tbt_ms": 323.5,
+          "cls": 0,
+          "js_transfer_bytes": 1052831,
+          "js_requests": 18
+        },
+        "runs": [
+          {
+            "performance": 64,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8686.7925,
+            "tbt_ms": 447.5,
+            "cls": 0,
+            "js_transfer_bytes": 1052831,
+            "js_requests": 18
+          },
+          {
+            "performance": 68,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8580.65525,
+            "tbt_ms": 323.5,
+            "cls": 0,
+            "js_transfer_bytes": 1052831,
+            "js_requests": 18
+          },
+          {
+            "performance": 69,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8596.883749999999,
+            "tbt_ms": 299.5,
+            "cls": 0,
+            "js_transfer_bytes": 1052831,
+            "js_requests": 18
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 94,
+          "accessibility": 91,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 1598.12475,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 1052831,
+          "js_requests": 18
+        },
+        "runs": [
+          {
+            "performance": 94,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1639.7295,
+            "tbt_ms": 10,
+            "cls": 0,
+            "js_transfer_bytes": 1052831,
+            "js_requests": 18
+          },
+          {
+            "performance": 94,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1598.12475,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1052831,
+            "js_requests": 18
+          },
+          {
+            "performance": 94,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1586.5145,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1052831,
+            "js_requests": 18
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 6,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ]
+      }
+    },
+    "/en/resume/": {
+      "mobile": {
+        "median": {
+          "performance": 62,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 8655.067500000001,
+          "tbt_ms": 484,
+          "cls": 0,
+          "js_transfer_bytes": 1074335,
+          "js_requests": 18
+        },
+        "runs": [
+          {
+            "performance": 60,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8878.889,
+            "tbt_ms": 606.5,
+            "cls": 0,
+            "js_transfer_bytes": 1074335,
+            "js_requests": 18
+          },
+          {
+            "performance": 71,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8617.13875,
+            "tbt_ms": 226.5,
+            "cls": 0,
+            "js_transfer_bytes": 1074335,
+            "js_requests": 18
+          },
+          {
+            "performance": 62,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8655.067500000001,
+            "tbt_ms": 484,
+            "cls": 0,
+            "js_transfer_bytes": 1074335,
+            "js_requests": 18
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 94,
+          "accessibility": 92,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 1599.2589999999998,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 1074335,
+          "js_requests": 18
+        },
+        "runs": [
+          {
+            "performance": 94,
+            "accessibility": 92,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1586.9560000000001,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1074335,
+            "js_requests": 18
+          },
+          {
+            "performance": 94,
+            "accessibility": 92,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1599.4805,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1074335,
+            "js_requests": 18
+          },
+          {
+            "performance": 94,
+            "accessibility": 92,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1599.2589999999998,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1074335,
+            "js_requests": 18
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 2,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 7,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ]
+      }
+    },
+    "/pt/": {
+      "mobile": {
+        "median": {
+          "performance": 72,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 8436.65725,
+          "tbt_ms": 191,
+          "cls": 0,
+          "js_transfer_bytes": 1050004,
+          "js_requests": 17
+        },
+        "runs": [
+          {
+            "performance": 71,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8522.859,
+            "tbt_ms": 237.5,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 74,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8398.4895,
+            "tbt_ms": 145,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 72,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8436.65725,
+            "tbt_ms": 191,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 95,
+          "accessibility": 95,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 1533.14825,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 1050004,
+          "js_requests": 17
+        },
+        "runs": [
+          {
+            "performance": 95,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1533.14825,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 96,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1416.1102499999997,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 95,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1579.02725,
+            "tbt_ms": 9,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ]
+      }
+    },
+    "/pt/blog/": {
+      "mobile": {
+        "median": {
+          "performance": 70,
+          "accessibility": 95,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 8520.7025,
+          "tbt_ms": 239.5,
+          "cls": 0,
+          "js_transfer_bytes": 1050004,
+          "js_requests": 17
+        },
+        "runs": [
+          {
+            "performance": 64,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8639.195749999999,
+            "tbt_ms": 432,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 72,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8454.586,
+            "tbt_ms": 208.5,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 70,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8520.7025,
+            "tbt_ms": 239.5,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 95,
+          "accessibility": 91,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 1517.51875,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 1050004,
+          "js_requests": 17
+        },
+        "runs": [
+          {
+            "performance": 95,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1517.51875,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 95,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1522.5722500000002,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 95,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1506.8595000000003,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 3,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 8,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ]
+      }
+    },
+    "/pt/blog/2026-06-03-como-modernizei-meu-site/": {
+      "mobile": {
+        "median": {
+          "performance": 66,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 8683.667000000001,
+          "tbt_ms": 357,
+          "cls": 0,
+          "js_transfer_bytes": 1050004,
+          "js_requests": 17
+        },
+        "runs": [
+          {
+            "performance": 48,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8848.26855,
+            "tbt_ms": 1333.000000000001,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 67,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8594.1885,
+            "tbt_ms": 319.5,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 66,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8683.667000000001,
+            "tbt_ms": 357,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 94,
+          "accessibility": 91,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 1595.1227500000002,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 1050004,
+          "js_requests": 17
+        },
+        "runs": [
+          {
+            "performance": 94,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1595.9315,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 94,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1595.1227500000002,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 94,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1586.68925,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 4,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          },
+          {
+            "id": "scrollable-region-focusable",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Scrollable region must have keyboard access"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 10,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ]
+      }
+    },
+    "/pt/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/": {
+      "mobile": {
+        "median": {
+          "performance": 61,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 8557.947,
+          "tbt_ms": 525.4999999999991,
+          "cls": 0,
+          "js_transfer_bytes": 1050004,
+          "js_requests": 17
+        },
+        "runs": [
+          {
+            "performance": 68,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8431.0055,
+            "tbt_ms": 319.5,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 61,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8598.758500000002,
+            "tbt_ms": 525.4999999999991,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 61,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8557.947,
+            "tbt_ms": 545.5,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 95,
+          "accessibility": 91,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 1539.2615000000003,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 1050004,
+          "js_requests": 17
+        },
+        "runs": [
+          {
+            "performance": 94,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1569.43175,
+            "tbt_ms": 1,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 95,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1517.8515000000002,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          },
+          {
+            "performance": 95,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1539.2615000000003,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1050004,
+            "js_requests": 17
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 4,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          },
+          {
+            "id": "scrollable-region-focusable",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Scrollable region must have keyboard access"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 10,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ]
+      }
+    },
+    "/pt/more/": {
+      "mobile": {
+        "median": {
+          "performance": 69,
+          "accessibility": 95,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 8585.117250000001,
+          "tbt_ms": 290,
+          "cls": 0,
+          "js_transfer_bytes": 1052831,
+          "js_requests": 18
+        },
+        "runs": [
+          {
+            "performance": 73,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8438.0025,
+            "tbt_ms": 177,
+            "cls": 0,
+            "js_transfer_bytes": 1052831,
+            "js_requests": 18
+          },
+          {
+            "performance": 69,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8585.117250000001,
+            "tbt_ms": 290,
+            "cls": 0,
+            "js_transfer_bytes": 1052831,
+            "js_requests": 18
+          },
+          {
+            "performance": 60,
+            "accessibility": 95,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8737.189750000001,
+            "tbt_ms": 574.5,
+            "cls": 0,
+            "js_transfer_bytes": 1052831,
+            "js_requests": 18
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 94,
+          "accessibility": 91,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 1602.1587500000003,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 1052831,
+          "js_requests": 18
+        },
+        "runs": [
+          {
+            "performance": 94,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1602.1587500000003,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1052831,
+            "js_requests": 18
+          },
+          {
+            "performance": 95,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1560.01,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1052831,
+            "js_requests": 18
+          },
+          {
+            "performance": 94,
+            "accessibility": 91,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1612.3112499999997,
+            "tbt_ms": 4,
+            "cls": 0,
+            "js_transfer_bytes": 1052831,
+            "js_requests": 18
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 6,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ]
+      }
+    },
+    "/pt/resume/": {
+      "mobile": {
+        "median": {
+          "performance": 73,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 8568.793000000001,
+          "tbt_ms": 155.5,
+          "cls": 0,
+          "js_transfer_bytes": 1074335,
+          "js_requests": 18
+        },
+        "runs": [
+          {
+            "performance": 66,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8568.793000000001,
+            "tbt_ms": 365.5,
+            "cls": 0,
+            "js_transfer_bytes": 1074335,
+            "js_requests": 18
+          },
+          {
+            "performance": 73,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8572.52625,
+            "tbt_ms": 155.5,
+            "cls": 0,
+            "js_transfer_bytes": 1074335,
+            "js_requests": 18
+          },
+          {
+            "performance": 74,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 8547.41875,
+            "tbt_ms": 133.5,
+            "cls": 0,
+            "js_transfer_bytes": 1074335,
+            "js_requests": 18
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 94,
+          "accessibility": 92,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 1592.44175,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 1074335,
+          "js_requests": 18
+        },
+        "runs": [
+          {
+            "performance": 94,
+            "accessibility": 92,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1586.9715,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1074335,
+            "js_requests": 18
+          },
+          {
+            "performance": 94,
+            "accessibility": 92,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1592.44175,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 1074335,
+            "js_requests": 18
+          },
+          {
+            "performance": 94,
+            "accessibility": 92,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 1629.35525,
+            "tbt_ms": 6,
+            "cls": 0,
+            "js_transfer_bytes": 1074335,
+            "js_requests": 18
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 7,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          },
+          {
+            "id": "region",
+            "impact": "moderate",
+            "nodes": 1,
+            "help": "All page content should be contained by landmarks"
+          }
+        ]
+      }
+    }
+  }
+}

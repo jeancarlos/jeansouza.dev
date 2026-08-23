@@ -130,7 +130,8 @@ yarn-error.log*
 
 #ia tooling
 .claude
-docs/
+docs/*
+!docs/migration/
 
 # git worktrees
 .worktrees/
@@ -141,3 +142,6 @@ GEMINI.md
 
 # Next.js build output
 /out/
+
+# superpowers scratch (plans, progress, review diffs)
+.superpowers/
