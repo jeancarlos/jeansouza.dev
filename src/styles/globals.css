@@ -207,3 +207,24 @@
   white-space: nowrap;
   border: 0;
 }
+
+/* Per-character reveal for .typewriter. The delay is set inline per span. */
+.typewriter > span {
+  opacity: 0;
+  animation: typewriter-in 0.01s linear forwards;
+}
+
+@keyframes typewriter-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Belt and braces: the component also renders unsplit text, but a stale
+     hydration must never leave the phrase invisible. */
+  .typewriter > span {
+    opacity: 1;
+    animation: none;
+  }
+}
