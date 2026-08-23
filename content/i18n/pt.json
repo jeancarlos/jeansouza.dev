@@ -46,5 +46,12 @@
   },
   "lang": {
     "switch": "EN"
+  },
+  "windows": {
+    "terminal": "Terminal",
+    "blog": "Blog",
+    "post": "Post",
+    "resume": "Currículo",
+    "more": "Mais"
   }
 }

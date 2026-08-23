@@ -46,5 +46,12 @@
   },
   "lang": {
     "switch": "PT"
+  },
+  "windows": {
+    "terminal": "Terminal",
+    "blog": "Blog",
+    "post": "Post",
+    "resume": "Resume",
+    "more": "More"
   }
 }
