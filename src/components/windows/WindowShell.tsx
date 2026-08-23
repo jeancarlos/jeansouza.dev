@@ -31,7 +31,8 @@ interface Props {
 
 const DEFAULT_BOX: Box = { x: 0, y: 0, w: 640, h: 480 }
 
-const ARROWS: Record<string, [number, number]> = {
+// Indexed by an arbitrary event.key, so a miss is real: the type must admit it.
+const ARROWS: Record<string, [number, number] | undefined> = {
   ArrowLeft: [-1, 0],
   ArrowRight: [1, 0],
   ArrowUp: [0, -1],

@@ -5,7 +5,7 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import prettier from 'eslint-config-prettier'
 
 export default tseslint.config(
-  { ignores: ['node_modules', '.next', 'dist', '.claude', 'docs', 'public'] },
+  { ignores: ['node_modules', '.next', 'dist', '.astro', 'out', '.claude', '.superpowers', 'docs', 'public'] },
 
   // Next.js base rules (includes @next/eslint-plugin-next, react, jsx-a11y)
   ...coreWebVitals,
