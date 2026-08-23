@@ -16,7 +16,7 @@ export interface Post extends PostMeta {
 
 type Locale = 'pt' | 'en'
 
-const postsDirectory = path.join(process.cwd(), 'src/content/posts')
+const postsDirectory = path.join(process.cwd(), 'src/content/blog')
 
 const LOCALE_FILE_RE = /^(.+)\.(pt|en)\.md$/
 

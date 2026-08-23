@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import { getAllPosts, getPost, getAllSlugs, getAllPostsWithContent } from './posts'
 
-const postsDir = path.join(process.cwd(), 'src/content/posts')
+const postsDir = path.join(process.cwd(), 'src/content/blog')
 const testSlug = '__test-post-2026-01-01'
 const testPath = path.join(postsDir, `${testSlug}.pt.md`)
 
