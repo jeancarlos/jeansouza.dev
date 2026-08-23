@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { WindowShell } from './WindowShell'
+import { STRINGS_PT } from './test-strings'
 
 describe('WindowShell', () => {
   it('renders slotted content even when the window starts closed', () => {
     render(
-      <WindowShell id="post" label="Post" initialOpen={false}>
+      <WindowShell id="post" label="Post" initialOpen={false} strings={STRINGS_PT}>
         <p>server rendered prose</p>
       </WindowShell>,
     )
@@ -14,7 +15,7 @@ describe('WindowShell', () => {
 
   it('exposes the role and accessible name the surface spec demands', () => {
     render(
-      <WindowShell id="resume" label="Currículo" initialOpen>
+      <WindowShell id="resume" label="Currículo" initialOpen strings={STRINGS_PT}>
         <p>x</p>
       </WindowShell>,
     )
@@ -23,7 +24,7 @@ describe('WindowShell', () => {
 
   it('gives a scrollable body a focusable, named region', () => {
     render(
-      <WindowShell id="resume" label="Currículo" initialOpen>
+      <WindowShell id="resume" label="Currículo" initialOpen strings={STRINGS_PT}>
         <p>x</p>
       </WindowShell>,
     )
@@ -34,7 +35,7 @@ describe('WindowShell', () => {
 
   it('does not make a non-scrollable body focusable', () => {
     render(
-      <WindowShell id="more" label="Links" initialOpen>
+      <WindowShell id="more" label="Links" initialOpen strings={STRINGS_PT}>
         <p>x</p>
       </WindowShell>,
     )
@@ -43,7 +44,7 @@ describe('WindowShell', () => {
 
   it('uses role=dialog only where the surface spec says so', () => {
     render(
-      <WindowShell id="terminal" label="Terminal" initialOpen>
+      <WindowShell id="terminal" label="Terminal" initialOpen strings={STRINGS_PT}>
         <p>x</p>
       </WindowShell>,
     )
