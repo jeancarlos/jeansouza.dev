@@ -145,3 +145,6 @@ GEMINI.md
 
 # superpowers scratch (plans, progress, review diffs)
 .superpowers/
+
+dist/
+.astro/
