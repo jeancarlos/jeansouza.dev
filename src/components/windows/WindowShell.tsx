@@ -2,6 +2,7 @@ import { useId, useState, type KeyboardEvent, type ReactNode } from 'react'
 import { SURFACES, type SurfaceId } from './surfaces'
 import { useWindowTransform, type Box } from './useWindowTransform'
 import { WindowControls } from './WindowControls'
+import { WindowStatus } from './WindowStatus'
 
 export interface WindowStrings {
   close: string
@@ -57,6 +58,14 @@ export function WindowShell({
   const [open, setOpen] = useState(initialOpen)
   const titleId = useId()
   const { box, mode, enter, nudge, commit, cancel, preset } = useWindowTransform(initialBox)
+  const [status, setStatus] = useState('')
+
+  // Announce on mode entry, commit and cancel only. A live region that fires on
+  // every arrow press — or on pointer drag — is worse than no live region.
+  function enterMode(next: 'move' | 'resize') {
+    enter(next)
+    setStatus(next === 'move' ? strings.moveMode : strings.resizeMode)
+  }
 
   function onKeyDown(event: KeyboardEvent<HTMLElement>) {
     if (mode === 'idle') return
@@ -69,11 +78,13 @@ export function WindowShell({
     }
     if (event.key === 'Enter') {
       event.preventDefault()
+      setStatus(`${label}: ${mode === 'move' ? strings.moved : strings.resized}`)
       commit()
       return
     }
     if (event.key === 'Escape') {
       event.preventDefault()
+      setStatus(strings.cancelled)
       cancel()
     }
     // Tab is deliberately untouched. A move mode that swallows Tab is a
@@ -93,10 +104,12 @@ export function WindowShell({
     >
       <h2 id={titleId}>{label}</h2>
 
+      <WindowStatus message={status} />
+
       <WindowControls
         strings={strings}
-        onMove={() => enter('move')}
-        onResize={() => enter('resize')}
+        onMove={() => enterMode('move')}
+        onResize={() => enterMode('resize')}
         onPreset={preset}
         onClose={() => setOpen(false)}
       />

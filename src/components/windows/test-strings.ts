@@ -12,7 +12,7 @@ export const STRINGS_PT: WindowStrings = {
   fitViewport: 'Ajustar à tela',
   moveMode: 'Modo mover. Setas movem, Enter confirma, Escape cancela.',
   resizeMode: 'Modo redimensionar. Setas ajustam, Enter confirma, Escape cancela.',
-  moved: 'movida',
-  resized: 'redimensionada',
+  moved: 'janela movida',
+  resized: 'janela redimensionada',
   cancelled: 'Ação cancelada. Estado original restaurado.',
 }
