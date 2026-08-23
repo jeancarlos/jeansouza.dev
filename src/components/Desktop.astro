@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content'
+import { useTranslations, type Locale } from '../i18n/t'
+import { WindowShell } from './windows/WindowShell'
+import { BlogPostPanel, MorePanel, ResumePanel } from './panels'
+import type { SurfaceId } from './windows/surfaces'
+import { profile } from '../content/resume/profile'
+import { education } from '../content/resume/education'
+import { timeline } from '../content/resume/timeline'
+
+interface Props {
+  locale: Locale
+  open: SurfaceId
+  slug?: string
+}
+
+const { locale, open, slug } = Astro.props
+const t = useTranslations(locale)
+
+const strings = {
+  close: t('windows.close'),
+  move: t('windows.move'),
+  resize: t('windows.resize'),
+  center: t('windows.center'),
+  topLeft: t('windows.topLeft'),
+  rightHalf: t('windows.rightHalf'),
+  resetSize: t('windows.resetSize'),
+  fitViewport: t('windows.fitViewport'),
+  moveMode: t('windows.moveMode'),
+  resizeMode: t('windows.resizeMode'),
+  moved: t('windows.moved'),
+  resized: t('windows.resized'),
+  cancelled: t('windows.cancelled'),
+}
+
+const suffix = `.${locale}`
+const posts = (await getCollection('blog'))
+  .filter((p) => p.id.endsWith(suffix))
+  .map((p) => ({ ...p, slug: p.id.slice(0, -suffix.length) }))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+
+const post = slug ? posts.find((p) => p.slug === slug) : undefined
+const postBody = post ? (await post.render?.()) : undefined
+---
+
+{/*
+  Every route is this same desktop with a different window open first, which is
+  exactly what the Next build did via <HomeClient initialOpen="…">. The content
+  is rendered here, statically: a crawler, a reader with JavaScript off and axe
+  all see it, and the island only adds window behaviour on top.
+*/}
+
+<WindowShell client:idle id="blog" label={t('windows.blog')} strings={strings} initialOpen={open === 'blog'}>
+  <ul>
+    {posts.map((p) => (
+      <li>
+        <a href={`/${locale}/blog/${p.slug}/`}>{p.data.title}</a>
+        <p>{p.data.description}</p>
+      </li>
+    ))}
+  </ul>
+</WindowShell>
+
+{post && (
+  <WindowShell client:idle id="post" label={post.data.title} strings={strings} initialOpen={open === 'post'}>
+    <BlogPostPanel
+      locale={locale}
+      slug={post.slug}
+      title={post.data.title}
+      date={post.data.date.toISOString().slice(0, 10)}
+      content={post.body ?? ''}
+    />
+  </WindowShell>
+)}
+
+<WindowShell client:idle id="resume" label={t('windows.resume')} strings={strings} initialOpen={open === 'resume'}>
+  <ResumePanel locale={locale} entries={timeline} profile={profile} education={education} assets={[]} />
+</WindowShell>
+
+<WindowShell client:idle id="more" label={t('windows.more')} strings={strings} initialOpen={open === 'more'}>
+  <MorePanel locale={locale} />
+</WindowShell>

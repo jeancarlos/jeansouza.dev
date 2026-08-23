@@ -1,0 +1,42 @@
+---
+// Static export has no server: a redirect here would prerender an empty error
+// shell that only navigates after the whole JS bundle hydrates — on a slow
+// mobile connection that reads as a site that never opens. Instead this page
+// ships real HTML: an inline script redirects by browser language during parse
+// (before any bundle loads), with <meta refresh> and plain links as no-JS
+// fallbacks, and a spinner so a slow handoff still shows progress.
+const REDIRECT_SCRIPT = "location.replace(/^pt/i.test(navigator.language) ? '/pt/' : '/en/')"
+---
+
+<html lang="pt">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="refresh" content="1;url=/pt/" />
+    <title>Jean Souza</title>
+    <style is:inline>
+      @keyframes rootspin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main
+      style="min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;font-family:monospace"
+    >
+      <div
+        aria-hidden="true"
+        style="width:28px;height:28px;border-radius:50%;border:3px solid rgba(127,127,127,0.3);border-top-color:#f472b6;animation:rootspin 0.8s linear infinite"
+      >
+      </div>
+      <p style="font-size:13px;opacity:0.8">
+        <a href="/pt/">português</a>
+        <span aria-hidden="true"> · </span>
+        <a href="/en/">english</a>
+      </p>
+    </main>
+    <script is:inline set:html={REDIRECT_SCRIPT} />
+  </body>
+</html>

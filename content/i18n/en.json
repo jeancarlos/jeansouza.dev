@@ -52,6 +52,19 @@
     "blog": "Blog",
     "post": "Post",
     "resume": "Resume",
-    "more": "More"
+    "more": "More",
+    "close": "Close",
+    "move": "Move window",
+    "resize": "Resize window",
+    "center": "Center",
+    "topLeft": "Top left",
+    "rightHalf": "Right half",
+    "resetSize": "Reset size",
+    "fitViewport": "Fit to viewport",
+    "moveMode": "Move mode. Arrows move, Enter confirms, Escape cancels.",
+    "resizeMode": "Resize mode. Arrows adjust, Enter confirms, Escape cancels.",
+    "moved": "window moved",
+    "resized": "window resized",
+    "cancelled": "Action cancelled. Original state restored."
   }
 }

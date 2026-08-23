@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content'
+import Shell from '../../../layouts/Shell.astro'
+import Desktop from '../../../components/Desktop.astro'
+import { LOCALES, type Locale } from '../../../i18n/t'
+
+export async function getStaticPaths() {
+  const entries = await getCollection('blog')
+  return LOCALES.flatMap((locale) => {
+    const suffix = `.${locale}`
+    return entries
+      .filter((e) => e.id.endsWith(suffix))
+      .map((e) => ({
+        params: { locale, slug: e.id.slice(0, -suffix.length) },
+        props: { title: e.data.title, description: e.data.description },
+      }))
+  })
+}
+
+const locale = Astro.params.locale as Locale
+const slug = Astro.params.slug as string
+const { title, description } = Astro.props
+---
+
+<Shell
+  locale={locale}
+  title={`${title} — Jean Souza`}
+  description={description}
+  canonical={`https://jeansouza.dev/${locale}/blog/${slug}/`}
+>
+  <Desktop slot="desktop" locale={locale} open="post" slug={slug} />
+</Shell>
