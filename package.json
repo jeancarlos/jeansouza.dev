@@ -6,6 +6,7 @@
   "dependencies": {
     "@astrojs/check": "^0.9.10",
     "@astrojs/sitemap": "^3.7.3",
+    "@tailwindcss/vite": "^4.3.3",
     "astro": "^5.18.2",
     "focus-trap-react": "^12.0.2",
     "framer-motion": "^12.40.0",

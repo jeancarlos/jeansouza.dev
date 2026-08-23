@@ -1,0 +1,46 @@
+---
+import type { Locale } from '../i18n/t'
+import '../styles/globals.css'
+
+interface Props {
+  locale: Locale
+  title: string
+  description: string
+  canonical: string
+}
+
+const { locale, title, description, canonical } = Astro.props
+const htmlLang = locale === 'pt' ? 'pt-BR' : 'en-US'
+const skip = locale === 'pt' ? 'Pular para o conteúdo' : 'Skip to content'
+---
+
+<html lang={htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#desktop">{skip}</a>
+
+    <header>
+      <slot name="topbar" />
+    </header>
+
+    {/*
+      tabindex="-1" is what makes the skip link move focus rather than only
+      scroll. Without it the anchor jumps the viewport and leaves focus behind,
+      which is a 2.4.1 failure wearing a skip link as a disguise.
+    */}
+    <main id="desktop" tabindex="-1">
+      <slot name="desktop" />
+    </main>
+
+    <footer>
+      <slot name="footer" />
+    </footer>
+  </body>
+</html>

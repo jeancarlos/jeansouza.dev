@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config'
 import sitemap from '@astrojs/sitemap'
+import tailwind from '@tailwindcss/vite'
 
 // `trailingSlash: 'always'` plus `build.format: 'directory'` reproduce the URL
 // shape Next's static export emits. `prefixDefaultLocale: true` is what keeps
@@ -15,4 +16,5 @@ export default defineConfig({
     routing: { prefixDefaultLocale: true, redirectToDefaultLocale: false },
   },
   integrations: [sitemap()],
+  vite: { plugins: [tailwind()] },
 })

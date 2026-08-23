@@ -170,3 +170,23 @@
     border-color: var(--color-surface);
   }
 }
+
+/*
+ * Skip link: off-screen until focused, never display:none. A skip link that is
+ * removed from the layout is removed from the focus order too, which makes it
+ * decoration rather than a bypass mechanism (WCAG 2.4.1).
+ */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background: var(--color-base);
+  color: var(--color-text);
+  outline: 2px solid var(--color-brand-from);
+}
+
+.skip-link:focus {
+  left: 0;
+}
