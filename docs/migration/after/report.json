@@ -1,0 +1,1547 @@
+{
+  "base": "http://127.0.0.1:4327",
+  "generated_by": "measure.mjs",
+  "runs": 3,
+  "pages": {
+    "/": {
+      "mobile": {
+        "median": {
+          "performance": 96,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 2552.39775,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 95,
+            "accessibility": 100,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcp_ms": 2701.8534,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 96,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2551.8984,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 96,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2552.39775,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 562.3817,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 562.7732,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 562.3817,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 522.0510999999999,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [],
+        "desktop": []
+      }
+    },
+    "/en/": {
+      "mobile": {
+        "median": {
+          "performance": 98,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 2253.1773000000003,
+          "tbt_ms": 13.5,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 97,
+            "accessibility": 100,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcp_ms": 2403.2336,
+            "tbt_ms": 14.5,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 98,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2253.1773000000003,
+            "tbt_ms": 13.5,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 98,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2252.0967,
+            "tbt_ms": 10.5,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 521.2944,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 521.9168,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 521.2944,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 481.4809,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [],
+        "desktop": []
+      }
+    },
+    "/en/blog/": {
+      "mobile": {
+        "median": {
+          "performance": 97,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 2401.7261,
+          "tbt_ms": 0.5,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 97,
+            "accessibility": 96,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcp_ms": 2402.0426,
+            "tbt_ms": 5,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 97,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2401.676,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 97,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2401.7261,
+            "tbt_ms": 0.5,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 100,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 521.5132,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 521.3770000000001,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 521.5132,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 521.7416999999999,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [],
+        "desktop": []
+      }
+    },
+    "/en/blog/2026-06-03-como-modernizei-meu-site/": {
+      "mobile": {
+        "median": {
+          "performance": 94,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 2702.0841,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 94,
+            "accessibility": 96,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcp_ms": 2701.6435500000002,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 94,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2702.0841,
+            "tbt_ms": 1,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 94,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2702.1741,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 100,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 601.97445,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 601.76445,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 602.13165,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 601.97445,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 2,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ]
+      }
+    },
+    "/en/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/": {
+      "mobile": {
+        "median": {
+          "performance": 96,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 2551.5688,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 96,
+            "accessibility": 96,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcp_ms": 2552.1340999999998,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 96,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2551.1666,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 96,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2551.5688,
+            "tbt_ms": 31,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 100,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 561.4557,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 561.781,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 561.3968,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 561.4557,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 2,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ]
+      }
+    },
+    "/en/more/": {
+      "mobile": {
+        "median": {
+          "performance": 97,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 2402.1043,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 97,
+            "accessibility": 96,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcp_ms": 2402.5169,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 97,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2402.1043,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 97,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2401.3991,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 100,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 521.6344,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 521.6344,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 481.3239,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 521.7261,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ]
+      }
+    },
+    "/en/resume/": {
+      "mobile": {
+        "median": {
+          "performance": 97,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 2401.3607,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 98,
+            "accessibility": 96,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcp_ms": 2252.0142,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 97,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2401.3607,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 97,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2401.3944,
+            "tbt_ms": 11,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 100,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 521.5899999999999,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 521.846,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 521.5899999999999,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 521.0316,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ]
+      }
+    },
+    "/probe/": {
+      "mobile": {
+        "median": {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 902.3072999999999,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 0,
+          "js_requests": 0
+        },
+        "runs": [
+          {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcp_ms": 1051.2265,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 0,
+            "js_requests": 0
+          },
+          {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 900.9311,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 0,
+            "js_requests": 0
+          },
+          {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 902.3072999999999,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 0,
+            "js_requests": 0
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 243.19580000000002,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 0,
+          "js_requests": 0
+        },
+        "runs": [
+          {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 243.0521,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 0,
+            "js_requests": 0
+          },
+          {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 243.19580000000002,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 0,
+            "js_requests": 0
+          },
+          {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 245.9119,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 0,
+            "js_requests": 0
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [],
+        "desktop": []
+      }
+    },
+    "/pt/": {
+      "mobile": {
+        "median": {
+          "performance": 97,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 2401.5444,
+          "tbt_ms": 4.5,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 97,
+            "accessibility": 100,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcp_ms": 2401.5444,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 97,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2401.5175,
+            "tbt_ms": 6.5,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 97,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2402.1433,
+            "tbt_ms": 4.5,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 100,
+          "accessibility": 100,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 481.9355,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 481.9355,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 481.3428,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 521.7081,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [],
+        "desktop": []
+      }
+    },
+    "/pt/blog/": {
+      "mobile": {
+        "median": {
+          "performance": 97,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 2401.9103,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 97,
+            "accessibility": 96,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcp_ms": 2401.9779,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 97,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2401.7941,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 97,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2401.9103,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 100,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 521.261,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 481.5081,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 521.261,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 521.5829,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [],
+        "desktop": []
+      }
+    },
+    "/pt/blog/2026-06-03-como-modernizei-meu-site/": {
+      "mobile": {
+        "median": {
+          "performance": 94,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 2702.1447,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 95,
+            "accessibility": 96,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcp_ms": 2701.9004999999997,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 94,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2702.1447,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 94,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2702.6325,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 100,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 602.84685,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 602.95155,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 602.84685,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 561.95615,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 2,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ]
+      }
+    },
+    "/pt/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/": {
+      "mobile": {
+        "median": {
+          "performance": 96,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 2551.8386,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 96,
+            "accessibility": 96,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcp_ms": 2551.8386,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 96,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2552.0580999999997,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 96,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2551.4176,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 100,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 521.5201000000001,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 521.5201000000001,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 521.7546,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 521.4277,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 2,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ]
+      }
+    },
+    "/pt/more/": {
+      "mobile": {
+        "median": {
+          "performance": 97,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 2401.3049,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 97,
+            "accessibility": 96,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcp_ms": 2401.9484,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 97,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2401.1633,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 97,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2401.3049,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 100,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 521.3381999999999,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 481.5564,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 521.7470999999999,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 521.3381999999999,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ]
+      }
+    },
+    "/pt/resume/": {
+      "mobile": {
+        "median": {
+          "performance": 97,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 2401.1309,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 97,
+            "accessibility": 96,
+            "bestPractices": 96,
+            "seo": 100,
+            "lcp_ms": 2401.5043,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 98,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2251.4793,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 97,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 2401.1309,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "desktop": {
+        "median": {
+          "performance": 100,
+          "accessibility": 96,
+          "bestPractices": 100,
+          "seo": 100,
+          "lcp_ms": 481.4885,
+          "tbt_ms": 0,
+          "cls": 0,
+          "js_transfer_bytes": 195485,
+          "js_requests": 3
+        },
+        "runs": [
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 481.4885,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 521.5091,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          },
+          {
+            "performance": 100,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 481.2646,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 195485,
+            "js_requests": 3
+          }
+        ]
+      },
+      "axe": {
+        "mobile": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ],
+        "desktop": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "nodes": 1,
+            "help": "Elements must meet minimum color contrast ratio thresholds"
+          }
+        ]
+      }
+    }
+  }
+}
