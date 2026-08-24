@@ -6,12 +6,12 @@ import { Typewriter } from './index'
 describe('Typewriter announcement', () => {
   it('exposes one accessible string rather than a stream of characters', () => {
     render(<Typewriter text="Senior Front-End Engineer" />)
-    expect(screen.getByLabelText('Senior Front-End Engineer')).toBeInTheDocument()
+    expect(screen.getByText('Senior Front-End Engineer')).toHaveClass('sr-only')
   })
 
   it('hides the decorative per-character spans from assistive technology', () => {
     const { container } = render(<Typewriter text="abc" />)
-    const spans = container.querySelectorAll('span span')
+    const spans = container.querySelectorAll('span span[aria-hidden]')
     expect(spans.length).toBe(3)
     for (const span of spans) expect(span).toHaveAttribute('aria-hidden', 'true')
   })

@@ -10,8 +10,8 @@ describe('Typewriter', () => {
 
   it('renders one span per character', () => {
     const { container } = render(<Typewriter text="abc" />)
-    // outer motion.span + one inner span per character
-    const spans = container.querySelectorAll('span span')
+    // outer span + a visually hidden copy for announcement + one span per character
+    const spans = container.querySelectorAll('span span[aria-hidden]')
     expect(spans.length).toBe(3)
   })
 })
