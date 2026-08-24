@@ -1,0 +1,32 @@
+---
+import type { Locale } from '../i18n/t'
+
+interface Props {
+  locale: Locale
+  title: string
+  description: string
+  /** Path after the locale segment: '' for home, 'blog/' for the list. */
+  path: string
+}
+
+const { locale, title, description, path } = Astro.props
+
+const url = `https://jeansouza.dev/${locale}/${path}`
+const alternates = [
+  { hreflang: 'pt-BR', href: `https://jeansouza.dev/pt/${path}` },
+  { hreflang: 'en-US', href: `https://jeansouza.dev/en/${path}` },
+  // x-default points at the root, which language-detects and redirects.
+  { hreflang: 'x-default', href: 'https://jeansouza.dev/' },
+]
+---
+
+{alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={url} />
+<meta property="og:locale" content={locale === 'pt' ? 'pt_BR' : 'en_US'} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
