@@ -30,6 +30,10 @@ describe('THEME_INIT_SCRIPT', () => {
     ] as const) {
       const matchMedia = () => ({ matches: prefersLight })
       const el = { setAttribute: (_: string, v: string) => (el.value = v), value: '', style: {} }
+      // The evaluated string is THEME_INIT_SCRIPT, a module constant — never
+      // input. Executing it is the only way to prove the inline script and
+      // resolveTheme agree, which is the whole point of this test.
+      // eslint-disable-next-line @typescript-eslint/no-implied-eval
       const fn = new Function(
         'localStorage',
         'window',

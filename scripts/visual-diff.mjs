@@ -17,7 +17,12 @@ const VIEWPORTS = [
 mkdirSync(OUT, { recursive: true })
 
 async function shoot(browser, origin, route, vp, file) {
-  const page = await browser.newPage()
+  // A fresh context per shot. Sharing one means localStorage leaks between
+  // routes: visiting /pt/ stores a language preference, and LocalePersist then
+  // redirects /en/ back to it — which reads as a rendering difference and is
+  // not one.
+  const context = await browser.createBrowserContext()
+  const page = await context.newPage()
   await page.setViewport({ width: vp.width, height: vp.height, deviceScaleFactor: 1 })
   await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }])
   await page.goto(origin + route, { waitUntil: 'networkidle0' })
@@ -26,6 +31,7 @@ async function shoot(browser, origin, route, vp, file) {
   await new Promise((r) => setTimeout(r, 6000))
   await page.screenshot({ path: file })
   await page.close()
+  await context.close()
 }
 
 const browser = await launch({ executablePath: CHROME, headless: true, args: ['--no-sandbox', '--disable-gpu'] })

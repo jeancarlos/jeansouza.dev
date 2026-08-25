@@ -1,6 +1,7 @@
 ---
 import { DotBackground } from './DotBackground'
 import { TopbarIsland } from './TopbarIsland'
+import { LocalePersistIsland } from './LocalePersistIsland'
 import type { Locale } from '../i18n/t'
 
 interface Props {
@@ -12,5 +13,6 @@ const { locale } = Astro.props
 
 {/* Next mounted DotBackground in the root layout and Topbar in the locale
     layout. Same two elements, same order, supplied here. */}
+<LocalePersistIsland client:load locale={locale} />
 <DotBackground client:load />
 <TopbarIsland client:load locale={locale} />
