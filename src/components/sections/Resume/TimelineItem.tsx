@@ -52,7 +52,12 @@ export function TimelineItem({
           className="border-surface w-full min-w-0 rounded-2xl border bg-[var(--button-inner-bg)] p-5 transition-colors"
           initial={{ opacity: 0, x: translateX }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
+          // Inset only the top edge. A uniform -80px also shrinks the bottom,
+          // so a card entering from below stays invisible until it is 80px
+          // clear of the fold — which left the first entry blank until the
+          // reader scrolled. Next happened to hide this via a hydration
+          // reflow; the bug was always in the margin.
+          viewport={{ once: true, margin: '-80px 0px 0px 0px' }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
         >
           <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">

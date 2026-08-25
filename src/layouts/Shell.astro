@@ -1,6 +1,7 @@
 ---
 import type { Locale } from '../i18n/t'
 import { THEME_INIT_SCRIPT } from '../lib/theme'
+import { Font } from 'astro:assets'
 import '../styles/globals.css'
 
 interface Props {
@@ -26,9 +27,13 @@ const skip = locale === 'pt' ? 'Pular para o conteúdo' : 'Skip to content'
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <Font cssVariable="--font-space-grotesk" preload />
+    <Font cssVariable="--font-poppins" />
+    <Font cssVariable="--font-jetbrains-mono" />
+    <link rel="icon" href="/favicon.svg" />
     <slot name="head" />
   </head>
-  <body>
+  <body class="font-sans">
     <a class="skip-link" href="#desktop">{skip}</a>
 
     <header>

@@ -1,8 +1,7 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, lazy, Suspense } from 'react'
 import { useTranslations } from '../../../i18n/react'
 import { motion, steps } from 'framer-motion'
-import dynamic from 'next/dynamic'
 import { TerminalWindow } from '@/components/windows/TerminalWindow'
 import { WindowButton } from '@/components/windows/WindowButton'
 import { Typewriter } from '@/components/ui/Typewriter'
@@ -13,14 +12,27 @@ import { useIsMobile } from '@/lib/useIsMobile'
 import { useViewport } from '@/lib/useViewport'
 import { centeredPosition, getViewport, WINDOW_SAFE, TOPBAR_HEIGHT } from '@/lib/windowUtils'
 
-const MoreLinksWindowDynamic = dynamic(
-  async () => import('@/components/windows/MoreLinksWindow').then((m) => m.MoreLinksWindow),
-  { ssr: false }
+// React.lazy replaces next/dynamic: same code-split, no framework coupling.
+// Each gets its own Suspense at the definition site so a pending chunk never
+// blanks the window containing it.
+const MoreLinksWindowLazy = lazy(async () =>
+  import('@/components/windows/MoreLinksWindow').then((m) => ({ default: m.MoreLinksWindow })),
 )
 
-const ResumeWindowDynamic = dynamic(
-  async () => import('@/components/windows/ResumeWindow').then((m) => m.ResumeWindow),
-  { ssr: false }
+const ResumeWindowLazy = lazy(async () =>
+  import('@/components/windows/ResumeWindow').then((m) => ({ default: m.ResumeWindow })),
+)
+
+const MoreLinksWindowDynamic = () => (
+  <Suspense fallback={null}>
+    <MoreLinksWindowLazy />
+  </Suspense>
+)
+
+const ResumeWindowDynamic = ({ locale }: { locale: 'pt' | 'en' }) => (
+  <Suspense fallback={null}>
+    <ResumeWindowLazy locale={locale} />
+  </Suspense>
 )
 
 interface Props {

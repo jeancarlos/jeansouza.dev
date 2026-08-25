@@ -1,6 +1,7 @@
 ---
 import Shell from '../../layouts/Shell.astro'
 import Desktop from '../../components/Desktop.astro'
+import Chrome from '../../components/Chrome.astro'
 import Head from '../../components/Head.astro'
 import { LOCALES, useTranslations, type Locale } from '../../i18n/t'
 
@@ -19,5 +20,6 @@ const t = useTranslations(locale)
   canonical={`https://jeansouza.dev/${locale}/resume/`}
 >
   <Head slot="head" locale={locale} title={`Jean Souza - ${t('windows.resume')}`} description={t('hero.role')} path={'resume/'} />
-  <Desktop slot="desktop" locale={locale} open="resume" />
+  <Chrome slot="topbar" locale={locale} />
+  <Desktop slot="desktop" locale={locale} initialOpen="resume" />
 </Shell>

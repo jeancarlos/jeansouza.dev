@@ -1,100 +1,34 @@
 ---
-import { getCollection } from 'astro:content'
-import { useTranslations, type Locale } from '../i18n/t'
-import { WindowShell } from './windows/WindowShell'
-import { BlogPostPanel, MorePanel, ResumePanel } from './panels'
-import { Typewriter } from './ui/Typewriter'
-import type { SurfaceId } from './windows/surfaces'
-import { profile } from '../content/resume/profile'
-import { education } from '../content/resume/education'
-import { timeline } from '../content/resume/timeline'
+import { getAllPostsWithContent } from '@/lib/posts'
+import { DotBackground } from './DotBackground'
+import { Topbar } from './layout/Topbar'
+import { DesktopApp } from './DesktopApp'
+import { LocaleProvider } from '../i18n/react'
+import type { Locale } from '../i18n/t'
 
 interface Props {
   locale: Locale
-  open: SurfaceId
+  initialOpen?: 'blog' | 'resume' | 'more'
   slug?: string
 }
 
-const { locale, open, slug } = Astro.props
-const t = useTranslations(locale)
+const { locale, initialOpen, slug } = Astro.props
 
-const strings = {
-  close: t('windows.close'),
-  move: t('windows.move'),
-  resize: t('windows.resize'),
-  center: t('windows.center'),
-  topLeft: t('windows.topLeft'),
-  rightHalf: t('windows.rightHalf'),
-  resetSize: t('windows.resetSize'),
-  fitViewport: t('windows.fitViewport'),
-  moveMode: t('windows.moveMode'),
-  resizeMode: t('windows.resizeMode'),
-  moved: t('windows.moved'),
-  resized: t('windows.resized'),
-  cancelled: t('windows.cancelled'),
-}
-
-const suffix = `.${locale}`
-const posts = (await getCollection('blog'))
-  .filter((p) => p.id.endsWith(suffix))
-  .map((p) => ({ ...p, slug: p.id.slice(0, -suffix.length) }))
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-
-const post = slug ? posts.find((p) => p.slug === slug) : undefined
-const postBody = post ? (await post.render?.()) : undefined
+// Same data the Next route loaded, read at build time and handed to the island.
+const posts = getAllPostsWithContent(locale)
+const initialPost = slug ? posts.find((p) => p.slug === slug) : undefined
 ---
 
 {/*
-  Every route is this same desktop with a different window open first, which is
-  exactly what the Next build did via <HomeClient initialOpen="…">. The content
-  is rendered here, statically: a crawler, a reader with JavaScript off and axe
-  all see it, and the island only adds window behaviour on top.
+  The desktop is the same HomeClient the Next build rendered, mounted as one
+  island. Nothing about the window manager, chrome, drag or stacking is
+  reimplemented for Astro, so appearance and behaviour cannot drift from the
+  original — which is the whole point of a 1:1 port.
 */}
-
-<WindowShell client:idle id="terminal" label={t('windows.terminal')} strings={strings} initialOpen>
-  {/*
-    The Typewriter animates entirely in CSS, so it renders here with no client
-    directive and costs nothing at runtime. The links are real anchors: the home
-    page navigates with JavaScript off, which the button-and-handler version
-    could not.
-  */}
-  <p class="terminal-prompt">$ whoami</p>
-  <h1>{t('hero.prompt')}</h1>
-  <p><Typewriter text={t('hero.role')} /></p>
-  <nav aria-label={t('hero.cta')}>
-    <a href={`/${locale}/blog/`}>{t('nav.blog')}</a>
-    <a href={`/${locale}/resume/`}>{t('nav.resume')}</a>
-    <a href={`/${locale}/more/`}>{t('more.title')}</a>
-  </nav>
-</WindowShell>
-
-<WindowShell client:idle id="blog" label={t('windows.blog')} strings={strings} initialOpen={open === 'blog'}>
-  <ul>
-    {posts.map((p) => (
-      <li>
-        <a href={`/${locale}/blog/${p.slug}/`}>{p.data.title}</a>
-        <p>{p.data.description}</p>
-      </li>
-    ))}
-  </ul>
-</WindowShell>
-
-{post && (
-  <WindowShell client:idle id="post" label={post.data.title} strings={strings} initialOpen={open === 'post'}>
-    <BlogPostPanel
-      locale={locale}
-      slug={post.slug}
-      title={post.data.title}
-      date={post.data.date.toISOString().slice(0, 10)}
-      content={post.body ?? ''}
-    />
-  </WindowShell>
-)}
-
-<WindowShell client:idle id="resume" label={t('windows.resume')} strings={strings} initialOpen={open === 'resume'}>
-  <ResumePanel locale={locale} entries={timeline} profile={profile} education={education} assets={[]} />
-</WindowShell>
-
-<WindowShell client:idle id="more" label={t('windows.more')} strings={strings} initialOpen={open === 'more'}>
-  <MorePanel locale={locale} />
-</WindowShell>
+<DesktopApp
+  client:load
+  locale={locale}
+  posts={posts}
+  initialOpen={initialOpen}
+  initialPost={initialPost}
+/>
