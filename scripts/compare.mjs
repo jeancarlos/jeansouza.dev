@@ -1,7 +1,25 @@
-import { readFileSync, writeFileSync } from 'node:fs'
+import { readFileSync, statSync, writeFileSync } from 'node:fs'
 
 const before = JSON.parse(readFileSync('docs/migration/baseline/report.json', 'utf8'))
 const after = JSON.parse(readFileSync('docs/migration/after/report.json', 'utf8'))
+
+// Refuse to report a stale "after" run. measure.mjs failing silently once let a
+// pre-port report be published as if it described the ported build, and the
+// numbers were plausible enough to nearly ship. Freshness is now a gate.
+const afterAgeH = (Date.now() - statSync('docs/migration/after/report.json').mtimeMs) / 3_600_000
+if (afterAgeH > 6) {
+  console.error(
+    `refusing to compare: docs/migration/after/report.json is ${afterAgeH.toFixed(1)}h old. ` +
+      'Re-run scripts/measure.mjs against the current build.',
+  )
+  process.exit(1)
+}
+
+const missing = Object.keys(before.pages).filter((u) => !after.pages[u])
+if (missing.length) {
+  console.error(`refusing to compare: ${missing.length} page(s) absent from the after run:`, missing)
+  process.exit(1)
+}
 
 // Two baseline rows are the pre-rename slug, which is a meta-refresh stub in
 // public/. Lighthouse followed the redirect, so those rows measured the post
