@@ -37,13 +37,26 @@ interface Props {
 function WindowBody({
   className,
   children,
+  title,
 }: {
   className: string
   height: number | string
   isMobile: boolean
+  title: string
   children: ReactNode
 }) {
-  return <div className={className}>{children}</div>
+  /*
+   * The body scrolls (overflow-y-auto), so it must be reachable by keyboard.
+   * A scrollable container with no tabindex cannot be scrolled without a
+   * pointer at all — axe calls it scrollable-region-focusable, and it is
+   * WCAG 2.1.1 Keyboard, Level A, not a stylistic note. A focusable region
+   * also needs an accessible name, which the window title supplies.
+   */
+  return (
+    <div className={className} tabIndex={0} role="group" aria-label={title}>
+      {children}
+    </div>
+  )
 }
 
 export function TerminalWindow({
@@ -119,7 +132,12 @@ export function TerminalWindow({
           />
         )}
         {showBody && (
-          <WindowBody className={bodyClassName} height={size.height} isMobile={isMobile}>
+          <WindowBody
+            className={bodyClassName}
+            height={size.height}
+            isMobile={isMobile}
+            title={title}
+          >
             {children}
           </WindowBody>
         )}

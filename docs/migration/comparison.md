@@ -8,38 +8,38 @@ Same script (`scripts/measure.mjs`), same pinned Chrome, same machine, median of
 
 | Page | Before | After | Change |
 |---|--:|--:|--:|
-| `/` | 662 KB | 191 KB | -471 KB ✓ |
-| `/en/` | 1025 KB | 191 KB | -834 KB ✓ |
-| `/en/blog/` | 1025 KB | 191 KB | -834 KB ✓ |
-| `/en/blog/2026-06-03-como-modernizei-meu-site/ *(redirect)*` | 1025 KB | 191 KB | -834 KB ✓ |
-| `/en/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/` | 1025 KB | 191 KB | -834 KB ✓ |
-| `/en/more/` | 1028 KB | 191 KB | -837 KB ✓ |
-| `/en/resume/` | 1049 KB | 191 KB | -858 KB ✓ |
-| `/pt/` | 1025 KB | 191 KB | -834 KB ✓ |
-| `/pt/blog/` | 1025 KB | 191 KB | -834 KB ✓ |
-| `/pt/blog/2026-06-03-como-modernizei-meu-site/ *(redirect)*` | 1025 KB | 191 KB | -834 KB ✓ |
-| `/pt/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/` | 1025 KB | 191 KB | -834 KB ✓ |
-| `/pt/more/` | 1028 KB | 191 KB | -837 KB ✓ |
-| `/pt/resume/` | 1049 KB | 191 KB | -858 KB ✓ |
-| **Total (11 pages)** | **10966 KB** | **2101 KB** | **-8865 KB ✓** |
+| `/` | 662 KB | 492 KB | -170 KB ✓ |
+| `/en/` | 1025 KB | 492 KB | -533 KB ✓ |
+| `/en/blog/` | 1025 KB | 492 KB | -533 KB ✓ |
+| `/en/blog/2026-06-03-como-modernizei-meu-site/ *(redirect)*` | 1025 KB | 492 KB | -533 KB ✓ |
+| `/en/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/` | 1025 KB | 492 KB | -533 KB ✓ |
+| `/en/more/` | 1028 KB | 494 KB | -534 KB ✓ |
+| `/en/resume/` | 1049 KB | 515 KB | -534 KB ✓ |
+| `/pt/` | 1025 KB | 492 KB | -533 KB ✓ |
+| `/pt/blog/` | 1025 KB | 492 KB | -533 KB ✓ |
+| `/pt/blog/2026-06-03-como-modernizei-meu-site/ *(redirect)*` | 1025 KB | 492 KB | -533 KB ✓ |
+| `/pt/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/` | 1025 KB | 492 KB | -533 KB ✓ |
+| `/pt/more/` | 1028 KB | 494 KB | -534 KB ✓ |
+| `/pt/resume/` | 1049 KB | 515 KB | -534 KB ✓ |
+| **Total (11 pages)** | **10966 KB** | **5462 KB** | **-5504 KB ✓** |
 
-Reduction: **81%**.
+Reduction: **50%**.
 
 ## Lighthouse
 
 | Page | Perf mobile | Perf desktop | LCP mobile | TBT mobile |
 |---|--:|--:|--:|--:|
-| `/` | 77 → 96 (+19 ✓) | 97 → 100 (+3 ✓) | 6292 → 2552 ms | 71 → 0 ms |
-| `/en/` | 69 → 98 (+29 ✓) | 95 → 100 (+5 ✓) | 8578 → 2253 ms | 301 → 14 ms |
-| `/en/blog/` | 75 → 97 (+22 ✓) | 95 → 100 (+5 ✓) | 8365 → 2402 ms | 109 → 1 ms |
-| `/en/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/` | 74 → 96 (+22 ✓) | 95 → 100 (+5 ✓) | 8388 → 2552 ms | 127 → 0 ms |
-| `/en/more/` | 68 → 97 (+29 ✓) | 94 → 100 (+6 ✓) | 8597 → 2402 ms | 324 → 0 ms |
-| `/en/resume/` | 62 → 97 (+35 ✓) | 94 → 100 (+6 ✓) | 8655 → 2401 ms | 484 → 0 ms |
-| `/pt/` | 72 → 97 (+25 ✓) | 95 → 100 (+5 ✓) | 8437 → 2402 ms | 191 → 5 ms |
-| `/pt/blog/` | 70 → 97 (+27 ✓) | 95 → 100 (+5 ✓) | 8521 → 2402 ms | 240 → 0 ms |
-| `/pt/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/` | 61 → 96 (+35 ✓) | 95 → 100 (+5 ✓) | 8558 → 2552 ms | 525 → 0 ms |
-| `/pt/more/` | 69 → 97 (+28 ✓) | 94 → 100 (+6 ✓) | 8585 → 2401 ms | 290 → 0 ms |
-| `/pt/resume/` | 73 → 97 (+24 ✓) | 94 → 100 (+6 ✓) | 8569 → 2401 ms | 156 → 0 ms |
+| `/` | 77 → 79 (+2 ✓) | 97 → 98 (+1 ✓) | 6292 → 5004 ms | 71 → 0 ms |
+| `/en/` | 69 → 81 (+12 ✓) | 95 → 100 (+5 ✓) | 8578 → 4877 ms | 301 → 32 ms |
+| `/en/blog/` | 75 → 80 (+5 ✓) | 95 → 100 (+5 ✓) | 8365 → 4843 ms | 109 → 0 ms |
+| `/en/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/` | 74 → 78 (+4 ✓) | 95 → 99 (+4 ✓) | 8388 → 4859 ms | 127 → 167 ms |
+| `/en/more/` | 68 → 80 (+12 ✓) | 94 → 99 (+5 ✓) | 8597 → 4879 ms | 324 → 19 ms |
+| `/en/resume/` | 62 → 80 (+18 ✓) | 94 → 99 (+5 ✓) | 8655 → 5029 ms | 484 → 16 ms |
+| `/pt/` | 72 → 81 (+9 ✓) | 95 → 100 (+5 ✓) | 8437 → 4850 ms | 191 → 0 ms |
+| `/pt/blog/` | 70 → 80 (+10 ✓) | 95 → 99 (+4 ✓) | 8521 → 4844 ms | 240 → 0 ms |
+| `/pt/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/` | 61 → 78 (+17 ✓) | 95 → 99 (+4 ✓) | 8558 → 4854 ms | 525 → 174 ms |
+| `/pt/more/` | 69 → 80 (+11 ✓) | 94 → 99 (+5 ✓) | 8585 → 4880 ms | 290 → 20 ms |
+| `/pt/resume/` | 73 → 80 (+7 ✓) | 94 → 99 (+5 ✓) | 8569 → 5009 ms | 156 → 18 ms |
 
 ## axe-core violations
 
@@ -47,9 +47,9 @@ Node counts across both viewports, all pages.
 
 | Rule | Impact | Before | After |
 |---|---|--:|--:|
-| `color-contrast` | | 112 | 20 |
+| `color-contrast` | | 112 | 111 |
 | `region` | | 26 | 0 |
-| `scrollable-region-focusable` | | 4 | 0 |
+| `scrollable-region-focusable` | | 4 | 4 |
 
 `color-contrast` is **not fixed** — it is the one rule still failing, and the drop from 112 to 20 nodes is a side effect, not work. Fewer elements are painted per page now, so fewer of them fail; the palette itself is unchanged. It is rebuilt in phase 2 under `09 - Specs/2026-08-23-jeansouza-dev-visual-system-design.md`. Reporting it as outstanding is the point: a comparison that quietly banks an accidental improvement is as dishonest as one that drops the metric entirely.
 
