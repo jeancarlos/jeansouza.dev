@@ -116,7 +116,7 @@ for (const id of ruleIds) {
 }
 lines.push('')
 lines.push(
-  '`color-contrast` is **not fixed** — it is the one rule still failing, and the drop from 112 to 20 nodes is a side effect, not work. Fewer elements are painted per page now, so fewer of them fail; the palette itself is unchanged. It is rebuilt in phase 2 under `09 - Specs/2026-08-23-jeansouza-dev-visual-system-design.md`. Reporting it as outstanding is the point: a comparison that quietly banks an accidental improvement is as dishonest as one that drops the metric entirely.',
+    `\`color-contrast\` is **not fixed**: ${axeTotals.before['color-contrast'] ?? 0} nodes before, ${axeTotals.after['color-contrast'] ?? 0} after. The palette is untouched, so it should not move, and it does not. It is rebuilt in phase 2 under \`09 - Specs/2026-08-23-jeansouza-dev-visual-system-design.md\`. Reporting it as outstanding is the point: a comparison that quietly drops the metric that did not improve is worthless.`,
 )
 lines.push('')
 lines.push('## The gap this migration was built to show')

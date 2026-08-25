@@ -10,10 +10,10 @@
           "accessibility": 100,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 5004.158049999999,
+          "lcp_ms": 4919.6034,
           "tbt_ms": 0,
           "cls": 0,
-          "js_transfer_bytes": 503642,
+          "js_transfer_bytes": 503697,
           "js_requests": 13
         },
         "runs": [
@@ -22,10 +22,10 @@
             "accessibility": 100,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 4992.10305,
-            "tbt_ms": 0,
+            "lcp_ms": 4919.6034,
+            "tbt_ms": 10.000000000000455,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
@@ -33,10 +33,10 @@
             "accessibility": 100,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 5031.52325,
-            "tbt_ms": 9,
+            "lcp_ms": 5005.3898500000005,
+            "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
@@ -44,36 +44,36 @@
             "accessibility": 100,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 5004.158049999999,
+            "lcp_ms": 4904.50195,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           }
         ]
       },
       "desktop": {
         "median": {
-          "performance": 98,
+          "performance": 99,
           "accessibility": 96,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 1026.933,
+          "lcp_ms": 1031.55675,
           "tbt_ms": 0,
           "cls": 0,
-          "js_transfer_bytes": 503642,
+          "js_transfer_bytes": 503697,
           "js_requests": 13
         },
         "runs": [
           {
-            "performance": 98,
+            "performance": 99,
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1028.7554,
+            "lcp_ms": 1031.55675,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
@@ -81,21 +81,21 @@
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1026.933,
+            "lcp_ms": 1042.8795,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
-            "performance": 98,
+            "performance": 99,
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1026.1134000000002,
+            "lcp_ms": 858.5376000000001,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           }
         ]
@@ -115,26 +115,26 @@
     "/en/": {
       "mobile": {
         "median": {
-          "performance": 81,
+          "performance": 80,
           "accessibility": 100,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 4877.397,
-          "tbt_ms": 32.499999999999545,
+          "lcp_ms": 4851.7275,
+          "tbt_ms": 0,
           "cls": 0,
-          "js_transfer_bytes": 503642,
+          "js_transfer_bytes": 503697,
           "js_requests": 13
         },
         "runs": [
           {
-            "performance": 81,
+            "performance": 80,
             "accessibility": 100,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 4887.7706,
-            "tbt_ms": 32.499999999999545,
+            "lcp_ms": 4864.3615,
+            "tbt_ms": 55,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
@@ -142,21 +142,21 @@
             "accessibility": 100,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 4877.397,
-            "tbt_ms": 65.20037500000001,
-            "cls": 0,
-            "js_transfer_bytes": 503642,
-            "js_requests": 13
-          },
-          {
-            "performance": 92,
-            "accessibility": 100,
-            "bestPractices": 100,
-            "seo": 100,
-            "lcp_ms": 3154.4921999999997,
+            "lcp_ms": 4754.2555,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
+            "js_requests": 13
+          },
+          {
+            "performance": 80,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 4851.7275,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           }
         ]
@@ -167,10 +167,10 @@
           "accessibility": 96,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 694.9081,
+          "lcp_ms": 658.06835,
           "tbt_ms": 0,
           "cls": 0,
-          "js_transfer_bytes": 503642,
+          "js_transfer_bytes": 503697,
           "js_requests": 13
         },
         "runs": [
@@ -179,10 +179,10 @@
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 993.7466,
+            "lcp_ms": 990.9229500000001,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
@@ -190,10 +190,10 @@
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 655.7398499999999,
+            "lcp_ms": 617.18075,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
@@ -201,10 +201,10 @@
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 694.9081,
+            "lcp_ms": 658.06835,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           }
         ]
@@ -224,26 +224,37 @@
     "/en/blog/": {
       "mobile": {
         "median": {
-          "performance": 80,
+          "performance": 81,
           "accessibility": 96,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 4842.6904,
-          "tbt_ms": 0,
+          "lcp_ms": 4841.2712,
+          "tbt_ms": 31.5,
           "cls": 0,
-          "js_transfer_bytes": 503642,
+          "js_transfer_bytes": 503697,
           "js_requests": 13
         },
         "runs": [
           {
-            "performance": 92,
+            "performance": 81,
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 3153.3322,
-            "tbt_ms": 0,
+            "lcp_ms": 4786.9892,
+            "tbt_ms": 64,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
+            "js_requests": 13
+          },
+          {
+            "performance": 81,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 4874.5454,
+            "tbt_ms": 31.5,
+            "cls": 0,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
@@ -251,47 +262,36 @@
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 4842.6904,
+            "lcp_ms": 4841.2712,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
-            "js_requests": 13
-          },
-          {
-            "performance": 80,
-            "accessibility": 96,
-            "bestPractices": 100,
-            "seo": 100,
-            "lcp_ms": 4866.720200000001,
-            "tbt_ms": 17,
-            "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           }
         ]
       },
       "desktop": {
         "median": {
-          "performance": 100,
+          "performance": 99,
           "accessibility": 91,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 655.1320499999999,
+          "lcp_ms": 982.7494999999999,
           "tbt_ms": 0,
           "cls": 0,
-          "js_transfer_bytes": 503642,
+          "js_transfer_bytes": 503697,
           "js_requests": 13
         },
         "runs": [
           {
-            "performance": 100,
+            "performance": 99,
             "accessibility": 91,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 655.0587,
+            "lcp_ms": 980.0592499999998,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
@@ -299,21 +299,21 @@
             "accessibility": 91,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 991.8454,
+            "lcp_ms": 982.885,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
-            "performance": 100,
+            "performance": 99,
             "accessibility": 91,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 655.1320499999999,
+            "lcp_ms": 982.7494999999999,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           }
         ]
@@ -340,14 +340,14 @@
     "/en/blog/2026-06-03-como-modernizei-meu-site/": {
       "mobile": {
         "median": {
-          "performance": 79,
+          "performance": 77,
           "accessibility": 96,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 5151.762449999999,
-          "tbt_ms": 0,
+          "lcp_ms": 5148.737800000001,
+          "tbt_ms": 148,
           "cls": 0,
-          "js_transfer_bytes": 503642,
+          "js_transfer_bytes": 503697,
           "js_requests": 13
         },
         "runs": [
@@ -356,46 +356,46 @@
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 5151.762449999999,
-            "tbt_ms": 189,
+            "lcp_ms": 5155.032,
+            "tbt_ms": 170.5,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
-            "performance": 79,
+            "performance": 77,
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 5156.1634,
-            "tbt_ms": 0,
+            "lcp_ms": 5148.737800000001,
+            "tbt_ms": 142,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
-            "performance": 79,
+            "performance": 77,
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 5146.71125,
-            "tbt_ms": 0,
+            "lcp_ms": 5146.9653,
+            "tbt_ms": 148,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           }
         ]
       },
       "desktop": {
         "median": {
-          "performance": 98,
+          "performance": 99,
           "accessibility": 92,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 1033.66075,
+          "lcp_ms": 861.7235000000001,
           "tbt_ms": 0,
           "cls": 0,
-          "js_transfer_bytes": 503642,
+          "js_transfer_bytes": 503697,
           "js_requests": 13
         },
         "runs": [
@@ -404,32 +404,32 @@
             "accessibility": 92,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1028.0742500000001,
+            "lcp_ms": 1031.8667500000001,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
-            "performance": 98,
+            "performance": 99,
             "accessibility": 92,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1034.8050000000003,
+            "lcp_ms": 858.1440000000001,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
-            "performance": 98,
+            "performance": 99,
             "accessibility": 92,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1033.66075,
+            "lcp_ms": 861.7235000000001,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           }
         ]
@@ -441,12 +441,6 @@
             "impact": "serious",
             "nodes": 4,
             "help": "Elements must meet minimum color contrast ratio thresholds"
-          },
-          {
-            "id": "scrollable-region-focusable",
-            "impact": "serious",
-            "nodes": 1,
-            "help": "Scrollable region must have keyboard access"
           }
         ],
         "desktop": [
@@ -462,48 +456,48 @@
     "/en/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/": {
       "mobile": {
         "median": {
-          "performance": 78,
+          "performance": 79,
           "accessibility": 96,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 4859.4591,
-          "tbt_ms": 167,
+          "lcp_ms": 4837.132299999999,
+          "tbt_ms": 0,
           "cls": 0,
-          "js_transfer_bytes": 503642,
+          "js_transfer_bytes": 503697,
           "js_requests": 13
         },
         "runs": [
           {
-            "performance": 75,
+            "performance": 79,
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 4859.8814,
-            "tbt_ms": 252,
+            "lcp_ms": 4866.4,
+            "tbt_ms": 121,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
-            "performance": 80,
+            "performance": 79,
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 4851.779600000001,
-            "tbt_ms": 68.00000000000045,
+            "lcp_ms": 4835.456700000001,
+            "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
-            "performance": 78,
+            "performance": 81,
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 4859.4591,
-            "tbt_ms": 167,
+            "lcp_ms": 4837.132299999999,
+            "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           }
         ]
@@ -514,10 +508,10 @@
           "accessibility": 92,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 981.9265,
+          "lcp_ms": 986.3075,
           "tbt_ms": 0,
           "cls": 0,
-          "js_transfer_bytes": 503642,
+          "js_transfer_bytes": 503697,
           "js_requests": 13
         },
         "runs": [
@@ -526,10 +520,10 @@
             "accessibility": 92,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 981.9265,
+            "lcp_ms": 978.6572500000002,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
@@ -537,10 +531,10 @@
             "accessibility": 92,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 987.548325,
+            "lcp_ms": 986.3075,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
@@ -548,10 +542,10 @@
             "accessibility": 92,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 981.1255000000001,
+            "lcp_ms": 991.9236000000001,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           }
         ]
@@ -563,12 +557,6 @@
             "impact": "serious",
             "nodes": 4,
             "help": "Elements must meet minimum color contrast ratio thresholds"
-          },
-          {
-            "id": "scrollable-region-focusable",
-            "impact": "serious",
-            "nodes": 1,
-            "help": "Scrollable region must have keyboard access"
           }
         ],
         "desktop": [
@@ -588,10 +576,10 @@
           "accessibility": 96,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 4878.628199999999,
-          "tbt_ms": 19,
+          "lcp_ms": 4880.4182,
+          "tbt_ms": 16,
           "cls": 0,
-          "js_transfer_bytes": 506342,
+          "js_transfer_bytes": 506397,
           "js_requests": 14
         },
         "runs": [
@@ -600,10 +588,10 @@
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 4878.628199999999,
-            "tbt_ms": 19,
+            "lcp_ms": 4880.4182,
+            "tbt_ms": 18,
             "cls": 0,
-            "js_transfer_bytes": 506342,
+            "js_transfer_bytes": 506397,
             "js_requests": 14
           },
           {
@@ -611,10 +599,10 @@
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 4879.1784,
-            "tbt_ms": 19,
+            "lcp_ms": 4888.279600000001,
+            "tbt_ms": 16,
             "cls": 0,
-            "js_transfer_bytes": 506342,
+            "js_transfer_bytes": 506397,
             "js_requests": 14
           },
           {
@@ -622,10 +610,10 @@
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 4805.7672,
-            "tbt_ms": 37,
+            "lcp_ms": 4857.1121,
+            "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 506342,
+            "js_transfer_bytes": 506397,
             "js_requests": 14
           }
         ]
@@ -636,10 +624,10 @@
           "accessibility": 91,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 1028.187,
+          "lcp_ms": 1027.20275,
           "tbt_ms": 0,
           "cls": 0,
-          "js_transfer_bytes": 506342,
+          "js_transfer_bytes": 506397,
           "js_requests": 14
         },
         "runs": [
@@ -648,10 +636,10 @@
             "accessibility": 91,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1029.201,
+            "lcp_ms": 1026.11775,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 506342,
+            "js_transfer_bytes": 506397,
             "js_requests": 14
           },
           {
@@ -659,21 +647,21 @@
             "accessibility": 91,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1026.5365,
+            "lcp_ms": 1028.5720000000001,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 506342,
+            "js_transfer_bytes": 506397,
             "js_requests": 14
           },
           {
-            "performance": 99,
+            "performance": 98,
             "accessibility": 91,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1028.187,
+            "lcp_ms": 1027.20275,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 506342,
+            "js_transfer_bytes": 506397,
             "js_requests": 14
           }
         ]
@@ -700,26 +688,37 @@
     "/en/resume/": {
       "mobile": {
         "median": {
-          "performance": 80,
+          "performance": 79,
           "accessibility": 96,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 5028.730500000001,
-          "tbt_ms": 16,
+          "lcp_ms": 5029.4474,
+          "tbt_ms": 17,
           "cls": 0,
-          "js_transfer_bytes": 527454,
+          "js_transfer_bytes": 527509,
           "js_requests": 14
         },
         "runs": [
           {
-            "performance": 80,
+            "performance": 79,
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 5012.437999999999,
-            "tbt_ms": 3,
+            "lcp_ms": 5029.4474,
+            "tbt_ms": 11,
             "cls": 0,
-            "js_transfer_bytes": 527454,
+            "js_transfer_bytes": 527509,
+            "js_requests": 14
+          },
+          {
+            "performance": 79,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 5031.6919,
+            "tbt_ms": 23,
+            "cls": 0,
+            "js_transfer_bytes": 527509,
             "js_requests": 14
           },
           {
@@ -727,21 +726,10 @@
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 5038.355500000001,
-            "tbt_ms": 26,
+            "lcp_ms": 5026.070500000001,
+            "tbt_ms": 17,
             "cls": 0,
-            "js_transfer_bytes": 527454,
-            "js_requests": 14
-          },
-          {
-            "performance": 80,
-            "accessibility": 96,
-            "bestPractices": 100,
-            "seo": 100,
-            "lcp_ms": 5028.730500000001,
-            "tbt_ms": 16,
-            "cls": 0,
-            "js_transfer_bytes": 527454,
+            "js_transfer_bytes": 527509,
             "js_requests": 14
           }
         ]
@@ -752,10 +740,10 @@
           "accessibility": 92,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 1033.5994,
+          "lcp_ms": 1036.4876,
           "tbt_ms": 0,
           "cls": 0,
-          "js_transfer_bytes": 527454,
+          "js_transfer_bytes": 527509,
           "js_requests": 14
         },
         "runs": [
@@ -764,10 +752,10 @@
             "accessibility": 92,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1037.694,
+            "lcp_ms": 1035.337,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 527454,
+            "js_transfer_bytes": 527509,
             "js_requests": 14
           },
           {
@@ -775,10 +763,10 @@
             "accessibility": 92,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1033.5994,
+            "lcp_ms": 1040.682575,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 527454,
+            "js_transfer_bytes": 527509,
             "js_requests": 14
           },
           {
@@ -786,10 +774,10 @@
             "accessibility": 92,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1031.4004,
+            "lcp_ms": 1036.4876,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 527454,
+            "js_transfer_bytes": 527509,
             "js_requests": 14
           }
         ]
@@ -820,7 +808,7 @@
           "accessibility": 100,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 1201.2979,
+          "lcp_ms": 1201.2451,
           "tbt_ms": 0,
           "cls": 0,
           "js_transfer_bytes": 0,
@@ -832,7 +820,7 @@
             "accessibility": 100,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1201.2979,
+            "lcp_ms": 1201.5074,
             "tbt_ms": 0,
             "cls": 0,
             "js_transfer_bytes": 0,
@@ -843,7 +831,7 @@
             "accessibility": 100,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1201.4048,
+            "lcp_ms": 1201.2004,
             "tbt_ms": 0,
             "cls": 0,
             "js_transfer_bytes": 0,
@@ -854,7 +842,7 @@
             "accessibility": 100,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1201.1975,
+            "lcp_ms": 1201.2451,
             "tbt_ms": 0,
             "cls": 0,
             "js_transfer_bytes": 0,
@@ -868,7 +856,7 @@
           "accessibility": 100,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 283.7794,
+          "lcp_ms": 284.2563,
           "tbt_ms": 0,
           "cls": 0,
           "js_transfer_bytes": 0,
@@ -880,7 +868,7 @@
             "accessibility": 100,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 283.7794,
+            "lcp_ms": 283.2998,
             "tbt_ms": 0,
             "cls": 0,
             "js_transfer_bytes": 0,
@@ -891,7 +879,7 @@
             "accessibility": 100,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 282.9835,
+            "lcp_ms": 284.978,
             "tbt_ms": 0,
             "cls": 0,
             "js_transfer_bytes": 0,
@@ -902,7 +890,7 @@
             "accessibility": 100,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 284.1449,
+            "lcp_ms": 284.2563,
             "tbt_ms": 0,
             "cls": 0,
             "js_transfer_bytes": 0,
@@ -922,10 +910,10 @@
           "accessibility": 100,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 4850.461499999999,
+          "lcp_ms": 4841.4041,
           "tbt_ms": 0,
           "cls": 0,
-          "js_transfer_bytes": 503642,
+          "js_transfer_bytes": 503697,
           "js_requests": 13
         },
         "runs": [
@@ -934,10 +922,10 @@
             "accessibility": 100,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 4850.461499999999,
+            "lcp_ms": 4841.4041,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
@@ -945,10 +933,10 @@
             "accessibility": 100,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 3152.9135,
-            "tbt_ms": 2,
+            "lcp_ms": 3152.6812999999993,
+            "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
@@ -956,24 +944,24 @@
             "accessibility": 100,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 4856.5604,
+            "lcp_ms": 4859.0693,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           }
         ]
       },
       "desktop": {
         "median": {
-          "performance": 100,
+          "performance": 99,
           "accessibility": 96,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 657.16155,
+          "lcp_ms": 953.9398,
           "tbt_ms": 0,
           "cls": 0,
-          "js_transfer_bytes": 503642,
+          "js_transfer_bytes": 503697,
           "js_requests": 13
         },
         "runs": [
@@ -982,32 +970,32 @@
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 992.2372,
+            "lcp_ms": 947.5142,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
-            "performance": 100,
+            "performance": 99,
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 656.35435,
+            "lcp_ms": 953.9398,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
-            "performance": 100,
+            "performance": 99,
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 657.16155,
+            "lcp_ms": 989.1786,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           }
         ]
@@ -1027,26 +1015,37 @@
     "/pt/blog/": {
       "mobile": {
         "median": {
-          "performance": 80,
+          "performance": 81,
           "accessibility": 96,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 4843.5742,
+          "lcp_ms": 4847.1439,
           "tbt_ms": 0,
           "cls": 0,
-          "js_transfer_bytes": 503642,
+          "js_transfer_bytes": 503697,
           "js_requests": 13
         },
         "runs": [
+          {
+            "performance": 81,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 4847.1439,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 503697,
+            "js_requests": 13
+          },
           {
             "performance": 80,
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 4837.6389,
+            "lcp_ms": 4854.0544,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
@@ -1054,21 +1053,10 @@
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 4843.5742,
+            "lcp_ms": 4841.209400000001,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
-            "js_requests": 13
-          },
-          {
-            "performance": 80,
-            "accessibility": 96,
-            "bestPractices": 100,
-            "seo": 100,
-            "lcp_ms": 4847.2324,
-            "tbt_ms": 0,
-            "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           }
         ]
@@ -1079,10 +1067,10 @@
           "accessibility": 91,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 994.3798,
+          "lcp_ms": 981.18525,
           "tbt_ms": 0,
           "cls": 0,
-          "js_transfer_bytes": 503642,
+          "js_transfer_bytes": 503697,
           "js_requests": 13
         },
         "runs": [
@@ -1091,10 +1079,10 @@
             "accessibility": 91,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 994.3798,
+            "lcp_ms": 984.18975,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
@@ -1102,10 +1090,10 @@
             "accessibility": 91,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 949.5656,
+            "lcp_ms": 980.03325,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
@@ -1113,10 +1101,10 @@
             "accessibility": 91,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 995.7028,
+            "lcp_ms": 981.18525,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           }
         ]
@@ -1143,74 +1131,74 @@
     "/pt/blog/2026-06-03-como-modernizei-meu-site/": {
       "mobile": {
         "median": {
-          "performance": 79,
+          "performance": 78,
           "accessibility": 96,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 5144.56855,
-          "tbt_ms": 0,
+          "lcp_ms": 5154.562150000001,
+          "tbt_ms": 122.5,
           "cls": 0,
-          "js_transfer_bytes": 503642,
+          "js_transfer_bytes": 503697,
           "js_requests": 13
         },
         "runs": [
           {
-            "performance": 74,
-            "accessibility": 96,
-            "bestPractices": 100,
-            "seo": 100,
-            "lcp_ms": 5168.9808,
-            "tbt_ms": 240.5,
-            "cls": 0,
-            "js_transfer_bytes": 503642,
-            "js_requests": 13
-          },
-          {
             "performance": 79,
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 5138.5599,
+            "lcp_ms": 5145.977349999999,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
-            "performance": 79,
+            "performance": 75,
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 5144.56855,
-            "tbt_ms": 0,
+            "lcp_ms": 5154.87435,
+            "tbt_ms": 226,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
+            "js_requests": 13
+          },
+          {
+            "performance": 78,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 5154.562150000001,
+            "tbt_ms": 122.5,
+            "cls": 0,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           }
         ]
       },
       "desktop": {
         "median": {
-          "performance": 98,
+          "performance": 99,
           "accessibility": 92,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 1031.5337,
+          "lcp_ms": 1029.3362499999998,
           "tbt_ms": 0,
           "cls": 0,
-          "js_transfer_bytes": 503642,
+          "js_transfer_bytes": 503697,
           "js_requests": 13
         },
         "runs": [
           {
-            "performance": 98,
+            "performance": 100,
             "accessibility": 92,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1031.5337,
+            "lcp_ms": 697.2206,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
@@ -1218,21 +1206,21 @@
             "accessibility": 92,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1031.24675,
+            "lcp_ms": 1034.7945,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
-            "performance": 98,
+            "performance": 99,
             "accessibility": 92,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1033.5605,
+            "lcp_ms": 1029.3362499999998,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           }
         ]
@@ -1244,12 +1232,6 @@
             "impact": "serious",
             "nodes": 4,
             "help": "Elements must meet minimum color contrast ratio thresholds"
-          },
-          {
-            "id": "scrollable-region-focusable",
-            "impact": "serious",
-            "nodes": 1,
-            "help": "Scrollable region must have keyboard access"
           }
         ],
         "desktop": [
@@ -1265,37 +1247,26 @@
     "/pt/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/": {
       "mobile": {
         "median": {
-          "performance": 78,
+          "performance": 81,
           "accessibility": 96,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 4853.969700000001,
-          "tbt_ms": 173.5,
+          "lcp_ms": 4837.625499999999,
+          "tbt_ms": 0,
           "cls": 0,
-          "js_transfer_bytes": 503642,
+          "js_transfer_bytes": 503697,
           "js_requests": 13
         },
         "runs": [
           {
-            "performance": 76,
+            "performance": 80,
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 4866.950900000001,
-            "tbt_ms": 221.00000000000045,
+            "lcp_ms": 4865.113300000001,
+            "tbt_ms": 61,
             "cls": 0,
-            "js_transfer_bytes": 503642,
-            "js_requests": 13
-          },
-          {
-            "performance": 78,
-            "accessibility": 96,
-            "bestPractices": 100,
-            "seo": 100,
-            "lcp_ms": 4853.969700000001,
-            "tbt_ms": 173.5,
-            "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           },
           {
@@ -1303,10 +1274,21 @@
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 4838.4,
+            "lcp_ms": 4837.625499999999,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
+            "js_requests": 13
+          },
+          {
+            "performance": 81,
+            "accessibility": 96,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 4834.6653,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           }
         ]
@@ -1317,44 +1299,44 @@
           "accessibility": 92,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 983.5707500000001,
+          "lcp_ms": 982.7379999999999,
           "tbt_ms": 0,
           "cls": 0,
-          "js_transfer_bytes": 503642,
+          "js_transfer_bytes": 503697,
           "js_requests": 13
         },
         "runs": [
+          {
+            "performance": 99,
+            "accessibility": 92,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 983.69,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 503697,
+            "js_requests": 13
+          },
+          {
+            "performance": 99,
+            "accessibility": 92,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcp_ms": 982.7379999999999,
+            "tbt_ms": 0,
+            "cls": 0,
+            "js_transfer_bytes": 503697,
+            "js_requests": 13
+          },
           {
             "performance": 100,
             "accessibility": 92,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 654.3546,
+            "lcp_ms": 696.3050499999999,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 503642,
-            "js_requests": 13
-          },
-          {
-            "performance": 99,
-            "accessibility": 92,
-            "bestPractices": 100,
-            "seo": 100,
-            "lcp_ms": 983.5707500000001,
-            "tbt_ms": 0,
-            "cls": 0,
-            "js_transfer_bytes": 503642,
-            "js_requests": 13
-          },
-          {
-            "performance": 99,
-            "accessibility": 92,
-            "bestPractices": 100,
-            "seo": 100,
-            "lcp_ms": 986.7987499999999,
-            "tbt_ms": 0,
-            "cls": 0,
-            "js_transfer_bytes": 503642,
+            "js_transfer_bytes": 503697,
             "js_requests": 13
           }
         ]
@@ -1366,12 +1348,6 @@
             "impact": "serious",
             "nodes": 4,
             "help": "Elements must meet minimum color contrast ratio thresholds"
-          },
-          {
-            "id": "scrollable-region-focusable",
-            "impact": "serious",
-            "nodes": 1,
-            "help": "Scrollable region must have keyboard access"
           }
         ],
         "desktop": [
@@ -1391,10 +1367,10 @@
           "accessibility": 96,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 4879.6206999999995,
-          "tbt_ms": 20,
+          "lcp_ms": 4878.761299999999,
+          "tbt_ms": 15,
           "cls": 0,
-          "js_transfer_bytes": 506342,
+          "js_transfer_bytes": 506397,
           "js_requests": 14
         },
         "runs": [
@@ -1403,10 +1379,10 @@
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 4887.8063,
-            "tbt_ms": 20,
+            "lcp_ms": 4888.3415,
+            "tbt_ms": 45,
             "cls": 0,
-            "js_transfer_bytes": 506342,
+            "js_transfer_bytes": 506397,
             "js_requests": 14
           },
           {
@@ -1414,10 +1390,10 @@
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 4879.6206999999995,
-            "tbt_ms": 23,
+            "lcp_ms": 4878.761299999999,
+            "tbt_ms": 15,
             "cls": 0,
-            "js_transfer_bytes": 506342,
+            "js_transfer_bytes": 506397,
             "js_requests": 14
           },
           {
@@ -1425,10 +1401,10 @@
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 4872.3793000000005,
+            "lcp_ms": 4874.0236,
             "tbt_ms": 14,
             "cls": 0,
-            "js_transfer_bytes": 506342,
+            "js_transfer_bytes": 506397,
             "js_requests": 14
           }
         ]
@@ -1439,10 +1415,10 @@
           "accessibility": 91,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 1030.6572,
+          "lcp_ms": 1033.7844,
           "tbt_ms": 0,
           "cls": 0,
-          "js_transfer_bytes": 506342,
+          "js_transfer_bytes": 506397,
           "js_requests": 14
         },
         "runs": [
@@ -1451,10 +1427,10 @@
             "accessibility": 91,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1031.6627500000002,
+            "lcp_ms": 996.8364,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 506342,
+            "js_transfer_bytes": 506397,
             "js_requests": 14
           },
           {
@@ -1462,10 +1438,10 @@
             "accessibility": 91,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1026.4092500000002,
+            "lcp_ms": 1033.7844,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 506342,
+            "js_transfer_bytes": 506397,
             "js_requests": 14
           },
           {
@@ -1473,10 +1449,10 @@
             "accessibility": 91,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1030.6572,
+            "lcp_ms": 1042.5056749999999,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 506342,
+            "js_transfer_bytes": 506397,
             "js_requests": 14
           }
         ]
@@ -1507,10 +1483,10 @@
           "accessibility": 96,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 5008.746800000001,
-          "tbt_ms": 18,
+          "lcp_ms": 5000.8541,
+          "tbt_ms": 0,
           "cls": 0,
-          "js_transfer_bytes": 527454,
+          "js_transfer_bytes": 527509,
           "js_requests": 14
         },
         "runs": [
@@ -1519,10 +1495,10 @@
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 5008.746800000001,
+            "lcp_ms": 5000.366999999999,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 527454,
+            "js_transfer_bytes": 527509,
             "js_requests": 14
           },
           {
@@ -1530,10 +1506,10 @@
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 5031.1437,
-            "tbt_ms": 19,
+            "lcp_ms": 5009.533100000001,
+            "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 527454,
+            "js_transfer_bytes": 527509,
             "js_requests": 14
           },
           {
@@ -1541,10 +1517,10 @@
             "accessibility": 96,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 4954.8011,
-            "tbt_ms": 18,
+            "lcp_ms": 5000.8541,
+            "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 527454,
+            "js_transfer_bytes": 527509,
             "js_requests": 14
           }
         ]
@@ -1555,10 +1531,10 @@
           "accessibility": 92,
           "bestPractices": 100,
           "seo": 100,
-          "lcp_ms": 1037.6037999999999,
+          "lcp_ms": 1034.0367999999999,
           "tbt_ms": 0,
           "cls": 0,
-          "js_transfer_bytes": 527454,
+          "js_transfer_bytes": 527509,
           "js_requests": 14
         },
         "runs": [
@@ -1567,10 +1543,10 @@
             "accessibility": 92,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1037.6037999999999,
+            "lcp_ms": 1034.0367999999999,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 527454,
+            "js_transfer_bytes": 527509,
             "js_requests": 14
           },
           {
@@ -1578,10 +1554,10 @@
             "accessibility": 92,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1037.8908000000001,
+            "lcp_ms": 1034.0194,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 527454,
+            "js_transfer_bytes": 527509,
             "js_requests": 14
           },
           {
@@ -1589,10 +1565,10 @@
             "accessibility": 92,
             "bestPractices": 100,
             "seo": 100,
-            "lcp_ms": 1004.9266,
+            "lcp_ms": 1041.1438249999999,
             "tbt_ms": 0,
             "cls": 0,
-            "js_transfer_bytes": 527454,
+            "js_transfer_bytes": 527509,
             "js_requests": 14
           }
         ]

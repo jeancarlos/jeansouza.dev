@@ -13,15 +13,15 @@ Same script (`scripts/measure.mjs`), same pinned Chrome, same machine, median of
 | `/en/blog/` | 1025 KB | 492 KB | -533 KB ✓ |
 | `/en/blog/2026-06-03-como-modernizei-meu-site/ *(redirect)*` | 1025 KB | 492 KB | -533 KB ✓ |
 | `/en/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/` | 1025 KB | 492 KB | -533 KB ✓ |
-| `/en/more/` | 1028 KB | 494 KB | -534 KB ✓ |
+| `/en/more/` | 1028 KB | 495 KB | -533 KB ✓ |
 | `/en/resume/` | 1049 KB | 515 KB | -534 KB ✓ |
 | `/pt/` | 1025 KB | 492 KB | -533 KB ✓ |
 | `/pt/blog/` | 1025 KB | 492 KB | -533 KB ✓ |
 | `/pt/blog/2026-06-03-como-modernizei-meu-site/ *(redirect)*` | 1025 KB | 492 KB | -533 KB ✓ |
 | `/pt/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/` | 1025 KB | 492 KB | -533 KB ✓ |
-| `/pt/more/` | 1028 KB | 494 KB | -534 KB ✓ |
+| `/pt/more/` | 1028 KB | 495 KB | -533 KB ✓ |
 | `/pt/resume/` | 1049 KB | 515 KB | -534 KB ✓ |
-| **Total (11 pages)** | **10966 KB** | **5462 KB** | **-5504 KB ✓** |
+| **Total (11 pages)** | **10966 KB** | **5464 KB** | **-5502 KB ✓** |
 
 Reduction: **50%**.
 
@@ -29,17 +29,17 @@ Reduction: **50%**.
 
 | Page | Perf mobile | Perf desktop | LCP mobile | TBT mobile |
 |---|--:|--:|--:|--:|
-| `/` | 77 → 79 (+2 ✓) | 97 → 98 (+1 ✓) | 6292 → 5004 ms | 71 → 0 ms |
-| `/en/` | 69 → 81 (+12 ✓) | 95 → 100 (+5 ✓) | 8578 → 4877 ms | 301 → 32 ms |
-| `/en/blog/` | 75 → 80 (+5 ✓) | 95 → 100 (+5 ✓) | 8365 → 4843 ms | 109 → 0 ms |
-| `/en/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/` | 74 → 78 (+4 ✓) | 95 → 99 (+4 ✓) | 8388 → 4859 ms | 127 → 167 ms |
-| `/en/more/` | 68 → 80 (+12 ✓) | 94 → 99 (+5 ✓) | 8597 → 4879 ms | 324 → 19 ms |
-| `/en/resume/` | 62 → 80 (+18 ✓) | 94 → 99 (+5 ✓) | 8655 → 5029 ms | 484 → 16 ms |
-| `/pt/` | 72 → 81 (+9 ✓) | 95 → 100 (+5 ✓) | 8437 → 4850 ms | 191 → 0 ms |
-| `/pt/blog/` | 70 → 80 (+10 ✓) | 95 → 99 (+4 ✓) | 8521 → 4844 ms | 240 → 0 ms |
-| `/pt/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/` | 61 → 78 (+17 ✓) | 95 → 99 (+4 ✓) | 8558 → 4854 ms | 525 → 174 ms |
-| `/pt/more/` | 69 → 80 (+11 ✓) | 94 → 99 (+5 ✓) | 8585 → 4880 ms | 290 → 20 ms |
-| `/pt/resume/` | 73 → 80 (+7 ✓) | 94 → 99 (+5 ✓) | 8569 → 5009 ms | 156 → 18 ms |
+| `/` | 77 → 79 (+2 ✓) | 97 → 99 (+2 ✓) | 6292 → 4920 ms | 71 → 0 ms |
+| `/en/` | 69 → 80 (+11 ✓) | 95 → 100 (+5 ✓) | 8578 → 4852 ms | 301 → 0 ms |
+| `/en/blog/` | 75 → 81 (+6 ✓) | 95 → 99 (+4 ✓) | 8365 → 4841 ms | 109 → 32 ms |
+| `/en/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/` | 74 → 79 (+5 ✓) | 95 → 99 (+4 ✓) | 8388 → 4837 ms | 127 → 0 ms |
+| `/en/more/` | 68 → 80 (+12 ✓) | 94 → 99 (+5 ✓) | 8597 → 4880 ms | 324 → 16 ms |
+| `/en/resume/` | 62 → 79 (+17 ✓) | 94 → 99 (+5 ✓) | 8655 → 5029 ms | 484 → 17 ms |
+| `/pt/` | 72 → 81 (+9 ✓) | 95 → 99 (+4 ✓) | 8437 → 4841 ms | 191 → 0 ms |
+| `/pt/blog/` | 70 → 81 (+11 ✓) | 95 → 99 (+4 ✓) | 8521 → 4847 ms | 240 → 0 ms |
+| `/pt/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/` | 61 → 81 (+20 ✓) | 95 → 99 (+4 ✓) | 8558 → 4838 ms | 525 → 0 ms |
+| `/pt/more/` | 69 → 80 (+11 ✓) | 94 → 99 (+5 ✓) | 8585 → 4879 ms | 290 → 15 ms |
+| `/pt/resume/` | 73 → 80 (+7 ✓) | 94 → 99 (+5 ✓) | 8569 → 5001 ms | 156 → 0 ms |
 
 ## axe-core violations
 
@@ -49,9 +49,9 @@ Node counts across both viewports, all pages.
 |---|---|--:|--:|
 | `color-contrast` | | 112 | 111 |
 | `region` | | 26 | 0 |
-| `scrollable-region-focusable` | | 4 | 4 |
+| `scrollable-region-focusable` | | 4 | 0 |
 
-`color-contrast` is **not fixed** — it is the one rule still failing, and the drop from 112 to 20 nodes is a side effect, not work. Fewer elements are painted per page now, so fewer of them fail; the palette itself is unchanged. It is rebuilt in phase 2 under `09 - Specs/2026-08-23-jeansouza-dev-visual-system-design.md`. Reporting it as outstanding is the point: a comparison that quietly banks an accidental improvement is as dishonest as one that drops the metric entirely.
+`color-contrast` is **not fixed**: 112 nodes before, 111 after. The palette is untouched, so it should not move, and it does not. It is rebuilt in phase 2 under `09 - Specs/2026-08-23-jeansouza-dev-visual-system-design.md`. Reporting it as outstanding is the point: a comparison that quietly drops the metric that did not improve is worthless.
 
 ## The gap this migration was built to show
 
