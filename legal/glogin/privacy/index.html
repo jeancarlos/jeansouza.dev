@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>backup-login: Privacy Policy</title>
+<style>
+body{font:16px/1.6 system-ui,sans-serif;max-width:40rem;margin:2rem auto;padding:0 1rem;color:#222;background:#fff}
+@media (prefers-color-scheme:dark){body{color:#ddd;background:#111}a{color:#8ab4f8}}
+</style>
+</head>
+<body>
+<h1>Privacy Policy</h1>
+<p>Last updated: 2026-10-07</p>
+<p>backup-login is a private application owned and operated by Jean Souza (<a href="https://jeansouza.dev/legal/glogin/">app homepage</a>). It lets the open-source tool rclone, running on the owner's own server, back up that server to the owner's own Google Drive. It is used only by its owner and is not offered to the public.</p>
+<h2>Google user data accessed</h2>
+<p>With the owner's consent, the app requests the Google Drive scope (<code>https://www.googleapis.com/auth/drive</code>). It reads, creates, updates and deletes files in the backup folder of the owner's Drive. It also receives the OAuth access and refresh tokens needed for that. It does not access email, contacts, profile details beyond what the sign-in itself returns, or any other Google service.</p>
+<h2>How the data is used</h2>
+<p>The data is used only to store, list, restore and prune encrypted backup files of the owner's server. It is never used for advertising, never sold to data brokers or anyone else, never used for credit or lending decisions, and never used to train artificial intelligence or machine learning models.</p>
+<h2>Storage</h2>
+<p>The OAuth tokens are stored only in the rclone configuration file on the owner's server. The backup files are stored only in the owner's Google Drive.</p>
+<h2>Sharing, transfer and disclosure</h2>
+<p>Google user data is not shared with, transferred to or disclosed to any third party. The only parties involved are the owner and Google, which hosts the Drive files.</p>
+<h2>Data protection</h2>
+<p>Backups are encrypted with AES-256 by restic on the owner's server before upload, so Google Drive only ever holds encrypted data. All traffic to Google uses HTTPS (TLS). The token file is readable only by the owner's system account, and the server is reachable only over a private network.</p>
+<h2>Retention and deletion</h2>
+<p>Backup snapshots are kept under a rolling retention schedule and older ones are deleted automatically. The tokens are kept until access is revoked. Access can be revoked at any time at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>, which invalidates the tokens immediately. Deleting the backup folder in Google Drive removes all stored backup data. A deletion request can also be sent to the contact address below and will be completed within 30 days.</p>
+<h2>Changes to this policy</h2>
+<p>If the way the app uses Google user data changes, this page will be updated and the date at the top will change before the new use begins.</p>
+<h2>Google API Services User Data Policy</h2>
+<p>backup-login's use and transfer of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+<h2>Contact</h2>
+<p><a href="mailto:contato@jeansouza.dev">contato@jeansouza.dev</a></p>
+</body>
+</html>
