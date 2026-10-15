@@ -40,7 +40,6 @@
     "postcss-selector-parser": "^7.1.6"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.3.0",
     "@tailwindcss/typography": "^0.5.19",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.2",
