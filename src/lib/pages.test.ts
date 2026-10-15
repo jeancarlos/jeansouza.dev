@@ -9,6 +9,8 @@ const post: Post = {
   date: '2026-01-01',
   description: 'A post.',
   content: '',
+  cover: { src: '/c.webp', srcSet: '/c.webp 820w', alt: 'A cover.' },
+  ogImage: '/og-hello.jpg',
 }
 const pages: Page[] = [
   { kind: 'home' },

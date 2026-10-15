@@ -1,10 +1,9 @@
 ---
-import { getCollection } from 'astro:content'
 import SitePage from '../components/SitePage.astro'
 import { ROOT_REDIRECT_SCRIPT } from '../lib/locale-storage'
-import { postsFor } from '../lib/posts'
+import { loadPosts } from '../lib/loadPosts'
 
-const posts = postsFor(await getCollection('blog'), 'en')
+const posts = await loadPosts('en')
 ---
 
 <SitePage locale="en" page={{ kind: 'home' }} posts={posts} headScript={ROOT_REDIRECT_SCRIPT} />

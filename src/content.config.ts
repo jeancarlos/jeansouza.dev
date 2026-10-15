@@ -12,11 +12,14 @@ const blog = defineCollection({
     base: './src/content/blog',
     generateId: ({ entry }) => entry.replace(/\.md$/, ''),
   }),
-  schema: z.object({
-    title: z.string(),
-    date: z.coerce.date(),
-    description: z.string(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      date: z.coerce.date(),
+      description: z.string(),
+      image: image(),
+      imageAlt: z.string(),
+    }),
 })
 
 export const collections = { blog }

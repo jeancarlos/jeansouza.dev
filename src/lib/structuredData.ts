@@ -61,7 +61,7 @@ export function structuredData(page: Page, locale: Locale): object | undefined {
       inLanguage,
       datePublished: page.post.date,
       author: person(locale),
-      image: `${SITE_URL}/og.png`,
+      image: `${SITE_URL}${page.post.ogImage}`,
     }
   }
   return undefined

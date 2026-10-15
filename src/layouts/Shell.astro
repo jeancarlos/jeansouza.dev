@@ -14,14 +14,26 @@ interface Props {
   publishedTime?: string
   jsonLd?: object
   headScript?: string
+  image?: string
+  imageAlt?: string
 }
 
-const { locale, title, description, path, publishedTime, jsonLd, headScript } = Astro.props
+const {
+  locale,
+  title,
+  description,
+  path,
+  publishedTime,
+  jsonLd,
+  headScript,
+  image: ownImage,
+  imageAlt,
+} = Astro.props
 const t = translator(locale)
 const htmlLang = (l: Locale) => (l === 'pt' ? 'pt-BR' : 'en-US')
 const ogLocale = (l: Locale) => (l === 'pt' ? 'pt_BR' : 'en_US')
 const url = path === undefined ? undefined : `${SITE_URL}/${locale}/${path}`
-const image = `${SITE_URL}/og.png`
+const image = `${SITE_URL}${ownImage ?? '/og.png'}`
 ---
 
 <html lang={htmlLang(locale)}>
@@ -54,7 +66,7 @@ const image = `${SITE_URL}/og.png`
     <meta property="og:image" content={image} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={t('meta.ogImageAlt')} />
+    <meta property="og:image:alt" content={imageAlt ?? t('meta.ogImageAlt')} />
     {publishedTime && <meta property="article:published_time" content={publishedTime} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />

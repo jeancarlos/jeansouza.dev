@@ -7,6 +7,8 @@ const post = {
   date: '2026-01-01',
   description: 'A post.',
   content: '',
+  cover: { src: '/c.webp', srcSet: '/c.webp 820w', alt: 'A cover.' },
+  ogImage: '/og-hello.jpg',
 }
 
 describe('structuredData', () => {
@@ -22,6 +24,7 @@ describe('structuredData', () => {
       datePublished: '2026-01-01',
       inLanguage: 'pt-BR',
       url: 'https://jeansouza.dev/pt/blog/hello/',
+      image: 'https://jeansouza.dev/og-hello.jpg',
     })
   })
 

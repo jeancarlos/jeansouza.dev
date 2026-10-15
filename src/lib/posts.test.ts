@@ -1,10 +1,12 @@
 import { describe, it, expect } from 'vitest'
 import { postsFor, type PostEntry } from './posts'
 
+const cover = { src: '/c.webp', srcSet: '/c.webp 820w', alt: 'A cover.' }
+
 const entry = (id: string, date: string): PostEntry => ({
   id,
   body: `body of ${id}`,
-  data: { title: id, date: new Date(date), description: 'd' },
+  data: { title: id, date: new Date(date), description: 'd', cover, ogImage: `/${id}.jpg` },
 })
 
 describe('postsFor', () => {
@@ -23,6 +25,10 @@ describe('postsFor', () => {
       ['newer', '2026-02-01'],
       ['older', '2026-01-01'],
     ])
+  })
+
+  it('carries the cover and the social card through', () => {
+    expect(postsFor(entries, 'en')[0]).toMatchObject({ cover, ogImage: '/newer.en.jpg' })
   })
 
   it('carries the markdown body as content', () => {

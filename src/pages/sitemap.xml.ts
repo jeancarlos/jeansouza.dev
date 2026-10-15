@@ -1,13 +1,12 @@
 import type { APIRoute } from 'astro'
-import { getCollection } from 'astro:content'
 import { LOCALES } from '../i18n/t'
-import { postsFor } from '../lib/posts'
+import { loadPosts } from '../lib/loadPosts'
 import { SITE_URL, pagePath, type Page } from '../lib/pages'
 
 const hreflang = { pt: 'pt-BR', en: 'en-US' } as const
 
 export const GET: APIRoute = async () => {
-  const posts = postsFor(await getCollection('blog'), 'pt')
+  const posts = await loadPosts('pt')
   const pages: { page: Page; lastmod?: string }[] = [
     { page: { kind: 'home' } },
     { page: { kind: 'blog' }, lastmod: posts[0]?.date },

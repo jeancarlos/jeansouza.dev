@@ -18,6 +18,7 @@ interface Props {
 const { locale, page, posts, headScript } = Astro.props
 const { title, description } = pageMeta(page, locale)
 const path = pagePath(page)
+const post = page.kind === 'post' ? page.post : undefined
 ---
 
 <Shell
@@ -25,7 +26,9 @@ const path = pagePath(page)
   title={title}
   description={description}
   path={path}
-  publishedTime={page.kind === 'post' ? page.post.date : undefined}
+  publishedTime={post?.date}
+  image={post?.ogImage}
+  imageAlt={post?.cover.alt}
   jsonLd={structuredData(page, locale)}
   headScript={headScript}
 >
