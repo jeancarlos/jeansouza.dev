@@ -1,4 +1,4 @@
-import { translator, type Locale } from '@/i18n/t'
+import { LANGUAGE_TAG, LOCALES, translator, type Locale } from '@/i18n/t'
 import type { Post } from '@/lib/posts'
 
 export const SITE_URL = 'https://jeansouza.dev'
@@ -19,6 +19,32 @@ export function pagePath(page: Page): string {
 
 export function pageUrl(page: Page, locale: Locale): string {
   return `/${locale}/${pagePath(page)}`
+}
+
+/** Every page a locale serves, given that locale's posts. */
+export function sitePages(posts: Post[]): Page[] {
+  return [
+    { kind: 'home' },
+    { kind: 'blog' },
+    { kind: 'resume' },
+    { kind: 'more' },
+    ...posts.map((post) => ({ kind: 'post' as const, post })),
+  ]
+}
+
+/** The languages a page exists in: a post only in those it was written in. */
+export function pageLocales(page: Page): readonly Locale[] {
+  return page.kind === 'post' ? page.post.locales : LOCALES
+}
+
+/** hreflang links for a page, with x-default on English when it exists. */
+export function alternateLinks(path: string, locales: readonly Locale[]) {
+  const href = (l: Locale) => `${SITE_URL}/${l}/${path}`
+  const fallback = locales.includes('en') ? 'en' : (locales[0] ?? 'en')
+  return [
+    ...locales.map((l) => ({ hreflang: LANGUAGE_TAG[l], href: href(l) })),
+    { hreflang: 'x-default', href: href(fallback) },
+  ]
 }
 
 export function pageFromPath(pathname: string, posts: Post[]): Page | undefined {

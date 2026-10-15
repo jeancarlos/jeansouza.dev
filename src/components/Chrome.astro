@@ -3,11 +3,13 @@ import { translator, type Locale } from '../i18n/t'
 
 interface Props {
   locale: Locale
-  /** Path after the locale segment, so the language switch lands on the same page. */
-  path: string
+  /** Where the language switch goes: this page in the other language, or that language's blog. */
+  switchHref: string
+  /** The URL this copy was rendered for; once the windows move away from it, the switch follows them. */
+  page?: string
 }
 
-const { locale, path } = Astro.props
+const { locale, switchHref, page } = Astro.props
 const t = translator(locale)
 const other: Locale = locale === 'pt' ? 'en' : 'pt'
 const pill =
@@ -20,9 +22,10 @@ const isEn = locale === 'en'
 <canvas data-starfield aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10"></canvas>
 <div class="pointer-events-none fixed inset-x-0 top-0 z-[19] flex h-[75px] items-center justify-between px-4">
   <a
-    href={`/${other}/${path}`}
+    href={switchHref}
     hreflang={other}
     data-locale-switch
+    data-page={page}
     class:list={[pill, isEn ? 'bg-gradient-to-l' : 'bg-gradient-to-r']}
   >
     <span class="flex h-full w-full rounded-full bg-[var(--button-inner-bg)]">

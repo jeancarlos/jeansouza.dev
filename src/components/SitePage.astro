@@ -4,7 +4,7 @@ import Chrome from './Chrome.astro'
 import { DesktopApp } from './DesktopApp'
 import type { Locale } from '../i18n/t'
 import type { Post } from '../lib/posts'
-import { pageMeta, pagePath, pageUrl, type Page } from '../lib/pages'
+import { pageLocales, pageMeta, pagePath, pageUrl, type Page } from '../lib/pages'
 import { structuredData } from '../lib/structuredData'
 
 interface Props {
@@ -19,6 +19,8 @@ const { locale, page, posts, headScript } = Astro.props
 const { title, description } = pageMeta(page, locale)
 const path = pagePath(page)
 const post = page.kind === 'post' ? page.post : undefined
+const other = locale === 'pt' ? 'en' : 'pt'
+const switchTo = pageLocales(page).includes(other) ? page : { kind: 'blog' as const }
 ---
 
 <Shell
@@ -26,6 +28,7 @@ const post = page.kind === 'post' ? page.post : undefined
   title={title}
   description={description}
   path={path}
+  locales={pageLocales(page)}
   publishedTime={post?.date}
   image={post?.ogImage}
   imageAlt={post?.cover.alt}
@@ -33,6 +36,6 @@ const post = page.kind === 'post' ? page.post : undefined
   headScript={headScript}
   readingFont={page.kind !== 'home' && page.kind !== 'more'}
 >
-  <Chrome slot="topbar" locale={locale} path={path} />
+  <Chrome slot="topbar" locale={locale} switchHref={pageUrl(switchTo, other)} page={pageUrl(page, locale)} />
   <DesktopApp client:afterpaint locale={locale} posts={posts} pathname={pageUrl(page, locale)} />
 </Shell>

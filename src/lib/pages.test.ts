@@ -1,7 +1,15 @@
 import { describe, expect, it } from 'vitest'
 import { LOCALES } from '@/i18n/t'
 import type { Post } from './posts'
-import { pageFromPath, pageMeta, pageUrl, type Page } from './pages'
+import {
+  alternateLinks,
+  pageFromPath,
+  pageLocales,
+  pageMeta,
+  pageUrl,
+  sitePages,
+  type Page,
+} from './pages'
 
 const post: Post = {
   slug: 'hello',
@@ -56,4 +64,26 @@ describe('pages', () => {
       }
     }
   )
+
+  it('lists every page of a locale, its posts last', () => {
+    expect(sitePages([post])).toEqual(pages)
+  })
+
+  it('offers a post only in the languages it was written in', () => {
+    expect(pageLocales({ kind: 'post', post })).toEqual(['pt'])
+    expect(pageLocales({ kind: 'blog' })).toEqual(LOCALES)
+    expect(alternateLinks('blog/hello/', ['pt'])).toEqual([
+      { hreflang: 'pt-BR', href: 'https://jeansouza.dev/pt/blog/hello/' },
+      { hreflang: 'x-default', href: 'https://jeansouza.dev/pt/blog/hello/' },
+    ])
+  })
+
+  it('sends readers of neither language to the English page', () => {
+    expect(alternateLinks('blog/', LOCALES).map((l) => l.hreflang)).toEqual([
+      'pt-BR',
+      'en-US',
+      'x-default',
+    ])
+    expect(alternateLinks('blog/', LOCALES).at(-1)?.href).toBe('https://jeansouza.dev/en/blog/')
+  })
 })

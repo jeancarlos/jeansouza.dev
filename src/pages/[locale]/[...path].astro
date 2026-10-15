@@ -2,20 +2,13 @@
 import SitePage from '../../components/SitePage.astro'
 import { LOCALES } from '../../i18n/t'
 import { loadPosts } from '../../lib/loadPosts'
-import { pagePath, type Page } from '../../lib/pages'
+import { pagePath, sitePages } from '../../lib/pages'
 
 export async function getStaticPaths() {
   const byLocale = await Promise.all(LOCALES.map(loadPosts))
   return LOCALES.flatMap((locale, i) => {
     const posts = byLocale[i]
-    const pages: Page[] = [
-      { kind: 'home' },
-      { kind: 'blog' },
-      { kind: 'resume' },
-      { kind: 'more' },
-      ...posts.map((post) => ({ kind: 'post' as const, post })),
-    ]
-    return pages.map((page) => ({
+    return sitePages(posts).map((page) => ({
       params: { locale, path: pagePath(page).replace(/\/$/, '') || undefined },
       props: { locale, page, posts },
     }))

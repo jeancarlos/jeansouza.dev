@@ -1,7 +1,7 @@
 ---
 import { Font } from 'astro:assets'
-import { LOCALES, translator, type Locale } from '../i18n/t'
-import { SITE_URL } from '../lib/pages'
+import { LANGUAGE_TAG, LOCALES, translator, type Locale } from '../i18n/t'
+import { SITE_URL, alternateLinks } from '../lib/pages'
 import { THEME_INIT_SCRIPT } from '../lib/theme'
 import '../styles/globals.css'
 
@@ -11,6 +11,8 @@ interface Props {
   description: string
   /** Path after the locale segment; pages without one (404) get no canonical or alternates. */
   path?: string
+  /** The languages this page exists in. */
+  locales?: readonly Locale[]
   publishedTime?: string
   jsonLd?: object
   headScript?: string
@@ -24,6 +26,7 @@ const {
   title,
   description,
   path,
+  locales = LOCALES,
   publishedTime,
   jsonLd,
   headScript,
@@ -32,13 +35,12 @@ const {
   readingFont = false,
 } = Astro.props
 const t = translator(locale)
-const htmlLang = (l: Locale) => (l === 'pt' ? 'pt-BR' : 'en-US')
 const ogLocale = (l: Locale) => (l === 'pt' ? 'pt_BR' : 'en_US')
 const url = path === undefined ? undefined : `${SITE_URL}/${locale}/${path}`
 const image = `${SITE_URL}${ownImage ?? '/og.png'}`
 ---
 
-<html lang={htmlLang(locale)}>
+<html lang={LANGUAGE_TAG[locale]}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -48,11 +50,7 @@ const image = `${SITE_URL}${ownImage ?? '/og.png'}`
     <title>{title}</title>
     <meta name="description" content={description} />
     {url && <link rel="canonical" href={url} />}
-    {
-      path !== undefined &&
-        LOCALES.map((l) => <link rel="alternate" hreflang={htmlLang(l)} href={`${SITE_URL}/${l}/${path}`} />)
-    }
-    {path !== undefined && <link rel="alternate" hreflang="x-default" href={`${SITE_URL}/en/${path}`} />}
+    {path !== undefined && alternateLinks(path, locales).map((l) => <link rel="alternate" hreflang={l.hreflang} href={l.href} />)}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap.xml" />
     <Font cssVariable="--font-jetbrains-mono" preload />
@@ -65,7 +63,7 @@ const image = `${SITE_URL}${ownImage ?? '/og.png'}`
     <meta property="og:description" content={description} />
     {url && <meta property="og:url" content={url} />}
     <meta property="og:locale" content={ogLocale(locale)} />
-    {LOCALES.filter((l) => l !== locale).map((l) => <meta property="og:locale:alternate" content={ogLocale(l)} />)}
+    {locales.filter((l) => l !== locale).map((l) => <meta property="og:locale:alternate" content={ogLocale(l)} />)}
     <meta property="og:image" content={image} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />

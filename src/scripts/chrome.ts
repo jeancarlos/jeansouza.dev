@@ -93,7 +93,7 @@ function bindLocaleSwitch(link: HTMLAnchorElement) {
   link.addEventListener('click', () => {
     const next = link.hreflang as Locale
     persist(LOCALE_STORAGE_KEY, next)
-    link.href = localePath(location.pathname, next)
+    if (location.pathname !== link.dataset.page) link.href = localePath(location.pathname, next)
   })
 }
 

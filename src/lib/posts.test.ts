@@ -54,4 +54,11 @@ describe('postsFor', () => {
     }
     expect(postsFor([withHeadings], 'pt')[0].toc.map((h) => h.slug)).toEqual(['a', 'b'])
   })
+
+  it('lists the languages each post was written in', () => {
+    expect(postsFor(entries, 'pt').map((p) => [p.slug, p.locales])).toEqual([
+      ['newer', ['pt', 'en']],
+      ['older', ['pt']],
+    ])
+  })
 })

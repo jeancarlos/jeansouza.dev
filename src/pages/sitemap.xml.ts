@@ -1,32 +1,33 @@
 import type { APIRoute } from 'astro'
 import { LOCALES } from '../i18n/t'
 import { loadPosts } from '../lib/loadPosts'
-import { SITE_URL, pagePath, type Page } from '../lib/pages'
+import type { Post } from '../lib/posts'
+import {
+  SITE_URL,
+  alternateLinks,
+  pageLocales,
+  pagePath,
+  pageUrl,
+  sitePages,
+  type Page,
+} from '../lib/pages'
 
-const hreflang = { pt: 'pt-BR', en: 'en-US' } as const
+function lastChanged(page: Page, posts: Post[]): string | undefined {
+  if (page.kind === 'post') return page.post.date
+  return page.kind === 'blog' ? posts[0]?.date : undefined
+}
 
 export const GET: APIRoute = async () => {
-  const posts = await loadPosts('pt')
-  const pages: { page: Page; lastmod?: string }[] = [
-    { page: { kind: 'home' } },
-    { page: { kind: 'blog' }, lastmod: posts[0]?.date },
-    { page: { kind: 'resume' } },
-    { page: { kind: 'more' } },
-    ...posts.map((post) => ({ page: { kind: 'post' as const, post }, lastmod: post.date })),
-  ]
-
-  const urls = pages.flatMap(({ page, lastmod }) => {
-    const path = pagePath(page)
-    const alternates =
-      LOCALES.map(
-        (l) =>
-          `<xhtml:link rel="alternate" hreflang="${hreflang[l]}" href="${SITE_URL}/${l}/${path}"/>`
-      ).join('') +
-      `<xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}/en/${path}"/>`
-    return LOCALES.map(
-      (locale) =>
-        `<url><loc>${SITE_URL}/${locale}/${path}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ''}${alternates}</url>`
-    )
+  const byLocale = await Promise.all(LOCALES.map(loadPosts))
+  const urls = LOCALES.flatMap((locale, i) => {
+    const posts = byLocale[i] ?? []
+    return sitePages(posts).map((page) => {
+      const lastmod = lastChanged(page, posts)
+      const links = alternateLinks(pagePath(page), pageLocales(page))
+        .map((l) => `<xhtml:link rel="alternate" hreflang="${l.hreflang}" href="${l.href}"/>`)
+        .join('')
+      return `<url><loc>${SITE_URL}${pageUrl(page, locale)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ''}${links}</url>`
+    })
   })
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>

@@ -1,6 +1,6 @@
 import { useState, useSyncExternalStore } from 'react'
 import { useLocale } from '../../i18n/react'
-import { translator, type Locale } from '@/i18n/t'
+import { LANGUAGE_TAG, translator, type Locale } from '@/i18n/t'
 import { LOCALE_STORAGE_KEY, preferredLocale } from '@/lib/locale-storage'
 
 function storedLocale(): string | null {
@@ -44,7 +44,7 @@ export function LanguageNotice({ available, hrefFor }: Props) {
   return (
     <div className="sticky top-0 z-10 h-0">
       <div
-        lang={suggested === 'pt' ? 'pt-BR' : 'en-US'}
+        lang={LANGUAGE_TAG[suggested]}
         className="border-surface bg-crust/95 text-text font-reading absolute inset-x-3 top-3 flex items-center gap-3 rounded-xl border p-3 text-sm shadow-lg"
       >
         <p className="min-w-0 flex-1">{t('languageNotice.message')}</p>

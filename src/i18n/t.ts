@@ -4,6 +4,8 @@ import en from '../../content/i18n/en.json'
 export const LOCALES = ['pt', 'en'] as const
 export type Locale = (typeof LOCALES)[number]
 
+export const LANGUAGE_TAG: Record<Locale, string> = { pt: 'pt-BR', en: 'en-US' }
+
 const CATALOGS: Record<Locale, unknown> = { pt, en }
 
 /**

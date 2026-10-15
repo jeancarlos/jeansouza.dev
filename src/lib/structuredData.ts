@@ -1,4 +1,4 @@
-import type { Locale } from '@/i18n/t'
+import { LANGUAGE_TAG, type Locale } from '@/i18n/t'
 import { profile } from '@/content/resume/profile'
 import { SITE_URL, pageMeta, pageUrl, type Page } from './pages'
 
@@ -21,7 +21,7 @@ const person = (locale: Locale) => ({
 /** schema.org JSON-LD for the pages that have a matching type; undefined elsewhere. */
 export function structuredData(page: Page, locale: Locale): object | undefined {
   const url = `${SITE_URL}${pageUrl(page, locale)}`
-  const inLanguage = locale === 'pt' ? 'pt-BR' : 'en-US'
+  const inLanguage = LANGUAGE_TAG[locale]
   const context = 'https://schema.org'
   if (page.kind === 'home') {
     return {
