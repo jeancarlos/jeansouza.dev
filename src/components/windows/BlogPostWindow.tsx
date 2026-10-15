@@ -12,7 +12,7 @@ export function BlogPostWindow({ post }: { post: Post }) {
         sizes="(min-width: 860px) 820px, 100vw"
         {...COVER_SIZE}
         alt={post.cover.alt}
-        fetchPriority="high"
+        loading="lazy"
         className="block h-auto w-full"
       />
       <div className="mx-auto max-w-prose p-6">
