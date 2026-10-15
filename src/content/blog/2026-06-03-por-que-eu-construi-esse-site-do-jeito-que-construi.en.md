@@ -10,7 +10,7 @@ Until October 15, 2026, this site scored 100 for accessibility in Lighthouse, pa
 
 It wasn't the first time the score and the site disagreed. On the previous version, built with Next.js, Lighthouse gave between 91 and 100 while axe found 30 defects, four of them scrollable areas no keyboard could reach. I fixed all 30 and the score moved by at most 1 point on any page. I found the two window problems the old-fashioned way, by pressing Tab and reading the code. The fix is in commit [`72de90b`](https://github.com/jeancarlos/jeansouza.dev/commit/72de90b), with tests that break if either problem comes back.
 
-![Two bar charts. Left: the mean Lighthouse accessibility score on mobile across 11 pages, 96.7 with Next 16 and 97.1 with Astro 7. Right: axe landmark and unreachable-scroll violations, 30 before and 0 after.](/img/blog/accessibility-score-vs-axe.svg)
+![Two bar charts. Left: the mean Lighthouse accessibility score on mobile across 11 pages, 96.7 with Next 16 and 97.1 with Astro 7. Right: axe landmark and unreachable-scroll violations, 30 before and 0 after.](/img/blog/accessibility-score-vs-axe.svg?v=2)
 
 ## Why another site
 
@@ -26,7 +26,7 @@ React 19 shows up in a single island, the window desktop. The starfield and the 
 
 The Next to Astro migration was measured with the same script, the same Chrome and the same machine, median of three runs per page. JavaScript transferred across the 11 pages dropped from 10,966 KB to 5,464 KB, half ([full comparison](https://github.com/jeancarlos/jeansouza.dev/blob/4981616/docs/migration/comparison.md)). Since then, with a single island and deferred hydration, the same script measures 246 KB of JavaScript on every page, uncompressed: those are the green dots in the chart. Compressed, the way the browser receives it, the Portuguese home page transfers 95 KB. CI now requires a Lighthouse performance score of 100 on seven pages, taking the best of three runs.
 
-![Two three-point dumbbell charts, one row per page, for the site's 11 pages. Left: uncompressed mobile JavaScript transferred dropped from about 1,025 KB with Next 16 to about 492 KB at the Astro 7 migration and to 246 KB today, on every page; the home page went from 662 to 492 and then to 246 KB. Right: mobile Lighthouse performance rose from values between 61 and 77 to values between 79 and 81 at the migration, and sits between 93 and 100 today.](/img/blog/next-vs-astro-by-page.svg)
+![Two three-point dumbbell charts, one row per page, for the site's 11 pages. Left: uncompressed mobile JavaScript transferred dropped from about 1,025 KB with Next 16 to about 492 KB at the Astro 7 migration and to 246 KB today, on every page; the home page went from 662 to 492 and then to 246 KB. Right: mobile Lighthouse performance rose from values between 61 and 77 to values between 79 and 81 at the migration, and sits between 93 and 100 today.](/img/blog/next-vs-astro-by-page.svg?v=2)
 
 The dependencies that were supposed to leave during the migration left while I was writing this post. First `react-markdown`: with the longer text, re-parsing the Markdown in the browser during hydration left this page's performance score at 99 on its best run, and CI requires 100. The post's HTML now comes ready from the build, and blocking time dropped from up to 260 ms to 20. Then `framer-motion` and `focus-trap-react`: dragging a window became native pointer events, the animations became CSS, and the desktop's JavaScript dropped from 205 KB to 53 KB before compression.
 
