@@ -21,7 +21,7 @@ export function Downloads({ assets, locale }: Props) {
             key={asset.url}
             href={asset.url}
             download
-            className="group from-brand-from to-brand-to relative inline-block rounded-full bg-gradient-to-r p-[2px] shadow-sm transition-all duration-150 ease-out hover:shadow-md hover:brightness-110 active:scale-90"
+            className="group from-bar-from to-brand-to relative inline-block rounded-full bg-gradient-to-r p-[2px] shadow-sm transition-all duration-150 ease-out hover:shadow-md hover:brightness-110 active:scale-90"
           >
             <span className="bg-brand-bg text-brand-text block rounded-full px-3 py-1.5 text-sm transition-colors duration-150 group-hover:bg-transparent group-hover:text-white">
               ↓ {t(asset.format)}

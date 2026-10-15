@@ -32,9 +32,9 @@ export function getActiveStyle(
   }
 }
 
-const FRAME = 'rounded-2xl bg-gradient-to-r from-brand-from to-brand-to p-[2px] shadow-2xl'
+const FRAME = 'rounded-2xl bg-gradient-to-r from-bar-from to-brand-to p-[2px] shadow-2xl'
 const HOME_FRAME =
-  '[--home-h:360px] md:[--home-h:256px] md:rounded-2xl md:bg-gradient-to-r md:from-brand-from md:to-brand-to md:p-[2px] md:shadow-2xl'
+  '[--home-h:360px] md:[--home-h:256px] md:rounded-2xl md:bg-gradient-to-r md:from-bar-from md:to-brand-to md:p-[2px] md:shadow-2xl'
 const MOBILE_FULLSCREEN =
   'max-md:!left-0 max-md:!top-0 max-md:!h-dvh max-md:!max-h-none max-md:!w-screen'
 

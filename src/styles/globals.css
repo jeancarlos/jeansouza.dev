@@ -17,6 +17,8 @@
   /* Brand accent — replaces pastel mauve/green */
   --color-brand-from: #e84545;
   --color-brand-to: #b33a73;
+  --color-bar-from: #d53f3f;
+  --text-shadow-bar: 0 0 2px rgb(110 20 40 / 0.55);
   --color-brand-text: #f2b8d4;
   --color-brand-muted: #dc5f9b;
   --color-brand-bg: #3e3353;

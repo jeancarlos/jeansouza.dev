@@ -14,9 +14,9 @@ interface WindowHeaderProps {
 const PLACEMENTS: Placement[] = ['topLeft', 'center', 'topRight']
 
 const HEADER_CLASS_MOBILE =
-  'flex shrink-0 items-center gap-2 px-3 py-2.5 select-none bg-transparent md:hidden'
+  'flex shrink-0 items-center gap-2 px-3 py-2.5 select-none bg-transparent text-shadow-bar md:hidden'
 const HEADER_CLASS_DESKTOP =
-  'hidden shrink-0 items-center px-2 py-1.5 select-none bg-gradient-to-r from-brand-from to-brand-to md:flex'
+  'hidden shrink-0 items-center px-2 py-1.5 select-none bg-gradient-to-r from-bar-from to-brand-to text-shadow-bar md:flex'
 
 export function WindowHeader({ id, title, isHome, isExpanded }: WindowHeaderProps) {
   const { closeWindow, minimizeWindow, expandWindow } = useWindowManager()
@@ -54,7 +54,7 @@ export function WindowHeader({ id, title, isHome, isExpanded }: WindowHeaderProp
           >
             {t('back')}
           </button>
-          <span className="ml-3 min-w-0 truncate font-mono text-xs text-white/80">{title}</span>
+          <span className="ml-3 min-w-0 truncate font-mono text-xs text-white">{title}</span>
         </div>
       )}
       {/* Desktop header: traffic dots + title — hidden below md */}
@@ -91,12 +91,12 @@ export function WindowHeader({ id, title, isHome, isExpanded }: WindowHeaderProp
             onClick={move.onClick}
             onKeyDown={move.onKeyDown}
             onBlur={move.onBlur}
-            className={`ml-2 min-w-0 cursor-[inherit] truncate rounded font-mono text-xs text-white/80 ${move.active ? 'ring-2 ring-white' : ''}`}
+            className={`ml-2 min-w-0 cursor-[inherit] truncate rounded font-mono text-xs text-white ${move.active ? 'ring-2 ring-white' : ''}`}
           >
             {title}
           </button>
         ) : (
-          <span className="ml-2 min-w-0 truncate font-mono text-xs text-white/80">{title}</span>
+          <span className="ml-2 min-w-0 truncate font-mono text-xs text-white">{title}</span>
         )}
         {movable && (
           <button
@@ -120,7 +120,7 @@ export function WindowHeader({ id, title, isHome, isExpanded }: WindowHeaderProp
           id={panelId}
           role="group"
           aria-label={t('place')}
-          className="from-brand-from to-brand-to hidden shrink-0 flex-wrap gap-1 bg-gradient-to-r px-2 pb-1.5 text-white md:flex"
+          className="from-bar-from to-brand-to text-shadow-bar hidden shrink-0 flex-wrap gap-1 bg-gradient-to-r px-2 pb-1.5 text-white md:flex"
         >
           {PLACEMENTS.map((where) => (
             <button
