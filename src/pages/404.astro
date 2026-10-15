@@ -1,18 +1,47 @@
 ---
 import Shell from '../layouts/Shell.astro'
+import Chrome from '../components/Chrome.astro'
 import { translator } from '../i18n/t'
 
 const t = translator('pt')
+const dots = ['--color-traffic-close', '--color-traffic-minimize', '--color-traffic-expand']
 ---
 
 <Shell locale="pt" title={t('meta.notFound.title')} description={t('meta.notFound.description')}>
-  <div class="grid min-h-dvh place-content-center gap-4 p-6 text-center font-mono">
-    <h1 class="font-display text-brand-text text-3xl font-bold">404</h1>
-    <p class="text-brand-text">{t('meta.notFound.description')}</p>
-    <p class="text-brand-muted">
-      <a class="underline" href="/pt/">Voltar para a home</a>
-      <span aria-hidden="true"> · </span>
-      <a class="underline" href="/en/" lang="en">Back to home</a>
-    </p>
+  <Chrome slot="topbar" locale="pt" path="" />
+  <div class="grid min-h-dvh place-items-center p-4">
+    <section
+      aria-labelledby="not-found"
+      class="from-brand-from to-brand-to w-full max-w-[640px] rounded-2xl bg-gradient-to-r p-[2px] shadow-2xl"
+    >
+      <div class="overflow-hidden rounded-[14px]">
+        <div
+          class="from-brand-from to-brand-to flex items-center bg-gradient-to-r px-2 py-1.5 select-none"
+          aria-hidden="true"
+        >
+          {
+            dots.map((color) => (
+              <span class="inline-flex h-6 w-6 items-center justify-center">
+                <span class="h-3.5 w-3.5 rounded-full ring-1 ring-white/40" style={`background-color: var(${color})`} />
+              </span>
+            ))
+          }
+          <span class="ml-2 font-mono text-xs text-white/80">~/404</span>
+        </div>
+        <div class="bg-crust text-brand-text space-y-1 p-6 font-mono text-sm wrap-anywhere">
+          <h1 id="not-found" class="text-brand-muted mb-3 text-sm font-normal"># {t('meta.notFound.description')}</h1>
+          <p>$ cd <span data-missing-path>???</span></p>
+          <p>bash: cd: <span data-missing-path>???</span>: No such file or directory</p>
+          <p>
+            $ cd <a class="text-brand-muted underline" href="/pt/">~/pt</a>
+            <span aria-hidden="true"> · </span>
+            <a class="text-brand-muted underline" href="/en/" lang="en">~/en</a>
+          </p>
+        </div>
+      </div>
+    </section>
   </div>
+  <script is:inline>
+    document.querySelectorAll('[data-missing-path]').forEach((el) => (el.textContent = location.pathname))
+  </script>
 </Shell>

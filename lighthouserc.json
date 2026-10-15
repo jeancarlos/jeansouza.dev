@@ -8,7 +8,8 @@
         "/en/blog/",
         "/pt/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/",
         "/pt/resume/",
-        "/en/more/"
+        "/en/more/",
+        "/404.html"
       ],
       "numberOfRuns": 3
     },
