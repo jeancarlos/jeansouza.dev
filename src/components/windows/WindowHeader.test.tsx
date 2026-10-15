@@ -16,10 +16,6 @@ vi.mock('./WindowManager', () => ({
   }),
 }))
 
-const dragControls = { start: vi.fn() } as unknown as Parameters<
-  typeof WindowHeader
->[0]['dragControls']
-
 function renderHeader(props: { isHome?: boolean; isExpanded?: boolean } = {}) {
   return render(
     <>
@@ -29,7 +25,6 @@ function renderHeader(props: { isHome?: boolean; isExpanded?: boolean } = {}) {
           title="~/blog"
           isHome={props.isHome ?? false}
           isExpanded={props.isExpanded ?? false}
-          dragControls={dragControls}
         />
       </div>
       <button type="button">after</button>

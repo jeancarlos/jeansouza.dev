@@ -18,21 +18,6 @@ vi.mock('@/i18n/react', () => ({
   },
 }))
 
-vi.mock('framer-motion', () => ({
-  motion: {
-    div: ({ children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-      <div {...props}>{children}</div>
-    ),
-    span: ({ children, ...props }: React.HTMLAttributes<HTMLSpanElement>) => (
-      <span {...props}>{children}</span>
-    ),
-  },
-  AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-  steps: () => undefined,
-  useDragControls: () => ({ start: vi.fn() }),
-  useMotionValue: () => ({ jump: vi.fn() }),
-}))
-
 function renderHero(isPageHeading = true) {
   return render(
     <WindowManagerProvider>

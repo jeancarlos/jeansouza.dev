@@ -1,6 +1,4 @@
-import { type ReactNode, useState } from 'react'
-import { useDragControls } from 'framer-motion'
-import { FocusTrap } from 'focus-trap-react'
+import { type ReactNode, useLayoutEffect, useRef, useState } from 'react'
 import type { Length } from '@/lib/windowUtils'
 import { type ButtonOrigin } from './WindowManager'
 import { useIsMobile } from '@/lib/useIsMobile'
@@ -43,57 +41,59 @@ export function TerminalWindow({
   origin,
 }: Props) {
   const [isResizing, setIsResizing] = useState(false)
-  const dragControls = useDragControls()
   const isMobile = useIsMobile()
   const isHome = id === 'home'
+  const body = useRef<HTMLDivElement>(null)
+  const [openedFrom] = useState(origin)
+
+  useLayoutEffect(() => {
+    if (!openedFrom) return
+    const opener = document.activeElement
+    const win = body.current?.closest('[role=dialog]')
+    body.current?.focus({ preventScroll: true })
+    return () => {
+      const owns = !!win && win.contains(document.activeElement)
+      if (owns && opener instanceof HTMLElement && opener.isConnected) {
+        opener.focus({ preventScroll: true })
+      }
+    }
+  }, [openedFrom])
 
   return (
-    <FocusTrap
-      active={!isMobile && !isMinimized}
-      focusTrapOptions={{
-        allowOutsideClick: true,
-        clickOutsideDeactivates: false,
-        escapeDeactivates: false,
-        returnFocusOnDeactivate: true,
-      }}
+    <WindowChrome
+      id={id}
+      title={title}
+      isHome={isHome}
+      isMobile={isMobile}
+      isFocused={isFocused}
+      isResizing={isResizing}
+      zIndex={zIndex}
+      maxHeight={maxHeight}
+      origin={origin}
+      activeStyle={getActiveStyle(isExpanded, isMinimized, size, position)}
+      outerClassName={getOuterClassName(isHome)}
+      innerRounded={getInnerRounded(isHome)}
+      draggable={!isExpanded}
     >
-      <WindowChrome
-        id={id}
-        title={title}
-        isHome={isHome}
-        isMobile={isMobile}
-        isFocused={isFocused}
-        isResizing={isResizing}
-        zIndex={zIndex}
-        maxHeight={maxHeight}
-        origin={origin}
-        position={position}
-        activeStyle={getActiveStyle(isExpanded, isMinimized, size, position)}
-        outerClassName={getOuterClassName(isHome)}
-        innerRounded={getInnerRounded(isHome)}
-        draggable={!isExpanded}
-        dragControls={dragControls}
-      >
-        <WindowHeader
+      <WindowHeader id={id} title={title} isHome={isHome} isExpanded={isExpanded} />
+      {!isMinimized && (
+        <div
+          ref={body}
+          className={getBodyClassName(isHome)}
+          tabIndex={0}
+          role="region"
+          aria-label={title}
+        >
+          {children}
+        </div>
+      )}
+      {!isHome && !isExpanded && !isMinimized && (
+        <ResizeHandles
           id={id}
-          title={title}
-          isHome={isHome}
-          isExpanded={isExpanded}
-          dragControls={dragControls}
+          onResizeStart={() => setIsResizing(true)}
+          onResizeEnd={() => setIsResizing(false)}
         />
-        {!isMinimized && (
-          <div className={getBodyClassName(isHome)} tabIndex={0} role="region" aria-label={title}>
-            {children}
-          </div>
-        )}
-        {!isHome && !isExpanded && !isMinimized && (
-          <ResizeHandles
-            id={id}
-            onResizeStart={() => setIsResizing(true)}
-            onResizeEnd={() => setIsResizing(false)}
-          />
-        )}
-      </WindowChrome>
-    </FocusTrap>
+      )}
+    </WindowChrome>
   )
 }

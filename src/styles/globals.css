@@ -245,3 +245,30 @@
     animation: none;
   }
 }
+
+.eyes-in {
+  animation: fade-in 0.6s 1.5s backwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.cursor-blink {
+  animation: blink 1s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eyes-in,
+  .cursor-blink {
+    animation: none;
+  }
+}

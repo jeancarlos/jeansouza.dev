@@ -2,22 +2,6 @@ import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { TerminalWindow } from './TerminalWindow'
 
-vi.mock('framer-motion', () => ({
-  motion: {
-    div: ({
-      children,
-      style,
-      className,
-    }: React.HTMLAttributes<HTMLDivElement> & { style?: React.CSSProperties }) => (
-      <div style={style} className={className}>
-        {children}
-      </div>
-    ),
-  },
-  useDragControls: () => ({ start: vi.fn() }),
-  useMotionValue: () => ({ jump: vi.fn() }),
-}))
-
 vi.mock('./WindowManager', () => ({
   useWindowManager: () => ({
     closeWindow: vi.fn(),
@@ -97,5 +81,52 @@ describe('TerminalWindow', () => {
     for (const dot of container.querySelectorAll('[data-traffic-dot]')) {
       expect(dot).toHaveAttribute('disabled')
     }
+  })
+})
+
+describe('TerminalWindow focus', () => {
+  it('moves focus into a window opened from a button and gives it back on close', () => {
+    const opener = document.createElement('button')
+    document.body.append(opener)
+    opener.focus()
+    const { unmount } = render(
+      <TerminalWindow {...baseProps} origin={{ x: 0, y: 0, width: 80, height: 30 }}>
+        <p>content</p>
+      </TerminalWindow>
+    )
+    expect(screen.getByRole('region', { name: '~/test' })).toHaveFocus()
+    unmount()
+    expect(opener).toHaveFocus()
+    opener.remove()
+  })
+
+  it('does not steal focus back when the reader already moved it elsewhere', () => {
+    const opener = document.createElement('button')
+    const elsewhere = document.createElement('button')
+    document.body.append(opener, elsewhere)
+    opener.focus()
+    const { unmount } = render(
+      <TerminalWindow {...baseProps} origin={{ x: 0, y: 0, width: 80, height: 30 }}>
+        <p>content</p>
+      </TerminalWindow>
+    )
+    elsewhere.focus()
+    unmount()
+    expect(elsewhere).toHaveFocus()
+    opener.remove()
+    elsewhere.remove()
+  })
+
+  it('leaves focus alone for a window the server rendered', () => {
+    const opener = document.createElement('button')
+    document.body.append(opener)
+    opener.focus()
+    render(
+      <TerminalWindow {...baseProps}>
+        <p>content</p>
+      </TerminalWindow>
+    )
+    expect(opener).toHaveFocus()
+    opener.remove()
   })
 })

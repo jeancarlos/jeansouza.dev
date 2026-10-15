@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { useReveal } from '@/lib/useReveal'
 import { joinClassNames } from '@/lib/utils'
 import { getBulletsForEntry } from '@/content/resume/selection'
 import type { TimelineEntry } from '@/content/resume/timeline'
@@ -21,10 +21,9 @@ export function TimelineItem({
   connectorBelow,
   isLast,
 }: Props) {
-  const reduce = useReducedMotion()
+  const [ref, hidden] = useReveal<HTMLElement>()
   const bullets = getBulletsForEntry(entry)
-  const initialTranslation = side === 'left' ? -40 : 40
-  const translateX = reduce ? 0 : initialTranslation
+  const offset = side === 'left' ? '-translate-x-10' : 'translate-x-10'
 
   return (
     <li className="grid grid-cols-[2rem_1fr] @4xl:grid-cols-[1fr_2rem_1fr]">
@@ -46,18 +45,13 @@ export function TimelineItem({
         >
           {entry.year[locale]}
         </time>
-        <motion.article
+        <article
+          ref={ref}
           data-side={side}
-          className="border-surface w-full min-w-0 rounded-2xl border bg-[var(--button-inner-bg)] p-5 transition-colors"
-          initial={{ opacity: 0, x: translateX }}
-          whileInView={{ opacity: 1, x: 0 }}
-          // Inset only the top edge. A uniform -80px also shrinks the bottom,
-          // so a card entering from below stays invisible until it is 80px
-          // clear of the fold — which left the first entry blank until the
-          // reader scrolled. Next happened to hide this via a hydration
-          // reflow; the bug was always in the margin.
-          viewport={{ once: true, margin: '-80px 0px 0px 0px' }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
+          className={joinClassNames(
+            'border-surface w-full min-w-0 rounded-2xl border bg-[var(--button-inner-bg)] p-5 transition-[color,background-color,border-color,opacity,translate] duration-400 ease-out motion-reduce:transition-none',
+            hidden && `opacity-0 ${offset}`
+          )}
         >
           <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
             <h3 className="font-display text-text min-w-0 font-bold [overflow-wrap:break-word] break-words hyphens-auto">
@@ -75,7 +69,7 @@ export function TimelineItem({
               <li key={i}>{b[locale]}</li>
             ))}
           </ul>
-        </motion.article>
+        </article>
       </div>
     </li>
   )

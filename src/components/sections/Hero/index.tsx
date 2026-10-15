@@ -1,5 +1,4 @@
 import { useTranslations } from '../../../i18n/react'
-import { motion, steps } from 'framer-motion'
 import type { Locale } from '@/i18n/t'
 import type { Post } from '@/lib/posts'
 import { pageUrl } from '@/lib/pages'
@@ -36,15 +35,12 @@ export function Hero({ locale, posts, isFocused, isPageHeading }: Props) {
 
   return (
     <>
-      <motion.span
+      <span
         aria-hidden="true"
-        className="pointer-events-none fixed top-1/2 left-1/2 z-[5] hidden -translate-x-1/2 -translate-y-1/2 text-[12px] select-none md:block"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isFocused ? 1 : 0 }}
-        transition={isFocused ? { delay: 1.5, duration: 0.6 } : { duration: 0.2 }}
+        className={`eyes-in pointer-events-none fixed top-1/2 left-1/2 z-[5] hidden -translate-x-1/2 -translate-y-1/2 text-[12px] transition-opacity select-none motion-reduce:transition-none md:block ${isFocused ? 'opacity-100 delay-1500 duration-600' : 'opacity-0 duration-200'}`}
       >
         👁️👄👁️
-      </motion.span>
+      </span>
       <TerminalWindow
         id="home"
         title="~ jeansouza.dev"
@@ -63,14 +59,9 @@ export function Hero({ locale, posts, isFocused, isPageHeading }: Props) {
               text={t('prompt')}
               className="font-display text-brand-text text-2xl font-bold"
             />
-            <motion.span
-              className="text-brand-from"
-              animate={{ opacity: [1, 0, 1] }}
-              transition={{ duration: 1, repeat: Infinity, ease: steps(2, 'start') }}
-              aria-hidden="true"
-            >
+            <span className="cursor-blink text-brand-from" aria-hidden="true">
               _
-            </motion.span>
+            </span>
           </Heading>
           <p className="text-brand-muted pl-5 text-sm">
             <Typewriter text={t('role')} delay={0.8} />

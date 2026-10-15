@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { AnimatePresence } from 'framer-motion'
 import type { Locale } from '@/i18n/t'
 import type { Post } from '@/lib/posts'
 import { Hero } from '@/components/sections/Hero'
@@ -28,25 +27,23 @@ export function HomeClient({ locale, posts, isHomePage }: HomeClientProps) {
   return (
     <>
       <Hero locale={locale} posts={posts} isFocused={!top} isPageHeading={isHomePage} />
-      <AnimatePresence>
-        {windows.map((win) => (
-          <TerminalWindow
-            key={win.id}
-            id={win.id}
-            title={win.title}
-            position={win.position}
-            size={win.size}
-            maxHeight={win.maxHeight}
-            isExpanded={win.isExpanded}
-            isMinimized={win.isMinimized}
-            zIndex={win.zIndex}
-            isFocused={win === top}
-            origin={win.origin}
-          >
-            {win.content}
-          </TerminalWindow>
-        ))}
-      </AnimatePresence>
+      {windows.map((win) => (
+        <TerminalWindow
+          key={win.id}
+          id={win.id}
+          title={win.title}
+          position={win.position}
+          size={win.size}
+          maxHeight={win.maxHeight}
+          isExpanded={win.isExpanded}
+          isMinimized={win.isMinimized}
+          zIndex={win.zIndex}
+          isFocused={win === top}
+          origin={win.origin}
+        >
+          {win.content}
+        </TerminalWindow>
+      ))}
     </>
   )
 }

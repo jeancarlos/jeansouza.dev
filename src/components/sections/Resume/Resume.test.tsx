@@ -1,25 +1,9 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { Resume } from './index'
 import type { TimelineEntry } from '@/content/resume/timeline'
 import type { Profile } from '@/content/resume/profile'
 import type { EducationEntry } from '@/content/resume/education'
-
-vi.mock('framer-motion', () => ({
-  motion: {
-    li: ({ children, className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-      <li className={className} {...props}>
-        {children}
-      </li>
-    ),
-    article: ({ children, className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-      <article className={className} {...props}>
-        {children}
-      </article>
-    ),
-  },
-  useReducedMotion: () => false,
-}))
 
 const mockEntry: TimelineEntry = {
   id: 'e1',

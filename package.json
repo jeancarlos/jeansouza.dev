@@ -8,8 +8,6 @@
     "@astrojs/react": "^6.0.4",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.2.8",
-    "focus-trap-react": "^12.0.3",
-    "framer-motion": "^13.1.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
@@ -21,7 +19,8 @@
     "format:check": "prettier --check .",
     "test": "vitest run",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "axe": "node scripts/axe.mjs"
   },
   "browserslist": {
     "production": [
@@ -50,12 +49,14 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
     "@vitejs/plugin-react": "^6.0.2",
+    "axe-core": "^4.13.0",
     "eslint": "^9.39.5",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",
     "jsdom": "^30.0.1",
+    "playwright-core": "^1.60.0",
     "postcss": "^8.5.15",
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.8.0",

@@ -1,23 +1,7 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { TimelineItem } from './TimelineItem'
 import type { TimelineEntry } from '@/content/resume/timeline'
-
-vi.mock('framer-motion', () => ({
-  motion: {
-    li: ({ children, className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-      <li className={className} {...props}>
-        {children}
-      </li>
-    ),
-    article: ({ children, className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-      <article className={className} {...props}>
-        {children}
-      </article>
-    ),
-  },
-  useReducedMotion: () => false,
-}))
 
 const mockEntry: TimelineEntry = {
   id: 'test',
@@ -141,5 +125,23 @@ describe('TimelineItem', () => {
       />
     )
     expect(screen.getByText('selected PT')).toBeInTheDocument()
+  })
+})
+
+describe('TimelineItem without JavaScript', () => {
+  it('ships every card visible in the server HTML', async () => {
+    const { renderToString } = await import('react-dom/server')
+    const html = renderToString(
+      <TimelineItem
+        entry={mockEntry}
+        locale="pt"
+        side="left"
+        connectorAbove="solid"
+        connectorBelow="solid"
+        isLast={false}
+      />
+    )
+    expect(html).toContain('Dev PT')
+    expect(html).not.toMatch(/opacity-0|opacity:\s*0/)
   })
 })

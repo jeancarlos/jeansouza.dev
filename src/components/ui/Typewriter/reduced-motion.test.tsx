@@ -28,4 +28,11 @@ describe('Typewriter reduced motion', () => {
     expect(block).toMatch(/opacity:\s*1/)
     expect(block).toMatch(/animation:\s*none/)
   })
+
+  it('stops the hero eyes and the blinking cursor under reduced motion', () => {
+    const css = readFileSync('src/styles/globals.css', 'utf8')
+    const rule =
+      /@media \(prefers-reduced-motion: reduce\) \{\s*\.eyes-in,\s*\.cursor-blink \{\s*animation: none;/
+    expect(css).toMatch(rule)
+  })
 })

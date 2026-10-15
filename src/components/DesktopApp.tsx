@@ -1,5 +1,4 @@
 import { useCallback } from 'react'
-import { MotionConfig } from 'framer-motion'
 import type { Locale } from '@/i18n/t'
 import type { Post } from '@/lib/posts'
 import { pageFromPath, pageMeta, pageUrl } from '@/lib/pages'
@@ -24,16 +23,14 @@ export function DesktopApp({ locale, posts, pathname }: Props) {
 
   return (
     <LocaleProvider locale={locale}>
-      <MotionConfig reducedMotion="user">
-        <WindowManagerProvider
-          initialWindows={windowsForPage(page, locale, posts)}
-          windowsForPath={windowsForPath}
-          homeUrl={pageUrl({ kind: 'home' }, locale)}
-          homeTitle={pageMeta({ kind: 'home' }, locale).title}
-        >
-          <HomeClient locale={locale} posts={posts} isHomePage={page?.kind === 'home'} />
-        </WindowManagerProvider>
-      </MotionConfig>
+      <WindowManagerProvider
+        initialWindows={windowsForPage(page, locale, posts)}
+        windowsForPath={windowsForPath}
+        homeUrl={pageUrl({ kind: 'home' }, locale)}
+        homeTitle={pageMeta({ kind: 'home' }, locale).title}
+      >
+        <HomeClient locale={locale} posts={posts} isHomePage={page?.kind === 'home'} />
+      </WindowManagerProvider>
     </LocaleProvider>
   )
 }

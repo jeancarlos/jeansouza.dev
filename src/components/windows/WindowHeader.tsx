@@ -1,5 +1,4 @@
-import { useId, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react'
-import { type DragControls } from 'framer-motion'
+import { useId, useRef, useState, type KeyboardEvent } from 'react'
 import { useTranslations } from '../../i18n/react'
 import { useWindowManager } from './WindowManager'
 import { TrafficDot } from './TrafficDot'
@@ -10,7 +9,6 @@ interface WindowHeaderProps {
   title: string
   isHome: boolean
   isExpanded: boolean
-  dragControls: DragControls
 }
 
 const PLACEMENTS: Placement[] = ['topLeft', 'center', 'topRight']
@@ -20,7 +18,7 @@ const HEADER_CLASS_MOBILE =
 const HEADER_CLASS_DESKTOP =
   'hidden shrink-0 items-center px-2 py-1.5 select-none bg-gradient-to-r from-brand-from to-brand-to md:flex'
 
-export function WindowHeader({ id, title, isHome, isExpanded, dragControls }: WindowHeaderProps) {
+export function WindowHeader({ id, title, isHome, isExpanded }: WindowHeaderProps) {
   const { closeWindow, minimizeWindow, expandWindow } = useWindowManager()
   const t = useTranslations('window')
   const move = useKeyboardMove(id, {
@@ -44,13 +42,6 @@ export function WindowHeader({ id, title, isHome, isExpanded, dragControls }: Wi
     closePanel()
   }
 
-  const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
-    // dragControls.start bypasses the motion.div drag prop, so the expanded
-    // (fullscreen) state has to be gated here as well.
-    if (isExpanded) return
-    dragControls.start(e)
-  }
-
   return (
     <>
       {/* Mobile header: back button + title — hidden on md+, hidden for home window */}
@@ -68,8 +59,8 @@ export function WindowHeader({ id, title, isHome, isExpanded, dragControls }: Wi
       )}
       {/* Desktop header: traffic dots + title — hidden below md */}
       <div
-        onPointerDown={onPointerDown}
-        className={`${HEADER_CLASS_DESKTOP} ${isExpanded ? '' : 'cursor-grab active:cursor-grabbing'}`}
+        data-drag-handle
+        className={`${HEADER_CLASS_DESKTOP} ${isExpanded ? '' : 'cursor-grab touch-none active:cursor-grabbing'}`}
       >
         <TrafficDot
           label={t('close')}
@@ -114,7 +105,6 @@ export function WindowHeader({ id, title, isHome, isExpanded, dragControls }: Wi
             aria-label={t('place')}
             aria-expanded={placing}
             aria-controls={panelId}
-            onPointerDown={(e) => e.stopPropagation()}
             onClick={() => setPlacing((open) => !open)}
             className="ml-auto inline-flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded font-mono text-xs text-white/80 hover:text-white"
           >
