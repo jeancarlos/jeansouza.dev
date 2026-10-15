@@ -7,7 +7,7 @@ const thumb = { src: '/t.webp', srcSet: '/t.webp 176w' }
 
 const entry = (id: string, date: string): PostEntry => ({
   id,
-  body: `body of ${id}`,
+  rendered: { html: `<p>body of ${id}</p>` },
   data: { title: id, date: new Date(date), description: 'd', cover, thumb, ogImage: `/${id}.jpg` },
 })
 
@@ -33,7 +33,7 @@ describe('postsFor', () => {
     expect(postsFor(entries, 'en')[0]).toMatchObject({ cover, ogImage: '/newer.en.jpg' })
   })
 
-  it('carries the markdown body as content', () => {
-    expect(postsFor(entries, 'pt')[0].content).toBe('body of newer.pt')
+  it('carries the html Astro rendered at build time', () => {
+    expect(postsFor(entries, 'pt')[0].html).toBe('<p>body of newer.pt</p>')
   })
 })

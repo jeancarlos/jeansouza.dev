@@ -1,5 +1,3 @@
-import Markdown from 'react-markdown'
-import rehypeSanitize from 'rehype-sanitize'
 import { COVER_SIZE } from '@/lib/coverSize'
 import type { Post } from '@/lib/posts'
 
@@ -22,7 +20,7 @@ export function BlogPostWindow({ post }: { post: Post }) {
           <p className="text-brand-muted -mt-4 mb-4 font-mono text-xs">
             <time dateTime={post.date}>{post.date}</time>
           </p>
-          <Markdown rehypePlugins={[rehypeSanitize]}>{post.content}</Markdown>
+          <div dangerouslySetInnerHTML={{ __html: post.html }} />
         </article>
       </div>
     </div>

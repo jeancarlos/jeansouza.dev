@@ -9,7 +9,7 @@ const post = (slug: string) => ({
   title: slug,
   date: '2026-01-01',
   description: 'A post.',
-  content: '',
+  html: '',
   cover: { src: '/c.webp', srcSet: '/c.webp 820w', alt: 'A cover.' },
   thumb: { src: `/${slug}.webp`, srcSet: `/${slug}.webp 176w` },
   ogImage: '/og.jpg',

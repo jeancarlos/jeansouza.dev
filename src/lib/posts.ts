@@ -16,7 +16,7 @@ export interface Post {
   title: string
   date: string
   description: string
-  content: string
+  html: string
   cover: PostCover
   thumb: PostThumb
   ogImage: string
@@ -24,7 +24,7 @@ export interface Post {
 
 export interface PostEntry {
   id: string
-  body?: string
+  rendered?: { html: string }
   data: {
     title: string
     date: Date
@@ -48,7 +48,7 @@ export function postsFor(entries: PostEntry[], locale: Locale): Post[] {
       cover: e.data.cover,
       thumb: e.data.thumb,
       ogImage: e.data.ogImage,
-      content: e.body ?? '',
+      html: e.rendered?.html ?? '',
     }))
     .sort((a, b) => b.date.localeCompare(a.date))
 }

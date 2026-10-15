@@ -7,7 +7,7 @@ const post = {
   title: 'Hello',
   date: '2026-01-01',
   description: 'A post.',
-  content: 'Body.',
+  html: '<p>Body <em>text</em>.</p>',
   cover: { src: '/c.webp', srcSet: '/c.webp 820w', alt: 'A cover.' },
   thumb: { src: '/t.webp', srcSet: '/t.webp 176w' },
   ogImage: '/og-hello.jpg',
@@ -19,6 +19,11 @@ describe('BlogPostWindow', () => {
     const cover = screen.getByRole('img', { name: 'A cover.' })
     expect(cover).toHaveAttribute('srcset', '/c.webp 820w')
     expect(cover.closest('.max-w-prose')).toBeNull()
+  })
+
+  it('renders the html built from the markdown', () => {
+    render(<BlogPostWindow post={post} />)
+    expect(screen.getByRole('article').querySelector('em')).toHaveTextContent('text')
   })
 
   it('keeps the text in a column of readable width', () => {
