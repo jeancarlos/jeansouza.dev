@@ -1,53 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url>
-<loc>https://jeansouza.dev/pt/</loc>
-<lastmod>2026-10-15T00:53:16.554Z</lastmod>
-<changefreq>monthly</changefreq>
-</url>
-<url>
-<loc>https://jeansouza.dev/pt/blog/</loc>
-<lastmod>2026-10-15T00:53:16.554Z</lastmod>
-<changefreq>monthly</changefreq>
-</url>
-<url>
-<loc>https://jeansouza.dev/pt/more/</loc>
-<lastmod>2026-10-15T00:53:16.554Z</lastmod>
-<changefreq>monthly</changefreq>
-</url>
-<url>
-<loc>https://jeansouza.dev/pt/resume/</loc>
-<lastmod>2026-10-15T00:53:16.554Z</lastmod>
-<changefreq>monthly</changefreq>
-</url>
-<url>
-<loc>https://jeansouza.dev/pt/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/</loc>
-<lastmod>2026-10-15T00:53:16.554Z</lastmod>
-<changefreq>monthly</changefreq>
-</url>
-<url>
-<loc>https://jeansouza.dev/en/</loc>
-<lastmod>2026-10-15T00:53:16.554Z</lastmod>
-<changefreq>monthly</changefreq>
-</url>
-<url>
-<loc>https://jeansouza.dev/en/blog/</loc>
-<lastmod>2026-10-15T00:53:16.554Z</lastmod>
-<changefreq>monthly</changefreq>
-</url>
-<url>
-<loc>https://jeansouza.dev/en/more/</loc>
-<lastmod>2026-10-15T00:53:16.554Z</lastmod>
-<changefreq>monthly</changefreq>
-</url>
-<url>
-<loc>https://jeansouza.dev/en/resume/</loc>
-<lastmod>2026-10-15T00:53:16.554Z</lastmod>
-<changefreq>monthly</changefreq>
-</url>
-<url>
-<loc>https://jeansouza.dev/en/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/</loc>
-<lastmod>2026-10-15T00:53:16.554Z</lastmod>
-<changefreq>monthly</changefreq>
-</url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<url><loc>https://jeansouza.dev/pt/</loc><xhtml:link rel="alternate" hreflang="pt-BR" href="https://jeansouza.dev/pt/"/><xhtml:link rel="alternate" hreflang="en-US" href="https://jeansouza.dev/en/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://jeansouza.dev/en/"/></url>
+<url><loc>https://jeansouza.dev/en/</loc><xhtml:link rel="alternate" hreflang="pt-BR" href="https://jeansouza.dev/pt/"/><xhtml:link rel="alternate" hreflang="en-US" href="https://jeansouza.dev/en/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://jeansouza.dev/en/"/></url>
+<url><loc>https://jeansouza.dev/pt/blog/</loc><lastmod>2026-06-03</lastmod><xhtml:link rel="alternate" hreflang="pt-BR" href="https://jeansouza.dev/pt/blog/"/><xhtml:link rel="alternate" hreflang="en-US" href="https://jeansouza.dev/en/blog/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://jeansouza.dev/en/blog/"/></url>
+<url><loc>https://jeansouza.dev/en/blog/</loc><lastmod>2026-06-03</lastmod><xhtml:link rel="alternate" hreflang="pt-BR" href="https://jeansouza.dev/pt/blog/"/><xhtml:link rel="alternate" hreflang="en-US" href="https://jeansouza.dev/en/blog/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://jeansouza.dev/en/blog/"/></url>
+<url><loc>https://jeansouza.dev/pt/resume/</loc><xhtml:link rel="alternate" hreflang="pt-BR" href="https://jeansouza.dev/pt/resume/"/><xhtml:link rel="alternate" hreflang="en-US" href="https://jeansouza.dev/en/resume/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://jeansouza.dev/en/resume/"/></url>
+<url><loc>https://jeansouza.dev/en/resume/</loc><xhtml:link rel="alternate" hreflang="pt-BR" href="https://jeansouza.dev/pt/resume/"/><xhtml:link rel="alternate" hreflang="en-US" href="https://jeansouza.dev/en/resume/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://jeansouza.dev/en/resume/"/></url>
+<url><loc>https://jeansouza.dev/pt/more/</loc><xhtml:link rel="alternate" hreflang="pt-BR" href="https://jeansouza.dev/pt/more/"/><xhtml:link rel="alternate" hreflang="en-US" href="https://jeansouza.dev/en/more/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://jeansouza.dev/en/more/"/></url>
+<url><loc>https://jeansouza.dev/en/more/</loc><xhtml:link rel="alternate" hreflang="pt-BR" href="https://jeansouza.dev/pt/more/"/><xhtml:link rel="alternate" hreflang="en-US" href="https://jeansouza.dev/en/more/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://jeansouza.dev/en/more/"/></url>
+<url><loc>https://jeansouza.dev/pt/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/</loc><lastmod>2026-06-03</lastmod><xhtml:link rel="alternate" hreflang="pt-BR" href="https://jeansouza.dev/pt/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/"/><xhtml:link rel="alternate" hreflang="en-US" href="https://jeansouza.dev/en/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://jeansouza.dev/en/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/"/></url>
+<url><loc>https://jeansouza.dev/en/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/</loc><lastmod>2026-06-03</lastmod><xhtml:link rel="alternate" hreflang="pt-BR" href="https://jeansouza.dev/pt/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/"/><xhtml:link rel="alternate" hreflang="en-US" href="https://jeansouza.dev/en/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://jeansouza.dev/en/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/"/></url>
 </urlset>
