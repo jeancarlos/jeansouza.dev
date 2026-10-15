@@ -67,9 +67,33 @@ describe('BlogPostWindow', () => {
         }}
       />
     )
-    const toc = screen.getByRole('navigation', { name: 'Tópicos' })
-    const links = toc.querySelectorAll('a')
-    expect([...links].map((a) => a.getAttribute('href'))).toEqual(['#one', '#two'])
+    const tocs = screen.getAllByRole('navigation', { name: 'Tópicos' })
+    expect(tocs).toHaveLength(2)
+    for (const toc of tocs) {
+      const links = toc.querySelectorAll('a')
+      expect([...links].map((a) => a.getAttribute('href'))).toEqual(['#one', '#two'])
+    }
+  })
+
+  it('pins the table of contents beside the post on wide windows and folds it on narrow ones', () => {
+    render(
+      <BlogPostWindow
+        post={{
+          ...post,
+          toc: [
+            { depth: 2, slug: 'one', text: 'One' },
+            { depth: 2, slug: 'two', text: 'Two' },
+          ],
+        }}
+      />
+    )
+    const [sidebar, folded] = screen.getAllByRole('navigation', { name: 'Tópicos' })
+    expect(sidebar).toHaveClass('sticky', 'hidden', '@min-[900px]:block')
+    expect(sidebar.closest('article')).toBeNull()
+    const details = folded.closest('details')
+    expect(details).toHaveClass('@min-[900px]:hidden')
+    expect(details).not.toHaveAttribute('open')
+    expect(details?.querySelector('summary')).toHaveTextContent('Tópicos')
   })
 
   it('skips the table of contents for a post with one heading or none', () => {
