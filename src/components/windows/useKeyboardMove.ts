@@ -53,6 +53,17 @@ export function step(box: Box, dx: number, dy: number, big: boolean, resize: boo
   return { ...box, ...pos }
 }
 
+export type Placement = 'topLeft' | 'center' | 'topRight'
+
+export function placementOf(box: Box, where: Placement): { x: number; y: number } {
+  const { vw, vh } = getViewport()
+  const x = { topLeft: WINDOW_SAFE, center: (vw - box.w) / 2, topRight: vw - box.w - WINDOW_SAFE }[
+    where
+  ]
+  const y = where === 'center' ? Math.max(TOPBAR_HEIGHT, (vh - box.h) / 2) : TOPBAR_HEIGHT
+  return clampPosition({ x: Math.round(x), y: Math.round(y) }, { width: box.w, height: box.h })
+}
+
 function windowBox(el: Element): Box | null {
   const r = el.closest('[role=dialog]')?.getBoundingClientRect()
   return r ? { x: r.left, y: r.top, w: r.width, h: r.height } : null
@@ -109,5 +120,12 @@ export function useKeyboardMove(id: string, strings: Strings) {
     if (active) finish(strings.moved)
   }
 
-  return { active, status, onClick, onKeyDown, onBlur }
+  function place(el: Element, where: Placement, message: string) {
+    const b = windowBox(el)
+    if (!b) return
+    moveWindow(id, placementOf(b, where))
+    setStatus(message)
+  }
+
+  return { active, status, onClick, onKeyDown, onBlur, place }
 }

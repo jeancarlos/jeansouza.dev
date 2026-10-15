@@ -15,7 +15,12 @@
     "move": "Mover {title}",
     "moveMode": "Modo mover: setas movem, Alt com setas redimensiona, Shift aumenta o passo, Enter confirma, Esc cancela",
     "moved": "Posição confirmada",
-    "cancelled": "Movimento cancelado"
+    "cancelled": "Movimento cancelado",
+    "place": "Posição da janela",
+    "topLeft": "Canto superior esquerdo",
+    "center": "Centro",
+    "topRight": "Canto superior direito",
+    "placed": "Janela movida"
   },
   "resume": {
     "title": "Currículo",

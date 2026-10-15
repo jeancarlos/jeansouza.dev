@@ -15,7 +15,12 @@
     "move": "Move {title}",
     "moveMode": "Move mode: arrows move, Alt with arrows resizes, Shift takes a bigger step, Enter confirms, Esc cancels",
     "moved": "Position confirmed",
-    "cancelled": "Move cancelled"
+    "cancelled": "Move cancelled",
+    "place": "Window position",
+    "topLeft": "Top left corner",
+    "center": "Center",
+    "topRight": "Top right corner",
+    "placed": "Window moved"
   },
   "resume": {
     "title": "Resume",

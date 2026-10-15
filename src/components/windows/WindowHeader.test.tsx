@@ -109,7 +109,7 @@ describe('WindowHeader keyboard move', () => {
     renderHeader()
     const user = await enterMoveMode()
     await user.tab()
-    expect(screen.getByRole('button', { name: 'after' })).toHaveFocus()
+    expect(screen.getByRole('button', { name: 'Posição da janela' })).toHaveFocus()
     expect(screen.getByRole('button', { name: /~\/blog/ })).toHaveAttribute('aria-pressed', 'false')
   })
 
@@ -119,5 +119,59 @@ describe('WindowHeader keyboard move', () => {
     unmount()
     renderHeader({ isExpanded: true })
     expect(screen.queryByRole('button', { name: /~\/blog/ })).toBeNull()
+  })
+})
+
+describe('WindowHeader positions without dragging', () => {
+  it('opens the positions with a pointer click and places the window', async () => {
+    const user = userEvent.setup()
+    renderHeader()
+    const toggle = screen.getByRole('button', { name: 'Posição da janela' })
+    await user.click(toggle)
+    expect(toggle).toHaveAttribute('aria-expanded', 'true')
+    await user.click(screen.getByRole('button', { name: 'Centro' }))
+    expect(moveWindow).toHaveBeenLastCalledWith('blog', { x: 312, y: 234 })
+    expect(screen.getByRole('status')).toHaveTextContent('Janela movida')
+  })
+
+  it('places each corner inside the safe margins below the topbar', async () => {
+    const user = userEvent.setup()
+    renderHeader()
+    const toggle = screen.getByRole('button', { name: 'Posição da janela' })
+    await user.click(toggle)
+    await user.click(screen.getByRole('button', { name: 'Canto superior esquerdo' }))
+    expect(moveWindow).toHaveBeenLastCalledWith('blog', { x: 20, y: 75 })
+    await user.click(toggle)
+    await user.click(screen.getByRole('button', { name: 'Canto superior direito' }))
+    expect(moveWindow).toHaveBeenLastCalledWith('blog', { x: 604, y: 75 })
+  })
+
+  it('returns focus to the toggle once a position is chosen', async () => {
+    const user = userEvent.setup()
+    renderHeader()
+    const toggle = screen.getByRole('button', { name: 'Posição da janela' })
+    await user.click(toggle)
+    await user.click(screen.getByRole('button', { name: 'Centro' }))
+    expect(toggle).toHaveFocus()
+    expect(screen.queryByRole('group', { name: 'Posição da janela' })).toBeNull()
+  })
+
+  it('closes the positions on Escape without letting Escape close the window', async () => {
+    const onWindowKey = vi.fn()
+    window.addEventListener('keydown', onWindowKey)
+    const user = userEvent.setup()
+    renderHeader()
+    await user.click(screen.getByRole('button', { name: 'Posição da janela' }))
+    screen.getByRole('button', { name: 'Centro' }).focus()
+    await user.keyboard('{Escape}')
+    expect(screen.queryByRole('group', { name: 'Posição da janela' })).toBeNull()
+    expect(screen.getByRole('button', { name: 'Posição da janela' })).toHaveFocus()
+    expect(onWindowKey.mock.calls.some(([e]) => (e as KeyboardEvent).key === 'Escape')).toBe(false)
+    window.removeEventListener('keydown', onWindowKey)
+  })
+
+  it('offers no positions for the home window', () => {
+    renderHeader({ isHome: true })
+    expect(screen.queryByRole('button', { name: 'Posição da janela' })).toBeNull()
   })
 })
