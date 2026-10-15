@@ -40,7 +40,7 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
       const w = 820
       openWindow({
         id: `post-${post.slug}`,
-        url: `/${locale}/blog/${post.slug}`,
+        url: `/${locale}/blog/${post.slug}/`,
         title: `~/blog/${post.slug}`,
         pageTitle: `${post.title} — Jean Souza`,
         content: (
@@ -72,7 +72,7 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
       const w = 820
       openWindow({
         id: 'blog',
-        url: `/${locale}/blog`,
+        url: `/${locale}/blog/`,
         title: '~/blog',
         pageTitle: `Jean Souza - Blog`,
         content: <BlogListWindow posts={posts} onOpenPost={openBlogPost} />,
