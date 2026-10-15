@@ -41,7 +41,7 @@ export function Hero({ locale, posts, isFocused, isPageHeading }: Props) {
         className="pointer-events-none fixed top-1/2 left-1/2 z-[5] hidden -translate-x-1/2 -translate-y-1/2 text-[12px] select-none md:block"
         initial={{ opacity: 0 }}
         animate={{ opacity: isFocused ? 1 : 0 }}
-        transition={isFocused ? { delay: 4, duration: 0.6 } : { duration: 0.2 }}
+        transition={isFocused ? { delay: 1.5, duration: 0.6 } : { duration: 0.2 }}
       >
         👁️👄👁️
       </motion.span>
