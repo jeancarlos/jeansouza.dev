@@ -128,7 +128,9 @@ export function WindowManagerProvider({
   const closeWindow = useCallback(
     (id: string) => {
       dispatch({ type: 'CLOSE', id })
-      if ((history.state as AppHistoryState | null)?._appWindow === id) {
+      const closing = windowsRef.current.find((w) => w.id === id)
+      const pushedHere = (history.state as AppHistoryState | null)?._appWindow === id
+      if (pushedHere && location.pathname === closing?.url) {
         history.back()
         return
       }

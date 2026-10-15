@@ -36,7 +36,7 @@ function clamp(n: number, min: number, max: number): number {
   return Math.max(min, Math.min(n, max))
 }
 
-export function step(box: Box, dx: number, dy: number, big: boolean, resize: boolean): Box {
+function step(box: Box, dx: number, dy: number, big: boolean, resize: boolean): Box {
   const d = big ? BIG_STEP : STEP
   const { vw, vh } = getViewport()
   if (resize) {
@@ -55,7 +55,7 @@ export function step(box: Box, dx: number, dy: number, big: boolean, resize: boo
 
 export type Placement = 'topLeft' | 'center' | 'topRight'
 
-export function placementOf(box: Box, where: Placement): { x: number; y: number } {
+function placementOf(box: Box, where: Placement): { x: number; y: number } {
   const { vw, vh } = getViewport()
   const x = { topLeft: WINDOW_SAFE, center: (vw - box.w) / 2, topRight: vw - box.w - WINDOW_SAFE }[
     where

@@ -89,6 +89,21 @@ describe('WindowManager', () => {
     expect(screen.getByTestId('count').textContent).toBe('1')
   })
 
+  it('cascades a fixed-size window off the top one, but not a content-sized one', () => {
+    let ctx!: ReturnType<typeof useWindowManager>
+    render(
+      <WindowManagerProvider>
+        <Probe onCapture={(c) => (ctx = c)} />
+      </WindowManagerProvider>
+    )
+    act(() => ctx.openWindow({ ...baseConfig, id: 'first' }))
+    act(() => ctx.openWindow({ ...baseConfig, id: 'second' }))
+    act(() => ctx.openWindow({ ...baseConfig, id: 'auto', size: { width: 400, height: 'auto' } }))
+    const at = (id: string) => ctx.windows.find((w) => w.id === id)?.position
+    expect(at('second')).toEqual({ x: 150, y: 150 })
+    expect(at('auto')).toEqual(baseConfig.position)
+  })
+
   it('resizeWindow updates size and position', () => {
     let ctx!: ReturnType<typeof useWindowManager>
     render(
@@ -216,6 +231,27 @@ describe('WindowManager history', () => {
     act(() => ctx().focusWindow('home'))
     expect(location.pathname).toBe('/pt/')
     expect(document.title).toBe('Home')
+  })
+
+  it('rewrites the URL instead of going Back once another window took the entry over', () => {
+    const back = vi.spyOn(history, 'back').mockImplementation(() => undefined)
+    const ctx = renderManager({ initialWindows: [blog] })
+    act(() => ctx().openWindow(post))
+    act(() => ctx().focusWindow('home'))
+    act(() => ctx().closeWindow('post'))
+    expect(back).not.toHaveBeenCalled()
+    expect(location.pathname).toBe('/pt/')
+    back.mockRestore()
+  })
+
+  it('pushes no entry when a window that is already open is opened again', () => {
+    const ctx = renderManager()
+    act(() => ctx().openWindow(blog))
+    const entries = history.length
+    act(() => ctx().openWindow(post))
+    act(() => ctx().openWindow(blog))
+    expect(history.length).toBe(entries + 1)
+    expect(location.pathname).toBe('/pt/blog/post/')
   })
 
   it('opens and closes windows to match the URL that Back or Forward lands on', () => {

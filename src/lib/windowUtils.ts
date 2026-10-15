@@ -24,7 +24,7 @@ export function topAnchoredPosition(
 ): { x: number; y: number } {
   const { vw } = viewport ?? getViewport()
   return {
-    x: Math.max(WINDOW_SAFE, Math.min((vw - width) / 2, vw - width - WINDOW_SAFE)),
+    x: Math.max(WINDOW_SAFE, (vw - width) / 2),
     y: topOffset + WINDOW_SAFE,
   }
 }
@@ -38,13 +38,8 @@ export function centeredPosition(
   const { vw, vh } = viewport ?? getViewport()
   const usableHeight = vh - topOffset
   return {
-    x: Math.max(WINDOW_SAFE, Math.min((vw - width) / 2, vw - width - WINDOW_SAFE)),
-    y:
-      topOffset +
-      Math.max(
-        WINDOW_SAFE,
-        Math.min((usableHeight - height) / 2, usableHeight - height - WINDOW_SAFE)
-      ),
+    x: Math.max(WINDOW_SAFE, (vw - width) / 2),
+    y: topOffset + Math.max(WINDOW_SAFE, (usableHeight - height) / 2),
   }
 }
 
