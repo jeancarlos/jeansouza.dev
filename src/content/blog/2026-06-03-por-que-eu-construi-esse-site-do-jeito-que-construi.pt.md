@@ -1,7 +1,7 @@
 ---
 title: 'Por que eu construí esse site do jeito que construí'
 date: 2026-06-03
-description: Esse portfólio não é uma lista de tecnologias. É uma série de decisões deliberadas - e o código aberto pra quem quiser auditar.
+description: Esse portfólio não é uma lista de tecnologias. É uma série de decisões deliberadas — e o código aberto pra quem quiser auditar.
 image: ./2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi.jpg
 imageAlt: 'Ilustração no estilo do tarô Rider-Waite: o Louco, com uma trouxa no ombro e uma rosa na mão, caminha olhando o sol na beira de um penhasco, com um cão branco aos pés, montanhas nevadas ao fundo e um rio no vale.'
 ---
