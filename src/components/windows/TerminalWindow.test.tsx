@@ -1,4 +1,3 @@
-// src/components/windows/TerminalWindow.test.tsx
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { TerminalWindow } from './TerminalWindow'
@@ -16,6 +15,7 @@ vi.mock('framer-motion', () => ({
     ),
   },
   useDragControls: () => ({ start: vi.fn() }),
+  useMotionValue: () => ({ jump: vi.fn() }),
 }))
 
 vi.mock('./WindowManager', () => ({
@@ -31,14 +31,12 @@ vi.mock('./WindowManager', () => ({
 
 const baseProps = {
   id: 'win-1',
-  url: '/test',
   title: '~/test',
   position: { x: 100, y: 100 },
   size: { width: 500, height: 400 },
   isExpanded: false,
   isMinimized: false,
   zIndex: 20,
-  closeable: true,
 }
 
 describe('TerminalWindow', () => {
@@ -79,25 +77,25 @@ describe('TerminalWindow', () => {
     expect(dots.length).toBe(3)
   })
 
-  it('minimize dot is disabled when minimizable=false', () => {
+  it('enables every dot on a regular window', () => {
     const { container } = render(
-      <TerminalWindow {...baseProps} minimizable={false}>
+      <TerminalWindow {...baseProps}>
         <p>x</p>
       </TerminalWindow>
     )
-    const dots = container.querySelectorAll('[data-traffic-dot]')
-    // dots: [close, minimize, expand] — minimize is index 1
-    expect(dots[1]).toHaveAttribute('disabled')
+    for (const dot of container.querySelectorAll('[data-traffic-dot]')) {
+      expect(dot).not.toHaveAttribute('disabled')
+    }
   })
 
-  it('expand dot is disabled when expandable=false', () => {
+  it('disables every dot on the home window, which is the desktop itself', () => {
     const { container } = render(
-      <TerminalWindow {...baseProps} expandable={false}>
+      <TerminalWindow {...baseProps} id="home">
         <p>x</p>
       </TerminalWindow>
     )
-    const dots = container.querySelectorAll('[data-traffic-dot]')
-    // dots: [close, minimize, expand] — expand is index 2
-    expect(dots[2]).toHaveAttribute('disabled')
+    for (const dot of container.querySelectorAll('[data-traffic-dot]')) {
+      expect(dot).toHaveAttribute('disabled')
+    }
   })
 })

@@ -1,5 +1,7 @@
 export const WINDOW_SAFE = 20
 export const TOPBAR_HEIGHT = 75
+export const MIN_WINDOW_WIDTH = 200
+export const MIN_WINDOW_HEIGHT = 100
 
 const DEFAULT_VIEWPORT = { vw: 1200, vh: 800 } as const
 
@@ -43,6 +45,29 @@ export function centeredPosition(
         WINDOW_SAFE,
         Math.min((usableHeight - height) / 2, usableHeight - height - WINDOW_SAFE)
       ),
+  }
+}
+
+export type Length = number | string
+
+const toCss = (l: Length): string => (typeof l === 'number' ? `${l}px` : l)
+
+/**
+ * The same placement as centeredPosition and topAnchoredPosition, written as
+ * CSS so the server can render a window where the client will keep it without
+ * knowing the viewport.
+ */
+export function cssCenteredPosition(width: Length, height: Length): { x: string; y: string } {
+  return {
+    x: `max(${WINDOW_SAFE}px, (100vw - ${toCss(width)}) / 2)`,
+    y: `calc(${TOPBAR_HEIGHT}px + max(${WINDOW_SAFE}px, (100dvh - ${TOPBAR_HEIGHT}px - ${toCss(height)}) / 2))`,
+  }
+}
+
+export function cssTopAnchoredPosition(width: Length, offset = 0): { x: string; y: string } {
+  return {
+    x: `calc(max(${WINDOW_SAFE}px, (100vw - ${toCss(width)}) / 2) + ${offset}px)`,
+    y: `${TOPBAR_HEIGHT + WINDOW_SAFE + offset}px`,
   }
 }
 

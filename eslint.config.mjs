@@ -6,17 +6,7 @@ import prettier from 'eslint-config-prettier'
 
 export default tseslint.config(
   {
-    ignores: [
-      'node_modules',
-      '.next',
-      'out',
-      'dist',
-      '.astro',
-      '.claude',
-      '.superpowers',
-      'docs',
-      'public',
-    ],
+    ignores: ['node_modules', 'dist', '.astro', '.claude', '.superpowers', 'public'],
   },
 
   {
@@ -25,19 +15,13 @@ export default tseslint.config(
     rules: { 'react/prop-types': 'off' },
   },
   react.configs.flat['jsx-runtime'],
+  jsxA11y.flatConfigs.recommended,
   {
-    plugins: { 'jsx-a11y': jsxA11y },
     rules: {
-      'jsx-a11y/alt-text': 'warn',
-      'jsx-a11y/aria-props': 'warn',
-      'jsx-a11y/aria-proptypes': 'warn',
-      'jsx-a11y/aria-unsupported-elements': 'warn',
-      'jsx-a11y/role-has-required-aria-props': 'warn',
-      'jsx-a11y/role-supports-aria-props': 'warn',
+      'jsx-a11y/no-noninteractive-tabindex': ['error', { tags: [], roles: ['tabpanel', 'region'] }],
     },
   },
 
-  // Type-aware TypeScript strict rules for .ts/.tsx files
   {
     files: ['**/*.{ts,tsx}'],
     extends: [...tseslint.configs.strictTypeChecked, ...tseslint.configs.stylisticTypeChecked],
@@ -51,13 +35,11 @@ export default tseslint.config(
     rules: {
       ...reactHooks.configs.recommended.rules,
 
-      // ── Unused vars ──────────────────────────────────────────────
       '@typescript-eslint/no-unused-vars': [
         'error',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
       ],
 
-      // ── Type safety ──────────────────────────────────────────────
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unsafe-assignment': 'error',
       '@typescript-eslint/no-unsafe-call': 'error',
@@ -65,18 +47,15 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-return': 'error',
       '@typescript-eslint/no-unsafe-argument': 'error',
 
-      // ── Consistency ──────────────────────────────────────────────
       '@typescript-eslint/consistent-type-imports': [
         'error',
         { prefer: 'type-imports', fixStyle: 'inline-type-imports' },
       ],
       '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
 
-      // ── Modern operators ─────────────────────────────────────────
       '@typescript-eslint/prefer-nullish-coalescing': 'error',
       '@typescript-eslint/prefer-optional-chain': 'error',
 
-      // ── Promises ─────────────────────────────────────────────────
       '@typescript-eslint/no-floating-promises': 'error',
       '@typescript-eslint/no-misused-promises': [
         'error',
@@ -84,11 +63,9 @@ export default tseslint.config(
       ],
       '@typescript-eslint/promise-function-async': 'error',
 
-      // ── Exhaustiveness / Equality ────────────────────────────────
       '@typescript-eslint/switch-exhaustiveness-check': 'error',
       eqeqeq: ['error', 'always', { null: 'ignore' }],
 
-      // ── Code quality ─────────────────────────────────────────────
       '@typescript-eslint/no-unnecessary-condition': 'error',
       '@typescript-eslint/no-unnecessary-type-assertion': 'error',
       '@typescript-eslint/prefer-as-const': 'error',
@@ -109,7 +86,6 @@ export default tseslint.config(
     },
   },
 
-  // Tests — relax strict rules that don't apply in test context
   {
     files: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}', 'src/test/**'],
     rules: {
@@ -129,6 +105,5 @@ export default tseslint.config(
     },
   },
 
-  // Prettier — must be last to disable all formatting rules
   prettier
 )

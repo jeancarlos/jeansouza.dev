@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content'
+import SitePage from '../../components/SitePage.astro'
+import { LOCALES } from '../../i18n/t'
+import { postsFor } from '../../lib/posts'
+import { pagePath, type Page } from '../../lib/pages'
+
+export async function getStaticPaths() {
+  const entries = await getCollection('blog')
+  return LOCALES.flatMap((locale) => {
+    const posts = postsFor(entries, locale)
+    const pages: Page[] = [
+      { kind: 'home' },
+      { kind: 'blog' },
+      { kind: 'resume' },
+      { kind: 'more' },
+      ...posts.map((post) => ({ kind: 'post' as const, post })),
+    ]
+    return pages.map((page) => ({
+      params: { locale, path: pagePath(page).replace(/\/$/, '') || undefined },
+      props: { locale, page, posts },
+    }))
+  })
+}
+
+const { locale, page, posts } = Astro.props
+---
+
+<SitePage locale={locale} page={page} posts={posts} />

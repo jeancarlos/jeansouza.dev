@@ -1,206 +1,38 @@
-'use client'
-import { useEffect, useCallback, useRef } from 'react'
+import { useEffect } from 'react'
 import { AnimatePresence } from 'framer-motion'
+import type { Locale } from '@/i18n/t'
 import type { Post } from '@/lib/posts'
-import type { ButtonOrigin } from '@/components/windows/WindowManager'
 import { Hero } from '@/components/sections/Hero'
 import { TerminalWindow } from '@/components/windows/TerminalWindow'
-import { useWindowManager } from '@/components/windows/WindowManager'
-import { topAnchoredPosition, TOPBAR_HEIGHT, WINDOW_MAX_HEIGHT } from '@/lib/windowUtils'
-
-// Posts open offset from the list and a bit shorter, so the two read as
-// stacked windows instead of one covering the other.
-const POST_OFFSET = 40
-const POST_MAX_HEIGHT = `calc(${WINDOW_MAX_HEIGHT} - 150px)`
+import { topWindow, useWindowManager } from '@/components/windows/WindowManager'
 
 interface HomeClientProps {
+  locale: Locale
   posts: Post[]
-  locale: 'pt' | 'en'
-  initialOpen?: 'blog' | 'resume' | 'more'
-  initialPost?: Post
+  isHomePage: boolean
 }
 
-export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClientProps) {
-  const { windows, closeWindow, openWindow } = useWindowManager()
-
-  // Warm the blog window chunks so content exists on the window's first
-  // frame; otherwise height:auto jumps when the dynamic import resolves
-  // mid-open instead of animating the expansion.
-  useEffect(() => {
-    void import('@/components/windows/BlogListWindow')
-    void import('@/components/windows/BlogPostWindow')
-  }, [])
-
-  const openBlogPost = useCallback(
-    async (post: Post, origin?: ButtonOrigin) => {
-      // Loaded before opening (chunk pre-warmed on mount): the window must
-      // have its content on the first animation frame, otherwise framer
-      // measures the empty height and the expansion jumps instead of animating.
-      const { BlogPostWindow } = await import('@/components/windows/BlogPostWindow')
-      const w = 820
-      openWindow({
-        id: `post-${post.slug}`,
-        url: `/${locale}/blog/${post.slug}/`,
-        title: `~/blog/${post.slug}`,
-        pageTitle: `${post.title} — Jean Souza`,
-        content: (
-          <BlogPostWindow
-            slug={post.slug}
-            title={post.title}
-            date={post.date}
-            content={post.content}
-          />
-        ),
-        position: (() => {
-          const anchor = topAnchoredPosition(w, TOPBAR_HEIGHT)
-          return { x: anchor.x + POST_OFFSET, y: anchor.y + POST_OFFSET }
-        })(),
-        size: { width: w, height: 'auto' },
-        maxHeight: POST_MAX_HEIGHT,
-        defaultSize: 'medium',
-        isExpanded: true,
-        isMinimized: false,
-        origin,
-      })
-    },
-    [locale, openWindow]
-  )
-
-  const openBlogList = useCallback(
-    async (origin?: ButtonOrigin) => {
-      const { BlogListWindow } = await import('@/components/windows/BlogListWindow')
-      const w = 820
-      openWindow({
-        id: 'blog',
-        url: `/${locale}/blog/`,
-        title: '~/blog',
-        pageTitle: `Jean Souza - Blog`,
-        content: <BlogListWindow posts={posts} onOpenPost={openBlogPost} />,
-        position: topAnchoredPosition(w, TOPBAR_HEIGHT),
-        size: { width: w, height: 'auto' },
-        defaultSize: 'medium',
-        isExpanded: false,
-        isMinimized: false,
-        origin,
-      })
-    },
-    [locale, posts, openWindow, openBlogPost]
-  )
-
-  const mountedRef = useRef(false)
-  const initialPropsRef = useRef({ locale, openBlogList, initialPost, initialOpen })
-  useEffect(() => {
-    initialPropsRef.current = { locale, openBlogList, initialPost, initialOpen }
-  })
+export function HomeClient({ locale, posts, isHomePage }: HomeClientProps) {
+  const { windows, closeWindow } = useWindowManager()
+  const top = topWindow(windows)
 
   useEffect(() => {
-    if (mountedRef.current) return
-    mountedRef.current = true
-    const { locale, openBlogList, initialPost, initialOpen } = initialPropsRef.current
-    if (initialPost || initialOpen === 'blog') {
-      void openBlogList()
-    } else if (!initialOpen) {
-      // resume/more deep links keep their own URL; Hero opens the window.
-      history.pushState({ _appWindow: 'home' }, '', `/${locale}/`)
-    }
-  }, [])
-
-  const initialPostOpenedRef = useRef(false)
-  useEffect(() => {
-    if (!initialPost || initialPostOpenedRef.current) return
-    const hasBlog = windows.some((w) => w.id === 'blog')
-    if (!hasBlog) return
-    initialPostOpenedRef.current = true
-    void openBlogPost(initialPost)
-  }, [windows, initialPost, openBlogPost])
-
-  // Always-fresh snapshot of windows for use in event handlers.
-  const windowsRef = useRef(windows)
-  useEffect(() => {
-    windowsRef.current = windows
-  })
-
-  // Prevents the pushState below from firing when a close was triggered by popstate.
-  const popstateHandled = useRef(false)
-
-  const prevWindowsLenRef = useRef(windows.length)
-  useEffect(() => {
-    const prevLen = prevWindowsLenRef.current
-    prevWindowsLenRef.current = windows.length
-    if (windows.length > prevLen) {
-      // Window opened — push its URL and update the tab title.
-      const top = windows.reduce((a, b) => (a.zIndex > b.zIndex ? a : b))
-      history.pushState({ _appWindow: top.id }, '', top.url)
-      document.title = top.pageTitle ?? document.title
-      return
-    }
-    if (windows.length < prevLen) {
-      if (popstateHandled.current) {
-        // Close came from popstate (mobile back button) — history already moved back.
-        popstateHandled.current = false
-        return
-      }
-      // Close came from desktop (X button, Escape) — update URL and title.
-      if (windows.length === 0) {
-        history.pushState({ _appWindow: 'home' }, '', `/${locale}/`)
-        document.title = 'Jean Souza'
-      } else {
-        const top = windows.reduce((a, b) => (a.zIndex > b.zIndex ? a : b))
-        history.pushState({ _appWindow: top.id }, '', top.url)
-        document.title = top.pageTitle ?? document.title
-      }
-    }
-  }, [windows, locale])
-
-  // Sync window state to browser back/forward navigation.
-  useEffect(() => {
-    const onPopstate = (e: PopStateEvent) => {
-      const appState = e.state as { _appWindow?: string } | null
-      // Ignore entries not pushed by this app — let Next.js handle those normally.
-      if (!appState?._appWindow) return
-      // Block Next.js router from also handling this popstate and triggering a soft nav.
-      e.stopImmediatePropagation()
-      const pathname = location.pathname
-      const current = windowsRef.current
-      // Close the topmost window whose URL no longer matches the current location.
-      const sorted = [...current].sort((a, b) => b.zIndex - a.zIndex)
-      const toClose = sorted.find((w) => w.url !== pathname)
-      if (toClose) {
-        popstateHandled.current = true
-        closeWindow(toClose.id)
-      }
-    }
-    window.addEventListener('popstate', onPopstate, { capture: true })
-    return () => window.removeEventListener('popstate', onPopstate, { capture: true })
-  }, [closeWindow])
-
-  useEffect(() => {
+    if (!top) return
     const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape' || windows.length === 0) return
-      const top = windows.reduce((a, b) => (a.zIndex > b.zIndex ? a : b))
-      if (top.id !== 'home') closeWindow(top.id)
+      if (e.key === 'Escape') closeWindow(top.id)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [windows, closeWindow])
-
-  const topZ =
-    windows.length > 0 ? windows.reduce((a, b) => (a.zIndex > b.zIndex ? a : b)).zIndex : 0
+  }, [top, closeWindow])
 
   return (
     <>
-      <Hero
-        locale={locale}
-        onOpenBlog={openBlogList}
-        isFocused={windows.length === 0}
-        initialOpen={initialOpen === 'resume' || initialOpen === 'more' ? initialOpen : undefined}
-      />
+      <Hero locale={locale} posts={posts} isFocused={!top} isPageHeading={isHomePage} />
       <AnimatePresence>
         {windows.map((win) => (
           <TerminalWindow
             key={win.id}
             id={win.id}
-            url={win.url}
             title={win.title}
             position={win.position}
             size={win.size}
@@ -208,7 +40,7 @@ export function HomeClient({ posts, locale, initialOpen, initialPost }: HomeClie
             isExpanded={win.isExpanded}
             isMinimized={win.isMinimized}
             zIndex={win.zIndex}
-            isFocused={win.zIndex === topZ}
+            isFocused={win === top}
             origin={win.origin}
           >
             {win.content}

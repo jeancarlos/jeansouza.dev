@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { WindowManagerProvider, useWindowManager } from './WindowManager'
@@ -11,7 +11,6 @@ const baseConfig: WindowConfig = {
   content: null,
   position: { x: 100, y: 100 },
   size: { width: 400, height: 300 },
-  defaultSize: 'medium',
   isExpanded: false,
   isMinimized: false,
 }
@@ -36,7 +35,6 @@ function TestConsumer() {
             content: <p>content</p>,
             position: { x: 0, y: 0 },
             size: { width: 400, height: 300 },
-            defaultSize: 'medium',
             isExpanded: false,
             isMinimized: false,
           })
@@ -146,5 +144,81 @@ describe('WindowManager', () => {
     act(() => ctx.resizeWindow('nonexistent', { width: 999, height: 999 }, { x: 0, y: 0 }))
     expect(ctx.windows.length).toBe(before)
     expect(ctx.windows[0].size).toEqual({ width: 400, height: 300 })
+  })
+})
+
+describe('WindowManager history', () => {
+  const blog: WindowConfig = { ...baseConfig, id: 'blog', url: '/pt/blog/', pageTitle: 'Blog' }
+  const post: WindowConfig = { ...baseConfig, id: 'post', url: '/pt/blog/post/', pageTitle: 'Post' }
+
+  function renderManager(props: Partial<Parameters<typeof WindowManagerProvider>[0]> = {}) {
+    let ctx!: ReturnType<typeof useWindowManager>
+    render(
+      <WindowManagerProvider homeUrl="/pt/" homeTitle="Home" {...props}>
+        <Probe
+          onCapture={(c) => {
+            ctx = c
+          }}
+        />
+      </WindowManagerProvider>
+    )
+    return () => ctx
+  }
+
+  const popTo = (url: string) =>
+    act(() => {
+      history.pushState(null, '', url)
+      window.dispatchEvent(new PopStateEvent('popstate'))
+    })
+
+  beforeEach(() => history.replaceState(null, '', '/pt/'))
+
+  it('renders the windows the page was served with', () => {
+    const ctx = renderManager({ initialWindows: [blog, post] })
+    expect(ctx().windows.map((w) => w.id)).toEqual(['blog', 'post'])
+    expect(document.title).toBe('Post')
+  })
+
+  it('pushes the URL of a window it opens and titles the tab after it', () => {
+    const ctx = renderManager()
+    act(() => ctx().openWindow(blog))
+    expect(location.pathname).toBe('/pt/blog/')
+    expect(history.state).toEqual({ _appWindow: 'blog' })
+    expect(document.title).toBe('Blog')
+  })
+
+  it('goes Back when closing the window that pushed the current entry', () => {
+    const back = vi.spyOn(history, 'back').mockImplementation(() => undefined)
+    const ctx = renderManager()
+    act(() => ctx().openWindow(blog))
+    act(() => ctx().closeWindow('blog'))
+    expect(back).toHaveBeenCalledOnce()
+    expect(ctx().windows).toEqual([])
+    back.mockRestore()
+  })
+
+  it('rewrites the URL to the next window when closing a server-rendered one', () => {
+    history.replaceState(null, '', '/pt/blog/post/')
+    const ctx = renderManager({ initialWindows: [blog, post] })
+    act(() => ctx().closeWindow('post'))
+    expect(location.pathname).toBe('/pt/blog/')
+    act(() => ctx().closeWindow('blog'))
+    expect(location.pathname).toBe('/pt/')
+    expect(document.title).toBe('Home')
+  })
+
+  it('opens and closes windows to match the URL that Back or Forward lands on', () => {
+    const byPath: Record<string, WindowConfig[]> = {
+      '/pt/blog/post/': [blog, post],
+      '/pt/blog/': [blog],
+    }
+    const windowsForPath = (path: string) => byPath[path] ?? []
+    const ctx = renderManager({ windowsForPath })
+    popTo('/pt/blog/post/')
+    expect(ctx().windows.map((w) => w.id)).toEqual(['blog', 'post'])
+    popTo('/pt/blog/')
+    expect(ctx().windows.map((w) => w.id)).toEqual(['blog'])
+    popTo('/pt/')
+    expect(ctx().windows).toEqual([])
   })
 })

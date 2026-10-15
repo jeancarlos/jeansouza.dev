@@ -1,42 +1,46 @@
-'use client'
-import { useTranslations } from '../../i18n/react'
+import { useLocale, useTranslations } from '../../i18n/react'
 import type { Post } from '@/lib/posts'
-import type { ButtonOrigin } from '@/components/windows/WindowManager'
+import { pageUrl } from '@/lib/pages'
 import { DIRECTORY_PERMISSIONS } from '@/lib/format'
+import { useWindowOpener } from './WindowManager'
+import { pageWindow } from './pageWindows'
 
-interface Props {
-  posts: Post[]
-  onOpenPost: (post: Post, origin: ButtonOrigin) => void
-}
-
-export function BlogListWindow({ posts, onOpenPost }: Props) {
+export function BlogListWindow({ posts }: { posts: Post[] }) {
   const t = useTranslations('blog')
+  const locale = useLocale()
+  const opener = useWindowOpener()
   return (
     <div className="text-brand-text space-y-4 p-6">
-      <p className="text-brand-to mb-4 text-xs">$ ls posts/</p>
+      <h1 className="sr-only">{t('title')}</h1>
+      <p className="text-brand-muted mb-4 text-xs" aria-hidden="true">
+        $ {t('command')}
+      </p>
       {posts.length === 0 && (
-        <p className="text-brand-to text-sm">
+        <p className="text-brand-muted text-sm">
           {DIRECTORY_PERMISSIONS} {t('empty')}
         </p>
       )}
-      {posts.map((post) => (
-        <button
-          key={post.slug}
-          onClick={(e) => {
-            const rect = e.currentTarget.getBoundingClientRect()
-            onOpenPost(post, { x: rect.left, y: rect.top, width: rect.width, height: rect.height })
-          }}
-          className="group border-brand-to hover:border-brand-from block w-full cursor-pointer border-l-2 py-2 pl-4 text-left transition-colors"
-        >
-          <p className="text-brand-to mb-1 font-mono text-xs">
-            {DIRECTORY_PERMISSIONS} {post.date}
-          </p>
-          <p className="font-display text-brand-text group-hover:text-brand-from font-bold transition-colors">
-            {post.title}
-          </p>
-          <p className="text-brand-to mt-1 text-sm leading-relaxed">{post.description}</p>
-        </button>
-      ))}
+      <ul className="space-y-4">
+        {posts.map((post) => (
+          <li key={post.slug}>
+            <a
+              href={pageUrl({ kind: 'post', post }, locale)}
+              onClick={opener((origin) =>
+                pageWindow({ kind: 'post', post }, locale, posts, origin)
+              )}
+              className="group border-brand-to hover:border-brand-from block border-l-2 py-2 pl-4 transition-colors"
+            >
+              <p className="text-brand-muted mb-1 font-mono text-xs">
+                {DIRECTORY_PERMISSIONS} <time dateTime={post.date}>{post.date}</time>
+              </p>
+              <h2 className="font-display text-brand-text group-hover:text-brand-from font-bold transition-colors">
+                {post.title}
+              </h2>
+              <p className="text-brand-muted mt-1 text-sm leading-relaxed">{post.description}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

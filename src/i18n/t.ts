@@ -6,16 +6,12 @@ export type Locale = (typeof LOCALES)[number]
 
 const CATALOGS: Record<Locale, unknown> = { pt, en }
 
-export function isLocale(value: string): value is Locale {
-  return (LOCALES as readonly string[]).includes(value)
-}
-
 /**
  * Resolves a dot path against a locale catalog. Throws on a miss rather than
  * returning undefined: a missing string should fail the build, not render as
  * an empty node the way the Next site allowed.
  */
-export function useTranslations(locale: Locale) {
+export function translator(locale: Locale) {
   const catalog = CATALOGS[locale]
   return (key: string): string => {
     const value = key

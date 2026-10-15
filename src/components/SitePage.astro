@@ -1,0 +1,34 @@
+---
+import Shell from '../layouts/Shell.astro'
+import Chrome from './Chrome.astro'
+import { DesktopApp } from './DesktopApp'
+import type { Locale } from '../i18n/t'
+import type { Post } from '../lib/posts'
+import { pageMeta, pagePath, pageUrl, type Page } from '../lib/pages'
+import { structuredData } from '../lib/structuredData'
+
+interface Props {
+  locale: Locale
+  page: Page
+  posts: Post[]
+  /** Inline script for the head; `/` uses it to send Portuguese readers to /pt/. */
+  headScript?: string
+}
+
+const { locale, page, posts, headScript } = Astro.props
+const { title, description } = pageMeta(page, locale)
+const path = pagePath(page)
+---
+
+<Shell
+  locale={locale}
+  title={title}
+  description={description}
+  path={path}
+  publishedTime={page.kind === 'post' ? page.post.date : undefined}
+  jsonLd={structuredData(page, locale)}
+  headScript={headScript}
+>
+  <Chrome slot="topbar" locale={locale} path={path} />
+  <DesktopApp client:load locale={locale} posts={posts} pathname={pageUrl(page, locale)} />
+</Shell>

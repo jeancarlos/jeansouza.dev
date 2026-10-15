@@ -1,7 +1,7 @@
-'use client'
 import { type ReactNode, useState } from 'react'
 import { useDragControls } from 'framer-motion'
 import { FocusTrap } from 'focus-trap-react'
+import type { Length } from '@/lib/windowUtils'
 import { type ButtonOrigin } from './WindowManager'
 import { useIsMobile } from '@/lib/useIsMobile'
 import { WindowChrome } from './WindowChrome'
@@ -9,56 +9,26 @@ import { WindowHeader } from './WindowHeader'
 import { ResizeHandles } from './ResizeHandles'
 import {
   getActiveStyle,
+  getBodyClassName,
   getInnerRounded,
   getOuterClassName,
-  getBodyClassName,
-  getWindowVisibility,
 } from './terminalStyles'
 
 interface Props {
   id: string
-  url: string
   title: string
   children: ReactNode
-  position: { x: number; y: number }
-  size: { width: number | string; height: number | string }
+  position: { x: Length; y: Length }
+  size: { width: Length; height: Length }
   maxHeight?: string
-  isExpanded: boolean
-  isMinimized: boolean
+  isExpanded?: boolean
+  isMinimized?: boolean
   zIndex: number
-  closeable?: boolean
-  minimizable?: boolean
-  expandable?: boolean
-  resizable?: boolean
   isFocused?: boolean
   origin?: ButtonOrigin
 }
 
-function WindowBody({
-  className,
-  children,
-  title,
-}: {
-  className: string
-  height: number | string
-  isMobile: boolean
-  title: string
-  children: ReactNode
-}) {
-  /*
-   * The body scrolls (overflow-y-auto), so it must be reachable by keyboard.
-   * A scrollable container with no tabindex cannot be scrolled without a
-   * pointer at all — axe calls it scrollable-region-focusable, and it is
-   * WCAG 2.1.1 Keyboard, Level A, not a stylistic note. A focusable region
-   * also needs an accessible name, which the window title supplies.
-   */
-  return (
-    <div className={className} tabIndex={0} role="group" aria-label={title}>
-      {children}
-    </div>
-  )
-}
-
+/** The home window is the desktop itself: it cannot be closed, minimized, expanded or resized. */
 export function TerminalWindow({
   id,
   title,
@@ -66,32 +36,16 @@ export function TerminalWindow({
   position,
   size,
   maxHeight,
-  isExpanded,
-  isMinimized,
+  isExpanded = false,
+  isMinimized = false,
   zIndex,
-  closeable = true,
-  minimizable = true,
-  expandable = true,
-  resizable = true,
   isFocused = true,
   origin,
 }: Props) {
   const [isResizing, setIsResizing] = useState(false)
   const dragControls = useDragControls()
   const isMobile = useIsMobile()
-
   const isHome = id === 'home'
-  const activeStyle = getActiveStyle(isMobile, isHome, isExpanded, isMinimized, size, position)
-  const innerRounded = getInnerRounded(isMobile, isHome)
-  const outerClassName = getOuterClassName(isMobile, isHome)
-  const bodyClassName = getBodyClassName(isMobile, isHome, innerRounded)
-  const { showHeader, showBody, showResizeHandles } = getWindowVisibility(
-    isMobile,
-    isHome,
-    isExpanded,
-    isMinimized,
-    resizable
-  )
 
   return (
     <FocusTrap
@@ -106,46 +60,35 @@ export function TerminalWindow({
       <WindowChrome
         id={id}
         title={title}
+        isHome={isHome}
         isMobile={isMobile}
         isFocused={isFocused}
         isResizing={isResizing}
         zIndex={zIndex}
-        position={position}
-        size={size}
         maxHeight={maxHeight}
         origin={origin}
-        activeStyle={activeStyle}
-        outerClassName={outerClassName}
-        innerRounded={innerRounded}
+        position={position}
+        activeStyle={getActiveStyle(isExpanded, isMinimized, size, position)}
+        outerClassName={getOuterClassName(isHome)}
+        innerRounded={getInnerRounded(isHome)}
+        draggable={!isExpanded}
         dragControls={dragControls}
       >
-        {showHeader && (
-          <WindowHeader
-            id={id}
-            title={title}
-            isHome={isHome}
-            isExpanded={isExpanded}
-            dragControls={dragControls}
-            closeable={closeable}
-            minimizable={minimizable}
-            expandable={expandable}
-          />
-        )}
-        {showBody && (
-          <WindowBody
-            className={bodyClassName}
-            height={size.height}
-            isMobile={isMobile}
-            title={title}
-          >
+        <WindowHeader
+          id={id}
+          title={title}
+          isHome={isHome}
+          isExpanded={isExpanded}
+          dragControls={dragControls}
+        />
+        {!isMinimized && (
+          <div className={getBodyClassName(isHome)} tabIndex={0} role="region" aria-label={title}>
             {children}
-          </WindowBody>
+          </div>
         )}
-        {showResizeHandles && (
+        {!isHome && !isExpanded && !isMinimized && (
           <ResizeHandles
             id={id}
-            size={size}
-            position={position}
             onResizeStart={() => setIsResizing(true)}
             onResizeEnd={() => setIsResizing(false)}
           />

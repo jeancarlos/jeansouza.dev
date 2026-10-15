@@ -1,56 +1,75 @@
 ---
-import type { Locale } from '../i18n/t'
-import { THEME_INIT_SCRIPT } from '../lib/theme'
 import { Font } from 'astro:assets'
+import { LOCALES, translator, type Locale } from '../i18n/t'
+import { SITE_URL } from '../lib/pages'
+import { THEME_INIT_SCRIPT } from '../lib/theme'
 import '../styles/globals.css'
 
 interface Props {
   locale: Locale
   title: string
   description: string
-  canonical: string
+  /** Path after the locale segment; pages without one (404) get no canonical or alternates. */
+  path?: string
+  publishedTime?: string
+  jsonLd?: object
+  headScript?: string
 }
 
-const { locale, title, description, canonical } = Astro.props
-const htmlLang = locale === 'pt' ? 'pt-BR' : 'en-US'
-const skip = locale === 'pt' ? 'Pular para o conteúdo' : 'Skip to content'
+const { locale, title, description, path, publishedTime, jsonLd, headScript } = Astro.props
+const t = translator(locale)
+const htmlLang = (l: Locale) => (l === 'pt' ? 'pt-BR' : 'en-US')
+const ogLocale = (l: Locale) => (l === 'pt' ? 'pt_BR' : 'en_US')
+const url = path === undefined ? undefined : `${SITE_URL}/${locale}/${path}`
+const image = `${SITE_URL}/og.png`
 ---
 
-<html lang={htmlLang}>
+<html lang={htmlLang(locale)}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark light" />
-    {/* Inline and first: a deferred module script runs after first paint, which
-        is exactly the flash this exists to prevent. */}
+    {headScript && <script is:inline set:html={headScript} />}
     <script is:inline set:html={THEME_INIT_SCRIPT} />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
-    <Font cssVariable="--font-space-grotesk" preload />
-    <Font cssVariable="--font-poppins" />
-    <Font cssVariable="--font-jetbrains-mono" />
-    <link rel="icon" href="/favicon.svg" />
-    <slot name="head" />
+    {url && <link rel="canonical" href={url} />}
+    {
+      path !== undefined &&
+        LOCALES.map((l) => <link rel="alternate" hreflang={htmlLang(l)} href={`${SITE_URL}/${l}/${path}`} />)
+    }
+    {path !== undefined && <link rel="alternate" hreflang="x-default" href={`${SITE_URL}/en/${path}`} />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <Font cssVariable="--font-jetbrains-mono" preload />
+    <Font cssVariable="--font-poppins" preload={[{ weight: 700 }]} />
+    <Font cssVariable="--font-space-grotesk" />
+
+    <meta property="og:site_name" content={t('meta.siteName')} />
+    <meta property="og:type" content={publishedTime ? 'article' : 'website'} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {url && <meta property="og:url" content={url} />}
+    <meta property="og:locale" content={ogLocale(locale)} />
+    {LOCALES.filter((l) => l !== locale).map((l) => <meta property="og:locale:alternate" content={ogLocale(l)} />)}
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={t('meta.ogImageAlt')} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />}
   </head>
   <body class="font-sans">
-    <a class="skip-link" href="#desktop">{skip}</a>
-
+    <a class="skip-link" href="#desktop">{t('skipToContent')}</a>
     <header>
       <slot name="topbar" />
     </header>
-
-    {/*
-      tabindex="-1" is what makes the skip link move focus rather than only
-      scroll. Without it the anchor jumps the viewport and leaves focus behind,
-      which is a 2.4.1 failure wearing a skip link as a disguise.
-    */}
     <main id="desktop" tabindex="-1">
-      <slot name="desktop" />
+      <slot />
     </main>
-
-    <footer>
-      <slot name="footer" />
-    </footer>
   </body>
 </html>

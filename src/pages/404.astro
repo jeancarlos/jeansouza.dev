@@ -1,31 +1,18 @@
 ---
 import Shell from '../layouts/Shell.astro'
+import { translator } from '../i18n/t'
 
-// GitHub Pages serves one 404 for every unmatched path, including English ones,
-// so this page cannot know the visitor's locale. It keeps the Portuguese copy
-// the Next site shipped and offers both languages as links.
-const title = 'Jean Souza - 404'
+const t = translator('pt')
 ---
 
-<Shell
-  locale="pt"
-  title={title}
-  description="Essa página não existe (ou foi movida)."
-  canonical="https://jeansouza.dev/"
->
-  <nav slot="topbar" aria-label="Navegação principal">
-    <a href="/pt/">~ jeansouza.dev</a>
-  </nav>
-
-  <div slot="desktop">
-    <h1>404</h1>
-    <p>Essa página não existe (ou foi movida). Recomendo voltar para a home.</p>
-    <p>
-      <a href="/pt/">Voltar para a home</a>
+<Shell locale="pt" title={t('meta.notFound.title')} description={t('meta.notFound.description')}>
+  <div class="grid min-h-dvh place-content-center gap-4 p-6 text-center font-mono">
+    <h1 class="font-display text-brand-text text-3xl font-bold">404</h1>
+    <p class="text-brand-text">{t('meta.notFound.description')}</p>
+    <p class="text-brand-muted">
+      <a class="underline" href="/pt/">Voltar para a home</a>
       <span aria-hidden="true"> · </span>
-      <a href="/en/">Back to home</a>
+      <a class="underline" href="/en/" lang="en">Back to home</a>
     </p>
   </div>
-
-  <p slot="footer">jeansouza.dev</p>
 </Shell>

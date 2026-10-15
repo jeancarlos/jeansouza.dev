@@ -1,118 +1,38 @@
-'use client'
-import { useEffect, useRef, lazy, Suspense } from 'react'
 import { useTranslations } from '../../../i18n/react'
 import { motion, steps } from 'framer-motion'
+import type { Locale } from '@/i18n/t'
+import type { Post } from '@/lib/posts'
+import { pageUrl } from '@/lib/pages'
+import { cssCenteredPosition } from '@/lib/windowUtils'
 import { TerminalWindow } from '@/components/windows/TerminalWindow'
-import { WindowButton } from '@/components/windows/WindowButton'
+import { useWindowOpener } from '@/components/windows/WindowManager'
+import { pageWindow } from '@/components/windows/pageWindows'
 import { Typewriter } from '@/components/ui/Typewriter'
 import { Icon } from '@/components/ui/Icon'
 import { Button } from '@/components/ui/Button'
-import { useWindowManager, type ButtonOrigin } from '@/components/windows/WindowManager'
-import { useIsMobile } from '@/lib/useIsMobile'
-import { useViewport } from '@/lib/useViewport'
-import {
-  centeredPosition,
-  getViewport,
-  isPlainClick,
-  WINDOW_SAFE,
-  TOPBAR_HEIGHT,
-} from '@/lib/windowUtils'
-
-// React.lazy replaces next/dynamic: same code-split, no framework coupling.
-// Each gets its own Suspense at the definition site so a pending chunk never
-// blanks the window containing it.
-const MoreLinksWindowLazy = lazy(async () =>
-  import('@/components/windows/MoreLinksWindow').then((m) => ({ default: m.MoreLinksWindow }))
-)
-
-const ResumeWindowLazy = lazy(async () =>
-  import('@/components/windows/ResumeWindow').then((m) => ({ default: m.ResumeWindow }))
-)
-
-const MoreLinksWindowDynamic = () => (
-  <Suspense fallback={null}>
-    <MoreLinksWindowLazy />
-  </Suspense>
-)
-
-const ResumeWindowDynamic = ({ locale }: { locale: 'pt' | 'en' }) => (
-  <Suspense fallback={null}>
-    <ResumeWindowLazy locale={locale} />
-  </Suspense>
-)
 
 interface Props {
-  locale: 'pt' | 'en'
-  onOpenBlog: (origin: ButtonOrigin) => void
-  isFocused?: boolean
-  /** Deep link support: opens this window on mount (/{locale}/resume/, /{locale}/more/). */
-  initialOpen?: 'resume' | 'more'
+  locale: Locale
+  posts: Post[]
+  isFocused: boolean
+  /** On the home page the prompt is the page heading; elsewhere the open window owns the h1. */
+  isPageHeading: boolean
 }
 
-// Wide enough for all action buttons on one row in pt (the longest locale);
-// on mobile the buttons wrap, so the box gets taller instead.
-const HOME_W = 600
-const HOME_H = 256
-const HOME_H_MOBILE = 360
+const HOME_SIZE = { width: 'min(600px, 100vw - 40px)', height: 'var(--home-h)' }
+const HOME_POSITION = cssCenteredPosition(HOME_SIZE.width, HOME_SIZE.height)
 
-export function Hero({ locale, onOpenBlog, isFocused = true, initialOpen }: Props) {
+export function Hero({ locale, posts, isFocused, isPageHeading }: Props) {
   const t = useTranslations('hero')
   const tNav = useTranslations('nav')
   const tResume = useTranslations('resume')
   const tMore = useTranslations('more')
-  const viewport = useViewport()
-  const isMobile = useIsMobile()
-  const topOffset = TOPBAR_HEIGHT
-  const { openWindow } = useWindowManager()
-
-  const initialOpenedRef = useRef(false)
-  useEffect(() => {
-    if (!initialOpen || initialOpenedRef.current) return
-    initialOpenedRef.current = true
-    const { vw, vh } = getViewport()
-    if (initialOpen === 'resume') {
-      const size = {
-        width: Math.min(1024, vw - WINDOW_SAFE * 2),
-        height: vh - WINDOW_SAFE * 2 - TOPBAR_HEIGHT,
-      }
-      openWindow({
-        id: 'resume',
-        url: `/${locale}/resume/`,
-        title: '~/resume',
-        content: <ResumeWindowDynamic locale={locale} />,
-        position: centeredPosition(size.width, size.height, TOPBAR_HEIGHT),
-        size,
-        defaultSize: 'large',
-        isExpanded: false,
-        isMinimized: false,
-      })
-    } else {
-      const size = { width: 320, height: 280 }
-      openWindow({
-        id: 'more-links',
-        url: `/${locale}/more/`,
-        title: '~/more',
-        content: <MoreLinksWindowDynamic />,
-        position: centeredPosition(size.width, size.height, TOPBAR_HEIGHT),
-        size,
-        defaultSize: 'compact',
-        isExpanded: false,
-        isMinimized: false,
-      })
-    }
-  }, [initialOpen, locale, openWindow])
-
-  // useViewport uses useSyncExternalStore with getServerSnapshot
-  // {vw:1200, vh:800}, so server and client first render return the same
-  // values — no hydration mismatch. After mount, the real viewport triggers
-  // a re-render and these derivations update automatically.
-  const homeW = isMobile ? Math.min(viewport.vw - 32, HOME_W) : HOME_W
-  const homeH = isMobile ? HOME_H_MOBILE : HOME_H
-  const homePos = centeredPosition(homeW, homeH, topOffset, viewport)
-  const resumeSize = {
-    width: Math.min(1024, viewport.vw - WINDOW_SAFE * 2),
-    height: viewport.vh - WINDOW_SAFE * 2 - topOffset,
-  }
+  const opener = useWindowOpener()
+  const Heading = isPageHeading ? 'h1' : 'p'
+  const windowLink = (kind: 'blog' | 'resume' | 'more') => ({
+    href: pageUrl({ kind }, locale),
+    onClick: opener((origin) => pageWindow({ kind }, locale, posts, origin)),
+  })
 
   return (
     <>
@@ -127,22 +47,15 @@ export function Hero({ locale, onOpenBlog, isFocused = true, initialOpen }: Prop
       </motion.span>
       <TerminalWindow
         id="home"
-        url={`/${locale}/`}
         title="~ jeansouza.dev"
-        position={homePos}
-        size={{ width: homeW, height: homeH }}
-        isExpanded={false}
-        isMinimized={false}
+        position={HOME_POSITION}
+        size={HOME_SIZE}
         zIndex={10}
-        closeable={false}
-        minimizable={false}
-        expandable={false}
-        resizable={false}
         isFocused={isFocused}
       >
         <div className="text-brand-text space-y-3 p-6">
-          <p className="text-brand-to text-xs">~ jeansouza.dev</p>
-          <h1 className="flex items-center gap-2">
+          <p className="text-brand-muted text-xs">~ jeansouza.dev</p>
+          <Heading className="flex items-center gap-2">
             <span className="text-brand-from select-none" aria-hidden="true">
               {'>'}
             </span>
@@ -158,8 +71,8 @@ export function Hero({ locale, onOpenBlog, isFocused = true, initialOpen }: Prop
             >
               _
             </motion.span>
-          </h1>
-          <p className="text-brand-to pl-5 text-sm">
+          </Heading>
+          <p className="text-brand-muted pl-5 text-sm">
             <Typewriter text={t('role')} delay={0.8} />
           </p>
           <div className="flex flex-wrap gap-2 pt-4 pl-5">
@@ -169,38 +82,16 @@ export function Hero({ locale, onOpenBlog, isFocused = true, initialOpen }: Prop
             <Button href="https://linkedin.com/in/jeancosouza">
               <Icon name="linkedin" className="mr-1" /> LinkedIn
             </Button>
-            <WindowButton
-              windowId="resume"
-              windowUrl={`/${locale}/resume/`}
-              windowTitle="~/resume"
-              windowContent={<ResumeWindowDynamic locale={locale} />}
-              windowSize={resumeSize}
-              defaultSize="large"
-            >
+            <Button {...windowLink('resume')}>
               <Icon name="file-alt" className="mr-1" /> {tResume('title')}
-            </WindowButton>
-            <Button
-              href={`/${locale}/blog/`}
-              onClick={(e) => {
-                if (!isPlainClick(e)) return
-                e.preventDefault()
-                const rect = e.currentTarget.getBoundingClientRect()
-                onOpenBlog({ x: rect.left, y: rect.top, width: rect.width, height: rect.height })
-              }}
-            >
+            </Button>
+            <Button {...windowLink('blog')}>
               <Icon name="book" className="mr-1" /> {tNav('blog')}
             </Button>
-            <WindowButton
-              windowId="more-links"
-              windowUrl={`/${locale}/more/`}
-              windowTitle="~/more"
-              windowContent={<MoreLinksWindowDynamic />}
-              windowSize={{ width: 320, height: 280 }}
-              defaultSize="compact"
-            >
+            <Button {...windowLink('more')}>
               <span aria-hidden="true">+</span>
               <span className="sr-only">{tMore('title')}</span>
-            </WindowButton>
+            </Button>
           </div>
         </div>
       </TerminalWindow>

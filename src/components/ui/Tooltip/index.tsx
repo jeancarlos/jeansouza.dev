@@ -1,4 +1,3 @@
-'use client'
 import { useLayoutEffect, useRef, useState, type ElementType, type ReactNode } from 'react'
 import styles from './Tooltip.module.css'
 

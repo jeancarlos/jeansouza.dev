@@ -8,19 +8,14 @@ vi.mock('@/i18n/react', () => ({
   useLocale: () => 'en',
   useTranslations: (namespace: string) => {
     const messages: Record<string, Record<string, string>> = {
-      hero: { prompt: 'jean souza', role: 'role', cta: 'cta' },
-      nav: { blog: 'Blog', resume: 'Resume' },
+      hero: { prompt: 'jean souza', role: 'role' },
+      nav: { blog: 'Blog' },
       resume: { title: 'Resume' },
       more: { title: 'More links' },
     }
     const ns = messages[namespace] ?? {}
     return (key: string) => ns[key]
   },
-}))
-
-vi.mock('@/i18n/navigation', () => ({
-  useRouter: () => ({ replace: vi.fn() }),
-  usePathname: () => '/',
 }))
 
 vi.mock('framer-motion', () => ({
@@ -35,12 +30,13 @@ vi.mock('framer-motion', () => ({
   AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   steps: () => undefined,
   useDragControls: () => ({ start: vi.fn() }),
+  useMotionValue: () => ({ jump: vi.fn() }),
 }))
 
-function renderHero() {
+function renderHero(isPageHeading = true) {
   return render(
     <WindowManagerProvider>
-      <Hero locale="pt" onOpenBlog={() => {}} />
+      <Hero locale="pt" posts={[]} isFocused isPageHeading={isPageHeading} />
     </WindowManagerProvider>
   )
 }
@@ -65,6 +61,12 @@ describe('Hero', () => {
   it('names the page with the prompt as its only h1', () => {
     renderHero()
     expect(screen.getByRole('heading', { level: 1 })).toHaveAccessibleName('jean souza')
+  })
+
+  it('leaves the h1 to the open window on other pages', () => {
+    renderHero(false)
+    expect(screen.queryByRole('heading', { level: 1 })).not.toBeInTheDocument()
+    expect(screen.getByText('jean souza', { selector: '.sr-only' })).toBeInTheDocument()
   })
 
   it('shows + on the more links button without overriding its visible label', () => {

@@ -18,6 +18,7 @@
   --color-brand-from: #e84545;
   --color-brand-to: #b33a73;
   --color-brand-text: #f2b8d4;
+  --color-brand-muted: #dc5f9b;
   --color-brand-bg: #3e3353;
 
   /* MacOS traffic light dots */
@@ -63,7 +64,8 @@
   --color-overlay: var(--color-latte-overlay);
   --color-subtext: var(--color-latte-subtext);
   --color-text: var(--color-latte-text);
-  --color-brand-text: var(--color-brand-from);
+  --color-brand-text: #c02b2b;
+  --color-brand-muted: var(--color-brand-to);
   --color-brand-bg: #f3e2e8;
   --page-bg: var(--color-latte-crust);
   --page-text: var(--color-latte-text);
@@ -225,6 +227,22 @@
      hydration must never leave the phrase invisible. */
   .typewriter > span {
     opacity: 1;
+    animation: none;
+  }
+}
+
+.window-in {
+  animation: window-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+@keyframes window-in {
+  from {
+    scale: 0.9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .window-in {
     animation: none;
   }
 }

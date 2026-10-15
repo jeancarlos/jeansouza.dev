@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import type { Length } from '@/lib/windowUtils'
 
 export interface ButtonOrigin {
   x: number
@@ -13,13 +14,13 @@ export interface WindowConfig {
   title: string
   pageTitle?: string
   content: ReactNode
-  position: { x: number; y: number }
-  size: { width: number | string; height: number | string }
+  /** Pixels once placed on the client; CSS lengths while still server-rendered. */
+  position: { x: Length; y: Length }
+  size: { width: Length; height: Length }
   /** CSS max-height override for content-sized (height: auto) windows. */
   maxHeight?: string
-  defaultSize: 'compact' | 'medium' | 'large' | 'fullscreen'
-  isExpanded: boolean
-  isMinimized: boolean
+  isExpanded?: boolean
+  isMinimized?: boolean
   origin?: ButtonOrigin
 }
 
@@ -45,6 +46,10 @@ const BASE_Z = 20
 
 function maxZ(windows: WindowState[]): number {
   return windows.reduce((m, w) => Math.max(m, w.zIndex), BASE_Z)
+}
+
+export function initWindows(windows: WindowConfig[]): WindowState[] {
+  return windows.map((w, i) => ({ ...w, zIndex: BASE_Z + 1 + i }))
 }
 
 export function windowsReducer(state: WindowState[], action: Action): WindowState[] {

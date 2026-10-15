@@ -1,12 +1,10 @@
 {
   "nav": {
-    "blog": "Blog",
-    "resume": "Resume"
+    "blog": "Blog"
   },
   "hero": {
     "prompt": "jean souza",
-    "role": "senior front-end engineer",
-    "cta": "explore"
+    "role": "senior front-end engineer"
   },
   "window": {
     "back": "< back",
@@ -30,7 +28,6 @@
   "blog": {
     "command": "ls posts/",
     "title": "Blog",
-    "readMore": "read post",
     "empty": "(empty)"
   },
   "more": {
@@ -44,27 +41,32 @@
   "locale": {
     "switchTo": "Switch to {locale}"
   },
-  "lang": {
-    "switch": "PT"
-  },
   "windows": {
-    "terminal": "Terminal",
-    "blog": "Blog",
-    "post": "Post",
-    "resume": "Resume",
-    "more": "More",
-    "close": "Close",
-    "move": "Move window",
-    "resize": "Resize window",
-    "center": "Center",
-    "topLeft": "Top left",
-    "rightHalf": "Right half",
-    "resetSize": "Reset size",
-    "fitViewport": "Fit to viewport",
-    "moveMode": "Move mode. Arrows move, Enter confirms, Escape cancels.",
-    "resizeMode": "Resize mode. Arrows adjust, Enter confirms, Escape cancels.",
-    "moved": "window moved",
-    "resized": "window resized",
-    "cancelled": "Action cancelled. Original state restored."
-  }
+    "resume": "Resume"
+  },
+  "meta": {
+    "siteName": "Jean Souza",
+    "home": {
+      "title": "Jean Souza — Senior Front-End Engineer",
+      "description": "Jean Souza, senior front-end engineer with 15+ years in React, Next.js and TypeScript. Resume, blog and projects in a terminal desktop in your browser."
+    },
+    "blog": {
+      "title": "Blog — Jean Souza",
+      "description": "Articles by Jean Souza on front-end, web architecture and the decisions behind this site, with the source open on GitHub."
+    },
+    "resume": {
+      "title": "Resume — Jean Souza",
+      "description": "Resume of Jean Souza: senior front-end engineering experience across healthtech, e-commerce and telecom, education and languages, as PDF and DOCX."
+    },
+    "more": {
+      "title": "Links — Jean Souza",
+      "description": "Where else to find Jean Souza: Instagram, Bluesky, Discord, Steam, consoles and the source code of this site."
+    },
+    "notFound": {
+      "title": "Page not found — Jean Souza",
+      "description": "This page does not exist (or has moved)."
+    },
+    "ogImageAlt": "Jean Souza, senior front-end engineer"
+  },
+  "skipToContent": "Skip to content"
 }

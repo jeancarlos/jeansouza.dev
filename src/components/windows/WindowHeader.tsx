@@ -1,4 +1,3 @@
-'use client'
 import { type PointerEvent } from 'react'
 import { type DragControls } from 'framer-motion'
 import { useTranslations } from '../../i18n/react'
@@ -11,26 +10,14 @@ interface WindowHeaderProps {
   isHome: boolean
   isExpanded: boolean
   dragControls: DragControls
-  closeable: boolean
-  minimizable: boolean
-  expandable: boolean
 }
 
 const HEADER_CLASS_MOBILE =
   'flex shrink-0 items-center gap-2 px-3 py-2.5 select-none bg-transparent md:hidden'
 const HEADER_CLASS_DESKTOP =
-  'hidden shrink-0 items-center gap-2 px-3 py-2.5 select-none bg-gradient-to-r from-brand-from to-brand-to md:flex'
+  'hidden shrink-0 items-center px-2 py-1.5 select-none bg-gradient-to-r from-brand-from to-brand-to md:flex'
 
-export function WindowHeader({
-  id,
-  title,
-  isHome,
-  isExpanded,
-  dragControls,
-  closeable,
-  minimizable,
-  expandable,
-}: WindowHeaderProps) {
+export function WindowHeader({ id, title, isHome, isExpanded, dragControls }: WindowHeaderProps) {
   const { closeWindow, minimizeWindow, expandWindow } = useWindowManager()
   const t = useTranslations('window')
 
@@ -66,21 +53,21 @@ export function WindowHeader({
           symbol="×"
           color="var(--color-traffic-close)"
           onClick={() => closeWindow(id)}
-          disabled={!closeable}
+          disabled={isHome}
         />
         <TrafficDot
           label={t('minimize')}
           symbol="−"
           color="var(--color-traffic-minimize)"
           onClick={() => minimizeWindow(id)}
-          disabled={!minimizable}
+          disabled={isHome}
         />
         <TrafficDot
           label={t('expand')}
           symbol="+"
           color="var(--color-traffic-expand)"
           onClick={() => expandWindow(id)}
-          disabled={!expandable}
+          disabled={isHome}
         />
         <span className="ml-2 min-w-0 truncate font-mono text-xs text-white/80">{title}</span>
       </div>

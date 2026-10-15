@@ -1,4 +1,3 @@
-'use client'
 import { motion, useReducedMotion } from 'framer-motion'
 import { joinClassNames } from '@/lib/utils'
 import { getBulletsForEntry } from '@/content/resume/selection'
@@ -67,7 +66,7 @@ export function TimelineItem({
             <span className="text-subtext basis-full text-sm">
               @ {entry.company}
               {entry.location && (
-                <span className="text-overlay ml-2">· {entry.location[locale]}</span>
+                <span className="text-subtext ml-2">· {entry.location[locale]}</span>
               )}
             </span>
           </header>

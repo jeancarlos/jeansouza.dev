@@ -1,9 +1,7 @@
-'use client'
-
 export interface ButtonProps {
   children: React.ReactNode
   href?: string
-  onClick?: (e: React.MouseEvent) => void
+  onClick?: (e: React.MouseEvent<HTMLElement>) => void
   className?: string
   disabled?: boolean
   'aria-label'?: string

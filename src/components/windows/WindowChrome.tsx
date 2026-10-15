@@ -1,91 +1,108 @@
-'use client'
-import { type ReactNode } from 'react'
-import { motion, type DragControls, type PanInfo } from 'framer-motion'
+import { useRef, useState, type ReactNode } from 'react'
+import { flushSync } from 'react-dom'
+import { motion, useMotionValue, type DragControls } from 'framer-motion'
 import { useWindowManager, type ButtonOrigin } from './WindowManager'
-import { TOPBAR_HEIGHT, WINDOW_MAX_HEIGHT, clampPosition } from '@/lib/windowUtils'
+import { TOPBAR_HEIGHT, WINDOW_MAX_HEIGHT, clampPosition, type Length } from '@/lib/windowUtils'
 import { getAnimateStyle, getInitialStyle, getTransition, type WindowStyle } from './terminalStyles'
 
 interface WindowChromeProps {
   id: string
   title: string
+  isHome: boolean
   isMobile: boolean
   isFocused: boolean
   isResizing: boolean
   zIndex: number
-  position: { x: number; y: number }
-  size: { width: number | string; height: number | string }
   maxHeight?: string
   origin?: ButtonOrigin
+  position: { x: Length; y: Length }
   activeStyle: WindowStyle
   outerClassName: string
   innerRounded: string
+  draggable: boolean
   dragControls: DragControls
   children: ReactNode
 }
 
+/**
+ * Placement lives in left/top, as pixels or as the CSS the server rendered;
+ * x/y only carry the offsets of a running drag or of the open animation. A
+ * drag is folded back into left/top when it ends, so x/y return to zero.
+ */
 export function WindowChrome({
   id,
   title,
+  isHome,
   isMobile,
   isFocused,
   isResizing,
   zIndex,
-  position,
-  size,
   maxHeight,
   origin,
+  position,
   activeStyle,
   outerClassName,
   innerRounded,
+  draggable,
   dragControls,
   children,
 }: WindowChromeProps) {
   const { focusWindow, moveWindow } = useWindowManager()
-
-  const w = typeof size.width === 'number' ? size.width : 600
-  const h = typeof size.height === 'number' ? size.height : 400
-  const animateStyle = getAnimateStyle(activeStyle, isMobile, isFocused)
-  const transition = getTransition(isResizing)
+  const ref = useRef<HTMLDivElement>(null)
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
+  const [isDragging, setIsDragging] = useState(false)
   const autoHeight = activeStyle.height === 'auto'
-  const initial = getInitialStyle(origin, autoHeight)
+  const [initial] = useState(() => getInitialStyle(origin, position, activeStyle, autoHeight))
+  const instant = isResizing || isDragging
 
-  const onDragEnd = (_: unknown, info: PanInfo) => {
-    const raw = { x: position.x + info.offset.x, y: position.y + info.offset.y }
-    moveWindow(
-      id,
-      clampPosition({ x: raw.x, y: Math.max(TOPBAR_HEIGHT, raw.y) }, { width: w, height: h })
-    )
+  const onDragEnd = () => {
+    const el = ref.current
+    if (el && !isHome) {
+      const r = el.getBoundingClientRect()
+      flushSync(() =>
+        moveWindow(
+          id,
+          clampPosition(
+            { x: r.left, y: Math.max(TOPBAR_HEIGHT, r.top) },
+            { width: r.width, height: r.height }
+          )
+        )
+      )
+      x.jump(0)
+      y.jump(0)
+    }
+    requestAnimationFrame(() => setIsDragging(false))
   }
 
   return (
     <motion.div
-      drag={!isMobile && activeStyle.width !== '100vw'}
+      ref={ref}
+      drag={draggable && !isMobile}
       dragListener={false}
       dragControls={dragControls}
       dragMomentum={false}
-      dragConstraints={{ top: isMobile ? 0 : TOPBAR_HEIGHT }}
+      onDragStart={() => setIsDragging(true)}
       onDragEnd={onDragEnd}
       initial={initial}
-      animate={{ ...animateStyle }}
+      animate={getAnimateStyle(activeStyle, isMobile, isFocused)}
       exit={{ opacity: 0, scale: 0.9, filter: 'blur(4px)' }}
-      transition={transition}
+      transition={getTransition(instant)}
       style={{
-        ...activeStyle,
+        x,
+        y,
+        left: activeStyle.left,
+        top: activeStyle.top,
         zIndex,
         position: 'fixed',
-        // Content-sized windows grow with their content up to the usable
-        // viewport height (below the topbar, inside the safe margins).
-        ...(activeStyle.height === 'auto' &&
-          !isMobile && { maxHeight: maxHeight ?? WINDOW_MAX_HEIGHT }),
+        ...(autoHeight && { maxHeight: maxHeight ?? WINDOW_MAX_HEIGHT }),
       }}
       onPointerDown={() => focusWindow(id)}
-      className={`${outerClassName} flex`}
+      className={`${outerClassName} flex ${initial === false ? 'window-in' : ''} ${instant ? '' : 'transition-[left,top] duration-150 ease-out'}`}
       role="dialog"
       aria-modal="true"
       aria-label={title}
     >
-      {/* Stretched flex child instead of h-full: percentage heights don't
-          resolve when the window is content-sized (height auto + max-height). */}
       <div className={`flex min-h-0 w-full flex-col overflow-hidden ${innerRounded}`}>
         {children}
       </div>

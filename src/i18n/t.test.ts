@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { LOCALES, useTranslations } from './t'
+import { LOCALES, translator } from './t'
 import pt from '../../content/i18n/pt.json'
 import en from '../../content/i18n/en.json'
 
@@ -21,13 +21,13 @@ describe('i18n catalogs', () => {
   })
 
   it('resolves a dot path', () => {
-    const t = useTranslations('pt')
+    const t = translator('pt')
     const firstKey = keys(pt)[0]
     expect(typeof t(firstKey)).toBe('string')
   })
 
   it('throws on a missing key instead of rendering undefined', () => {
-    const t = useTranslations('en')
+    const t = translator('en')
     expect(() => t('this.key.does.not.exist')).toThrow(/missing translation/i)
   })
 })

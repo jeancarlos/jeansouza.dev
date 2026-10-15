@@ -1,12 +1,10 @@
 {
   "nav": {
-    "blog": "Blog",
-    "resume": "Currículo"
+    "blog": "Blog"
   },
   "hero": {
     "prompt": "jean souza",
-    "role": "engenheiro front-end sênior",
-    "cta": "explorar"
+    "role": "engenheiro front-end sênior"
   },
   "window": {
     "back": "< voltar",
@@ -30,7 +28,6 @@
   "blog": {
     "command": "ls posts/",
     "title": "Blog",
-    "readMore": "ler post",
     "empty": "(vazio)"
   },
   "more": {
@@ -44,27 +41,32 @@
   "locale": {
     "switchTo": "Mudar para {locale}"
   },
-  "lang": {
-    "switch": "EN"
-  },
   "windows": {
-    "terminal": "Terminal",
-    "blog": "Blog",
-    "post": "Post",
-    "resume": "Currículo",
-    "more": "Mais",
-    "close": "Fechar",
-    "move": "Mover janela",
-    "resize": "Redimensionar janela",
-    "center": "Centralizar",
-    "topLeft": "Canto superior esquerdo",
-    "rightHalf": "Metade direita",
-    "resetSize": "Redefinir tamanho",
-    "fitViewport": "Ajustar à tela",
-    "moveMode": "Modo mover. Setas movem, Enter confirma, Escape cancela.",
-    "resizeMode": "Modo redimensionar. Setas ajustam, Enter confirma, Escape cancela.",
-    "moved": "janela movida",
-    "resized": "janela redimensionada",
-    "cancelled": "Ação cancelada. Estado original restaurado."
-  }
+    "resume": "Currículo"
+  },
+  "meta": {
+    "siteName": "Jean Souza",
+    "home": {
+      "title": "Jean Souza — Engenheiro Front-End Sênior",
+      "description": "Jean Souza, engenheiro front-end sênior com mais de 15 anos em React, Next.js e TypeScript. Currículo, blog e projetos num desktop de terminal no navegador."
+    },
+    "blog": {
+      "title": "Blog — Jean Souza",
+      "description": "Artigos de Jean Souza sobre front-end, arquitetura web e as decisões por trás deste site, com o código aberto no GitHub."
+    },
+    "resume": {
+      "title": "Currículo — Jean Souza",
+      "description": "Currículo de Jean Souza: experiência como engenheiro front-end sênior em healthtech, e-commerce e telecom, formação e idiomas, em PDF e DOCX."
+    },
+    "more": {
+      "title": "Links — Jean Souza",
+      "description": "Onde mais encontrar Jean Souza: Instagram, Bluesky, Discord, Steam, consoles e o código-fonte deste site."
+    },
+    "notFound": {
+      "title": "Página não encontrada — Jean Souza",
+      "description": "Essa página não existe (ou foi movida)."
+    },
+    "ogImageAlt": "Jean Souza, engenheiro front-end sênior"
+  },
+  "skipToContent": "Pular para o conteúdo"
 }

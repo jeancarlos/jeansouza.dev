@@ -1,4 +1,3 @@
-'use client'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslations } from '../../i18n/react'
 import { Button } from '@/components/ui/Button'
@@ -41,22 +40,21 @@ export function MoreLinksWindow() {
 
   return (
     <div className="text-brand-text space-y-2 p-4 text-sm">
-      <p className="text-brand-to mb-3 text-xs">$ ls more/</p>
+      <h1 className="sr-only">{t('title')}</h1>
+      <p className="text-brand-muted mb-3 text-xs" aria-hidden="true">
+        $ ls more/
+      </p>
       <div className="flex flex-wrap gap-2">
         {extraLinks.map((link, index) => (
           <div key={link.name} className="relative">
             {link.url ? (
-              <Button href={link.url}>
-                <i className={`${link.icon} mr-1`} aria-hidden="true" />
-                {link.name}
-              </Button>
+              <Button href={link.url}>{link.name}</Button>
             ) : (
               <>
                 <Button
                   onClick={() => link.content && handleCopyContent(link.content, index)}
                   aria-label={t('copy', { name: link.name })}
                 >
-                  <i className={`${link.icon} mr-1`} aria-hidden="true" />
                   {link.name}
                 </Button>
                 {bubble?.index === index && (

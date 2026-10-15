@@ -6,7 +6,7 @@ beforeEach(() => {
   Object.defineProperty(window, 'matchMedia', {
     writable: true,
     value: vi.fn().mockImplementation((query: string) => ({
-      matches: query === '(max-width: 768px)',
+      matches: query === '(width < 48rem)',
       media: query,
       addEventListener: vi.fn(),
       removeEventListener: vi.fn(),

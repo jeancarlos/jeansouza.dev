@@ -1,13 +1,9 @@
-// src/components/windows/ResizeHandle.tsx
-'use client'
 import { useEffect, useRef } from 'react'
-import type React from 'react'
+import type { CSSProperties, PointerEvent } from 'react'
 import { useWindowManager } from './WindowManager'
+import { MIN_WINDOW_HEIGHT as MIN_H, MIN_WINDOW_WIDTH as MIN_W } from '@/lib/windowUtils'
 
 export type ResizeDir = 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw'
-
-const MIN_W = 200
-const MIN_H = 100
 
 const RESIZE_CURSORS: Record<ResizeDir, string> = {
   n: 'ns-resize',
@@ -20,7 +16,7 @@ const RESIZE_CURSORS: Record<ResizeDir, string> = {
   se: 'nwse-resize',
 }
 
-const RESIZE_STYLES: Record<ResizeDir, React.CSSProperties> = {
+const RESIZE_STYLES: Record<ResizeDir, CSSProperties> = {
   n: { top: 0, left: 12, right: 12, height: 6 },
   s: { bottom: 0, left: 12, right: 12, height: 6 },
   e: { right: 0, top: 12, bottom: 12, width: 6 },
@@ -50,8 +46,6 @@ interface PendingResize {
 interface ResizeHandleProps {
   direction: ResizeDir
   windowId: string
-  size: { width: number | string; height: number | string }
-  position: { x: number; y: number }
   onResizeStart: () => void
   onResizeEnd: () => void
 }
@@ -59,8 +53,6 @@ interface ResizeHandleProps {
 export function ResizeHandle({
   direction,
   windowId,
-  size,
-  position,
   onResizeStart,
   onResizeEnd,
 }: ResizeHandleProps) {
@@ -87,22 +79,24 @@ export function ResizeHandle({
     }
   }
 
-  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>): void => {
+  const handlePointerDown = (e: PointerEvent<HTMLDivElement>): void => {
     e.stopPropagation()
     focusWindow(windowId)
     e.currentTarget.setPointerCapture(e.pointerId)
+    const box = e.currentTarget.closest('[role="dialog"]')?.getBoundingClientRect()
+    if (!box) return
     dragRef.current = {
       startX: e.clientX,
       startY: e.clientY,
-      startW: typeof size.width === 'number' ? size.width : 600,
-      startH: typeof size.height === 'number' ? size.height : 400,
-      startPosX: position.x,
-      startPosY: position.y,
+      startW: box.width,
+      startH: box.height,
+      startPosX: box.left,
+      startPosY: box.top,
     }
     onResizeStart()
   }
 
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>): void => {
+  const handlePointerMove = (e: PointerEvent<HTMLDivElement>): void => {
     if (!dragRef.current) return
     const { startX, startY, startW, startH, startPosX, startPosY } = dragRef.current
     const dx = e.clientX - startX
@@ -146,6 +140,8 @@ export function ResizeHandle({
   return (
     <div
       data-resize-handle
+      aria-hidden="true"
+      className="max-md:hidden"
       style={{
         position: 'absolute',
         zIndex: 20,
@@ -156,9 +152,6 @@ export function ResizeHandle({
       onPointerMove={handlePointerMove}
       onPointerUp={endDrag}
       onPointerCancel={endDrag}
-      onClick={(e) => {
-        e.stopPropagation()
-      }}
     />
   )
 }

@@ -19,4 +19,4 @@ export function resolveTheme(stored: string | null, prefersLight: boolean): Them
  * by definition, and deferred means after first paint — so the branch is
  * duplicated here and theme.test.ts asserts the two agree.
  */
-export const THEME_INIT_SCRIPT = `(function(){try{var s=localStorage.getItem('theme');var p=(s==='light'||s==='dark')?s:(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',p);document.documentElement.style.colorScheme=p}catch(e){document.documentElement.setAttribute('data-theme','dark')}})()`
+export const THEME_INIT_SCRIPT = `(function(){try{var s=localStorage.getItem('${THEME_STORAGE_KEY}');var p=(s==='light'||s==='dark')?s:(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',p);document.documentElement.style.colorScheme=p}catch(e){document.documentElement.setAttribute('data-theme','dark')}})()`

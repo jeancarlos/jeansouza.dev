@@ -7,25 +7,21 @@ const allAssets: CurriculoAsset[] = [
   {
     locale: 'pt',
     format: 'pdf',
-    filename: 'jean-souza-curriculo-pt.pdf',
     url: '/curriculo/jean-souza-curriculo-pt.pdf',
   },
   {
     locale: 'pt',
     format: 'docx',
-    filename: 'jean-souza-curriculo-pt.docx',
     url: '/curriculo/jean-souza-curriculo-pt.docx',
   },
   {
     locale: 'en',
     format: 'pdf',
-    filename: 'jean-souza-resume-en.pdf',
     url: '/curriculo/jean-souza-resume-en.pdf',
   },
   {
     locale: 'en',
     format: 'docx',
-    filename: 'jean-souza-resume-en.docx',
     url: '/curriculo/jean-souza-resume-en.docx',
   },
 ]

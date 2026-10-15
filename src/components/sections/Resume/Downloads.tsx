@@ -1,4 +1,3 @@
-'use client'
 import { useTranslations } from '../../../i18n/react'
 import type { CurriculoAsset } from '@/lib/curriculo-assets'
 
@@ -19,7 +18,7 @@ export function Downloads({ assets, locale }: Props) {
       <div className="flex flex-wrap gap-3">
         {filtered.map((asset) => (
           <a
-            key={asset.filename}
+            key={asset.url}
             href={asset.url}
             download
             className="group from-brand-from to-brand-to relative inline-block rounded-full bg-gradient-to-r p-[2px] shadow-sm transition-all duration-150 ease-out hover:shadow-md hover:brightness-110 active:scale-90"
