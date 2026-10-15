@@ -66,7 +66,9 @@ function startStarfield(canvas: HTMLCanvasElement) {
 
   addEventListener('resize', restart)
   still.addEventListener('change', restart)
-  restart()
+  const begin = () => restart()
+  if ('requestIdleCallback' in window) requestIdleCallback(begin, { timeout: 2000 })
+  else setTimeout(begin, 200)
   return () => {
     readColor()
     if (still.matches) draw()
