@@ -3,10 +3,12 @@ import { postsFor, type PostEntry } from './posts'
 
 const cover = { src: '/c.webp', srcSet: '/c.webp 820w', alt: 'A cover.' }
 
+const thumb = { src: '/t.webp', srcSet: '/t.webp 176w' }
+
 const entry = (id: string, date: string): PostEntry => ({
   id,
   body: `body of ${id}`,
-  data: { title: id, date: new Date(date), description: 'd', cover, ogImage: `/${id}.jpg` },
+  data: { title: id, date: new Date(date), description: 'd', cover, thumb, ogImage: `/${id}.jpg` },
 })
 
 describe('postsFor', () => {

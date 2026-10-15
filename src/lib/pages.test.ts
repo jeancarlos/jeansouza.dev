@@ -10,6 +10,7 @@ const post: Post = {
   description: 'A post.',
   content: '',
   cover: { src: '/c.webp', srcSet: '/c.webp 820w', alt: 'A cover.' },
+  thumb: { src: '/t.webp', srcSet: '/t.webp 176w' },
   ogImage: '/og-hello.jpg',
 }
 const pages: Page[] = [

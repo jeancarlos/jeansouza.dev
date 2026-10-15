@@ -6,6 +6,11 @@ export interface PostCover {
   alt: string
 }
 
+export interface PostThumb {
+  src: string
+  srcSet: string
+}
+
 export interface Post {
   slug: string
   title: string
@@ -13,13 +18,21 @@ export interface Post {
   description: string
   content: string
   cover: PostCover
+  thumb: PostThumb
   ogImage: string
 }
 
 export interface PostEntry {
   id: string
   body?: string
-  data: { title: string; date: Date; description: string; cover: PostCover; ogImage: string }
+  data: {
+    title: string
+    date: Date
+    description: string
+    cover: PostCover
+    thumb: PostThumb
+    ogImage: string
+  }
 }
 
 /** Posts are `<slug>.<locale>.md`; a post shows only in the locales it was written in. */
@@ -33,6 +46,7 @@ export function postsFor(entries: PostEntry[], locale: Locale): Post[] {
       date: e.data.date.toISOString().slice(0, 10),
       description: e.data.description,
       cover: e.data.cover,
+      thumb: e.data.thumb,
       ogImage: e.data.ogImage,
       content: e.body ?? '',
     }))
