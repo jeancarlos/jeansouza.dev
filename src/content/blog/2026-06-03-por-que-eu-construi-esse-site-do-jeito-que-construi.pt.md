@@ -1,7 +1,9 @@
 ---
 title: 'Por que eu construí esse site do jeito que construí'
 date: 2026-06-03
-description: Esse portfólio não é uma lista de tecnologias. É uma série de decisões deliberadas — e o código aberto pra quem quiser auditar.
+description: Esse portfólio não é uma lista de tecnologias. É uma série de decisões deliberadas - e o código aberto pra quem quiser auditar.
+image: ./2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi.jpg
+imageAlt: 'Ilustração no estilo do tarô Rider-Waite: o Louco, com uma trouxa no ombro e uma rosa na mão, caminha olhando o sol na beira de um penhasco, com um cão branco aos pés, montanhas nevadas ao fundo e um rio no vale.'
 ---
 
 Eu precisava de um lugar pra guardar minhas ideias, mostrar o que sei fazer e ter algo concreto que represente o que diz no meu currículo. Um portfólio que não seja só lista de tecnologias, mas que prove que o que tá escrito ali é real. Porque hoje qualquer um consegue gerar código com IA. A diferença tá no julgamento, no gosto, na visão do que faz sentido e do que não faz. E isso não dá pra fingir: só alguém que realmente entende consegue construir algo que mostre isso. Esse blog é o jeito mais honesto que encontrei de fechar esse gap.
