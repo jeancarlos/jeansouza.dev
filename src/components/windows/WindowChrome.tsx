@@ -151,7 +151,7 @@ export function WindowChrome({
         height: activeStyle.height,
         zIndex,
         position: 'fixed',
-        filter: sharp ? undefined : 'blur(2px) saturate(0.4)',
+        filter: sharp ? undefined : 'blur(2px) opacity(0.85)',
         ...(activeStyle.height === 'auto' &&
           !isMobile && { maxHeight: maxHeight ?? WINDOW_MAX_HEIGHT }),
       }}
