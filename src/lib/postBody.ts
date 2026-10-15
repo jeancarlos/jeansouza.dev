@@ -39,6 +39,6 @@ function toTimeline(yaml: string, where: string): TimelineEntry[] {
 export function splitPostBody(html: string, where: string): BodyPart[] {
   return html.split(TIMELINE).flatMap((piece, i): BodyPart[] => {
     if (i % 2 === 1) return [{ timeline: toTimeline(piece, where) }]
-    return piece.trim() === '' ? [] : [{ html: piece }]
+    return piece.trim() === '' ? [] : [{ html: piece.replaceAll('<img ', '<img loading="lazy" ') }]
   })
 }

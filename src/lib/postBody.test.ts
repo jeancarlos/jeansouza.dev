@@ -8,6 +8,12 @@ describe('splitPostBody', () => {
     expect(splitPostBody('<p>only</p>', 'post')).toEqual([{ html: '<p>only</p>' }])
   })
 
+  it('lazy-loads images in the body', () => {
+    expect(splitPostBody('<p><img src="/a.svg" alt="a"></p>', 'post')).toEqual([
+      { html: '<p><img loading="lazy" src="/a.svg" alt="a"></p>' },
+    ])
+  })
+
   it('splits the html around each timeline block, keeping text as written', () => {
     const yaml =
       '- date: "2024 – 2026"\n  title: Senior "dev" & <lead>\n\n  meta: Zydon\n  items:\n    - built <tests>\n  dotted: true\n- date: "2020"\n  title: First job\n'

@@ -40,4 +40,21 @@ describe('BlogListWindow', () => {
     expect(container.querySelector('img')).toHaveAttribute('alt', '')
     expect(screen.queryByRole('img')).toBeNull()
   })
+  it('fetches the first thumbnail early only when the list is in front', () => {
+    const imgs = (priority: boolean) =>
+      render(
+        <LocaleProvider locale="en">
+          <WindowManagerProvider>
+            <BlogListWindow posts={[post('first'), post('second')]} priority={priority} />
+          </WindowManagerProvider>
+        </LocaleProvider>
+      ).container.querySelectorAll('img')
+    const front = imgs(true)
+    expect(front[0]).toHaveAttribute('loading', 'eager')
+    expect(front[0]).toHaveAttribute('fetchpriority', 'high')
+    expect(front[1]).toHaveAttribute('loading', 'lazy')
+    const behind = imgs(false)
+    expect(behind[0]).toHaveAttribute('loading', 'lazy')
+    expect(behind[0]).not.toHaveAttribute('fetchpriority', 'high')
+  })
 })

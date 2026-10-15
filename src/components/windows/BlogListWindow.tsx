@@ -6,7 +6,7 @@ import { THUMB_SIZE } from '@/lib/coverSize'
 import { useWindowOpener } from './WindowManager'
 import { pageWindow } from './pageWindows'
 
-export function BlogListWindow({ posts }: { posts: Post[] }) {
+export function BlogListWindow({ posts, priority = false }: { posts: Post[]; priority?: boolean }) {
   const t = useTranslations('blog')
   const locale = useLocale()
   const opener = useWindowOpener()
@@ -38,8 +38,8 @@ export function BlogListWindow({ posts }: { posts: Post[] }) {
                   sizes={`(min-width: 640px) ${THUMB_SIZE.width}px, calc(100vw - 56px)`}
                   {...THUMB_SIZE}
                   alt=""
-                  loading={i === 0 ? 'eager' : 'lazy'}
-                  fetchPriority={i === 0 ? 'high' : 'auto'}
+                  loading={priority && i === 0 ? 'eager' : 'lazy'}
+                  fetchPriority={priority && i === 0 ? 'high' : 'auto'}
                   className="block aspect-4/3 h-auto w-full rounded-[10px] sm:w-44"
                 />
               </div>

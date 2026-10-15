@@ -64,8 +64,8 @@ function placement(page: Exclude<Page, { kind: 'home' }>, origin: ButtonOrigin |
   return morePlacement(origin)
 }
 
-function content(page: Page, locale: Locale, posts: Post[]) {
-  if (page.kind === 'blog') return <BlogListWindow posts={posts} />
+function content(page: Page, locale: Locale, posts: Post[], background: boolean) {
+  if (page.kind === 'blog') return <BlogListWindow posts={posts} priority={!background} />
   if (page.kind === 'post') return <BlogPostWindow post={page.post} />
   if (page.kind === 'resume') return <ResumeWindow locale={locale} />
   return <MoreLinksWindow />
@@ -77,14 +77,15 @@ export function pageWindow(
   page: Exclude<Page, { kind: 'home' }>,
   locale: Locale,
   posts: Post[],
-  origin?: ButtonOrigin
+  origin?: ButtonOrigin,
+  background = false
 ): WindowConfig {
   return {
     id: page.kind === 'post' ? `post-${page.post.slug}` : page.kind,
     url: pageUrl(page, locale),
     title: page.kind === 'post' ? `~/blog/${page.post.slug}` : TITLES[page.kind],
     pageTitle: pageMeta(page, locale).title,
-    content: content(page, locale, posts),
+    content: content(page, locale, posts, background),
     ...placement(page, origin),
     origin,
   }
@@ -98,6 +99,9 @@ export function windowsForPage(
 ): WindowConfig[] {
   if (!page || page.kind === 'home') return []
   if (page.kind === 'post')
-    return [pageWindow({ kind: 'blog' }, locale, posts), pageWindow(page, locale, posts)]
+    return [
+      pageWindow({ kind: 'blog' }, locale, posts, undefined, true),
+      pageWindow(page, locale, posts),
+    ]
   return [pageWindow(page, locale, posts)]
 }
