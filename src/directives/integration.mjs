@@ -1,4 +1,4 @@
-/** `client:afterpaint`: hydrate once the first frame is on screen, so island JavaScript never delays first paint. */
+/** `client:afterpaint`: hydrate once the first contentful paint is on screen, so island JavaScript never delays it. */
 export default function afterPaint() {
   return {
     name: 'client-afterpaint',
