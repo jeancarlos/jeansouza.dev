@@ -1,11 +1,13 @@
 ---
+import { ROOT_REDIRECT_SCRIPT } from '../lib/locale-storage'
+
 // Static export has no server: a redirect here would prerender an empty error
 // shell that only navigates after the whole JS bundle hydrates — on a slow
 // mobile connection that reads as a site that never opens. Instead this page
-// ships real HTML: an inline script redirects by browser language during parse
-// (before any bundle loads), with <meta refresh> and plain links as no-JS
-// fallbacks, and a spinner so a slow handoff still shows progress.
-const REDIRECT_SCRIPT = "location.replace(/^pt/i.test(navigator.language) ? '/pt/' : '/en/')"
+// ships real HTML: an inline script redirects to the reader's stored choice, or
+// else their browser language, during parse (before any bundle loads), with
+// <meta refresh> and plain links as no-JS fallbacks, and a spinner so a slow
+// handoff still shows progress.
 ---
 
 <html lang="pt">
@@ -37,6 +39,6 @@ const REDIRECT_SCRIPT = "location.replace(/^pt/i.test(navigator.language) ? '/pt
         <a href="/en/">english</a>
       </p>
     </main>
-    <script is:inline set:html={REDIRECT_SCRIPT} />
+    <script is:inline set:html={ROOT_REDIRECT_SCRIPT} />
   </body>
 </html>
