@@ -5,30 +5,6 @@ import type { TimelineEntry } from '@/content/resume/timeline'
 import type { Profile } from '@/content/resume/profile'
 import type { EducationEntry } from '@/content/resume/education'
 
-vi.mock('next-intl', () => ({
-  useTranslations: (namespace: string) => {
-    const messages: Record<string, Record<string, string>> = {
-      resume: {
-        command: '$ cat ~/resume',
-        experience: 'Experience',
-        education: 'Education',
-        languages: 'Languages',
-        title: 'Resume',
-        'download.label': 'Download résumé',
-        pdf: 'PDF',
-        docx: 'DOCX',
-      },
-      'resume.download': {
-        label: 'Download résumé',
-        pdf: 'PDF',
-        docx: 'DOCX',
-      },
-    }
-    const ns = messages[namespace] ?? {}
-    return (key: string) => ns[key]
-  },
-}))
-
 vi.mock('framer-motion', () => ({
   motion: {
     li: ({ children, className, ...props }: React.HTMLAttributes<HTMLElement>) => (

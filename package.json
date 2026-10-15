@@ -6,32 +6,25 @@
   "dependencies": {
     "@astrojs/check": "^0.9.10",
     "@astrojs/react": "^6.0.4",
-    "@astrojs/sitemap": "^3.7.3",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.2.4",
     "focus-trap-react": "^12.0.3",
     "framer-motion": "^13.1.1",
     "gray-matter": "^4.0.3",
-    "next": "^16.2.7",
-    "next-intl": "^4.13.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-markdown": "^10.1.0",
     "rehype-sanitize": "^6.0.0"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "astro dev",
+    "build": "astro build",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run",
-    "preview": "node scripts/preview.mjs",
-    "dev:astro": "astro dev",
-    "build:astro": "astro build",
-    "preview:astro": "astro preview",
-    "check:astro": "astro check"
+    "preview": "astro preview",
+    "check": "astro check"
   },
   "browserslist": {
     "production": [
@@ -63,8 +56,10 @@
     "axe-core": "^4.13.0",
     "chrome-launcher": "^1.2.1",
     "eslint": "^9.39.5",
-    "eslint-config-next": "^16.2.2",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
     "jsdom": "^30.0.1",
     "lighthouse": "^13.4.1",
     "pixelmatch": "^7.2.0",

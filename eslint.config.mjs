@@ -1,15 +1,41 @@
 import tseslint from 'typescript-eslint'
-import coreWebVitals from 'eslint-config-next/core-web-vitals'
-import nextTypescript from 'eslint-config-next/typescript'
+import react from 'eslint-plugin-react'
+import jsxA11y from 'eslint-plugin-jsx-a11y'
 import reactHooks from 'eslint-plugin-react-hooks'
 import prettier from 'eslint-config-prettier'
 
 export default tseslint.config(
-  { ignores: ['node_modules', '.next', 'dist', '.astro', 'out', '.claude', '.superpowers', 'docs', 'public'] },
+  {
+    ignores: [
+      'node_modules',
+      '.next',
+      'out',
+      'dist',
+      '.astro',
+      '.claude',
+      '.superpowers',
+      'docs',
+      'public',
+    ],
+  },
 
-  // Next.js base rules (includes @next/eslint-plugin-next, react, jsx-a11y)
-  ...coreWebVitals,
-  ...nextTypescript,
+  {
+    ...react.configs.flat.recommended,
+    settings: { react: { version: 'detect' } },
+    rules: { 'react/prop-types': 'off' },
+  },
+  react.configs.flat['jsx-runtime'],
+  {
+    plugins: { 'jsx-a11y': jsxA11y },
+    rules: {
+      'jsx-a11y/alt-text': 'warn',
+      'jsx-a11y/aria-props': 'warn',
+      'jsx-a11y/aria-proptypes': 'warn',
+      'jsx-a11y/aria-unsupported-elements': 'warn',
+      'jsx-a11y/role-has-required-aria-props': 'warn',
+      'jsx-a11y/role-supports-aria-props': 'warn',
+    },
+  },
 
   // Type-aware TypeScript strict rules for .ts/.tsx files
   {

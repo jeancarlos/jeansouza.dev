@@ -37,10 +37,6 @@ vi.mock('framer-motion', () => ({
   useDragControls: () => ({ start: vi.fn() }),
 }))
 
-vi.mock('next/dynamic', () => ({
-  default: () => () => <div data-testid="more-links" />,
-}))
-
 function renderHero() {
   return render(
     <WindowManagerProvider>

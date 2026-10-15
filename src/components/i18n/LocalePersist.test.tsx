@@ -4,10 +4,6 @@ import { LocalePersist } from './LocalePersist'
 
 const STORAGE_KEY = 'locale'
 
-vi.mock('next-intl', () => ({
-  useLocale: () => 'pt',
-}))
-
 const replaceMock = vi.fn()
 vi.mock('@/i18n/navigation', () => ({
   useRouter: () => ({ replace: replaceMock }),
