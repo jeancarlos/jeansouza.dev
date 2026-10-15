@@ -155,7 +155,7 @@ export function WindowChrome({
         ...(activeStyle.height === 'auto' &&
           !isMobile && { maxHeight: maxHeight ?? WINDOW_MAX_HEIGHT }),
       }}
-      className={`${outerClassName} flex ${openFrom ? '' : 'window-in'} ${instant ? '' : 'transition-[left,top,filter] duration-150 ease-out motion-reduce:transition-none'}`}
+      className={`${outerClassName} flex ${isFocused ? '' : 'max-md:hidden'} ${openFrom ? '' : 'window-in'} ${instant ? '' : 'transition-[left,top,filter] duration-150 ease-out motion-reduce:transition-none'}`}
       role="dialog"
       aria-label={title}
     >
