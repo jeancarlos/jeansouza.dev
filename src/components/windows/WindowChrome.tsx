@@ -100,7 +100,6 @@ export function WindowChrome({
       onPointerDown={() => focusWindow(id)}
       className={`${outerClassName} flex ${initial === false ? 'window-in' : ''} ${instant ? '' : 'transition-[left,top] duration-150 ease-out'}`}
       role="dialog"
-      aria-modal="true"
       aria-label={title}
     >
       <div className={`flex min-h-0 w-full flex-col overflow-hidden ${innerRounded}`}>

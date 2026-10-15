@@ -11,7 +11,11 @@
     "backAria": "Voltar",
     "close": "Fechar",
     "minimize": "Minimizar",
-    "expand": "Expandir"
+    "expand": "Expandir",
+    "move": "Mover {title}",
+    "moveMode": "Modo mover: setas movem, Alt com setas redimensiona, Shift aumenta o passo, Enter confirma, Esc cancela",
+    "moved": "Posição confirmada",
+    "cancelled": "Movimento cancelado"
   },
   "resume": {
     "title": "Currículo",

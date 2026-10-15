@@ -3,6 +3,7 @@ import { type DragControls } from 'framer-motion'
 import { useTranslations } from '../../i18n/react'
 import { useWindowManager } from './WindowManager'
 import { TrafficDot } from './TrafficDot'
+import { useKeyboardMove } from './useKeyboardMove'
 
 interface WindowHeaderProps {
   id: string
@@ -20,6 +21,12 @@ const HEADER_CLASS_DESKTOP =
 export function WindowHeader({ id, title, isHome, isExpanded, dragControls }: WindowHeaderProps) {
   const { closeWindow, minimizeWindow, expandWindow } = useWindowManager()
   const t = useTranslations('window')
+  const move = useKeyboardMove(id, {
+    moveMode: t('moveMode'),
+    moved: t('moved'),
+    cancelled: t('cancelled'),
+  })
+  const movable = !isHome && !isExpanded
 
   const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
     // dragControls.start bypasses the motion.div drag prop, so the expanded
@@ -69,7 +76,24 @@ export function WindowHeader({ id, title, isHome, isExpanded, dragControls }: Wi
           onClick={() => expandWindow(id)}
           disabled={isHome}
         />
-        <span className="ml-2 min-w-0 truncate font-mono text-xs text-white/80">{title}</span>
+        {movable ? (
+          <button
+            type="button"
+            aria-label={t('move', { title })}
+            aria-pressed={move.active}
+            onClick={move.onClick}
+            onKeyDown={move.onKeyDown}
+            onBlur={move.onBlur}
+            className={`ml-2 min-w-0 cursor-[inherit] truncate rounded font-mono text-xs text-white/80 ${move.active ? 'ring-2 ring-white' : ''}`}
+          >
+            {title}
+          </button>
+        ) : (
+          <span className="ml-2 min-w-0 truncate font-mono text-xs text-white/80">{title}</span>
+        )}
+        <span role="status" aria-atomic="true" className="sr-only">
+          {move.status}
+        </span>
       </div>
     </>
   )
