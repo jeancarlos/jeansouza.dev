@@ -106,7 +106,7 @@ export function WindowHeader({ id, title, isHome, isExpanded }: WindowHeaderProp
             aria-expanded={placing}
             aria-controls={panelId}
             onClick={() => setPlacing((open) => !open)}
-            className="ml-auto inline-flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded font-mono text-xs text-white/80 hover:text-white"
+            className="ml-auto inline-flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded font-mono text-xl leading-none text-white/90 hover:text-white"
           >
             ⌖
           </button>
@@ -120,7 +120,7 @@ export function WindowHeader({ id, title, isHome, isExpanded }: WindowHeaderProp
           id={panelId}
           role="group"
           aria-label={t('place')}
-          className="border-surface bg-base text-text hidden shrink-0 flex-wrap gap-1 border-b px-2 py-1 md:flex"
+          className="from-brand-from to-brand-to hidden shrink-0 flex-wrap gap-1 bg-gradient-to-r px-2 pb-1.5 text-white md:flex"
         >
           {PLACEMENTS.map((where) => (
             <button
@@ -131,7 +131,7 @@ export function WindowHeader({ id, title, isHome, isExpanded }: WindowHeaderProp
                 move.place(e.currentTarget, where, t('placed'))
                 closePanel()
               }}
-              className="hover:bg-surface cursor-pointer rounded px-2 py-0.5 font-mono text-xs"
+              className="cursor-pointer rounded px-2 py-0.5 font-mono text-xs hover:bg-white/15"
             >
               {t(where)}
             </button>
