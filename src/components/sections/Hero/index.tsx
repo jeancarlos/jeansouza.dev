@@ -142,8 +142,10 @@ export function Hero({ locale, onOpenBlog, isFocused = true, initialOpen }: Prop
       >
         <div className="text-brand-text space-y-3 p-6">
           <p className="text-brand-to text-xs">~ jeansouza.dev</p>
-          <p className="flex items-center gap-2">
-            <span className="text-brand-from select-none">{'>'}</span>
+          <h1 className="flex items-center gap-2">
+            <span className="text-brand-from select-none" aria-hidden="true">
+              {'>'}
+            </span>
             <Typewriter
               text={t('prompt')}
               className="font-display text-brand-text text-2xl font-bold"
@@ -156,7 +158,7 @@ export function Hero({ locale, onOpenBlog, isFocused = true, initialOpen }: Prop
             >
               _
             </motion.span>
-          </p>
+          </h1>
           <p className="text-brand-to pl-5 text-sm">
             <Typewriter text={t('role')} delay={0.8} />
           </p>
@@ -195,9 +197,9 @@ export function Hero({ locale, onOpenBlog, isFocused = true, initialOpen }: Prop
               windowContent={<MoreLinksWindowDynamic />}
               windowSize={{ width: 320, height: 280 }}
               defaultSize="compact"
-              aria-label={tMore('title')}
             >
-              +
+              <span aria-hidden="true">+</span>
+              <span className="sr-only">{tMore('title')}</span>
             </WindowButton>
           </div>
         </div>

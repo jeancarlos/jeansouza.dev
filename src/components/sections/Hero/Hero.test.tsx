@@ -59,7 +59,19 @@ describe('Hero', () => {
 
   it('renders the more links button', () => {
     renderHero()
-    expect(screen.getByLabelText('More links')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'More links' })).toBeInTheDocument()
+  })
+
+  it('names the page with the prompt as its only h1', () => {
+    renderHero()
+    expect(screen.getByRole('heading', { level: 1 })).toHaveAccessibleName('jean souza')
+  })
+
+  it('shows + on the more links button without overriding its visible label', () => {
+    renderHero()
+    const link = screen.getByRole('link', { name: 'More links' })
+    expect(link).not.toHaveAttribute('aria-label')
+    expect(link).toHaveTextContent('+')
   })
 
   it('links each window button to its page so crawlers and new tabs reach it', () => {
