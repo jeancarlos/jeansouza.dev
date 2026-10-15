@@ -1,38 +1,40 @@
 ---
-title: 'Accessibility score 100, as long as you skip the keyboard 🤡'
+title: 'The Fool: why this site exists the way it does'
 date: 2026-10-15
-description: How this site is built, what CI checks before every deploy, and why a perfect accessibility score didn't mean you could use the site without a mouse.
+description: Anxiety, projects dropped halfway and a site that's hard to build on purpose. How it's built, what CI checks before every deploy, and why a perfect accessibility score didn't mean you could use the site without a mouse.
 image: ./2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi.jpg
-imageAlt: 'Illustration in the style of the Rider-Waite tarot: the Fool, a bundle over his shoulder and a rose in his hand, walks toward a cliff edge gazing at the sun, a white dog at his feet, snowy mountains behind and a river in the valley.'
+imageAlt: 'Card zero, confidence one hundred: the Fool, a bundle over his shoulder and a rose in his hand, walks toward a cliff edge gazing at the sun, a white dog at his feet, snowy mountains behind and a river in the valley.'
 ---
 
-Until October 15, 2026, this site scored 100 for accessibility in Lighthouse, passed axe with zero violations, and wouldn't let anyone move a window without a mouse. CI required a perfect score before every deploy. Meanwhile every window announced itself to screen readers as modal, telling them the rest of the page was blocked, while the rest of the page worked just fine.
+I've always had a huge urge to express myself, share what I know and show how excited I am about technology, or talk about where these things affect our lives in practical ways. Anxiety, and the burnout that comes with it, has always kept me from continuing any online project I started. Once again I'm being "The Fool". In the negative, reversed sense, it turns out to be a good metaphor for what I go through when I try to throw myself into a new idea.
+
+This time I want to flip the meaning and let myself go, without getting stuck on what wears me out, and still without forgetting: the difficulty is the point.
+
+Until the start of this month, this blog scored 100 for accessibility in Lighthouse, passed axe with zero violations, and wouldn't let anyone move a window without a mouse. CI required a perfect score before every deploy. Meanwhile every window announced itself to screen readers as modal, telling them the rest of the page was blocked, while the rest of the page worked just fine.
 
 It wasn't the first time the score and the site disagreed. On the previous version, built with Next.js, Lighthouse gave between 91 and 100 while axe found 30 defects, four of them scrollable areas no keyboard could reach. I fixed all 30 and the score moved by at most 1 point on any page. I found the two window problems the old-fashioned way, by pressing Tab and reading the code. The fix is in commit [`72de90b`](https://github.com/jeancarlos/jeansouza.dev/commit/72de90b), with tests that break if either problem comes back.
 
-![Two bar charts. Left: the mean Lighthouse accessibility score on mobile across 11 pages, 96.7 with Next 16 and 97.1 with Astro 7. Right: axe landmark and unreachable-scroll violations, 30 before and 0 after.](/img/blog/accessibility-score-vs-axe.svg?v=2)
+![Two bar charts. Left: the mean Lighthouse accessibility score on mobile across 11 pages, 96.7 with Next 16 and 97.1 with Astro 7. Right: axe landmark and unreachable-scroll violations, 30 before and 0 after.](/img/blog/accessibility-score-vs-axe.svg?v=3)
 
-## Why another site
+## Starting from zero
 
-I wanted a place to keep my ideas and to show in code what my resume claims in words. Anyone can generate code with AI now, and what sets one project apart from another is the judgment of whoever decides what goes in, what stays out, and why. An open repository shows those decisions better than a list of technologies. A good share of this site's code was written by AI agents, and I'm the one who decides what goes in.
+The Fool is card zero, the card of [unlimited potential](https://biddytarot.com/tarot-card-meanings/major-arcana/fool/). The site itself is a way for me to explore all my ideas and keep them here as a technical diary of my life experiences.
 
-This is the third attempt. The first was loose HTML and CSS on GitHub Pages, published once and never revisited. The second brought Next.js with static export and CI, and it stalled halfway too. This time I picked a hard interface on purpose: a desktop with windows that open, drag, resize and stack inside the browser. A regular blog would be less work. A desktop forces me to solve focus, keyboard, browser history and language, and each of those problems turns into a post.
+It also shows in code what my resume claims in words. Anyone can generate code with AI now, and what sets one project apart from another is the judgment of whoever decides what goes in, what stays out, and why. [90% of what used to be my routine as a dev became useless, and the 10% that's left became what sets me apart](https://newsletter.kentbeck.com/p/90-of-my-skills-are-now-worth-0). It's taste, the open repository shows those decisions better than a list of technologies. A good share of this site's code was written by AI agents, and I'm the one who decides what goes in.
 
-## Astro around it, React only where things move
+A regular blog would be less work.
 
-The site is generated by Astro 7: 12 static HTML pages, built in under 5 seconds and published on GitHub Pages. Every page arrives complete from the server, including the window the URL stands for. Open `/en/resume/` and the resume is in the HTML, visible without JavaScript and indexable. These windows are positioned in CSS with `calc()`, matching the pixel math React does later, so nothing jumps when the page hydrates.
+## Everything I need comes in the bundle...
+
+In the drawing, the Fool carries a small bundle over his shoulder. The site is generated by Astro 7: 12 static HTML pages, built in under 5 seconds and published on GitHub Pages. Every page arrives complete from the server, including the window the URL stands for. Open `/en/resume/` and the resume is in the HTML, visible without JavaScript and indexable. These windows are positioned in CSS with `calc()`, matching the pixel math React does later, so nothing jumps when the page hydrates.
 
 React 19 shows up in a single island, the window desktop. The starfield and the top bar used to be islands as well and became HTML with a small script. The remaining island waits its turn: a custom hydration directive loads the desktop's JavaScript only after the browser records the first contentful paint (`first-contentful-paint`), with a 3-second fallback in case that event never fires. Until then the window links already work, because they're real links.
 
-The Next to Astro migration was measured with the same script, the same Chrome and the same machine, median of three runs per page. JavaScript transferred across the 11 pages dropped from 10,966 KB to 5,464 KB, half ([full comparison](https://github.com/jeancarlos/jeansouza.dev/blob/4981616/docs/migration/comparison.md)). Since then, with a single island and deferred hydration, the same script measures 246 KB of JavaScript on every page, uncompressed: those are the green dots in the chart. Compressed, the way the browser receives it, the Portuguese home page transfers 95 KB. CI now requires a Lighthouse performance score of 100 on seven pages, taking the best of three runs.
+The Next to Astro migration was measured with the same script, the same Chrome and the same machine, median of three runs per page. JavaScript transferred across the 11 pages dropped from 10,966 KB to 5,464 KB, half ([full comparison](https://github.com/jeancarlos/jeansouza.dev/blob/4981616/docs/migration/comparison.md)). Since then, with a single island and deferred hydration, the same script measures 247 KB of JavaScript on every page, uncompressed: those are the green dots in the chart. Compressed, the way the browser receives it, the Portuguese home page transfers 95 KB. CI now requires a Lighthouse performance score of 100 on seven pages, taking the best of three runs.
 
-![Two three-point dumbbell charts, one row per page, for the site's 11 pages. Left: uncompressed mobile JavaScript transferred dropped from about 1,025 KB with Next 16 to about 492 KB at the Astro 7 migration and to 246 KB today, on every page; the home page went from 662 to 492 and then to 246 KB. Right: mobile Lighthouse performance rose from values between 61 and 77 to values between 79 and 81 at the migration, and sits between 93 and 100 today.](/img/blog/next-vs-astro-by-page.svg?v=2)
+![Two three-point dumbbell charts, one row per page, for the site's 11 pages. Left: uncompressed mobile JavaScript transferred dropped from about 1,025 KB with Next 16 to about 492 KB at the Astro 7 migration and to 247 KB today, on every page; the home page went from 662 to 492 and then to 247 KB. Right: mobile Lighthouse performance rose from values between 61 and 77 to values between 79 and 81 at the migration, and sits between 97 and 100 today.](/img/blog/next-vs-astro-by-page.svg?v=4)
 
-The dependencies that were supposed to leave during the migration left while I was writing this post. First `react-markdown`: with the longer text, re-parsing the Markdown in the browser during hydration left this page's performance score at 99 on its best run, and CI requires 100. The post's HTML now comes ready from the build, and blocking time dropped from up to 260 ms to 20. Then `framer-motion` and `focus-trap-react`: dragging a window became native pointer events, the animations became CSS, and the desktop's JavaScript dropped from 205 KB to 53 KB before compression.
-
-Each post's language lives in its file name, as in `slug.pt.md`. Astro's default content loader turns the name into a slug and glues the suffix on, producing `...construipt`, which can't be split back apart. A one-line `generateId` keeps the original name.
-
-## The URL decides the language
+### The URL decides the language
 
 Before the switch to Astro, every page of the live site said `lang="pt"`, English pages included. The sitemap listed only the home page and one post. And a component remembered the language you'd picked and redirected any page to it: if you preferred Portuguese and someone sent you a link to `/en/`, you landed on `/pt/`.
 
@@ -40,15 +42,15 @@ Now the URL is in charge. `/en/` is English and `/pt/` is Portuguese, for everyo
 
 The Resume, Blog and + buttons on the home page became links too. They used to be `<button>` elements, and the home page didn't have a single internal link: no opening in a new tab, nothing for a search engine to follow. The intro line on the home page became the page's `h1`.
 
-The last bug in that batch was the Back button. Every window you opened pushed two entries onto the browser history, and Back didn't close the window you expected ([#20](https://github.com/jeancarlos/jeansouza.dev/issues/20)). The window manager now owns the URL: opening a window pushes one entry, closing the window that created the current entry goes back one step, and Back and Forward open and close windows to match the URL.
+The last bug in that batch was the Back button. Every window you opened pushed two entries onto the browser history, and Back didn't close the window you expected. The window manager now owns the URL: opening a window pushes one entry, closing the window that created the current entry goes back one step, and Back and Forward open and close windows to match the URL.
 
-## What no score measures
+## The cliff ahead
 
-Most of the site's accessibility decisions don't show up in any automated report. They show up when someone uses the site differently from how I do.
+The Fool walks gazing at the sky, unaware he's one step from the cliff. Most of the site's accessibility decisions don't show up in any automated report. They show up when someone uses the site differently from how I do.
 
 The starfield moves, the home page phrase types itself out letter by letter, and windows open with a little bounce. If you've set your system to reduce motion, you get the same page standing still: the stars are drawn once and stay put, the phrase appears whole, and windows show up without animation. The site listens to that preference live, so if you change the setting with the page open, the background stops or starts moving right away. I nearly filed a bug over this: the background stopped moving on my machine, and the cause was GNOME with animations turned off, telling the browser I prefer less motion.
 
-Hiding things has rules too. The "Skip to content" link sits off-screen until it receives focus, instead of using `display: none`, because an element removed from the layout also drops out of the Tab order and becomes decoration. The region that announces changes to screen readers uses the same technique: invisible on screen, present in the accessibility tree.
+Hiding things has rules too. The region that announces changes to screen readers is invisible on screen but present in the accessibility tree. With `display: none` it would leave the tree too, and the screen reader would hear nothing.
 
 Contrast and target size come with numbers. All text clears 4.5:1 in both themes, and the gray subtitle text in the light theme, which sat at 4.06, went up to 5.1. Windows behind other windows used to drop to 60% opacity, which lowered the contrast of everything inside them, and now they stay opaque. The three colored buttons at the top of each window got a 24 by 24 pixel target, the WCAG 2.2 minimum. And lint treats the recommended `jsx-a11y` rules as errors, so an `<img>` without `alt` never reaches a deploy.
 
@@ -58,7 +60,9 @@ The rest of the decisions live in the windows. They're `role="dialog"` without `
 
 That part has a backstory. An accessible version of the windows had been in the repository since August 23, with the right roles, a keyboard move mode and tests, and it was never wired to the real windows. In the dead-code cleanup on October 15 it got deleted along with everything else ([`68596ac`](https://github.com/jeancarlos/jeansouza.dev/commit/68596ac)), and the cleanup was technically right: no production code used it. I rebuilt the behavior directly in the real windows the same day ([`72de90b`](https://github.com/jeancarlos/jeansouza.dev/commit/72de90b)) and then added the positions button ([`489a40f`](https://github.com/jeancarlos/jeansouza.dev/commit/489a40f)), with tests that now run against the component you actually use.
 
-## What CI checks
+## The dog, who watches and protects.
+
+And mine barks in CI.
 
 Every push to `main` goes through this queue, and any failure holds the deploy: `npm ci`, `astro sync`, ESLint, Prettier in check mode, `tsc`, `astro check`, Vitest, the build, axe and Lighthouse. `astro sync` runs before lint because ESLint uses TypeScript's type information, and without the types Astro generates it fails on the `astro:content` import.
 
@@ -66,30 +70,26 @@ That guarantee is recent. Until commit [`f007038`](https://github.com/jeancarlos
 
 Lighthouse runs on seven pages, three times each, and requires 100 in all four categories: performance, accessibility, best practices and SEO. The best of the three runs counts, because shared runners are noisy: a real regression drags all three down, and one cold first run doesn't block the deploy. After what I described at the top, I know exactly what that accessibility 100 guarantees: that I don't make worse what Lighthouse can measure. axe runs on the same seven pages, in light and dark themes, on desktop and mobile, and any violation holds the deploy too.
 
-ESLint runs with typescript-eslint's `strictTypeChecked` and `stylisticTypeChecked` sets. An unhandled promise is an error, and a `switch` over a union has to cover every case. Two rules keep complexity down: no function goes past 10 independent paths and no block nests deeper than four levels. When a function hits the limit, it gets split into smaller ones. There are 3,586 lines of source code outside the tests, and the largest component has 204.
+ESLint runs with typescript-eslint's `strictTypeChecked` and `stylisticTypeChecked` sets. An unhandled promise is an error, and a `switch` over a union has to cover every case. Two rules keep complexity down: no function goes past 10 independent paths and no block nests deeper than four levels. When a function hits the limit, it gets split into smaller ones. There are 3,659 lines of source code outside the tests, and the largest component has 205.
 
 The window manager shows the effect. The state of every window goes through a reducer, a pure function that takes the state and an action and returns the new state. The actions form a discriminated union with seven types: open, close, focus, expand, minimize, move and resize. Since the reducer never touches the DOM, stacking and focus can be tested without rendering anything, and TypeScript rejects an action the reducer forgot to handle.
 
-## Tests named like sentences
+### Tests named like sentences
 
-There are 165 tests in 36 files, and the whole suite runs in under 40 seconds on my machine. Each test's name states the behavior it protects, and read in order they become a spec for the site.
+There are 193 tests in 39 files, and the whole suite runs in under 40 seconds on my machine. Each test's name states the behavior it protects, and read in order they become a spec for the site.
 
-Some protect things a reader notices the moment they break. One checks that the Portuguese and English translation files have exactly the same keys. Another makes sure a missing key throws an error instead of showing `undefined` on screen. Another checks that this post's old URL, from before I renamed it, still exists as a redirect with `rel="canonical"` pointing to the new one. And one blocks `localStorage` on purpose and checks that the theme falls back to dark instead of breaking the page, because private browsing and some privacy settings do exactly that.
+Some protect things a reader notices the moment they break. One checks that the Portuguese and English translation files have the same keys. Another makes sure a missing key throws an error instead of showing `undefined` on screen. Another checks that this post's old URL, from before I renamed it, still exists as a redirect with `rel="canonical"` pointing to the new one. And one blocks `localStorage` on purpose and checks that the theme falls back to dark instead of breaking the page, because private browsing and some privacy settings do exactly that.
 
 The accessibility tests follow the same idea. One checks that there's a `prefers-reduced-motion` rule that shows the home page phrase whole, with no animation. The window tests cover the keyboard move mode (arrows, Shift, Alt, Escape that undoes without closing the window) and the positions button. One of them is called "never traps the keyboard" and checks that Tab keeps moving focus forward even with the mode active. Before committing those tests, I deliberately removed the lines they protect and confirmed that they failed.
 
 The two window fixes I described above were written by an AI agent and went through the same queue of checks as any other commit. It's close to what Uncle Bob described in July: instead of reviewing line by line what his agents write, he surrounds their work with tests and complexity limits, because messy code slows the agents down ([explainx.ai](https://www.explainx.ai/blog/uncle-bob-ai-coding-gauntlet-tests-not-reviews-july-2026)). The tools I use for this are open in [codex-harness](https://github.com/jeancarlos/codex-harness), and how I develop with AI will get a post of its own.
 
-## What I mean by reliable
+## The horizon ahead
 
-A static site has no database to go down and no server to restart, and plenty can still go wrong. For me, reliable here means five things, each with a check behind it.
-
-The build is reproducible: `npm ci` installs exactly what's in the lockfile, and CI always uses Node 22. A published link stays valid, which is why this post's old URL became a redirect instead of a 404, with a test making sure. The content exists without JavaScript: the window the URL stands for is already in the HTML, and the window links work before hydration. Everything works from the keyboard, and that's tested too. And dependencies don't pile up alerts: Astro went to 7.3.8 because of a critical remote code execution flaw in AVIF image optimization, even though a static site can't reach that flaw, and on October 15 `npm audit` reported zero vulnerabilities.
-
-## What stays
+Behind the Fool are the mountains, the challenges still to come.
 
 None of the window fixes moved a score. Lighthouse gave 100 before and after, axe gave zero before and after, and in between the windows lied to screen readers and only moved with a mouse. The right version of them existed, had tests, and got deleted as dead code, because none of those tests ran against the window you actually use.
 
 Automated checks only protect what they're wired to. The score is the floor: it stops me from making worse what the tool can measure. The rest shows up when someone presses Tab, turns on a screen reader or switches off system animations, and everything that shows up that way becomes a test on the real component, so it doesn't depend on someone pressing Tab again.
 
-Try it on your site: put the mouse in a drawer and spend five minutes navigating with the keyboard only.
+This is the start of the [Fool's journey](https://www.learntarot.com/journey.htm) I'll take through this series of posts, following the order of the tarot cards. The Fool is zero. Next is the Magician, which on the journey is the [creative impulse](https://www.learntarot.com/journey.htm), and it'll be about my harness: "Go create something amazing".
