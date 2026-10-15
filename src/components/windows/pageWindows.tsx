@@ -3,7 +3,6 @@ import type { Post } from '@/lib/posts'
 import { pageMeta, pageUrl, type Page } from '@/lib/pages'
 import {
   TOPBAR_HEIGHT,
-  WINDOW_MAX_HEIGHT,
   WINDOW_SAFE,
   centeredPosition,
   cssCenteredPosition,
@@ -18,7 +17,6 @@ import { MoreLinksWindow } from './MoreLinksWindow'
 import { ResumeWindow } from './ResumeWindow'
 
 const LIST_W = 820
-const POST_OFFSET = 40
 const MORE_SIZE = { width: 320, height: 280 }
 
 /**
@@ -26,14 +24,14 @@ const MORE_SIZE = { width: 320, height: 280 }
  * button; one rendered for the page's own URL is placed in CSS so the server
  * can render it exactly where the browser will keep it.
  */
-function listPlacement(offset: number, origin: ButtonOrigin | undefined) {
+function listPlacement(origin: ButtonOrigin | undefined) {
   const size = { width: LIST_W, height: 'auto' }
-  if (!origin) return { size, position: cssTopAnchoredPosition(LIST_W, offset) }
+  if (!origin) return { size, position: cssTopAnchoredPosition(LIST_W, 0) }
   const anchor = topAnchoredPosition(LIST_W, TOPBAR_HEIGHT)
-  return { size, position: { x: anchor.x + offset, y: anchor.y + offset } }
+  return { size, position: anchor }
 }
 
-function resumePlacement(origin: ButtonOrigin | undefined) {
+function readingPlacement(origin: ButtonOrigin | undefined) {
   const gap = WINDOW_SAFE * 2
   if (!origin) {
     const size = {
@@ -61,9 +59,8 @@ function morePlacement(origin: ButtonOrigin | undefined) {
  * can render it exactly where the browser will keep it.
  */
 function placement(page: Exclude<Page, { kind: 'home' }>, origin: ButtonOrigin | undefined) {
-  if (page.kind === 'blog') return listPlacement(0, origin)
-  if (page.kind === 'post') return listPlacement(POST_OFFSET, origin)
-  if (page.kind === 'resume') return resumePlacement(origin)
+  if (page.kind === 'blog') return listPlacement(origin)
+  if (page.kind === 'post' || page.kind === 'resume') return readingPlacement(origin)
   return morePlacement(origin)
 }
 
@@ -89,10 +86,6 @@ export function pageWindow(
     pageTitle: pageMeta(page, locale).title,
     content: content(page, locale, posts),
     ...placement(page, origin),
-    ...(page.kind === 'post' && {
-      isExpanded: true,
-      maxHeight: `calc(${WINDOW_MAX_HEIGHT} - 150px)`,
-    }),
     origin,
   }
 }

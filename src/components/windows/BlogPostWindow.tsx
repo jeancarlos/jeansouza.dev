@@ -4,15 +4,15 @@ import { Timeline } from '@/components/ui/Timeline'
 
 export function BlogPostWindow({ post }: { post: Post }) {
   return (
-    <div className="text-text">
+    <div className="text-text @container">
       <img
         src={post.cover.src}
         srcSet={post.cover.srcSet}
-        sizes="(min-width: 860px) 820px, 100vw"
+        sizes="(min-width: 1072px) 1024px, 100vw"
         {...COVER_SIZE}
         alt={post.cover.alt}
         loading="lazy"
-        className="block h-auto w-full"
+        className="block h-auto w-full @min-[800px]:h-80 @min-[800px]:object-cover @min-[800px]:object-[50%_10%]"
       />
       <div className="mx-auto max-w-prose p-6">
         <p className="text-brand-muted mb-4 truncate font-mono text-xs">$ cat {post.slug}.md</p>

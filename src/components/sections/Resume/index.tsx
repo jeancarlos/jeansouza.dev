@@ -33,9 +33,9 @@ export function Resume({ entries, profile, education, assets, locale }: Props) {
   const t = useTranslations('resume')
 
   return (
-    <div className="text-text mx-auto max-w-prose p-6">
+    <div className="text-text mx-auto max-w-3xl p-6">
       <p className="text-brand-muted mb-4 truncate font-mono text-xs">{t('command')}</p>
-      <article className="prose dark:prose-invert font-reading">
+      <article className="prose prose-sm dark:prose-invert font-reading max-w-none">
         <Header profile={profile} locale={locale} />
         <Summary profile={profile} locale={locale} />
         <h2>{t('experience')}</h2>
