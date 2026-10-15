@@ -78,11 +78,10 @@ const image = `${SITE_URL}${ownImage ?? '/og.png'}`
     {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />}
   </head>
   <body>
-    <a class="skip-link" href="#desktop">{t('skipToContent')}</a>
     <header>
       <slot name="topbar" />
     </header>
-    <main id="desktop" tabindex="-1">
+    <main>
       <slot />
     </main>
   </body>
