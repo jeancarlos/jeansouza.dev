@@ -30,5 +30,5 @@ const path = pagePath(page)
   headScript={headScript}
 >
   <Chrome slot="topbar" locale={locale} path={path} />
-  <DesktopApp client:load locale={locale} posts={posts} pathname={pageUrl(page, locale)} />
+  <DesktopApp client:idle locale={locale} posts={posts} pathname={pageUrl(page, locale)} />
 </Shell>
