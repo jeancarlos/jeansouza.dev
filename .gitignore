@@ -148,3 +148,4 @@ GEMINI.md
 
 dist/
 .astro/
+.lighthouseci
