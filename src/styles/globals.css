@@ -40,7 +40,6 @@
   --color-latte-text: #23151c;
   --color-latte-subtext: #5c5f77;
 
-  --font-sans: var(--font-space-grotesk), sans-serif;
   --font-display: var(--font-poppins), sans-serif;
   --font-mono: var(--font-jetbrains-mono), monospace;
 }
@@ -123,7 +122,7 @@
   body {
     background-color: var(--page-bg);
     color: var(--page-text);
-    font-family: var(--font-sans);
+    font-family: var(--font-mono);
     font-feature-settings: 'liga', 'calt', 'ss01';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

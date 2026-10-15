@@ -43,7 +43,6 @@ const image = `${SITE_URL}/og.png`
     <link rel="sitemap" href="/sitemap.xml" />
     <Font cssVariable="--font-jetbrains-mono" preload />
     <Font cssVariable="--font-poppins" preload={[{ weight: 700 }]} />
-    <Font cssVariable="--font-space-grotesk" />
 
     <meta property="og:site_name" content={t('meta.siteName')} />
     <meta property="og:type" content={publishedTime ? 'article' : 'website'} />
@@ -63,7 +62,7 @@ const image = `${SITE_URL}/og.png`
     <meta name="twitter:image" content={image} />
     {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />}
   </head>
-  <body class="font-sans">
+  <body>
     <a class="skip-link" href="#desktop">{t('skipToContent')}</a>
     <header>
       <slot name="topbar" />

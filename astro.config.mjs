@@ -3,6 +3,7 @@ import { defineConfig, fontProviders } from 'astro/config'
 import tailwind from '@tailwindcss/vite'
 
 import react from '@astrojs/react'
+import afterPaint from './src/directives/integration.mjs'
 
 export default defineConfig({
   site: 'https://jeansouza.dev',
@@ -13,22 +14,13 @@ export default defineConfig({
     defaultLocale: 'pt',
     routing: { prefixDefaultLocale: true, redirectToDefaultLocale: false },
   },
-  integrations: [react()],
+  integrations: [react(), afterPaint()],
   fonts: [
     {
       provider: fontProviders.google(),
       name: 'Poppins',
       cssVariable: '--font-poppins',
       weights: [500, 700],
-      subsets: ['latin'],
-      styles: ['normal'],
-      display: 'optional',
-    },
-    {
-      provider: fontProviders.google(),
-      name: 'Space Grotesk',
-      cssVariable: '--font-space-grotesk',
-      weights: [400, 500, 700],
       subsets: ['latin'],
       styles: ['normal'],
       display: 'optional',
