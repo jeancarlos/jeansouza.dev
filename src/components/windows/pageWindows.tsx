@@ -31,18 +31,26 @@ function listPlacement(origin: ButtonOrigin | undefined) {
   return { size, position: anchor }
 }
 
+const READING_W = 1024
+const CLEARS_TOPBAR_TOGGLES = 1200
+
 function readingPlacement(origin: ButtonOrigin | undefined) {
   const gap = WINDOW_SAFE * 2
   if (!origin) {
-    const size = {
-      width: `min(1024px, 100vw - ${gap}px)`,
-      height: `calc(100dvh - ${TOPBAR_HEIGHT + gap}px)`,
+    const top = `clamp(0px, (${CLEARS_TOPBAR_TOGGLES}px - 100vw) * 1000, ${TOPBAR_HEIGHT}px)`
+    const width = `min(${READING_W}px, 100vw - ${gap}px)`
+    return {
+      size: { width, height: `calc(100dvh - ${top} - ${gap}px)` },
+      position: {
+        x: `max(${WINDOW_SAFE}px, (100vw - ${width}) / 2)`,
+        y: `calc(${top} + ${WINDOW_SAFE}px)`,
+      },
     }
-    return { size, position: cssCenteredPosition(size.width, size.height) }
   }
   const { vw, vh } = getViewport()
-  const size = { width: Math.min(1024, vw - gap), height: vh - gap - TOPBAR_HEIGHT }
-  return { size, position: centeredPosition(size.width, size.height, TOPBAR_HEIGHT) }
+  const top = vw >= CLEARS_TOPBAR_TOGGLES ? 0 : TOPBAR_HEIGHT
+  const size = { width: Math.min(READING_W, vw - gap), height: vh - gap - top }
+  return { size, position: centeredPosition(size.width, size.height, top) }
 }
 
 function morePlacement(origin: ButtonOrigin | undefined) {
