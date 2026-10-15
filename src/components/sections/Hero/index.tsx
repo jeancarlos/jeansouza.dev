@@ -10,7 +10,13 @@ import { Button } from '@/components/ui/Button'
 import { useWindowManager, type ButtonOrigin } from '@/components/windows/WindowManager'
 import { useIsMobile } from '@/lib/useIsMobile'
 import { useViewport } from '@/lib/useViewport'
-import { centeredPosition, getViewport, WINDOW_SAFE, TOPBAR_HEIGHT } from '@/lib/windowUtils'
+import {
+  centeredPosition,
+  getViewport,
+  isPlainClick,
+  WINDOW_SAFE,
+  TOPBAR_HEIGHT,
+} from '@/lib/windowUtils'
 
 // React.lazy replaces next/dynamic: same code-split, no framework coupling.
 // Each gets its own Suspense at the definition site so a pending chunk never
@@ -172,7 +178,10 @@ export function Hero({ locale, onOpenBlog, isFocused = true, initialOpen }: Prop
               <Icon name="file-alt" className="mr-1" /> {tResume('title')}
             </WindowButton>
             <Button
+              href={`/${locale}/blog/`}
               onClick={(e) => {
+                if (!isPlainClick(e)) return
+                e.preventDefault()
                 const rect = e.currentTarget.getBoundingClientRect()
                 onOpenBlog({ x: rect.left, y: rect.top, width: rect.width, height: rect.height })
               }}

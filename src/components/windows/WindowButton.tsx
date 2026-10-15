@@ -3,7 +3,13 @@ import { type ReactNode } from 'react'
 import { Button } from '@/components/ui/Button'
 import { useWindowManager } from './WindowManager'
 import type { WindowConfig } from './WindowManager'
-import { centeredPosition, getViewport, WINDOW_SAFE, TOPBAR_HEIGHT } from '@/lib/windowUtils'
+import {
+  centeredPosition,
+  getViewport,
+  isPlainClick,
+  WINDOW_SAFE,
+  TOPBAR_HEIGHT,
+} from '@/lib/windowUtils'
 
 function fullscreenSize(): { width: number; height: number } {
   const { vw, vh } = getViewport()
@@ -42,6 +48,8 @@ export function WindowButton({
   const { openWindow } = useWindowManager()
 
   const handleOpen = (e: React.MouseEvent): void => {
+    if (!isPlainClick(e)) return
+    e.preventDefault()
     const rect = e.currentTarget.getBoundingClientRect()
     const origin = { x: rect.left, y: rect.top, width: rect.width, height: rect.height }
     const size = fullscreen ? fullscreenSize() : (windowSize ?? { width: 600, height: 400 })
@@ -64,7 +72,7 @@ export function WindowButton({
   }
 
   return (
-    <Button onClick={handleOpen} aria-label={ariaLabel} className={className}>
+    <Button href={windowUrl} onClick={handleOpen} aria-label={ariaLabel} className={className}>
       {children}
     </Button>
   )

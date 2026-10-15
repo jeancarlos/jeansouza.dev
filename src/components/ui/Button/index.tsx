@@ -36,13 +36,15 @@ export function Button({
   const wrapperClass = `group relative inline-block rounded-full ${disabledClass} ${gradientClass} from-brand-from to-brand-to p-[2px] shadow-sm transition-all duration-150 ease-out hover:brightness-110 hover:shadow-md active:scale-90 ${className}`
 
   if (href) {
+    const external = /^https?:/.test(href)
     return (
       <a
         href={href}
+        onClick={onClick}
         className={wrapperClass}
         aria-label={ariaLabel}
-        rel="noopener noreferrer"
-        target="_blank"
+        rel={external ? 'noopener noreferrer' : undefined}
+        target={external ? '_blank' : undefined}
       >
         {inner}
       </a>
