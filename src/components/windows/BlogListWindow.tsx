@@ -35,7 +35,7 @@ export function BlogListWindow({ posts }: { posts: Post[] }) {
                 <img
                   src={post.thumb.src}
                   srcSet={post.thumb.srcSet}
-                  sizes={`(min-width: 640px) ${THUMB_SIZE.width}px, 100vw`}
+                  sizes={`(min-width: 640px) ${THUMB_SIZE.width}px, calc(100vw - 56px)`}
                   {...THUMB_SIZE}
                   alt=""
                   loading="lazy"
