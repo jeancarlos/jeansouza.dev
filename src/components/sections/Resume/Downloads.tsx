@@ -13,7 +13,7 @@ export function Downloads({ assets, locale }: Props) {
   if (filtered.length === 0) return null
 
   return (
-    <section className="border-surface mt-12 border-t pt-8">
+    <section className="not-prose border-surface mt-12 border-t pt-8">
       <p className="text-subtext mb-4 font-mono text-sm">{t('label')}</p>
       <div className="flex flex-wrap gap-3">
         {filtered.map((asset) => (

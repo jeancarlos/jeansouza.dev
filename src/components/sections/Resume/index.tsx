@@ -1,10 +1,11 @@
 import { useTranslations } from '../../../i18n/react'
 import { Header } from './Header'
 import { Summary } from './Summary'
-import { TimelineItem } from './TimelineItem'
 import { Education } from './Education'
 import { Languages } from './Languages'
 import { Downloads } from './Downloads'
+import { Timeline } from '@/components/ui/Timeline'
+import { getBulletsForEntry } from '@/content/resume/selection'
 import type { Profile } from '@/content/resume/profile'
 import type { EducationEntry } from '@/content/resume/education'
 import type { TimelineEntry } from '@/content/resume/timeline'
@@ -18,54 +19,33 @@ interface Props {
   locale: 'pt' | 'en'
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section className="mb-12">
-      <h2 className="text-brand-text mb-6 font-mono text-xs tracking-widest uppercase">{title}</h2>
-      {children}
-    </section>
-  )
+function experience(entries: TimelineEntry[], locale: 'pt' | 'en') {
+  return entries.map((entry, i) => ({
+    date: entry.year[locale],
+    title: entry.role[locale],
+    meta: entry.location ? `@ ${entry.company} · ${entry.location[locale]}` : `@ ${entry.company}`,
+    items: getBulletsForEntry(entry).map((b) => b[locale]),
+    dotted: entries[i + 1]?.careerStart,
+  }))
 }
 
 export function Resume({ entries, profile, education, assets, locale }: Props) {
   const t = useTranslations('resume')
 
   return (
-    <div className="min-h-full p-6">
-      <div className="mx-auto max-w-5xl">
-        <p className="text-brand-muted mb-8 font-mono text-xs">{t('command')}</p>
+    <div className="text-text mx-auto max-w-prose p-6">
+      <p className="text-brand-muted mb-4 truncate font-mono text-xs">{t('command')}</p>
+      <article className="prose dark:prose-invert font-reading">
         <Header profile={profile} locale={locale} />
         <Summary profile={profile} locale={locale} />
-        <Section title={t('experience')}>
-          <div className="@container">
-            <ul className="relative flex flex-col">
-              {entries.map((entry, i) => {
-                const isLast = i === entries.length - 1
-                const dottedInto = entry.careerStart ? 'dotted' : 'solid'
-                const dottedOutOf = entries[i + 1]?.careerStart ? 'dotted' : 'solid'
-                return (
-                  <TimelineItem
-                    key={entry.id}
-                    entry={entry}
-                    locale={locale}
-                    side={i % 2 === 0 ? 'left' : 'right'}
-                    connectorAbove={i === 0 ? 'none' : dottedInto}
-                    connectorBelow={isLast ? 'none' : dottedOutOf}
-                    isLast={isLast}
-                  />
-                )
-              })}
-            </ul>
-          </div>
-        </Section>
-        <Section title={t('education')}>
-          <Education entries={education} locale={locale} />
-        </Section>
-        <Section title={t('languages')}>
-          <Languages value={profile.languages[locale]} />
-        </Section>
+        <h2>{t('experience')}</h2>
+        <Timeline entries={experience(entries, locale)} />
+        <h2>{t('education')}</h2>
+        <Education entries={education} locale={locale} />
+        <h2>{t('languages')}</h2>
+        <Languages value={profile.languages[locale]} />
         <Downloads assets={assets} locale={locale} />
-      </div>
+      </article>
     </div>
   )
 }

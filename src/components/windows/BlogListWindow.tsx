@@ -38,7 +38,8 @@ export function BlogListWindow({ posts }: { posts: Post[] }) {
                   sizes={`(min-width: 640px) ${THUMB_SIZE.width}px, calc(100vw - 56px)`}
                   {...THUMB_SIZE}
                   alt=""
-                  loading="lazy"
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  fetchPriority={i === 0 ? 'high' : 'auto'}
                   className="block aspect-4/3 h-auto w-full rounded-[10px] sm:w-44"
                 />
               </div>
@@ -49,7 +50,9 @@ export function BlogListWindow({ posts }: { posts: Post[] }) {
                 <h2 className="font-display text-brand-text group-hover:text-brand-from font-bold transition-colors">
                   {post.title}
                 </h2>
-                <p className="text-brand-muted mt-1 text-sm leading-relaxed">{post.description}</p>
+                <p className="text-brand-muted font-reading mt-1 text-sm leading-relaxed">
+                  {post.description}
+                </p>
               </div>
             </a>
           </li>

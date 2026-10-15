@@ -3,5 +3,5 @@ interface Props {
 }
 
 export function Languages({ value }: Props) {
-  return <p className="text-subtext text-sm">{value}</p>
+  return <p>{value}</p>
 }

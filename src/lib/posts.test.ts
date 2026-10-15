@@ -34,6 +34,6 @@ describe('postsFor', () => {
   })
 
   it('carries the html Astro rendered at build time', () => {
-    expect(postsFor(entries, 'pt')[0].html).toBe('<p>body of newer.pt</p>')
+    expect(postsFor(entries, 'pt')[0].body).toEqual([{ html: '<p>body of newer.pt</p>' }])
   })
 })

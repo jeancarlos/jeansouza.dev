@@ -16,6 +16,7 @@ interface Props {
   headScript?: string
   image?: string
   imageAlt?: string
+  readingFont?: boolean
 }
 
 const {
@@ -28,6 +29,7 @@ const {
   headScript,
   image: ownImage,
   imageAlt,
+  readingFont = false,
 } = Astro.props
 const t = translator(locale)
 const htmlLang = (l: Locale) => (l === 'pt' ? 'pt-BR' : 'en-US')
@@ -55,6 +57,7 @@ const image = `${SITE_URL}${ownImage ?? '/og.png'}`
     <link rel="sitemap" href="/sitemap.xml" />
     <Font cssVariable="--font-jetbrains-mono" preload />
     <Font cssVariable="--font-poppins" preload={[{ weight: 700 }]} />
+    <Font cssVariable="--font-lexend" preload={readingFont && [{ weight: 400 }]} />
 
     <meta property="og:site_name" content={t('meta.siteName')} />
     <meta property="og:type" content={publishedTime ? 'article' : 'website'} />

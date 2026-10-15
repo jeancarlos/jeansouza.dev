@@ -120,17 +120,39 @@ describe('Resume', () => {
     expect(screen.getByText('Summary EN.')).toBeInTheDocument()
   })
 
-  it('uses left side for even entries (index 0)', () => {
-    const { container } = render(
+  it('uses selectedSeniorFront when provided', () => {
+    const entry: TimelineEntry = {
+      ...mockEntry,
+      selectedSeniorFront: [
+        { tags: [], pt: 'selected PT', en: 'selected EN' },
+        { tags: [], pt: 'selected PT 2', en: 'selected EN 2' },
+        { tags: [], pt: 'selected PT 3', en: 'selected EN 3' },
+      ],
+    }
+    render(
       <Resume
-        entries={[mockEntry]}
+        entries={[entry]}
         profile={mockProfile}
         education={mockEducation}
         assets={[]}
         locale="pt"
       />
     )
-    const content = container.querySelector('li > div[class*="@4xl:col-start-1"]')
-    expect(content).toBeTruthy()
+    expect(screen.getByText('selected PT')).toBeInTheDocument()
+  })
+
+  it('dots the line into the entry where the career starts', () => {
+    const { container } = render(
+      <Resume
+        entries={[mockEntry, { ...mockEntry, id: 'e2', careerStart: true }]}
+        profile={mockProfile}
+        education={mockEducation}
+        assets={[]}
+        locale="pt"
+      />
+    )
+    const rows = container.querySelectorAll('ol.timeline > li')
+    expect(rows[0]).toHaveAttribute('data-dotted')
+    expect(rows[1]).not.toHaveAttribute('data-dotted')
   })
 })

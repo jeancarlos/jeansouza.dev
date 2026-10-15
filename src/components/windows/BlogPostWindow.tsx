@@ -1,5 +1,6 @@
 import { COVER_SIZE } from '@/lib/coverSize'
 import type { Post } from '@/lib/posts'
+import { Timeline } from '@/components/ui/Timeline'
 
 export function BlogPostWindow({ post }: { post: Post }) {
   return (
@@ -15,12 +16,18 @@ export function BlogPostWindow({ post }: { post: Post }) {
       />
       <div className="mx-auto max-w-prose p-6">
         <p className="text-brand-muted mb-4 truncate font-mono text-xs">$ cat {post.slug}.md</p>
-        <article className="prose dark:prose-invert">
+        <article className="prose dark:prose-invert font-reading">
           <h1 className="font-display text-brand-text">{post.title}</h1>
           <p className="text-brand-muted -mt-4 mb-4 font-mono text-xs">
             <time dateTime={post.date}>{post.date}</time>
           </p>
-          <div dangerouslySetInnerHTML={{ __html: post.html }} />
+          {post.body.map((part, i) =>
+            'html' in part ? (
+              <div key={i} dangerouslySetInnerHTML={{ __html: part.html }} />
+            ) : (
+              <Timeline key={i} entries={part.timeline} />
+            )
+          )}
         </article>
       </div>
     </div>

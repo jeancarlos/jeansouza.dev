@@ -1,4 +1,5 @@
 import type { Locale } from '@/i18n/t'
+import { splitPostBody, type BodyPart } from './postBody'
 
 export interface PostCover {
   src: string
@@ -16,7 +17,7 @@ export interface Post {
   title: string
   date: string
   description: string
-  html: string
+  body: BodyPart[]
   cover: PostCover
   thumb: PostThumb
   ogImage: string
@@ -48,7 +49,7 @@ export function postsFor(entries: PostEntry[], locale: Locale): Post[] {
       cover: e.data.cover,
       thumb: e.data.thumb,
       ogImage: e.data.ogImage,
-      html: e.rendered?.html ?? '',
+      body: splitPostBody(e.rendered?.html ?? '', e.id),
     }))
     .sort((a, b) => b.date.localeCompare(a.date))
 }

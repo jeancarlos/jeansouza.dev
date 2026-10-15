@@ -7,7 +7,7 @@ const post = {
   title: 'Hello',
   date: '2026-01-01',
   description: 'A post.',
-  html: '<p>Body <em>text</em>.</p>',
+  body: [{ html: '<p>Body <em>text</em>.</p>' }],
   cover: { src: '/c.webp', srcSet: '/c.webp 820w', alt: 'A cover.' },
   thumb: { src: '/t.webp', srcSet: '/t.webp 176w' },
   ogImage: '/og-hello.jpg',
@@ -24,6 +24,26 @@ describe('BlogPostWindow', () => {
   it('renders the html built from the markdown', () => {
     render(<BlogPostWindow post={post} />)
     expect(screen.getByRole('article').querySelector('em')).toHaveTextContent('text')
+  })
+
+  it('renders a timeline between the html around it', () => {
+    render(
+      <BlogPostWindow
+        post={{
+          ...post,
+          body: [
+            { html: '<p>before</p>' },
+            { timeline: [{ date: '2020', title: 'First job' }] },
+            { html: '<p>after</p>' },
+          ],
+        }}
+      />
+    )
+    const article = screen.getByRole('article')
+    const order = [...article.querySelectorAll('p, h3')].map((el) => el.textContent)
+    expect(order).toEqual(expect.arrayContaining(['before', 'First job', 'after']))
+    expect(order.indexOf('before')).toBeLessThan(order.indexOf('First job'))
+    expect(order.indexOf('First job')).toBeLessThan(order.indexOf('after'))
   })
 
   it('keeps the text in a column of readable width', () => {

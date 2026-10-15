@@ -26,6 +26,18 @@ export default defineConfig({
       display: 'optional',
     },
     {
+      provider: fontProviders.local(),
+      name: 'Lexend',
+      cssVariable: '--font-lexend',
+      display: 'optional',
+      options: {
+        variants: [
+          { src: ['./src/assets/fonts/lexend-400.woff2'], weight: 400, style: 'normal' },
+          { src: ['./src/assets/fonts/lexend-700.woff2'], weight: 700, style: 'normal' },
+        ],
+      },
+    },
+    {
       provider: fontProviders.google(),
       name: 'JetBrains Mono',
       cssVariable: '--font-jetbrains-mono',

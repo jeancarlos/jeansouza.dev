@@ -31,6 +31,7 @@ const post = page.kind === 'post' ? page.post : undefined
   imageAlt={post?.cover.alt}
   jsonLd={structuredData(page, locale)}
   headScript={headScript}
+  readingFont={page.kind !== 'home' && page.kind !== 'more'}
 >
   <Chrome slot="topbar" locale={locale} path={path} />
   <DesktopApp client:afterpaint locale={locale} posts={posts} pathname={pageUrl(page, locale)} />

@@ -7,9 +7,9 @@ interface Props {
 
 export function Header({ profile, locale }: Props) {
   return (
-    <header className="mb-10">
-      <h1 className="font-display text-text text-3xl font-bold">{profile.name}</h1>
-      <p className="text-brand-text mt-1 text-lg">{profile.headline[locale]}</p>
-    </header>
+    <>
+      <h1 className="font-display text-brand-text">{profile.name}</h1>
+      <p className="text-brand-muted -mt-4 mb-4 font-mono text-sm">{profile.headline[locale]}</p>
+    </>
   )
 }
