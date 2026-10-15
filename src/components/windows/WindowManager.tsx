@@ -18,7 +18,7 @@ import {
   getViewport,
   isPlainClick,
 } from '@/lib/windowUtils'
-import { HOME_Z, initWindows, windowsReducer } from './windowReducer'
+import { HOME_ID, HOME_Z, initWindows, windowsReducer } from './windowReducer'
 import type { ButtonOrigin, WindowConfig, WindowState } from './windowReducer'
 
 export type { ButtonOrigin, WindowConfig, WindowState } from './windowReducer'
@@ -138,7 +138,14 @@ export function WindowManagerProvider({
     [homeUrl]
   )
 
-  const focusWindow = useCallback((id: string) => dispatch({ type: 'FOCUS', id }), [])
+  const focusWindow = useCallback(
+    (id: string) => {
+      dispatch({ type: 'FOCUS', id })
+      const url = id === HOME_ID ? homeUrl : windowsRef.current.find((w) => w.id === id)?.url
+      if (url && location.pathname !== url) history.replaceState(history.state, '', url)
+    },
+    [homeUrl]
+  )
   const expandWindow = useCallback((id: string) => dispatch({ type: 'EXPAND', id }), [])
   const minimizeWindow = useCallback((id: string) => dispatch({ type: 'MINIMIZE', id }), [])
   const moveWindow = useCallback(

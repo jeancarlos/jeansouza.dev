@@ -207,6 +207,17 @@ describe('WindowManager history', () => {
     expect(document.title).toBe('Home')
   })
 
+  it('rewrites the URL to the window brought to the front', () => {
+    history.replaceState(null, '', '/pt/blog/post/')
+    const ctx = renderManager({ initialWindows: [blog, post] })
+    act(() => ctx().focusWindow('blog'))
+    expect(location.pathname).toBe('/pt/blog/')
+    expect(document.title).toBe('Blog')
+    act(() => ctx().focusWindow('home'))
+    expect(location.pathname).toBe('/pt/')
+    expect(document.title).toBe('Home')
+  })
+
   it('opens and closes windows to match the URL that Back or Forward lands on', () => {
     const byPath: Record<string, WindowConfig[]> = {
       '/pt/blog/post/': [blog, post],
