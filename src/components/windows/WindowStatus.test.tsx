@@ -24,7 +24,7 @@ describe('announcements during a keyboard mode', () => {
     render(
       <WindowShell id="resume" label="Currículo" initialOpen strings={STRINGS_PT}>
         <p>x</p>
-      </WindowShell>,
+      </WindowShell>
     )
 
   it('announces on entering move mode', async () => {

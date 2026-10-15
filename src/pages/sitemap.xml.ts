@@ -26,7 +26,7 @@ export const GET: APIRoute = async () => {
 ${urls
   .map(
     (loc) =>
-      `<url>\n<loc>${loc}</loc>\n<lastmod>${lastmod}</lastmod>\n<changefreq>monthly</changefreq>\n</url>`,
+      `<url>\n<loc>${loc}</loc>\n<lastmod>${lastmod}</lastmod>\n<changefreq>monthly</changefreq>\n</url>`
   )
   .join('\n')}
 </urlset>

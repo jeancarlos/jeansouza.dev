@@ -12,7 +12,7 @@ describe('useTranslations shim', () => {
     render(
       <LocaleProvider locale="en">
         <Probe ns="windows" k="resume" />
-      </LocaleProvider>,
+      </LocaleProvider>
     )
     expect(screen.getByText('Resume')).toBeInTheDocument()
   })
@@ -21,7 +21,7 @@ describe('useTranslations shim', () => {
     render(
       <LocaleProvider locale="pt">
         <Probe ns="windows" k="resume" />
-      </LocaleProvider>,
+      </LocaleProvider>
     )
     expect(screen.getByText('Currículo')).toBeInTheDocument()
   })
@@ -30,7 +30,7 @@ describe('useTranslations shim', () => {
     render(
       <LocaleProvider locale="pt">
         <Probe ns="more" k="copy" vars={{ name: 'GitHub' }} />
-      </LocaleProvider>,
+      </LocaleProvider>
     )
     expect(screen.getByText('Copiar GitHub')).toBeInTheDocument()
   })

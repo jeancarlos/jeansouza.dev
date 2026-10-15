@@ -2,7 +2,7 @@
 import { defineConfig, fontProviders } from 'astro/config'
 import tailwind from '@tailwindcss/vite'
 
-import react from '@astrojs/react';
+import react from '@astrojs/react'
 
 // `trailingSlash: 'always'` plus `build.format: 'directory'` reproduce the URL
 // shape Next's static export emits. `prefixDefaultLocale: true` is what keeps

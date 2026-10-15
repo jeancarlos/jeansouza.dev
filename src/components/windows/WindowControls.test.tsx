@@ -8,7 +8,7 @@ const open = () =>
   render(
     <WindowShell id="resume" label="Currículo" initialOpen strings={STRINGS_PT}>
       <p>x</p>
-    </WindowShell>,
+    </WindowShell>
   )
 
 describe('keyboard move and resize', () => {

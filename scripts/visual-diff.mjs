@@ -34,7 +34,11 @@ async function shoot(browser, origin, route, vp, file) {
   await context.close()
 }
 
-const browser = await launch({ executablePath: CHROME, headless: true, args: ['--no-sandbox', '--disable-gpu'] })
+const browser = await launch({
+  executablePath: CHROME,
+  headless: true,
+  args: ['--no-sandbox', '--disable-gpu'],
+})
 const results = []
 
 for (const route of ROUTES) {
@@ -48,7 +52,12 @@ for (const route of ROUTES) {
     const a = PNG.sync.read(readFileSync(fa))
     const b = PNG.sync.read(readFileSync(fb))
     if (a.width !== b.width || a.height !== b.height) {
-      results.push({ route, vp: vp.name, pct: null, note: `size ${a.width}x${a.height} vs ${b.width}x${b.height}` })
+      results.push({
+        route,
+        vp: vp.name,
+        pct: null,
+        note: `size ${a.width}x${a.height} vs ${b.width}x${b.height}`,
+      })
       continue
     }
     const diff = new PNG({ width: a.width, height: a.height })
@@ -60,6 +69,8 @@ for (const route of ROUTES) {
 
 await browser.close()
 for (const r of results) {
-  console.log(`${r.route.padEnd(14)} ${r.vp.padEnd(8)} ${r.pct == null ? r.note : r.pct + '% different'}`)
+  console.log(
+    `${r.route.padEnd(14)} ${r.vp.padEnd(8)} ${r.pct == null ? r.note : r.pct + '% different'}`
+  )
 }
 writeFileSync(`${OUT}/results.json`, JSON.stringify(results, null, 2))

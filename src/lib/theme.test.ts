@@ -34,15 +34,14 @@ describe('THEME_INIT_SCRIPT', () => {
       // input. Executing it is the only way to prove the inline script and
       // resolveTheme agree, which is the whole point of this test.
       // eslint-disable-next-line @typescript-eslint/no-implied-eval
-      const fn = new Function(
-        'localStorage',
-        'window',
-        'document',
-        THEME_INIT_SCRIPT,
-      ) as (l: unknown, w: unknown, d: unknown) => void
+      const fn = new Function('localStorage', 'window', 'document', THEME_INIT_SCRIPT) as (
+        l: unknown,
+        w: unknown,
+        d: unknown
+      ) => void
       fn({ getItem: () => stored }, { matchMedia }, { documentElement: el })
       expect(el.value, `stored=${String(stored)} prefersLight=${prefersLight}`).toBe(
-        resolveTheme(stored, prefersLight),
+        resolveTheme(stored, prefersLight)
       )
     }
   })

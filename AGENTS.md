@@ -1,4 +1,4 @@
-# jeansouza.dev — Agent Guidelines
+# jeansouza.dev - Agent Guidelines
 
 ## Commits
 
@@ -12,7 +12,7 @@ Nunca adicionar "Co-Authored-By" em commits. Não incluir nenhuma assinatura de 
 - **Tipos estritos.** s/ `any`. s/ casts desnecessários. Custo: tipar de forma que compilador ajude.
 - **Efeitos síncronos antes paint usam `useLayoutEffect`.** Estado externo (localStorage, media queries, observers) usa `useSyncExternalStore`. Refs não são mutados em render.
 - **SSR-safe.** Estado inicial via lazy initializer p/ evitar `return null` server. C/ `useSyncExternalStore`garantir q cliente e server batem (ou usar CSS puro p/ show/hide baseado em viewport, evitando flash de hydration).
-- **Show/hide por viewport:** usar Tailwind `hidden md:flex` em vez de `if (isMobile) return null` — CSS puro não tem hydration mismatch.
+- **Show/hide por viewport:** usar Tailwind `hidden md:flex` em vez de `if (isMobile) return null` - CSS puro não tem hydration mismatch.
 - **Design tokens, não hex literais.** Cores `@theme` `globals.css`referenciadas como classes Tailwind (`bg-brand-from` `text-brand-text`). Tailwind v4 gera utilities automaticamente partir CSS variables.
 - **MD→React via react-markdown, não HTML cru.** Sanitização boundary via `rehype-sanitize`. Nenhum `dangerouslySetInnerHTML` deve aparecer código.
 
@@ -44,9 +44,9 @@ bd close <id>         # Complete work
 
 ### Rules
 
-- Use `bd` for ALL task tracking — NOT use TodoWrite, TaskCreate, or markdown TODO lists
+- Use `bd` for ALL task tracking - NOT use TodoWrite, TaskCreate, or markdown TODO lists
 - Run `bd prime` for detailed command reference and session close protocol
-- Use `bd remember` for persistent knowledge — NOT use MEMORY.md files
+- Use `bd remember` for persistent knowledge - NOT use MEMORY.md files
 
 ## Session Completion
 
@@ -74,4 +74,5 @@ bd close <id>         # Complete work
 - NEVER stop before pushing - that leaves work stranded locally
 - NEVER say "ready to push when you are" - YOU must push
 - If push fails, resolve and retry until it succeeds
+
 <!-- END BEADS INTEGRATION -->

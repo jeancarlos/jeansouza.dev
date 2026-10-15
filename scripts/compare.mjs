@@ -10,14 +10,17 @@ const afterAgeH = (Date.now() - statSync('docs/migration/after/report.json').mti
 if (afterAgeH > 6) {
   console.error(
     `refusing to compare: docs/migration/after/report.json is ${afterAgeH.toFixed(1)}h old. ` +
-      'Re-run scripts/measure.mjs against the current build.',
+      'Re-run scripts/measure.mjs against the current build.'
   )
   process.exit(1)
 }
 
 const missing = Object.keys(before.pages).filter((u) => !after.pages[u])
 if (missing.length) {
-  console.error(`refusing to compare: ${missing.length} page(s) absent from the after run:`, missing)
+  console.error(
+    `refusing to compare: ${missing.length} page(s) absent from the after run:`,
+    missing
+  )
   process.exit(1)
 }
 
@@ -71,11 +74,11 @@ const lines = []
 lines.push('# Migration comparison: Next 16 to Astro 7')
 lines.push('')
 lines.push(
-  `Same script (\`scripts/measure.mjs\`), same pinned Chrome, same machine, median of 3 runs per page per form factor. Raw runs are in \`baseline/report.json\` and \`after/report.json\`.`,
+  `Same script (\`scripts/measure.mjs\`), same pinned Chrome, same machine, median of 3 runs per page per form factor. Raw runs are in \`baseline/report.json\` and \`after/report.json\`.`
 )
 lines.push('')
 lines.push(
-  `**${content.length} distinct pages.** The two \`como-modernizei-meu-site\` rows are redirect stubs kept from a pre-rename slug; Lighthouse followed them, so they measured the post page twice. They are shown for completeness and excluded from every total.`,
+  `**${content.length} distinct pages.** The two \`como-modernizei-meu-site\` rows are redirect stubs kept from a pre-rename slug; Lighthouse followed them, so they measured the post page twice. They are shown for completeness and excluded from every total.`
 )
 lines.push('')
 lines.push('## JavaScript transferred')
@@ -85,12 +88,14 @@ lines.push('|---|--:|--:|--:|')
 for (const r of rows) {
   const label = r.redirect ? `${r.url} *(redirect)*` : r.url
   lines.push(
-    `| \`${label}\` | ${num(kb(r.bm?.js_transfer_bytes))} KB | ${num(kb(r.am?.js_transfer_bytes))} KB | ${delta(kb(r.bm?.js_transfer_bytes), kb(r.am?.js_transfer_bytes), ' KB')} |`,
+    `| \`${label}\` | ${num(kb(r.bm?.js_transfer_bytes))} KB | ${num(kb(r.am?.js_transfer_bytes))} KB | ${delta(kb(r.bm?.js_transfer_bytes), kb(r.am?.js_transfer_bytes), ' KB')} |`
   )
 }
 const bTotal = sum(content, (r) => kb(r.bm?.js_transfer_bytes))
 const aTotal = sum(content, (r) => kb(r.am?.js_transfer_bytes))
-lines.push(`| **Total (${content.length} pages)** | **${bTotal} KB** | **${aTotal} KB** | **${delta(bTotal, aTotal, ' KB')}** |`)
+lines.push(
+  `| **Total (${content.length} pages)** | **${bTotal} KB** | **${aTotal} KB** | **${delta(bTotal, aTotal, ' KB')}** |`
+)
 lines.push('')
 lines.push(`Reduction: **${Math.round((1 - aTotal / bTotal) * 100)}%**.`)
 lines.push('')
@@ -100,7 +105,7 @@ lines.push('| Page | Perf mobile | Perf desktop | LCP mobile | TBT mobile |')
 lines.push('|---|--:|--:|--:|--:|')
 for (const r of content) {
   lines.push(
-    `| \`${r.url}\` | ${num(r.bm?.performance)} → ${num(r.am?.performance)} (${delta(r.bm?.performance, r.am?.performance, '', 'higher')}) | ${num(r.bd?.performance)} → ${num(r.ad?.performance)} (${delta(r.bd?.performance, r.ad?.performance, '', 'higher')}) | ${num(Math.round(r.bm?.lcp_ms ?? 0))} → ${num(Math.round(r.am?.lcp_ms ?? 0))} ms | ${num(Math.round(r.bm?.tbt_ms ?? 0))} → ${num(Math.round(r.am?.tbt_ms ?? 0))} ms |`,
+    `| \`${r.url}\` | ${num(r.bm?.performance)} → ${num(r.am?.performance)} (${delta(r.bm?.performance, r.am?.performance, '', 'higher')}) | ${num(r.bd?.performance)} → ${num(r.ad?.performance)} (${delta(r.bd?.performance, r.ad?.performance, '', 'higher')}) | ${num(Math.round(r.bm?.lcp_ms ?? 0))} → ${num(Math.round(r.am?.lcp_ms ?? 0))} ms | ${num(Math.round(r.bm?.tbt_ms ?? 0))} → ${num(Math.round(r.am?.tbt_ms ?? 0))} ms |`
   )
 }
 lines.push('')
@@ -110,19 +115,21 @@ lines.push('Node counts across both viewports, all pages.')
 lines.push('')
 lines.push('| Rule | Impact | Before | After |')
 lines.push('|---|---|--:|--:|')
-const ruleIds = [...new Set([...Object.keys(axeTotals.before), ...Object.keys(axeTotals.after)])].sort()
+const ruleIds = [
+  ...new Set([...Object.keys(axeTotals.before), ...Object.keys(axeTotals.after)]),
+].sort()
 for (const id of ruleIds) {
   lines.push(`| \`${id}\` | | ${axeTotals.before[id] ?? 0} | ${axeTotals.after[id] ?? 0} |`)
 }
 lines.push('')
 lines.push(
-    `\`color-contrast\` is **not fixed**: ${axeTotals.before['color-contrast'] ?? 0} nodes before, ${axeTotals.after['color-contrast'] ?? 0} after. The palette is untouched, so it should not move, and it does not. It is rebuilt in phase 2 under \`09 - Specs/2026-08-23-jeansouza-dev-visual-system-design.md\`. Reporting it as outstanding is the point: a comparison that quietly drops the metric that did not improve is worthless.`,
+  `\`color-contrast\` is **not fixed**: ${axeTotals.before['color-contrast'] ?? 0} nodes before, ${axeTotals.after['color-contrast'] ?? 0} after. The palette is untouched, so it should not move, and it does not. It is rebuilt in phase 2 under \`09 - Specs/2026-08-23-jeansouza-dev-visual-system-design.md\`. Reporting it as outstanding is the point: a comparison that quietly drops the metric that did not improve is worthless.`
 )
 lines.push('')
 lines.push('## The gap this migration was built to show')
 lines.push('')
 lines.push(
-  'Lighthouse scored accessibility 96-100 on the Next site while axe found 26 missing-landmark violations and 4 scrollable regions no keyboard could reach. Those scores are **identical after the fix**: 100 stayed 100, 96 stayed 96. The score did not notice the defects and did not notice them being repaired. Lighthouse runs a subset of axe and weights what it runs; it never claimed to be an audit. A green accessibility score beside a keyboard trap is the thing worth writing about.',
+  'Lighthouse scored accessibility 96-100 on the Next site while axe found 26 missing-landmark violations and 4 scrollable regions no keyboard could reach. Those scores are **identical after the fix**: 100 stayed 100, 96 stayed 96. The score did not notice the defects and did not notice them being repaired. Lighthouse runs a subset of axe and weights what it runs; it never claimed to be an audit. A green accessibility score beside a keyboard trap is the thing worth writing about.'
 )
 lines.push('')
 

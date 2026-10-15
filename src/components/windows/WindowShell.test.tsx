@@ -8,7 +8,7 @@ describe('WindowShell', () => {
     render(
       <WindowShell id="post" label="Post" initialOpen={false} strings={STRINGS_PT}>
         <p>server rendered prose</p>
-      </WindowShell>,
+      </WindowShell>
     )
     expect(screen.getByText('server rendered prose')).toBeInTheDocument()
   })
@@ -17,7 +17,7 @@ describe('WindowShell', () => {
     render(
       <WindowShell id="resume" label="Currículo" initialOpen strings={STRINGS_PT}>
         <p>x</p>
-      </WindowShell>,
+      </WindowShell>
     )
     expect(screen.getByRole('region', { name: 'Currículo' })).toBeInTheDocument()
   })
@@ -26,7 +26,7 @@ describe('WindowShell', () => {
     render(
       <WindowShell id="resume" label="Currículo" initialOpen strings={STRINGS_PT}>
         <p>x</p>
-      </WindowShell>,
+      </WindowShell>
     )
     const body = screen.getByTestId('window-body-resume')
     expect(body).toHaveAttribute('tabindex', '0')
@@ -37,7 +37,7 @@ describe('WindowShell', () => {
     render(
       <WindowShell id="more" label="Links" initialOpen strings={STRINGS_PT}>
         <p>x</p>
-      </WindowShell>,
+      </WindowShell>
     )
     expect(screen.getByTestId('window-body-more')).not.toHaveAttribute('tabindex')
   })
@@ -46,7 +46,7 @@ describe('WindowShell', () => {
     render(
       <WindowShell id="terminal" label="Terminal" initialOpen strings={STRINGS_PT}>
         <p>x</p>
-      </WindowShell>,
+      </WindowShell>
     )
     expect(screen.getByRole('dialog', { name: 'Terminal' })).toBeInTheDocument()
   })

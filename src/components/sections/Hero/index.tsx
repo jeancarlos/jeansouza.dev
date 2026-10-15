@@ -16,11 +16,11 @@ import { centeredPosition, getViewport, WINDOW_SAFE, TOPBAR_HEIGHT } from '@/lib
 // Each gets its own Suspense at the definition site so a pending chunk never
 // blanks the window containing it.
 const MoreLinksWindowLazy = lazy(async () =>
-  import('@/components/windows/MoreLinksWindow').then((m) => ({ default: m.MoreLinksWindow })),
+  import('@/components/windows/MoreLinksWindow').then((m) => ({ default: m.MoreLinksWindow }))
 )
 
 const ResumeWindowLazy = lazy(async () =>
-  import('@/components/windows/ResumeWindow').then((m) => ({ default: m.ResumeWindow })),
+  import('@/components/windows/ResumeWindow').then((m) => ({ default: m.ResumeWindow }))
 )
 
 const MoreLinksWindowDynamic = () => (

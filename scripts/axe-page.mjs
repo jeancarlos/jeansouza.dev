@@ -20,10 +20,14 @@ await page.goto(url, { waitUntil: 'networkidle0' })
 await page.evaluate(axeSource)
 const results = await page.evaluate(
   (rules) => window.axe.run(document, rules.length ? { runOnly: rules } : {}),
-  only,
+  only
 )
 await browser.close()
 
-const violations = results.violations.map((v) => ({ id: v.id, impact: v.impact, nodes: v.nodes.length }))
+const violations = results.violations.map((v) => ({
+  id: v.id,
+  impact: v.impact,
+  nodes: v.nodes.length,
+}))
 console.log(JSON.stringify(violations, null, 2))
 process.exit(violations.length ? 1 : 0)

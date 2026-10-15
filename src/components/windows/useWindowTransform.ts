@@ -26,7 +26,7 @@ export function useWindowTransform(initial: Box) {
       restore.current = box
       setMode(next)
     },
-    [box],
+    [box]
   )
 
   const nudge = useCallback(
@@ -43,7 +43,7 @@ export function useWindowTransform(initial: Box) {
         return b
       })
     },
-    [mode],
+    [mode]
   )
 
   const commit = useCallback(() => setMode('idle'), [])

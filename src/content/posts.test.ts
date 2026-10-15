@@ -36,7 +36,7 @@ describe('blog collection', () => {
     for (const locale of ['pt', 'en']) {
       const stub = readFileSync(
         `public/${locale}/blog/2026-06-03-como-modernizei-meu-site/index.html`,
-        'utf8',
+        'utf8'
       )
       expect(stub).toContain('por-que-eu-construi-esse-site-do-jeito-que-construi')
       expect(stub).toContain('rel="canonical"')

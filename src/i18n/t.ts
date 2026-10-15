@@ -18,13 +18,15 @@ export function isLocale(value: string): value is Locale {
 export function useTranslations(locale: Locale) {
   const catalog = CATALOGS[locale]
   return (key: string): string => {
-    const value = key.split('.').reduce<unknown>(
-      (acc, part) =>
-        typeof acc === 'object' && acc !== null
-          ? (acc as Record<string, unknown>)[part]
-          : undefined,
-      catalog,
-    )
+    const value = key
+      .split('.')
+      .reduce<unknown>(
+        (acc, part) =>
+          typeof acc === 'object' && acc !== null
+            ? (acc as Record<string, unknown>)[part]
+            : undefined,
+        catalog
+      )
     if (typeof value !== 'string') throw new Error(`missing translation: ${locale}.${key}`)
     return value
   }

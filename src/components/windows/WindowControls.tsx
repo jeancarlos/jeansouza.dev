@@ -20,16 +20,30 @@ interface Props {
 export function WindowControls({ strings, onMove, onResize, onPreset, onClose }: Props) {
   return (
     <div data-window-controls>
-      <button type="button" onClick={onMove}>{strings.move}</button>
-      <button type="button" onClick={onResize}>{strings.resize}</button>
-      <button type="button" onClick={() => onPreset({ x: 0, y: 0 })}>{strings.topLeft}</button>
-      <button type="button" onClick={() => onPreset({ x: 120, y: 80 })}>{strings.center}</button>
-      <button type="button" onClick={() => onPreset({ x: 240, y: 0 })}>{strings.rightHalf}</button>
-      <button type="button" onClick={() => onPreset({ w: 640, h: 480 })}>{strings.resetSize}</button>
+      <button type="button" onClick={onMove}>
+        {strings.move}
+      </button>
+      <button type="button" onClick={onResize}>
+        {strings.resize}
+      </button>
+      <button type="button" onClick={() => onPreset({ x: 0, y: 0 })}>
+        {strings.topLeft}
+      </button>
+      <button type="button" onClick={() => onPreset({ x: 120, y: 80 })}>
+        {strings.center}
+      </button>
+      <button type="button" onClick={() => onPreset({ x: 240, y: 0 })}>
+        {strings.rightHalf}
+      </button>
+      <button type="button" onClick={() => onPreset({ w: 640, h: 480 })}>
+        {strings.resetSize}
+      </button>
       <button type="button" onClick={() => onPreset({ x: 0, y: 0, w: 1024, h: 768 })}>
         {strings.fitViewport}
       </button>
-      <button type="button" onClick={onClose}>{strings.close}</button>
+      <button type="button" onClick={onClose}>
+        {strings.close}
+      </button>
     </div>
   )
 }
