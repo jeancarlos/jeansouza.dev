@@ -43,9 +43,17 @@ export type Action =
     }
 
 const BASE_Z = 20
+export const HOME_ID = 'home'
+export const HOME_Z = BASE_Z
 
 function maxZ(windows: WindowState[]): number {
   return windows.reduce((m, w) => Math.max(m, w.zIndex), BASE_Z)
+}
+
+function behindHome(windows: WindowState[]): WindowState[] {
+  if (windows.every((w) => w.zIndex < HOME_Z)) return windows
+  const order = [...windows].sort((a, b) => a.zIndex - b.zIndex)
+  return windows.map((w) => ({ ...w, zIndex: HOME_Z - order.length + order.indexOf(w) }))
 }
 
 export function initWindows(windows: WindowConfig[]): WindowState[] {
@@ -64,6 +72,7 @@ export function windowsReducer(state: WindowState[], action: Action): WindowStat
     case 'CLOSE':
       return state.filter((w) => w.id !== action.id)
     case 'FOCUS':
+      if (action.id === HOME_ID) return behindHome(state)
       return state.map((w) => (w.id === action.id ? { ...w, zIndex: maxZ(state) + 1 } : w))
     case 'EXPAND':
       return state.map((w) =>

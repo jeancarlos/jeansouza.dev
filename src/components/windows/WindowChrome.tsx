@@ -50,7 +50,6 @@ export function WindowChrome({
   const [isDragging, setIsDragging] = useState(false)
   const [openFrom] = useState(origin)
   const instant = isResizing || isDragging
-  const sharp = isMobile || isFocused
 
   useEffect(() => {
     const el = ref.current
@@ -151,11 +150,10 @@ export function WindowChrome({
         height: activeStyle.height,
         zIndex,
         position: 'fixed',
-        filter: sharp ? undefined : 'blur(2px) saturate(0.4)',
         ...(activeStyle.height === 'auto' &&
           !isMobile && { maxHeight: maxHeight ?? WINDOW_MAX_HEIGHT }),
       }}
-      className={`${outerClassName} flex ${isFocused ? '' : 'max-md:hidden'} ${openFrom ? '' : 'window-in'} ${instant ? '' : 'transition-[left,top,filter] duration-150 ease-out motion-reduce:transition-none'}`}
+      className={`${outerClassName} flex ${isFocused ? '' : 'max-md:hidden'} ${openFrom ? '' : 'window-in'} ${instant ? '' : 'transition-[left,top] duration-150 ease-out motion-reduce:transition-none'}`}
       role="dialog"
       aria-label={title}
     >

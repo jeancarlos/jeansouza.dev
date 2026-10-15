@@ -18,7 +18,7 @@ import {
   getViewport,
   isPlainClick,
 } from '@/lib/windowUtils'
-import { initWindows, windowsReducer } from './windowReducer'
+import { HOME_Z, initWindows, windowsReducer } from './windowReducer'
 import type { ButtonOrigin, WindowConfig, WindowState } from './windowReducer'
 
 export type { ButtonOrigin, WindowConfig, WindowState } from './windowReducer'
@@ -47,10 +47,11 @@ interface AppHistoryState {
 }
 
 export function topWindow(windows: WindowState[]): WindowState | undefined {
-  return windows.reduce<WindowState | undefined>(
+  const top = windows.reduce<WindowState | undefined>(
     (a, b) => (a && a.zIndex > b.zIndex ? a : b),
     undefined
   )
+  return top && top.zIndex > HOME_Z ? top : undefined
 }
 
 function cascadeFrom(config: WindowConfig, open: WindowState[]): WindowConfig {

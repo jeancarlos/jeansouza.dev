@@ -6,6 +6,7 @@ import { cssCenteredPosition } from '@/lib/windowUtils'
 import { TerminalWindow } from '@/components/windows/TerminalWindow'
 import { useWindowOpener } from '@/components/windows/WindowManager'
 import { pageWindow } from '@/components/windows/pageWindows'
+import { HOME_ID, HOME_Z } from '@/components/windows/windowReducer'
 import { Typewriter } from '@/components/ui/Typewriter'
 import { Icon } from '@/components/ui/Icon'
 import { Button } from '@/components/ui/Button'
@@ -42,11 +43,11 @@ export function Hero({ locale, posts, isFocused, isPageHeading }: Props) {
         👁️👄👁️
       </span>
       <TerminalWindow
-        id="home"
+        id={HOME_ID}
         title="~ jeansouza.dev"
         position={HOME_POSITION}
         size={HOME_SIZE}
-        zIndex={10}
+        zIndex={HOME_Z}
         isFocused={isFocused}
       >
         <div className="text-brand-text space-y-3 p-6">
