@@ -37,7 +37,8 @@
   "blog": {
     "command": "ls posts/",
     "title": "Blog",
-    "empty": "(vazio)"
+    "empty": "(vazio)",
+    "toc": "Tópicos"
   },
   "more": {
     "title": "Mais links",
@@ -77,5 +78,10 @@
     },
     "ogImageAlt": "Jean Souza, engenheiro front-end sênior"
   },
-  "skipToContent": "Pular para o conteúdo"
+  "skipToContent": "Pular para o conteúdo",
+  "languageNotice": {
+    "message": "Este conteúdo também está em português.",
+    "read": "Ler em português",
+    "dismiss": "Continuar em inglês"
+  }
 }

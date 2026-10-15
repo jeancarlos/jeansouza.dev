@@ -1,3 +1,4 @@
+import type { MarkdownHeading } from 'astro'
 import { getImage } from 'astro:assets'
 import { getCollection } from 'astro:content'
 import type { Locale } from '@/i18n/t'
@@ -18,7 +19,10 @@ export async function loadPosts(locale: Locale): Promise<Post[]> {
         const thumbImage = { src: thumb.src, srcSet: thumb.srcSet.attribute }
         return {
           id,
-          rendered,
+          rendered: rendered && {
+            html: rendered.html,
+            metadata: { headings: rendered.metadata?.headings as MarkdownHeading[] | undefined },
+          },
           data: { ...data, cover: coverImage, thumb: thumbImage, ogImage: og.src },
         }
       }

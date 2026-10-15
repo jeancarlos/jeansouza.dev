@@ -36,4 +36,22 @@ describe('postsFor', () => {
   it('carries the html Astro rendered at build time', () => {
     expect(postsFor(entries, 'pt')[0].body).toEqual([{ html: '<p>body of newer.pt</p>' }])
   })
+
+  it('builds the table of contents from the h2 and h3 headings', () => {
+    const withHeadings: PostEntry = {
+      ...entry('toc.pt', '2026-03-01'),
+      rendered: {
+        html: '',
+        metadata: {
+          headings: [
+            { depth: 1, slug: 'title', text: 'Title' },
+            { depth: 2, slug: 'a', text: 'A' },
+            { depth: 3, slug: 'b', text: 'B' },
+            { depth: 4, slug: 'c', text: 'C' },
+          ],
+        },
+      },
+    }
+    expect(postsFor([withHeadings], 'pt')[0].toc.map((h) => h.slug)).toEqual(['a', 'b'])
+  })
 })

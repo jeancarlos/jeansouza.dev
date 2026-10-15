@@ -10,6 +10,8 @@ const post = (slug: string) => ({
   date: '2026-01-01',
   description: 'A post.',
   body: [],
+  toc: [],
+  locales: ['pt' as const],
   cover: { src: '/c.webp', srcSet: '/c.webp 820w', alt: 'A cover.' },
   thumb: { src: `/${slug}.webp`, srcSet: `/${slug}.webp 176w` },
   ogImage: '/og.jpg',

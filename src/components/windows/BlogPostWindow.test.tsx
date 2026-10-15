@@ -8,6 +8,8 @@ const post = {
   date: '2026-01-01',
   description: 'A post.',
   body: [{ html: '<p>Body <em>text</em>.</p>' }],
+  toc: [],
+  locales: ['pt' as const],
   cover: { src: '/c.webp', srcSet: '/c.webp 820w', alt: 'A cover.' },
   thumb: { src: '/t.webp', srcSet: '/t.webp 176w' },
   ogImage: '/og-hello.jpg',
@@ -49,7 +51,29 @@ describe('BlogPostWindow', () => {
   it('keeps the text in a column of readable width', () => {
     render(<BlogPostWindow post={post} />)
     const article = screen.getByRole('article')
-    expect(article.closest('.max-w-prose')).not.toBeNull()
-    expect(article).not.toHaveClass('max-w-none')
+    expect(article.closest('.max-w-3xl')).not.toBeNull()
+  })
+
+  it('lists the headings in a table of contents that links to them', () => {
+    render(
+      <BlogPostWindow
+        post={{
+          ...post,
+          body: [{ html: '<h2 id="one">One</h2><h3 id="two">Two</h3>' }],
+          toc: [
+            { depth: 2, slug: 'one', text: 'One' },
+            { depth: 3, slug: 'two', text: 'Two' },
+          ],
+        }}
+      />
+    )
+    const toc = screen.getByRole('navigation', { name: 'Tópicos' })
+    const links = toc.querySelectorAll('a')
+    expect([...links].map((a) => a.getAttribute('href'))).toEqual(['#one', '#two'])
+  })
+
+  it('skips the table of contents for a post with one heading or none', () => {
+    render(<BlogPostWindow post={{ ...post, toc: [{ depth: 2, slug: 'one', text: 'One' }] }} />)
+    expect(screen.queryByRole('navigation')).toBeNull()
   })
 })

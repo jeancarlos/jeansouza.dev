@@ -7,6 +7,8 @@ const post = {
   date: '2026-01-01',
   description: 'A post.',
   body: [],
+  toc: [],
+  locales: ['pt' as const],
   cover: { src: '/c.webp', srcSet: '/c.webp 820w', alt: 'A cover.' },
   thumb: { src: '/t.webp', srcSet: '/t.webp 176w' },
   ogImage: '/og-hello.jpg',
