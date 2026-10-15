@@ -149,3 +149,4 @@ GEMINI.md
 dist/
 .astro/
 .lighthouseci
+lighthouse-reports
