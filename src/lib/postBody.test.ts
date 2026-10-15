@@ -14,6 +14,15 @@ describe('splitPostBody', () => {
     ])
   })
 
+  it('leaves an image that already says how to load alone', () => {
+    const html = '<img loading="eager" src="/a.svg" alt="a"><img\nsrc="/b.svg" alt="b">'
+    expect(splitPostBody(html, 'post')).toEqual([
+      {
+        html: '<img loading="eager" src="/a.svg" alt="a"><img loading="lazy" src="/b.svg" alt="b">',
+      },
+    ])
+  })
+
   it('splits the html around each timeline block, keeping text as written', () => {
     const yaml =
       '- date: "2024 – 2026"\n  title: Senior "dev" & <lead>\n\n  meta: Zydon\n  items:\n    - built <tests>\n  dotted: true\n- date: "2020"\n  title: First job\n'

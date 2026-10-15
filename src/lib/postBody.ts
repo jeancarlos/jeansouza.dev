@@ -5,6 +5,8 @@ export type BodyPart = { html: string } | { timeline: TimelineEntry[] }
 
 const TIMELINE = /<script type="text\/yaml" data-timeline>([\s\S]*?)<\/script>/
 
+const UNLOADED_IMG = /<img(?![^>]*\sloading=)\s+/g
+
 const isText = (v: unknown): v is string => typeof v === 'string' && v.trim() !== ''
 
 const isTextList = (v: unknown): v is string[] => Array.isArray(v) && v.every(isText)
@@ -39,6 +41,8 @@ function toTimeline(yaml: string, where: string): TimelineEntry[] {
 export function splitPostBody(html: string, where: string): BodyPart[] {
   return html.split(TIMELINE).flatMap((piece, i): BodyPart[] => {
     if (i % 2 === 1) return [{ timeline: toTimeline(piece, where) }]
-    return piece.trim() === '' ? [] : [{ html: piece.replaceAll('<img ', '<img loading="lazy" ') }]
+    return piece.trim() === ''
+      ? []
+      : [{ html: piece.replace(UNLOADED_IMG, '<img loading="lazy" ') }]
   })
 }
