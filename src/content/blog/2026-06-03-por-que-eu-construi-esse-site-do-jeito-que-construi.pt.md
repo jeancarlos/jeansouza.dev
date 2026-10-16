@@ -1,7 +1,7 @@
 ---
 title: 'O Tolo: por que esse site existe do jeito que existe'
 date: 2026-10-15
-description: Ansiedade, projetos largados no meio e um site difícil de fazer de propósito. Como ele é feito, o que o CI cobra antes de cada deploy e por que nota máxima de acessibilidade não garantia que dava pra usar o site sem mouse.
+description: 'Um site difícil de fazer de propósito: como ele é feito, o que o CI cobra antes de cada deploy e por que nota máxima de acessibilidade não bastou.'
 image: ./2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi.jpg
 imageAlt: 'Carta zero, confiança cem: o Tolo, com uma trouxa no ombro e uma rosa na mão, caminha olhando o sol na beira de um penhasco, com um cão branco aos pés, montanhas nevadas ao fundo e um rio no vale.'
 ---

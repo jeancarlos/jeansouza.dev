@@ -1,7 +1,7 @@
 ---
 title: 'The Fool: why this site exists the way it does'
 date: 2026-10-15
-description: Anxiety, projects dropped halfway and a site that's hard to build on purpose. How it's built, what CI checks before every deploy, and why a perfect accessibility score didn't mean you could use the site without a mouse.
+description: "A site that's hard to build on purpose: how it's built, what CI checks before every deploy, and why a perfect accessibility score wasn't enough."
 image: ./2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi.jpg
 imageAlt: 'Card zero, confidence one hundred: the Fool, a bundle over his shoulder and a rose in his hand, walks toward a cliff edge gazing at the sun, a white dog at his feet, snowy mountains behind and a river in the valley.'
 ---
