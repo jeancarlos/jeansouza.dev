@@ -1,13 +1,13 @@
 import { LOCALES, type Locale } from '@/i18n/t'
 import { splitPostBody, type BodyPart } from './postBody'
 
-export interface PostCover {
+interface PostCover {
   src: string
   srcSet: string
   alt: string
 }
 
-export interface PostThumb {
+interface PostThumb {
   src: string
   srcSet: string
 }

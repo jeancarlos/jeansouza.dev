@@ -6,6 +6,7 @@
   * {
     scrollbar-width: thin;
     scrollbar-color: var(--color-surface) transparent;
+    -webkit-tap-highlight-color: transparent;
   }
 
   ::-webkit-scrollbar {
@@ -53,9 +54,5 @@
     transition:
       background-color 300ms ease,
       color 300ms ease;
-  }
-
-  * {
-    -webkit-tap-highlight-color: transparent;
   }
 }

@@ -83,6 +83,7 @@ export default tseslint.config(
       'prefer-const': 'error',
       complexity: ['error', { max: 10 }],
       'max-depth': ['error', { max: 4 }],
+      'max-params': ['error', { max: 7 }],
     },
   },
 

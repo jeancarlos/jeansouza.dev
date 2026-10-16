@@ -1,0 +1,6 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": ["scripts/*.mjs", "src/scripts/*.ts"],
+  "project": ["src/**/*.{ts,tsx,astro}", "scripts/*.mjs"],
+  "ignoreDependencies": ["tailwindcss", "@tailwindcss/typography", "postcss", "axe-core"]
+}

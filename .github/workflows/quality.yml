@@ -24,6 +24,7 @@ jobs:
       - run: npm ci
       - run: npx astro sync
       - run: npm run lint
+      - run: npm run knip
       - run: npm run format:check
       - run: npx tsc --noEmit
       - run: npm run check
