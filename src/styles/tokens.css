@@ -1,0 +1,81 @@
+/* `dark:` follows the data-theme attribute (and the default theme on :root) */
+@custom-variant dark (&:where([data-theme='dark'] *, :root:not([data-theme='light']) *));
+
+@theme {
+  /* Catppuccin Mocha — structure */
+  --color-crust: #11111b;
+  --color-mantle: #181825;
+  --color-base: #1e1e2e;
+  --color-surface: #313244;
+  --color-overlay: #6c7086;
+  --color-subtext: #bac2de;
+  --color-text: #cdd6f4;
+
+  /* Brand accent — replaces pastel mauve/green */
+  --color-brand-from: #e84545;
+  --color-brand-to: #b33a73;
+  --color-bar-from: #d53f3f;
+  --text-shadow-bar: 0 0 2px rgb(110 20 40 / 0.55);
+  --color-brand-text: #f2b8d4;
+  --color-brand-muted: #dc5f9b;
+  --color-brand-bg: #3e3353;
+
+  /* MacOS traffic light dots */
+  --color-traffic-close: #ff5f56;
+  --color-traffic-minimize: #eab308;
+  --color-traffic-expand: #22c55e;
+
+  /* Catppuccin Mocha pastels — used by the static Terminal demo */
+  --color-pastel-red: #f38ba8;
+  --color-pastel-yellow: #f9e2af;
+  --color-pastel-green: #a6e3a1;
+
+  /* Catppuccin Latte + Rosewater — light mode */
+  --color-latte-page: #f2e8e3;
+  --color-rosewater: #f5e0dc;
+  --color-flamingo: #f2cdcd;
+  --color-latte-crust: var(--color-rosewater);
+  --color-latte-base: #eff1f5;
+  --color-latte-mantle: #e6e9ef;
+  --color-latte-surface: #ccd0da;
+  --color-latte-overlay: #8c8fa1;
+  --color-latte-text: #23151c;
+  --color-latte-subtext: #5c5f77;
+  --color-latte-brand-text: #c02b2b;
+  --color-latte-brand-muted: #a8336b;
+  --color-latte-brand-bg: #f3e2e8;
+  --color-latte-contour: #8a5c54;
+
+  --font-display: var(--font-poppins), sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
+  --font-reading: var(--font-lexend), sans-serif;
+}
+
+/* Dark/light mode via data-theme attribute */
+:root,
+[data-theme='dark'] {
+  --page-bg: var(--color-crust);
+  --page-text: var(--color-text);
+  --contour-color: var(--color-subtext);
+  --button-inner-bg: var(--color-brand-bg);
+  --button-text: var(--color-brand-text);
+  --button-hover-text: white;
+}
+
+[data-theme='light'] {
+  --color-crust: var(--color-latte-crust);
+  --color-base: var(--color-latte-base);
+  --color-mantle: var(--color-latte-mantle);
+  --color-surface: var(--color-latte-surface);
+  --color-overlay: var(--color-latte-overlay);
+  --color-subtext: var(--color-latte-subtext);
+  --color-text: var(--color-latte-text);
+  --color-brand-text: var(--color-latte-brand-text);
+  --color-brand-muted: var(--color-latte-brand-muted);
+  --color-brand-bg: var(--color-latte-brand-bg);
+  --page-bg: var(--color-latte-page);
+  --page-text: var(--color-latte-text);
+  --contour-color: var(--color-latte-contour);
+  --button-inner-bg: var(--color-flamingo);
+  --button-text: var(--color-latte-text);
+}

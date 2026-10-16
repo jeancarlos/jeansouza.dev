@@ -20,6 +20,7 @@ export function BlogPostWindow({ post }: { post: Post }) {
         {...COVER_SIZE}
         alt={post.cover.alt}
         fetchPriority="high"
+        data-fade=""
         className="block h-auto w-full @min-[800px]:h-80 @min-[800px]:object-cover @min-[800px]:object-[50%_10%]"
       />
       <div

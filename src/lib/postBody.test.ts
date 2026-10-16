@@ -10,7 +10,7 @@ describe('splitPostBody', () => {
 
   it('lazy-loads images in the body', () => {
     expect(splitPostBody('<p><img src="/a.svg" alt="a"></p>', 'post')).toEqual([
-      { html: '<p><img loading="lazy" src="/a.svg" alt="a"></p>' },
+      { html: '<p><img loading="lazy" data-fade src="/a.svg" alt="a"></p>' },
     ])
   })
 
@@ -18,7 +18,7 @@ describe('splitPostBody', () => {
     const html = '<img loading="eager" src="/a.svg" alt="a"><img\nsrc="/b.svg" alt="b">'
     expect(splitPostBody(html, 'post')).toEqual([
       {
-        html: '<img loading="eager" src="/a.svg" alt="a"><img loading="lazy" src="/b.svg" alt="b">',
+        html: '<img loading="eager" src="/a.svg" alt="a"><img loading="lazy" data-fade src="/b.svg" alt="b">',
       },
     ])
   })

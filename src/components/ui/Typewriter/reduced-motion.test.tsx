@@ -22,7 +22,7 @@ describe('Typewriter reduced motion', () => {
   // JavaScript means a hydration mismatch or a setState inside an effect.
   // The guarantee therefore lives in CSS, and this asserts it is still there.
   it('has a prefers-reduced-motion rule that reveals the text without animating', () => {
-    const css = readFileSync('src/styles/globals.css', 'utf8')
+    const css = readFileSync('src/styles/motion.css', 'utf8')
     const block = css.slice(css.indexOf('@media (prefers-reduced-motion: reduce)'))
     expect(block).toContain('.typewriter > span')
     expect(block).toMatch(/opacity:\s*1/)
@@ -30,7 +30,7 @@ describe('Typewriter reduced motion', () => {
   })
 
   it('stops the hero eyes and the blinking cursor under reduced motion', () => {
-    const css = readFileSync('src/styles/globals.css', 'utf8')
+    const css = readFileSync('src/styles/motion.css', 'utf8')
     const rule =
       /@media \(prefers-reduced-motion: reduce\) \{\s*\.eyes-in,\s*\.cursor-blink \{\s*animation: none;/
     expect(css).toMatch(rule)

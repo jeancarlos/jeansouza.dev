@@ -43,6 +43,6 @@ export function splitPostBody(html: string, where: string): BodyPart[] {
     if (i % 2 === 1) return [{ timeline: toTimeline(piece, where) }]
     return piece.trim() === ''
       ? []
-      : [{ html: piece.replace(UNLOADED_IMG, '<img loading="lazy" ') }]
+      : [{ html: piece.replace(UNLOADED_IMG, '<img loading="lazy" data-fade ') }]
   })
 }

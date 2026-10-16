@@ -1,11 +1,14 @@
-export const CELL = 14
-export const LEVELS = 14
+export const CELL = 16
+export const LEVELS = 24
 const SCALE = 1 / 460
 
-function hash(x: number, y: number): number {
-  const s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453
-  return s - Math.floor(s)
-}
+let seed = 1
+const lattice = Float32Array.from({ length: 256 * 256 }, () => {
+  seed = (seed * 16807) % 2147483647
+  return seed / 2147483647
+})
+
+const hash = (x: number, y: number) => lattice[(x & 255) | ((y & 255) << 8)]
 
 const smooth = (t: number) => t * t * (3 - 2 * t)
 
@@ -21,95 +24,88 @@ function valueNoise(x: number, y: number): number {
   return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v
 }
 
-export function elevation(x: number, y: number): number {
+const DRIFT_X = [0.006, -0.004, 0.003]
+const DRIFT_Y = [0.002, 0.007, -0.009]
+
+export function elevation(x: number, y: number, t = 0): number {
   let sum = 0
   let amp = 0.5
   let freq = SCALE
-  for (let i = 0; i < 3; i++) {
-    sum += amp * valueNoise(x * freq, y * freq)
+  for (let o = 0; o < 3; o++) {
+    sum += amp * valueNoise((x + DRIFT_X[o] * t) * freq, (y + DRIFT_Y[o] * t) * freq)
     amp /= 2
     freq *= 2
   }
   return sum / 0.875
 }
 
-export const levelValue = (k: number) => 0.15 + (0.7 * (k + 0.5)) / LEVELS
+const LEVEL_MIN = 0.15
+const LEVEL_SPAN = 0.7
 
-function cross(out: number[], v0: number, v1: number, t: number, p0: number[], p1: number[]) {
-  if (v0 < t === v1 < t) return
-  const f = (t - v0) / (v1 - v0)
-  out.push(p0[0] + (p1[0] - p0[0]) * f, p0[1] + (p1[1] - p0[1]) * f)
+export const levelValue = (k: number) => LEVEL_MIN + (LEVEL_SPAN * (k + 0.5)) / LEVELS
+const levelIndex = (value: number) => ((value - LEVEL_MIN) * LEVELS) / LEVEL_SPAN - 0.5
+
+const crossAt = (v0: number, v1: number, t: number) =>
+  v0 < t === v1 < t ? -1 : (t - v0) / (v1 - v0)
+
+function edge(out: number[], f: number, x: number, y: number, dx: number, dy: number) {
+  if (f >= 0) out.push(x + dx * f, y + dy * f)
 }
 
 function cellSegments(out: number[], v: number[], t: number, x: number, y: number) {
-  const tl = [x, y]
-  const tr = [x + CELL, y]
-  const br = [x + CELL, y + CELL]
-  const bl = [x, y + CELL]
-  cross(out, v[0], v[1], t, tl, tr)
-  cross(out, v[1], v[2], t, tr, br)
-  cross(out, v[3], v[2], t, bl, br)
-  cross(out, v[0], v[3], t, tl, bl)
+  edge(out, crossAt(v[0], v[1], t), x, y, CELL, 0)
+  edge(out, crossAt(v[1], v[2], t), x + CELL, y, 0, CELL)
+  edge(out, crossAt(v[3], v[2], t), x, y + CELL, CELL, 0)
+  edge(out, crossAt(v[0], v[3], t), x, y, 0, CELL)
 }
 
-function sampleGrid(cols: number, rows: number): Float32Array {
-  const grid = new Float32Array(cols * rows)
+export interface Hill {
+  x: number
+  y: number
+  height: number
+}
+
+export const HILL_RADIUS = 170
+
+export function hillAt(hill: Hill | undefined, x: number, y: number): number {
+  if (!hill || hill.height === 0) return 0
+  const d2 = ((x - hill.x) ** 2 + (y - hill.y) ** 2) / HILL_RADIUS ** 2
+  return d2 > 9 ? 0 : hill.height * Math.exp(-d2)
+}
+
+let grid = new Float32Array(0)
+
+function sampleGrid(cols: number, rows: number, time: number, hill?: Hill): Float32Array {
+  if (grid.length !== cols * rows) grid = new Float32Array(cols * rows)
   for (let j = 0; j < rows; j++)
-    for (let i = 0; i < cols; i++) grid[j * cols + i] = elevation(i * CELL, j * CELL)
+    for (let i = 0; i < cols; i++) {
+      const x = i * CELL
+      const y = j * CELL
+      grid[j * cols + i] = elevation(x, y, time) + hillAt(hill, x, y)
+    }
   return grid
 }
 
-export function contourSegments(w: number, h: number): number[][] {
+function crossingLevels(levels: number[][], v: number[], x: number, y: number) {
+  const lo = Math.max(0, Math.floor(levelIndex(Math.min(v[0], v[1], v[2], v[3]))))
+  const hi = Math.min(LEVELS - 1, Math.ceil(levelIndex(Math.max(v[0], v[1], v[2], v[3]))))
+  for (let k = lo; k <= hi; k++) cellSegments(levels[k], v, levelValue(k), x, y)
+}
+
+export function contourSegments(w: number, h: number, time = 0, hill?: Hill): number[][] {
   const cols = Math.ceil(w / CELL) + 1
   const rows = Math.ceil(h / CELL) + 1
-  const grid = sampleGrid(cols, rows)
+  const g = sampleGrid(cols, rows, time, hill)
   const levels = Array.from({ length: LEVELS }, () => [] as number[])
+  const v = [0, 0, 0, 0]
   for (let j = 0; j < rows - 1; j++)
     for (let i = 0; i < cols - 1; i++) {
       const at = j * cols + i
-      const v = [grid[at], grid[at + 1], grid[at + cols + 1], grid[at + cols]]
-      levels.forEach((out, k) => cellSegments(out, v, levelValue(k), i * CELL, j * CELL))
+      v[0] = g[at]
+      v[1] = g[at + 1]
+      v[2] = g[at + cols + 1]
+      v[3] = g[at + cols]
+      crossingLevels(levels, v, i * CELL, j * CELL)
     }
   return levels
-}
-
-const key = (x: number, y: number) => `${x},${y}`
-
-function linkEnds(segs: number[]): Map<string, number[]> {
-  const ends = new Map<string, number[]>()
-  for (let s = 0; s < segs.length / 4; s++)
-    for (const e of [0, 2]) {
-      const k = key(segs[s * 4 + e], segs[s * 4 + e + 1])
-      ends.set(k, [...(ends.get(k) ?? []), s])
-    }
-  return ends
-}
-
-export function chainSegments(segs: number[]): number[][] {
-  const ends = linkEnds(segs)
-  const used = new Uint8Array(segs.length / 4)
-  const walk = (line: number[], x: number, y: number) => {
-    for (;;) {
-      const next = (ends.get(key(x, y)) ?? []).find((s) => !used[s])
-      if (next === undefined) return
-      used[next] = 1
-      const o = segs[next * 4] === x && segs[next * 4 + 1] === y ? 2 : 0
-      x = segs[next * 4 + o]
-      y = segs[next * 4 + o + 1]
-      line.push(x, y)
-    }
-  }
-  const lines: number[][] = []
-  for (let s = 0; s < used.length; s++) {
-    if (used[s]) continue
-    used[s] = 1
-    const tail = [segs[s * 4 + 2], segs[s * 4 + 3]]
-    walk(tail, tail[0], tail[1])
-    const head = [segs[s * 4], segs[s * 4 + 1]]
-    walk(head, head[0], head[1])
-    const back: number[] = []
-    for (let i = head.length - 2; i >= 0; i -= 2) back.push(head[i], head[i + 1])
-    lines.push([...back, ...tail])
-  }
-  return lines
 }

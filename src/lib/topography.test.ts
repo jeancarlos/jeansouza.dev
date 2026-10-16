@@ -1,5 +1,13 @@
 import { describe, it, expect } from 'vitest'
-import { LEVELS, chainSegments, contourSegments, elevation } from './topography'
+import {
+  CELL,
+  HILL_RADIUS,
+  LEVELS,
+  contourSegments,
+  elevation,
+  hillAt,
+  levelValue,
+} from './topography'
 
 describe('elevation', () => {
   it('is deterministic and stays in [0, 1]', () => {
@@ -22,21 +30,53 @@ describe('contourSegments', () => {
   })
 })
 
-describe('chainSegments', () => {
-  it('joins segments sharing endpoints into one ordered polyline', () => {
-    const segs = [1, 0, 2, 0, 0, 0, 1, 0, 2, 0, 3, 0]
-    expect(chainSegments(segs)).toEqual([[0, 0, 1, 0, 2, 0, 3, 0]])
+describe('contourSegments level culling', () => {
+  it('matches testing every level in every cell', () => {
+    const w = 300
+    const h = 200
+    const brute = Array.from({ length: LEVELS }, () => [] as number[])
+    const cols = Math.ceil(w / CELL) + 1
+    const rows = Math.ceil(h / CELL) + 1
+    for (let j = 0; j < rows - 1; j++)
+      for (let i = 0; i < cols - 1; i++) {
+        const [x, y] = [i * CELL, j * CELL]
+        const v = [
+          Math.fround(elevation(x, y, 7)),
+          Math.fround(elevation(x + CELL, y, 7)),
+          Math.fround(elevation(x + CELL, y + CELL, 7)),
+          Math.fround(elevation(x, y + CELL, 7)),
+        ]
+        brute.forEach((out, k) => {
+          const t = levelValue(k)
+          const edges: [number, number, number, number, number, number][] = [
+            [v[0], v[1], x, y, CELL, 0],
+            [v[1], v[2], x + CELL, y, 0, CELL],
+            [v[3], v[2], x, y + CELL, CELL, 0],
+            [v[0], v[3], x, y, 0, CELL],
+          ]
+          for (const [a, b, ex, ey, dx, dy] of edges)
+            if (a < t !== b < t) {
+              const f = (t - a) / (b - a)
+              out.push(ex + dx * f, ey + dy * f)
+            }
+        })
+      }
+    expect(contourSegments(w, h, 7)).toEqual(brute)
+  })
+})
+
+describe('hillAt', () => {
+  it('peaks at the hill centre and fades with distance', () => {
+    const hill = { x: 100, y: 100, height: 0.2 }
+    expect(hillAt(hill, 100, 100)).toBeCloseTo(0.2)
+    expect(hillAt(hill, 100 + HILL_RADIUS * 3, 100)).toBeLessThan(0.001)
+    expect(hillAt(undefined, 100, 100)).toBe(0)
   })
 
-  it('keeps disjoint segments apart', () => {
-    expect(chainSegments([0, 0, 1, 0, 5, 5, 6, 5])).toHaveLength(2)
-  })
-
-  it('chains real contours into far fewer lines than segments', () => {
-    const segs = contourSegments(800, 600).find((s) => s.length > 40) ?? []
-    const lines = chainSegments(segs)
-    const points = lines.reduce((n, l) => n + l.length / 2, 0)
-    expect(lines.length).toBeLessThan(segs.length / 4 / 3)
-    expect(points).toBe(segs.length / 4 + lines.length)
+  it('adds rings around the pointer', () => {
+    const flat = contourSegments(400, 400, 0)
+    const raised = contourSegments(400, 400, 0, { x: 200, y: 200, height: 0.2 })
+    const count = (levels: number[][]) => levels.reduce((n, s) => n + s.length, 0)
+    expect(count(raised)).toBeGreaterThan(count(flat))
   })
 })
