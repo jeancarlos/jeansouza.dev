@@ -16,7 +16,6 @@ interface Props {
   locales?: readonly Locale[]
   publishedTime?: string
   jsonLd?: object
-  headScript?: string
   image?: string
   imageAlt?: string
   readingFont?: boolean
@@ -30,7 +29,6 @@ const {
   locales = LOCALES,
   publishedTime,
   jsonLd,
-  headScript,
   image: ownImage,
   imageAlt,
   readingFont = false,
@@ -46,7 +44,6 @@ const image = `${SITE_URL}${ownImage ?? '/og.png'}`
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark light" />
-    {headScript && <script is:inline set:html={headScript} />}
     <script is:inline set:html={THEME_INIT_SCRIPT} />
     <script is:inline set:html={IMAGE_FADE_SCRIPT} />
     <title>{title}</title>
