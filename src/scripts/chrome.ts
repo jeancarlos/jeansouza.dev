@@ -33,12 +33,12 @@ function strokeLevels(ctx: CanvasRenderingContext2D, paths: Path2D[], color: str
   ctx.strokeStyle = `rgb(${color})`
   ctx.lineCap = 'round'
   paths.forEach((path, k) => {
-    const major = k % 4 === 0
-    const pulse = t === 0 ? 1 : 0.65 + 0.35 * Math.sin(t / 900 + k * 2.3)
-    ctx.globalAlpha = (major ? 0.5 : 0.3) * pulse
-    ctx.lineWidth = major ? 1.6 : 1.2
-    ctx.setLineDash(major ? [0, 5] : [0, 7])
-    ctx.lineDashOffset = (t / 160) * (k % 2 ? 1 : -1)
+    const dotted = k % 4 === 2
+    const pulse = t === 0 ? 1 : 0.6 + 0.4 * Math.sin(t / 900 + k * 2.3)
+    ctx.globalAlpha = dotted ? 0.4 * pulse : 0.14
+    ctx.lineWidth = dotted ? 1.5 : 1
+    ctx.setLineDash(dotted ? [0, 5] : [])
+    ctx.lineDashOffset = (t / 160) * (k % 8 === 2 ? 1 : -1)
     ctx.stroke(path)
   })
 }
