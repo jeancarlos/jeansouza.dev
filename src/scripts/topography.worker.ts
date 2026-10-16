@@ -76,11 +76,15 @@ function paint(time: number) {
 }
 
 const SETTLE_MS = 1000
+const IDLE_FRAME_MS = 1000 / 30 - 4
 let lastTick = 0
+let lastPaint = 0
+let busyUntil = 0
 
-function followPointer(dt: number) {
+function followPointer(dt: number): boolean {
   const ease = 1 - Math.exp((-3 * dt) / SETTLE_MS)
   const p = state.pointer
+  const { x, y, height } = hill
   if (p) {
     const k = hill.height < 0.005 ? 1 : ease
     hill.x += (p[0] - hill.x) * k
@@ -88,12 +92,18 @@ function followPointer(dt: number) {
   }
   hill.height += ((p ? HILL_HEIGHT : 0) - hill.height) * ease
   if (hill.height < 0.001) hill.height = 0
+  return (
+    Math.abs(hill.x - x) + Math.abs(hill.y - y) > 0.1 || Math.abs(hill.height - height) > 0.0001
+  )
 }
 
 const tick = (t: number) => {
-  followPointer(Math.min(t - lastTick, 100))
+  if (followPointer(Math.min(t - lastTick, 100))) busyUntil = t + SETTLE_MS
   lastTick = t
-  paint(t)
+  if (t < busyUntil || t - lastPaint >= IDLE_FRAME_MS) {
+    lastPaint = t
+    paint(t)
+  }
   frame = nextFrame(tick)
 }
 
