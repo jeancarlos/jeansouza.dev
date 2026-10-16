@@ -8,5 +8,5 @@ export function preferredLocale(stored: string | null | undefined, language: str
   return /^pt\b/i.test(language) ? 'pt' : 'en'
 }
 
-/** Runs in the head of `/`, which renders the English home, so only Portuguese readers are redirected. */
-export const ROOT_REDIRECT_SCRIPT = `(function(){var s;try{s=localStorage.getItem('${LOCALE_STORAGE_KEY}')}catch(e){}if((${preferredLocale.toString()})(s,navigator.language)==='pt')location.replace('/pt/')})()`
+/** Runs in the head of `/`, which is only a redirect: every reader lands on their language's home. */
+export const ROOT_REDIRECT_SCRIPT = `(function(){var s;try{s=localStorage.getItem('${LOCALE_STORAGE_KEY}')}catch(e){}location.replace('/'+(${preferredLocale.toString()})(s,navigator.language)+'/')})()`

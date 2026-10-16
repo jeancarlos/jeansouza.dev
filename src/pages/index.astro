@@ -1,9 +1,18 @@
 ---
-import SitePage from '../components/SitePage.astro'
 import { ROOT_REDIRECT_SCRIPT } from '../lib/locale-storage'
-import { loadPosts } from '../lib/loadPosts'
-
-const posts = await loadPosts('en')
+import { SITE_URL } from '../lib/pages'
 ---
 
-<SitePage locale="en" page={{ kind: 'home' }} posts={posts} headScript={ROOT_REDIRECT_SCRIPT} />
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline set:html={ROOT_REDIRECT_SCRIPT} />
+    <meta http-equiv="refresh" content="0;url=/en/" />
+    <link rel="canonical" href={`${SITE_URL}/en/`} />
+    <title>Jean Souza</title>
+  </head>
+  <body>
+    <a href="/en/">English</a> · <a href="/pt/" lang="pt-BR">Português</a>
+  </body>
+</html>

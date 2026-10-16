@@ -23,5 +23,6 @@ describe('ROOT_REDIRECT_SCRIPT', () => {
   it('embeds the same decision and tolerates blocked storage', () => {
     expect(ROOT_REDIRECT_SCRIPT).toContain(preferredLocale.toString())
     expect(ROOT_REDIRECT_SCRIPT).toMatch(/try\{.*localStorage.*\}catch/)
+    expect(ROOT_REDIRECT_SCRIPT).toContain("location.replace('/'+")
   })
 })

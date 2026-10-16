@@ -11,11 +11,9 @@ interface Props {
   locale: Locale
   page: Page
   posts: Post[]
-  /** Inline script for the head; `/` uses it to send Portuguese readers to /pt/. */
-  headScript?: string
 }
 
-const { locale, page, posts, headScript } = Astro.props
+const { locale, page, posts } = Astro.props
 const { title, description } = pageMeta(page, locale)
 const path = pagePath(page)
 const post = page.kind === 'post' ? page.post : undefined
@@ -33,7 +31,6 @@ const switchTo = pageLocales(page).includes(other) ? page : { kind: 'blog' as co
   image={post?.ogImage}
   imageAlt={post?.cover.alt}
   jsonLd={structuredData(page, locale)}
-  headScript={headScript}
   readingFont={page.kind !== 'home' && page.kind !== 'more'}
 >
   <Chrome slot="topbar" locale={locale} switchHref={pageUrl(switchTo, other)} page={pageUrl(page, locale)} />

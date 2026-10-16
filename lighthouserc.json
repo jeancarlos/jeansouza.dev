@@ -3,7 +3,7 @@
     "collect": {
       "staticDistDir": "./dist",
       "url": [
-        "/",
+        "/en/",
         "/pt/",
         "/en/blog/",
         "/pt/blog/2026-06-03-por-que-eu-construi-esse-site-do-jeito-que-construi/",
