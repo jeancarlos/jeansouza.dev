@@ -34,7 +34,8 @@
   --color-pastel-green: #a6e3a1;
 
   /* a — light mode */
-  --color-latte-crust: #ffffff;
+  --color-latte-page: #f2e8e3;
+  --color-latte-crust: #fdf6f2;
   --color-latte-base: #eff1f5;
   --color-latte-mantle: #e6e9ef;
   --color-latte-surface: #ccd0da;
@@ -52,7 +53,7 @@
 [data-theme='dark'] {
   --page-bg: var(--color-crust);
   --page-text: var(--color-text);
-  --dot-color: 242, 184, 212;
+  --contour-color: 186, 194, 222;
   --button-inner-bg: var(--color-brand-bg);
   --button-text: var(--color-brand-text);
   --button-hover-text: white;
@@ -69,10 +70,10 @@
   --color-brand-text: #c02b2b;
   --color-brand-muted: var(--color-brand-to);
   --color-brand-bg: #f3e2e8;
-  --page-bg: var(--color-latte-crust);
+  --page-bg: var(--color-latte-page);
   --page-text: var(--color-latte-text);
-  --dot-color: 104, 57, 239;
-  --button-inner-bg: var(--color-latte-mantle);
+  --contour-color: 138, 92, 84;
+  --button-inner-bg: var(--color-latte-page);
   --button-text: var(--color-latte-text);
   --button-hover-text: white;
 }

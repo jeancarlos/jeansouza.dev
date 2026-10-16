@@ -1,15 +1,7 @@
 import { localePath } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/t'
 import { LOCALE_STORAGE_KEY } from '@/lib/locale-storage'
-import {
-  SPEED,
-  TOTAL_DOTS,
-  advanceStar,
-  initStar,
-  projectStar,
-  resetStar,
-  type Star,
-} from '@/lib/starfield'
+import { chainSegments, contourSegments } from '@/lib/topography'
 import { THEME_STORAGE_KEY, type Theme } from '@/lib/theme'
 
 function persist(key: string, value: string): void {
@@ -20,35 +12,62 @@ function persist(key: string, value: string): void {
   }
 }
 
-function startStarfield(canvas: HTMLCanvasElement) {
+const FRAME_MS = 1000 / 24
+
+function toPath(line: number[]): Path2D {
+  const path = new Path2D()
+  path.moveTo(line[0], line[1])
+  for (let i = 2; i < line.length; i += 2) path.lineTo(line[i], line[i + 1])
+  return path
+}
+
+function buildPaths(w: number, h: number): Path2D[] {
+  return contourSegments(w, h).map((segs) => {
+    const path = new Path2D()
+    for (const line of chainSegments(segs)) path.addPath(toPath(line))
+    return path
+  })
+}
+
+function strokeLevels(ctx: CanvasRenderingContext2D, paths: Path2D[], color: string, t: number) {
+  ctx.strokeStyle = `rgb(${color})`
+  ctx.lineCap = 'round'
+  paths.forEach((path, k) => {
+    const major = k % 4 === 0
+    const pulse = t === 0 ? 1 : 0.65 + 0.35 * Math.sin(t / 900 + k * 2.3)
+    ctx.globalAlpha = (major ? 0.5 : 0.3) * pulse
+    ctx.lineWidth = major ? 1.6 : 1.2
+    ctx.setLineDash(major ? [0, 5] : [0, 7])
+    ctx.lineDashOffset = (t / 160) * (k % 2 ? 1 : -1)
+    ctx.stroke(path)
+  })
+}
+
+function startTopography(canvas: HTMLCanvasElement) {
   const ctx = canvas.getContext('2d')
   if (!ctx) return () => undefined
-  const still = matchMedia('(prefers-reduced-motion: reduce)')
+  const still = matchMedia('(prefers-reduced-motion: reduce), (width < 48rem)')
   let w = 0
   let h = 0
-  let stars: Star[] = []
+  let paths: Path2D[] = []
   let color = ''
   let frame = 0
+  let last = 0
 
   const readColor = () => {
-    color = getComputedStyle(document.documentElement).getPropertyValue('--dot-color').trim()
+    color = getComputedStyle(document.documentElement).getPropertyValue('--contour-color').trim()
   }
 
-  const draw = () => {
+  const paint = (t: number) => {
     ctx.clearRect(0, 0, w, h)
-    ctx.fillStyle = `rgba(${color}, 0.55)`
-    for (const star of stars) {
-      if (!still.matches) advanceStar(star, SPEED)
-      const { sx, sy, size } = projectStar(star, w, h)
-      if (star.z <= 1 || sx < -50 || sx > w + 50 || sy < -50 || sy > h + 50) {
-        resetStar(star, w, h)
-        continue
-      }
-      ctx.beginPath()
-      ctx.arc(sx, sy, Math.max(0.5, size), 0, Math.PI * 2)
-      ctx.fill()
-    }
-    frame = still.matches ? 0 : requestAnimationFrame(draw)
+    strokeLevels(ctx, paths, color, t)
+  }
+
+  const tick = (t: number) => {
+    frame = requestAnimationFrame(tick)
+    if (t - last < FRAME_MS) return
+    last = t
+    paint(t)
   }
 
   const restart = () => {
@@ -59,9 +78,10 @@ function startStarfield(canvas: HTMLCanvasElement) {
     canvas.width = w * dpr
     canvas.height = h * dpr
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-    stars = Array.from({ length: TOTAL_DOTS }, () => initStar(w, h))
+    paths = buildPaths(w, h)
     readColor()
-    draw()
+    paint(0)
+    if (!still.matches) frame = requestAnimationFrame(tick)
   }
 
   addEventListener('resize', restart)
@@ -71,7 +91,7 @@ function startStarfield(canvas: HTMLCanvasElement) {
   else setTimeout(begin, 200)
   return () => {
     readColor()
-    if (still.matches) draw()
+    if (still.matches) paint(0)
   }
 }
 
@@ -97,8 +117,8 @@ function bindLocaleSwitch(link: HTMLAnchorElement) {
   })
 }
 
-const canvas = document.querySelector<HTMLCanvasElement>('[data-starfield]')
-const repaint = canvas ? startStarfield(canvas) : () => undefined
+const canvas = document.querySelector<HTMLCanvasElement>('[data-topography]')
+const repaint = canvas ? startTopography(canvas) : () => undefined
 const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]')
 if (toggle) bindThemeToggle(toggle, repaint)
 const localeLink = document.querySelector<HTMLAnchorElement>('[data-locale-switch]')
