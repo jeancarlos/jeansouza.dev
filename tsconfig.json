@@ -15,7 +15,8 @@
       "@/*": ["./src/*"]
     },
     "target": "ES2017",
-    "jsxImportSource": "react"
+    "jsxImportSource": "react",
+    "types": ["vitest/globals", "node"]
   },
   "include": [".astro/types.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
