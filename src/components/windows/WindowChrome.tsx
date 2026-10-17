@@ -27,22 +27,23 @@ function prefersStill(): boolean {
   return typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
-export function WindowChrome({
-  id,
-  title,
-  isHome,
-  isMobile,
-  isFocused,
-  isResizing,
-  zIndex,
-  maxHeight,
-  origin,
-  activeStyle,
-  outerClassName,
-  innerRounded,
-  draggable,
-  children,
-}: WindowChromeProps) {
+export function WindowChrome(props: WindowChromeProps) {
+  const {
+    id,
+    title,
+    isHome,
+    isMobile,
+    isFocused,
+    isResizing,
+    zIndex,
+    maxHeight,
+    origin,
+    activeStyle,
+    outerClassName,
+    innerRounded,
+    draggable,
+    children,
+  } = props
   const { focusWindow, moveWindow } = useWindowManager()
   const ref = useRef<HTMLDivElement>(null)
   const endDrag = useRef<(() => void) | null>(null)

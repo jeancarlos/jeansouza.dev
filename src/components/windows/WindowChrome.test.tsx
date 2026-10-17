@@ -58,10 +58,21 @@ function release(x: number, y: number) {
   fireEvent.pointerUp(window, { ...P, buttons: 0, clientX: x, clientY: y })
 }
 
+function grab() {
+  const win = renderChrome()
+  press(screen.getByText('handle'), 10, 10)
+  return win
+}
+
+function dragHome() {
+  press(screen.getByText('handle'), 10, 10)
+  moveTo(70, 50)
+  release(70, 50)
+}
+
 describe('WindowChrome drag', () => {
   it('folds a drag from the handle into the window position', () => {
-    const win = renderChrome()
-    press(screen.getByText('handle'), 10, 10)
+    const win = grab()
     moveTo(70, 50)
     expect(win.style.translate).toBe('60px 40px')
     release(70, 50)
@@ -70,8 +81,7 @@ describe('WindowChrome drag', () => {
   })
 
   it('treats a press that barely moves as a click, not a drag', () => {
-    const win = renderChrome()
-    press(screen.getByText('handle'), 10, 10)
+    const win = grab()
     moveTo(11, 11)
     release(11, 11)
     expect(moveWindow).not.toHaveBeenCalled()
@@ -79,8 +89,7 @@ describe('WindowChrome drag', () => {
   })
 
   it('ends the gesture on a release outside the window, so hovering later moves nothing', () => {
-    const win = renderChrome()
-    press(screen.getByText('handle'), 10, 10)
+    const win = grab()
     release(10, -40)
     moveTo(200, 200, { buttons: 0 })
     expect(win.style.translate).toBe('')
@@ -88,8 +97,7 @@ describe('WindowChrome drag', () => {
   })
 
   it('reverts instead of committing when the browser cancels the pointer', () => {
-    const win = renderChrome()
-    press(screen.getByText('handle'), 10, 10)
+    const win = grab()
     moveTo(70, 50)
     fireEvent.pointerCancel(window, { ...P, clientX: 70, clientY: 50 })
     expect(moveWindow).not.toHaveBeenCalled()
@@ -97,8 +105,7 @@ describe('WindowChrome drag', () => {
   })
 
   it('ignores a second pointer while the first one drags', () => {
-    const win = renderChrome()
-    press(screen.getByText('handle'), 10, 10)
+    const win = grab()
     moveTo(70, 50)
     fireEvent.pointerMove(window, { ...P, pointerId: 2, clientX: 500, clientY: 500 })
     fireEvent.pointerUp(window, { ...P, pointerId: 2, buttons: 0, clientX: 500, clientY: 500 })
@@ -184,16 +191,14 @@ describe('WindowChrome gesture guards', () => {
   })
 
   it('keeps the first gesture when a second press arrives mid drag', () => {
-    const win = renderChrome()
-    press(screen.getByText('handle'), 10, 10)
+    const win = grab()
     press(screen.getByText('handle'), 300, 300)
     moveTo(70, 50)
     expect(win.style.translate).toBe('60px 40px')
   })
 
   it('reverts when a move reports no buttons held after the drag started', () => {
-    const win = renderChrome()
-    press(screen.getByText('handle'), 10, 10)
+    const win = grab()
     moveTo(70, 50)
     moveTo(80, 60, { buttons: 0 })
     expect(win.style.translate).toBe('')
@@ -201,8 +206,7 @@ describe('WindowChrome gesture guards', () => {
   })
 
   it('abandons the drag when the browser window loses focus', () => {
-    const win = renderChrome()
-    press(screen.getByText('handle'), 10, 10)
+    const win = grab()
     moveTo(70, 50)
     fireEvent.blur(window)
     expect(win.style.translate).toBe('')
@@ -236,9 +240,7 @@ describe('WindowChrome home window', () => {
   it('keeps the home window where it was dragged without asking the manager to move it', () => {
     render(chrome({ isHome: true }))
     const win = screen.getByRole('dialog')
-    press(screen.getByText('handle'), 10, 10)
-    moveTo(70, 50)
-    release(70, 50)
+    dragHome()
     expect(moveWindow).not.toHaveBeenCalled()
     expect(win.style.translate).toBe('60px 40px')
   })
@@ -246,9 +248,7 @@ describe('WindowChrome home window', () => {
   it('continues the next home drag from the offset left by the previous one', () => {
     render(chrome({ isHome: true }))
     const win = screen.getByRole('dialog')
-    press(screen.getByText('handle'), 10, 10)
-    moveTo(70, 50)
-    release(70, 50)
+    dragHome()
     press(screen.getByText('handle'), 100, 100)
     moveTo(110, 120)
     expect(win.style.translate).toBe('70px 60px')
@@ -257,9 +257,7 @@ describe('WindowChrome home window', () => {
   it('returns to the previous offset when a home drag is cancelled', () => {
     render(chrome({ isHome: true }))
     const win = screen.getByRole('dialog')
-    press(screen.getByText('handle'), 10, 10)
-    moveTo(70, 50)
-    release(70, 50)
+    dragHome()
     press(screen.getByText('handle'), 100, 100)
     moveTo(150, 150)
     fireEvent.pointerCancel(window, { ...P, clientX: 150, clientY: 150 })
@@ -269,9 +267,7 @@ describe('WindowChrome home window', () => {
   it('drops the offset on mobile and restores it when back on desktop', () => {
     const { rerender } = render(chrome({ isHome: true }))
     const win = screen.getByRole('dialog')
-    press(screen.getByText('handle'), 10, 10)
-    moveTo(70, 50)
-    release(70, 50)
+    dragHome()
     rerender(chrome({ isHome: true, isMobile: true }))
     expect(win.style.translate).toBe('')
     rerender(chrome({ isHome: true, isMobile: false }))
