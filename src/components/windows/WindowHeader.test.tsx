@@ -5,12 +5,15 @@ import { WindowHeader } from './WindowHeader'
 
 const moveWindow = vi.fn()
 const resizeWindow = vi.fn()
+const closeWindow = vi.fn()
+const minimizeWindow = vi.fn()
+const expandWindow = vi.fn()
 
 vi.mock('./WindowManager', () => ({
   useWindowManager: () => ({
-    closeWindow: vi.fn(),
-    minimizeWindow: vi.fn(),
-    expandWindow: vi.fn(),
+    closeWindow,
+    minimizeWindow,
+    expandWindow,
     moveWindow,
     resizeWindow,
   }),
@@ -42,6 +45,9 @@ async function enterMoveMode() {
 beforeEach(() => {
   moveWindow.mockClear()
   resizeWindow.mockClear()
+  closeWindow.mockClear()
+  minimizeWindow.mockClear()
+  expandWindow.mockClear()
   vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockReturnValue({
     left: 100,
     top: 100,
@@ -168,5 +174,59 @@ describe('WindowHeader positions without dragging', () => {
   it('offers no positions for the home window', () => {
     renderHeader({ isHome: true })
     expect(screen.queryByRole('button', { name: 'Posição da janela' })).toBeNull()
+  })
+})
+
+describe('WindowHeader traffic dots', () => {
+  it('closes, minimizes and expands its own window', async () => {
+    const user = userEvent.setup()
+    renderHeader()
+    await user.click(screen.getByRole('button', { name: 'Fechar' }))
+    await user.click(screen.getByRole('button', { name: 'Minimizar' }))
+    await user.click(screen.getByRole('button', { name: 'Expandir' }))
+    expect(closeWindow).toHaveBeenCalledWith('blog')
+    expect(minimizeWindow).toHaveBeenCalledWith('blog')
+    expect(expandWindow).toHaveBeenCalledWith('blog')
+  })
+
+  it('disables all three dots on the home window', async () => {
+    const user = userEvent.setup()
+    renderHeader({ isHome: true })
+    for (const name of ['Fechar', 'Minimizar', 'Expandir']) {
+      const dot = screen.getByRole('button', { name })
+      expect(dot).toBeDisabled()
+      await user.click(dot)
+    }
+    expect(closeWindow).not.toHaveBeenCalled()
+    expect(minimizeWindow).not.toHaveBeenCalled()
+    expect(expandWindow).not.toHaveBeenCalled()
+  })
+
+  it('shows a static title and no grab cursor for an expanded window', () => {
+    const { container } = renderHeader({ isExpanded: true })
+    const handle = container.querySelector('[data-drag-handle]')
+    expect(handle).not.toHaveClass('cursor-grab')
+    expect(handle).toHaveTextContent('~/blog')
+    expect(screen.queryByRole('button', { name: 'Posição da janela' })).toBeNull()
+  })
+
+  it('offers a grab cursor on a movable window', () => {
+    const { container } = renderHeader()
+    expect(container.querySelector('[data-drag-handle]')).toHaveClass('cursor-grab')
+  })
+})
+
+describe('WindowHeader mobile header', () => {
+  it('goes back in history from the back button', async () => {
+    const back = vi.spyOn(history, 'back').mockImplementation(() => undefined)
+    renderHeader()
+    await userEvent.click(screen.getByRole('button', { name: 'Voltar' }))
+    expect(back).toHaveBeenCalledTimes(1)
+    expect(screen.getByText('< voltar')).toBeInTheDocument()
+  })
+
+  it('has no back button on the home window', () => {
+    renderHeader({ isHome: true })
+    expect(screen.queryByRole('button', { name: 'Voltar' })).toBeNull()
   })
 })
