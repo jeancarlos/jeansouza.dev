@@ -27,19 +27,20 @@ interface Props {
 }
 
 /** The home window is the desktop itself: it cannot be closed, minimized, expanded or resized. */
-export function TerminalWindow({
-  id,
-  title,
-  children,
-  position,
-  size,
-  maxHeight,
-  isExpanded = false,
-  isMinimized = false,
-  zIndex,
-  isFocused = true,
-  origin,
-}: Props) {
+export function TerminalWindow(props: Props) {
+  const {
+    id,
+    title,
+    children,
+    position,
+    size,
+    maxHeight,
+    isExpanded = false,
+    isMinimized = false,
+    zIndex,
+    isFocused = true,
+    origin,
+  } = props
   const [isResizing, setIsResizing] = useState(false)
   const isMobile = useIsMobile()
   const isHome = id === 'home'

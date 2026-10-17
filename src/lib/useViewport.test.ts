@@ -1,6 +1,13 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
 
+async function mountAt(width: number, height: number) {
+  vi.stubGlobal('innerWidth', width)
+  vi.stubGlobal('innerHeight', height)
+  const { useViewport } = await import('./useViewport')
+  return renderHook(() => useViewport())
+}
+
 describe('useViewport', () => {
   beforeEach(() => {
     vi.resetModules()
@@ -8,21 +15,13 @@ describe('useViewport', () => {
   })
 
   it('returns window dimensions initially', async () => {
-    vi.stubGlobal('innerWidth', 1024)
-    vi.stubGlobal('innerHeight', 768)
-
-    const { useViewport } = await import('./useViewport')
-    const { result } = renderHook(() => useViewport())
+    const { result } = await mountAt(1024, 768)
 
     expect(result.current).toEqual({ vw: 1024, vh: 768 })
   })
 
   it('updates when window is resized', async () => {
-    vi.stubGlobal('innerWidth', 1024)
-    vi.stubGlobal('innerHeight', 768)
-
-    const { useViewport } = await import('./useViewport')
-    const { result } = renderHook(() => useViewport())
+    const { result } = await mountAt(1024, 768)
 
     expect(result.current).toEqual({ vw: 1024, vh: 768 })
 
@@ -37,11 +36,7 @@ describe('useViewport', () => {
   })
 
   it('maintains referential stability if dimensions do not change', async () => {
-    vi.stubGlobal('innerWidth', 1024)
-    vi.stubGlobal('innerHeight', 768)
-
-    const { useViewport } = await import('./useViewport')
-    const { result } = renderHook(() => useViewport())
+    const { result } = await mountAt(1024, 768)
 
     const firstSnapshot = result.current
 
