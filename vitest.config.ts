@@ -9,10 +9,18 @@ export default defineConfig({
     globals: true,
     setupFiles: ['./src/test/setup.ts'],
     exclude: ['**/node_modules/**', '**/.worktrees/**'],
+    coverage: {
+      provider: 'v8',
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: ['**/*.test.*', 'src/test/**', 'src/content.config.ts'],
+      thresholds: { statements: 90, branches: 90, functions: 90, lines: 90 },
+    },
   },
   resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
+    alias: [
+      { find: 'astro:content', replacement: path.resolve(__dirname, './src/test/astroContent.ts') },
+      { find: 'astro:assets', replacement: path.resolve(__dirname, './src/test/astroAssets.ts') },
+      { find: '@', replacement: path.resolve(__dirname, './src') },
+    ],
   },
 })

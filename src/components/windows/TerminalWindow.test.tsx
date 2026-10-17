@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { TerminalWindow } from './TerminalWindow'
 
 vi.mock('./WindowManager', () => ({
@@ -128,5 +128,47 @@ describe('TerminalWindow focus', () => {
     )
     expect(opener).toHaveFocus()
     opener.remove()
+  })
+})
+
+describe('TerminalWindow resizing', () => {
+  const handles = (container: HTMLElement) => container.querySelectorAll('[data-resize-handle]')
+
+  it('offers eight resize handles on a regular window', () => {
+    const { container } = render(
+      <TerminalWindow {...baseProps}>
+        <p>x</p>
+      </TerminalWindow>
+    )
+    expect(handles(container)).toHaveLength(8)
+  })
+
+  it.each([
+    ['the home window', { id: 'home' }],
+    ['an expanded window', { isExpanded: true }],
+    ['a minimized window', { isMinimized: true }],
+  ])('offers no resize handles on %s', (_name, extra) => {
+    const { container } = render(
+      <TerminalWindow {...baseProps} {...extra}>
+        <p>x</p>
+      </TerminalWindow>
+    )
+    expect(handles(container)).toHaveLength(0)
+  })
+
+  it('stops animating the frame while a handle is held and animates again on release', () => {
+    HTMLElement.prototype.setPointerCapture = vi.fn()
+    const { container } = render(
+      <TerminalWindow {...baseProps}>
+        <p>x</p>
+      </TerminalWindow>
+    )
+    const dialog = screen.getByRole('dialog')
+    const handle = handles(container)[0]
+    expect(dialog.className).toContain('transition-[left,top,filter]')
+    fireEvent.pointerDown(handle, { pointerId: 1, clientX: 0, clientY: 0 })
+    expect(dialog.className).not.toContain('transition-[left,top,filter]')
+    fireEvent.pointerUp(handle, { pointerId: 1 })
+    expect(dialog.className).toContain('transition-[left,top,filter]')
   })
 })
