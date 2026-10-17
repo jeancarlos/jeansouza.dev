@@ -6,7 +6,7 @@ import prettier from 'eslint-config-prettier'
 
 export default tseslint.config(
   {
-    ignores: ['node_modules', 'dist', '.astro', '.claude', '.superpowers', 'public'],
+    ignores: ['node_modules', 'dist', '.astro', '.claude', '.superpowers', 'public', 'coverage'],
   },
 
   {

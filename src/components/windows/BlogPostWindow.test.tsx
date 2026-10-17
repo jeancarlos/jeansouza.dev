@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { BlogPostWindow } from './BlogPostWindow'
 
 const post = {
@@ -99,5 +99,27 @@ describe('BlogPostWindow', () => {
   it('skips the table of contents for a post with one heading or none', () => {
     render(<BlogPostWindow post={{ ...post, toc: [{ depth: 2, slug: 'one', text: 'One' }] }} />)
     expect(screen.queryByRole('navigation')).toBeNull()
+  })
+})
+
+describe('BlogPostWindow language notice', () => {
+  afterEach(() => {
+    vi.restoreAllMocks()
+    localStorage.clear()
+  })
+
+  it('offers the post in the other language it was written in', () => {
+    vi.spyOn(navigator, 'language', 'get').mockReturnValue('en-US')
+    render(<BlogPostWindow post={{ ...post, locales: ['pt', 'en'] }} />)
+    expect(screen.getByRole('link', { name: 'Read in English' })).toHaveAttribute(
+      'href',
+      '/en/blog/hello/'
+    )
+  })
+
+  it('stays quiet for a post that exists in one language only', () => {
+    vi.spyOn(navigator, 'language', 'get').mockReturnValue('en-US')
+    render(<BlogPostWindow post={post} />)
+    expect(screen.queryByRole('link', { name: 'Read in English' })).toBeNull()
   })
 })
