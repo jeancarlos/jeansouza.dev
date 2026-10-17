@@ -129,25 +129,25 @@ describe('chrome theme toggle', () => {
   })
 })
 
+async function clickLocaleLink(path: string) {
+  setupEnv({ canvas: false, toggle: false })
+  history.replaceState(null, '', path)
+  await load()
+  const link = document.querySelector<HTMLAnchorElement>('[data-locale-switch]')!
+  link.addEventListener('click', (e) => e.preventDefault())
+  link.click()
+  return link
+}
+
 describe('chrome locale switch', () => {
   it('stores the chosen locale and rewrites the href when the path differs', async () => {
-    setupEnv({ canvas: false, toggle: false })
-    history.replaceState(null, '', '/en/more/')
-    await load()
-    const link = document.querySelector<HTMLAnchorElement>('[data-locale-switch]')!
-    link.addEventListener('click', (e) => e.preventDefault())
-    link.click()
+    const link = await clickLocaleLink('/en/more/')
     expect(localStorage.getItem('locale')).toBe('pt')
     expect(link.getAttribute('href')).toBe('/pt/more/')
   })
 
   it('keeps the href when already on the linked page', async () => {
-    setupEnv({ canvas: false, toggle: false })
-    history.replaceState(null, '', '/en/blog/')
-    await load()
-    const link = document.querySelector<HTMLAnchorElement>('[data-locale-switch]')!
-    link.addEventListener('click', (e) => e.preventDefault())
-    link.click()
+    const link = await clickLocaleLink('/en/blog/')
     expect(link.getAttribute('href')).toBe('/en/blog/')
   })
 })

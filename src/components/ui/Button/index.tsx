@@ -9,16 +9,17 @@ export interface ButtonProps {
   size?: 'default' | 'sm'
 }
 
-export function Button({
-  children,
-  href,
-  onClick,
-  className = '',
-  disabled,
-  'aria-label': ariaLabel,
-  gradientDir = 'r',
-  size = 'default',
-}: ButtonProps) {
+export function Button(props: ButtonProps) {
+  const {
+    children,
+    href,
+    onClick,
+    className = '',
+    disabled,
+    'aria-label': ariaLabel,
+    gradientDir = 'r',
+    size = 'default',
+  } = props
   const sizeClass = size === 'sm' ? 'px-2 py-0.5 text-xs' : 'px-3 py-1.5 text-sm'
   const disabledClass = disabled ? 'opacity-40 pointer-events-none' : ' cursor-pointer'
 

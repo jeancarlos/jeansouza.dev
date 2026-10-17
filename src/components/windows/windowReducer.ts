@@ -56,38 +56,38 @@ function behindHome(windows: WindowState[]): WindowState[] {
   return windows.map((w) => ({ ...w, zIndex: HOME_Z - order.length + order.indexOf(w) }))
 }
 
+function update(
+  windows: WindowState[],
+  id: string,
+  change: (w: WindowState) => Partial<WindowState>
+): WindowState[] {
+  return windows.map((w) => (w.id === id ? { ...w, ...change(w) } : w))
+}
+
 export function initWindows(windows: WindowConfig[]): WindowState[] {
   return windows.map((w, i) => ({ ...w, zIndex: BASE_Z + 1 + i }))
 }
 
 export function windowsReducer(state: WindowState[], action: Action): WindowState[] {
   switch (action.type) {
-    case 'OPEN': {
-      const exists = state.find((w) => w.id === action.window.id)
-      if (exists) {
-        return state.map((w) => (w.id === action.window.id ? { ...w, zIndex: maxZ(state) + 1 } : w))
-      }
-      return [...state, { ...action.window, zIndex: maxZ(state) + 1 }]
-    }
+    case 'OPEN':
+      return state.some((w) => w.id === action.window.id)
+        ? update(state, action.window.id, () => ({ zIndex: maxZ(state) + 1 }))
+        : [...state, { ...action.window, zIndex: maxZ(state) + 1 }]
     case 'CLOSE':
       return state.filter((w) => w.id !== action.id)
     case 'FOCUS':
-      if (action.id === HOME_ID) return behindHome(state)
-      return state.map((w) => (w.id === action.id ? { ...w, zIndex: maxZ(state) + 1 } : w))
+      return action.id === HOME_ID
+        ? behindHome(state)
+        : update(state, action.id, () => ({ zIndex: maxZ(state) + 1 }))
     case 'EXPAND':
-      return state.map((w) =>
-        w.id === action.id ? { ...w, isExpanded: !w.isExpanded, isMinimized: false } : w
-      )
+      return update(state, action.id, (w) => ({ isExpanded: !w.isExpanded, isMinimized: false }))
     case 'MINIMIZE':
-      return state.map((w) =>
-        w.id === action.id ? { ...w, isMinimized: !w.isMinimized, isExpanded: false } : w
-      )
+      return update(state, action.id, (w) => ({ isMinimized: !w.isMinimized, isExpanded: false }))
     case 'MOVE':
-      return state.map((w) => (w.id === action.id ? { ...w, position: action.position } : w))
+      return update(state, action.id, () => ({ position: action.position }))
     case 'RESIZE':
-      return state.map((w) =>
-        w.id === action.id ? { ...w, size: action.size, position: action.position } : w
-      )
+      return update(state, action.id, () => ({ size: action.size, position: action.position }))
     default:
       return state
   }
