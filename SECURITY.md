@@ -2,7 +2,7 @@
 
 ## Reporting a vulnerability
 
-Report vulnerabilities privately through GitHub: <https://github.com/jeancarlos/jeansouza.dev/security/advisories/new>. You can also email jeancosouza@gmail.com. Please do not open a public issue for a vulnerability.
+Report vulnerabilities privately through GitHub: <https://github.com/jeancarlos/jeansouza.dev/security/advisories/new>. You can also email contact@jeansouza.dev. Please do not open a public issue for a vulnerability.
 
 Include the affected page or file, the steps to reproduce, and the impact you expect.
 
