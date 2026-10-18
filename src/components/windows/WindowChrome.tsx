@@ -18,6 +18,7 @@ interface WindowChromeProps {
   outerClassName: string
   innerRounded: string
   draggable: boolean
+  overlay?: ReactNode
   children: ReactNode
 }
 
@@ -42,6 +43,7 @@ export function WindowChrome(props: WindowChromeProps) {
     outerClassName,
     innerRounded,
     draggable,
+    overlay,
     children,
   } = props
   const { focusWindow, moveWindow } = useWindowManager()
@@ -163,6 +165,7 @@ export function WindowChrome(props: WindowChromeProps) {
       <div className={`flex min-h-0 w-full flex-col overflow-hidden ${innerRounded}`}>
         {children}
       </div>
+      {overlay}
     </div>
   )
 }

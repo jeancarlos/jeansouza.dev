@@ -12,7 +12,7 @@
   /* Grow from the arrow tip (bottom center), where the bubble touches the
      button, with a springy overshoot so it pops upward. */
   transform-origin: 50% calc(100% + 5px);
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.3s var(--ease-spring);
   white-space: nowrap;
   z-index: 3;
 }

@@ -55,6 +55,14 @@ describe('class names', () => {
   })
 })
 
+describe('native scrollbar', () => {
+  it('is hidden on the window body in both engines', () => {
+    const cls = getBodyClassName(false)
+    expect(cls).toContain('[scrollbar-width:none]')
+    expect(cls).toContain('[&::-webkit-scrollbar]:hidden')
+  })
+})
+
 describe('getOpenKeyframes', () => {
   const dims = { left: 100, top: 50, width: 400, height: 200 }
   const box = dims as DOMRect

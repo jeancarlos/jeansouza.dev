@@ -182,6 +182,12 @@ describe('chrome topography', () => {
     expect(workers[0].postMessage.mock.calls[0][0].animate).toBe(false)
   })
 
+  it('keeps animating on narrow viewports', async () => {
+    setupEnv({ locale: false, toggle: false })
+    await load()
+    expect(vi.mocked(matchMedia).mock.calls[0][0]).toBe('(prefers-reduced-motion: reduce)')
+  })
+
   it('falls back to a timeout without requestIdleCallback', async () => {
     vi.useFakeTimers()
     setupEnv({ idle: false, locale: false, toggle: false })
