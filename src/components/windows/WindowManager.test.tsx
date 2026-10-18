@@ -67,6 +67,36 @@ describe('WindowManager', () => {
     expect(screen.getByTestId('count').textContent).toBe('1')
   })
 
+  it('tells the page whether any window is open', async () => {
+    render(
+      <WindowManagerProvider>
+        <TestConsumer />
+      </WindowManagerProvider>
+    )
+    expect(document.documentElement.dataset.windows).toBe('none')
+    await userEvent.click(screen.getByText('open'))
+    expect(document.documentElement.dataset.windows).toBe('open')
+    await userEvent.click(screen.getByText('close'))
+    expect(document.documentElement.dataset.windows).toBe('none')
+  })
+
+  it('does not touch the page attribute when the answer is unchanged', async () => {
+    const records: MutationRecord[] = []
+    const observer = new MutationObserver((r) => records.push(...r))
+    document.documentElement.removeAttribute('data-windows')
+    observer.observe(document.documentElement, { attributeFilter: ['data-windows'] })
+    render(
+      <WindowManagerProvider>
+        <TestConsumer />
+      </WindowManagerProvider>
+    )
+    await userEvent.click(screen.getByText('open'))
+    await userEvent.click(screen.getByText('open'))
+    observer.takeRecords().forEach((r) => records.push(r))
+    observer.disconnect()
+    expect(records).toHaveLength(2)
+  })
+
   it('closes a window', async () => {
     render(
       <WindowManagerProvider>

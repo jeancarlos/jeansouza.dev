@@ -1,3 +1,10 @@
+const easeOut = (t: number) => 1 - (1 - Math.min(1, Math.max(0, t))) ** 3
+
+export function introLook(progress: number) {
+  const eased = easeOut(progress)
+  return { alpha: eased, scale: 1 + 0.08 * (1 - eased), flat: 1 - eased }
+}
+
 export const CELL = 16
 export const LEVELS = 24
 const SCALE = 1 / 460
@@ -75,14 +82,23 @@ export function hillAt(hill: Hill | undefined, x: number, y: number): number {
 
 let grid = new Float32Array(0)
 
-function sampleGrid(cols: number, rows: number, time: number, hill?: Hill): Float32Array {
+function sampleGrid(
+  cols: number,
+  rows: number,
+  time: number,
+  hill: Hill | undefined,
+  flat: number
+): Float32Array {
   if (grid.length !== cols * rows) grid = new Float32Array(cols * rows)
-  for (let j = 0; j < rows; j++)
+  for (let j = 0; j < rows; j++) {
+    const y = j * CELL
+    const level = flat > 0 ? LEVEL_MIN + (LEVEL_SPAN * y) / ((rows - 1) * CELL) : 0
     for (let i = 0; i < cols; i++) {
       const x = i * CELL
-      const y = j * CELL
-      grid[j * cols + i] = elevation(x, y, time) + hillAt(hill, x, y)
+      const real = elevation(x, y, time) + hillAt(hill, x, y)
+      grid[j * cols + i] = real + (level - real) * flat
     }
+  }
   return grid
 }
 
@@ -92,10 +108,10 @@ function crossingLevels(levels: number[][], v: number[], x: number, y: number) {
   for (let k = lo; k <= hi; k++) cellSegments(levels[k], v, levelValue(k), x, y)
 }
 
-export function contourSegments(w: number, h: number, time = 0, hill?: Hill): number[][] {
+export function contourSegments(w: number, h: number, time = 0, hill?: Hill, flat = 0): number[][] {
   const cols = Math.ceil(w / CELL) + 1
   const rows = Math.ceil(h / CELL) + 1
-  const g = sampleGrid(cols, rows, time, hill)
+  const g = sampleGrid(cols, rows, time, hill, flat)
   const levels = Array.from({ length: LEVELS }, () => [] as number[])
   const v = [0, 0, 0, 0]
   for (let j = 0; j < rows - 1; j++)

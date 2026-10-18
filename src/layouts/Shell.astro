@@ -3,6 +3,7 @@ import { Font } from 'astro:assets'
 import { LANGUAGE_TAG, LOCALES, translator, type Locale } from '../i18n/t'
 import { SITE_URL, alternateLinks } from '../lib/pages'
 import { THEME_INIT_SCRIPT } from '../lib/theme'
+import { MOTION_INIT_SCRIPT } from '../lib/motion'
 import { IMAGE_FADE_SCRIPT } from '../lib/imageFade'
 import '../styles/globals.css'
 
@@ -45,6 +46,7 @@ const image = `${SITE_URL}${ownImage ?? '/og.png'}`
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark light" />
     <script is:inline set:html={THEME_INIT_SCRIPT} />
+    <script is:inline set:html={MOTION_INIT_SCRIPT} />
     <script is:inline set:html={IMAGE_FADE_SCRIPT} />
     <title>{title}</title>
     <meta name="description" content={description} />

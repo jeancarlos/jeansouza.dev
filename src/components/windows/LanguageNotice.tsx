@@ -30,7 +30,7 @@ export function LanguageNotice({ available, hrefFor }: Props) {
   const locale = useLocale()
   const preferred = useSyncExternalStore(
     noSubscription,
-    () => preferredLocale(storedLocale(), navigator.language),
+    () => preferredLocale(storedLocale(), navigator.languages),
     () => null
   )
   const [dismissed, setDismissed] = useState(false)

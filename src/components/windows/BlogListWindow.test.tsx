@@ -111,7 +111,7 @@ describe('BlogListWindow interaction', () => {
   })
 
   it('offers the blog list in the other language to a browser that prefers it', () => {
-    vi.spyOn(navigator, 'language', 'get').mockReturnValue('pt-BR')
+    vi.spyOn(navigator, 'languages', 'get').mockReturnValue(['pt-BR'])
     renderList([post('first')], 'en')
     expect(screen.getByRole('link', { name: 'Ler em português' })).toHaveAttribute(
       'href',

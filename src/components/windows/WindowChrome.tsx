@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type PointerEvent, type ReactNode } from '
 import { flushSync } from 'react-dom'
 import { useWindowManager, type ButtonOrigin } from './WindowManager'
 import { TOPBAR_HEIGHT, WINDOW_MAX_HEIGHT, clampPosition } from '@/lib/windowUtils'
+import { HOME_ID } from './windowReducer'
 import { getOpenKeyframes, type WindowStyle } from './terminalStyles'
 
 interface WindowChromeProps {
@@ -26,6 +27,10 @@ const DRAG_THRESHOLD = 3
 
 function prefersStill(): boolean {
   return typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches
+}
+
+function popsIn(id: string, openFrom: unknown) {
+  return !openFrom && id !== HOME_ID
 }
 
 export function WindowChrome(props: WindowChromeProps) {
@@ -158,7 +163,7 @@ export function WindowChrome(props: WindowChromeProps) {
         ...(activeStyle.height === 'auto' &&
           !isMobile && { maxHeight: maxHeight ?? WINDOW_MAX_HEIGHT }),
       }}
-      className={`${outerClassName} flex ${isFocused ? '' : 'max-md:hidden'} ${openFrom ? '' : 'window-in'} ${instant ? '' : 'transition-[left,top,filter] duration-150 ease-out motion-reduce:transition-none'}`}
+      className={`${outerClassName} flex ${isFocused ? '' : 'max-md:hidden'} ${popsIn(id, openFrom) ? 'window-in' : ''} ${instant ? '' : 'transition-[left,top,filter] duration-150 ease-out motion-reduce:transition-none'}`}
       role="dialog"
       aria-label={title}
     >

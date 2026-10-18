@@ -1,4 +1,4 @@
-import { contourSegments, type Hill } from '@/lib/topography'
+import { contourSegments, introLook, type Hill } from '@/lib/topography'
 
 export interface TopographyState {
   w: number
@@ -9,7 +9,10 @@ export interface TopographyState {
   pointer: [number, number] | null
 }
 
-type Message = Partial<TopographyState> & { canvas?: OffscreenCanvas }
+export type TopographyMessage = Partial<TopographyState> & {
+  canvas?: OffscreenCanvas
+  intro?: number
+}
 
 const state: TopographyState = {
   w: 0,
@@ -23,6 +26,10 @@ const HILL_HEIGHT = 0.22
 const hill: Hill = { x: 0, y: 0, height: 0 }
 let ctx: OffscreenCanvasRenderingContext2D | null = null
 let frame = 0
+let clock = 0
+let introMs = 1
+let progress = 1
+let quick = false
 
 const nextFrame: (cb: (t: number) => void) => number =
   typeof requestAnimationFrame === 'function'
@@ -59,25 +66,32 @@ function dotPath(segs: number[]): Path2D {
 
 function paint(time: number) {
   if (!ctx) return
-  const flicker = state.animate ? time : 0
-  const levels = contourSegments(state.w, state.h, time, hill)
+  const look = introLook(progress)
+  const levels = contourSegments(state.w, state.h, time, hill, look.flat)
   const lines = new Path2D()
   levels.forEach((segs, k) => isDotted(k) || addLines(lines, segs))
   ctx.clearRect(0, 0, state.w, state.h)
+  ctx.save()
+  if (progress < 1) {
+    ctx.translate(state.w / 2, state.h / 2)
+    ctx.scale(look.scale, look.scale)
+    ctx.translate(-state.w / 2, -state.h / 2)
+  }
   ctx.strokeStyle = ctx.fillStyle = state.color
   ctx.lineWidth = 1
-  ctx.globalAlpha = 0.24
+  ctx.globalAlpha = 0.24 * look.alpha
   ctx.stroke(lines)
   levels.forEach((segs, k) => {
     if (!ctx || !isDotted(k)) return
-    ctx.globalAlpha = 0.55 * (flicker === 0 ? 1 : 0.6 + 0.4 * Math.sin(flicker / 1600 + k * 2.3))
+    ctx.globalAlpha = 0.55 * look.alpha * (0.6 + 0.4 * Math.sin(time / 1600 + k * 2.3))
     ctx.fill(dotPath(segs))
   })
+  ctx.restore()
 }
 
 const SETTLE_MS = 1000
 const IDLE_FRAME_MS = 1000 / 30 - 4
-let lastTick = 0
+let lastTick = -1
 let lastPaint = 0
 let busyUntil = 0
 
@@ -97,14 +111,35 @@ function followPointer(dt: number): boolean {
   )
 }
 
+const loopActive = () => state.animate || (progress < 1 && quick)
+
+function startIntro(ms: number) {
+  introMs = ms
+  progress = 0
+  quick = !state.animate
+}
+
+function applyIntro(fresh: boolean, intro: number | undefined): boolean {
+  if (fresh && intro) startIntro(intro)
+  else if (intro === 0 && progress < 1) progress = 1
+  else return false
+  return true
+}
+
+const shouldPaint = (t: number) => t < busyUntil || t - lastPaint >= IDLE_FRAME_MS
+
 const tick = (t: number) => {
-  if (followPointer(Math.min(t - lastTick, 100))) busyUntil = t + SETTLE_MS
+  const dt = lastTick < 0 ? 0 : Math.min(t - lastTick, 100)
+  if (followPointer(dt)) busyUntil = t + SETTLE_MS
   lastTick = t
-  if (t < busyUntil || t - lastPaint >= IDLE_FRAME_MS) {
+  if (state.animate) clock += dt
+  const introFrame = progress < 1
+  progress = Math.min(1, progress + dt / introMs)
+  if (introFrame || shouldPaint(t)) {
     lastPaint = t
-    paint(t)
+    paint(clock)
   }
-  frame = nextFrame(tick)
+  if (loopActive()) frame = nextFrame(tick)
 }
 
 function resize(c: OffscreenCanvasRenderingContext2D) {
@@ -115,8 +150,9 @@ function resize(c: OffscreenCanvasRenderingContext2D) {
 
 function restart() {
   cancelFrame(frame)
-  if (state.animate) frame = nextFrame(tick)
-  else paint(lastTick)
+  lastTick = -1
+  if (loopActive()) frame = nextFrame(tick)
+  else paint(clock)
 }
 
 function receive(fresh: boolean, update: Partial<TopographyState>) {
@@ -125,15 +161,25 @@ function receive(fresh: boolean, update: Partial<TopographyState>) {
   const pointerOnly = !fresh && Object.keys(update).every((k) => k === 'pointer')
   Object.assign(state, update)
   if (!state.animate) state.pointer = null
-  return { sized, toggled, pointerOnly }
+  return { sized, restarts: toggled || fresh, pointerOnly }
 }
 
-self.onmessage = ({ data }: MessageEvent<Message>) => {
-  const { canvas, ...update } = data
-  if (canvas) ctx = canvas.getContext('2d')
-  const { sized, toggled, pointerOnly } = receive(canvas !== undefined, update)
-  if (!ctx || pointerOnly) return
+function refresh(
+  ctx: OffscreenCanvasRenderingContext2D,
+  sized: boolean,
+  redo: boolean,
+  recolored: boolean
+) {
   if (sized) resize(ctx)
-  if (toggled || canvas) restart()
-  else if (sized || !state.animate) paint(lastTick)
+  if (redo) restart()
+  else if (sized || (recolored && !state.animate)) paint(clock)
+}
+
+self.onmessage = ({ data }: MessageEvent<TopographyMessage>) => {
+  const { canvas, intro, ...update } = data
+  if (canvas) ctx = canvas.getContext('2d')
+  const { sized, restarts, pointerOnly } = receive(canvas !== undefined, update)
+  const introChanged = applyIntro(canvas !== undefined, intro)
+  if (!ctx || (pointerOnly && !introChanged)) return
+  refresh(ctx, sized, restarts || introChanged, update.color !== undefined)
 }
