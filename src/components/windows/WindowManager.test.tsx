@@ -67,6 +67,19 @@ describe('WindowManager', () => {
     expect(screen.getByTestId('count').textContent).toBe('1')
   })
 
+  it('tells the page whether any window is open', async () => {
+    render(
+      <WindowManagerProvider>
+        <TestConsumer />
+      </WindowManagerProvider>
+    )
+    expect(document.documentElement.dataset.windows).toBe('none')
+    await userEvent.click(screen.getByText('open'))
+    expect(document.documentElement.dataset.windows).toBe('open')
+    await userEvent.click(screen.getByText('close'))
+    expect(document.documentElement.dataset.windows).toBe('none')
+  })
+
   it('closes a window', async () => {
     render(
       <WindowManagerProvider>
