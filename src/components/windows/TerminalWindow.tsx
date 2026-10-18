@@ -5,6 +5,7 @@ import { useIsMobile } from '@/lib/useIsMobile'
 import { WindowChrome } from './WindowChrome'
 import { WindowHeader } from './WindowHeader'
 import { ResizeHandles } from './ResizeHandles'
+import { WindowScrollbar } from './WindowScrollbar'
 import {
   getActiveStyle,
   getBodyClassName,
@@ -75,6 +76,7 @@ export function TerminalWindow(props: Props) {
       outerClassName={getOuterClassName(isHome)}
       innerRounded={getInnerRounded(isHome)}
       draggable={!isExpanded}
+      overlay={!isMinimized && <WindowScrollbar target={body} />}
     >
       <WindowHeader id={id} title={title} isHome={isHome} isExpanded={isExpanded} />
       {!isMinimized && (
