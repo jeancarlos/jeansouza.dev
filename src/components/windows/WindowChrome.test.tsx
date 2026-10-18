@@ -323,6 +323,11 @@ describe('WindowChrome presentation', () => {
     expect(screen.getByRole('dialog')).toHaveClass('window-in')
   })
 
+  it('shows the home window complete on first load, without the pop-in', () => {
+    render(chrome({ id: 'home' }))
+    expect(screen.getByRole('dialog')).not.toHaveClass('window-in')
+  })
+
   it('moves instantly while resizing or dragging', () => {
     const { rerender } = render(chrome())
     expect(screen.getByRole('dialog').className).toContain('transition-[left,top,filter]')

@@ -8,8 +8,8 @@ import type { Locale } from '@/i18n/t'
 
 const hrefFor = (l: Locale) => `/${l}/blog/post/`
 
-function show(page: Locale, browser: string, available: Locale[] = ['pt', 'en']) {
-  vi.spyOn(navigator, 'language', 'get').mockReturnValue(browser)
+function show(page: Locale, browser: string | string[], available: Locale[] = ['pt', 'en']) {
+  vi.spyOn(navigator, 'languages', 'get').mockReturnValue([browser].flat())
   return render(
     <LocaleProvider locale={page}>
       <LanguageNotice available={available} hrefFor={hrefFor} />
@@ -23,6 +23,11 @@ afterEach(() => {
 })
 
 describe('LanguageNotice', () => {
+  it('stays quiet on the Portuguese page when Portuguese is anywhere in the browser languages', () => {
+    show('pt', ['en-US', 'pt-BR'])
+    expect(screen.queryByRole('link')).toBeNull()
+  })
+
   it('offers Portuguese to a Portuguese browser reading the English page', () => {
     show('en', 'pt-BR')
     expect(screen.getByRole('link', { name: 'Ler em português' })).toHaveAttribute(
@@ -88,7 +93,7 @@ describe('LanguageNotice without storage', () => {
   })
 
   it('renders nothing on the server, where the reader language is unknown', () => {
-    vi.spyOn(navigator, 'language', 'get').mockReturnValue('en-US')
+    vi.spyOn(navigator, 'languages', 'get').mockReturnValue(['en-US'])
     const html = renderToString(
       <LocaleProvider locale="pt">
         <LanguageNotice available={['pt', 'en']} hrefFor={hrefFor} />

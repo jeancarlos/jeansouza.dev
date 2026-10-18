@@ -46,10 +46,18 @@
     "copied": "Copiado!"
   },
   "theme": {
-    "toggle": "Alternar modo claro/escuro"
+    "label": "Modo claro",
+    "tipLight": "Usar modo escuro",
+    "tipDark": "Usar modo claro"
   },
   "locale": {
-    "switchTo": "Mudar para {locale}"
+    "label": "Idioma: português",
+    "tip": "Mudar para inglês"
+  },
+  "motion": {
+    "label": "Pausar animação de fundo",
+    "tipPaused": "Retomar animação de fundo",
+    "tipPlaying": "Pausar animação de fundo"
   },
   "windows": {
     "resume": "Currículo"

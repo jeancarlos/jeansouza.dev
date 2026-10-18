@@ -46,10 +46,18 @@
     "copied": "Copied!"
   },
   "theme": {
-    "toggle": "Toggle dark/light mode"
+    "label": "Light mode",
+    "tipLight": "Set dark mode",
+    "tipDark": "Set light mode"
   },
   "locale": {
-    "switchTo": "Switch to {locale}"
+    "label": "Language: English",
+    "tip": "Set Portuguese"
+  },
+  "motion": {
+    "label": "Pause background animation",
+    "tipPaused": "Resume background animation",
+    "tipPlaying": "Pause background animation"
   },
   "windows": {
     "resume": "Resume"

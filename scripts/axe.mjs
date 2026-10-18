@@ -65,26 +65,68 @@ const base = `http://127.0.0.1:${server.address().port}`
 
 const browser = await chromium.launch({ channel: 'chrome' })
 let failures = 0
+let audits = 0
+
+async function audit(page, url, label) {
+  await page.waitForFunction(() => !document.querySelector('astro-island[ssr]'), null, {
+    timeout: 15000,
+  })
+  await page.addScriptTag({ content: axeSource })
+  const violations = await page.evaluate(async () => (await window.axe.run()).violations)
+  audits++
+  for (const v of violations) {
+    failures += v.nodes.length
+    console.log(`${url} ${label}  ${v.id} (${v.impact}): ${v.nodes.length} node(s)`)
+    for (const n of v.nodes.slice(0, 3)) console.log(`    ${n.target.join(' ')}`)
+  }
+}
+
+const HOVERED = ['[data-locale-switch]', '[data-motion-toggle]', '[data-theme-toggle]']
+const otherLocale = (url) => (url.startsWith('/pt') ? 'en-US' : 'pt-BR')
+
+async function open(page, url) {
+  const response = await page.goto(base + url, { waitUntil: 'networkidle' })
+  if (!response?.ok()) throw new Error(`${url}: HTTP ${response?.status()}`)
+}
+
 for (const scheme of SCHEMES) {
   for (const viewport of VIEWPORTS) {
+    const tag = `${scheme} ${viewport.width}px`
     const page = await browser.newPage({ viewport, colorScheme: scheme })
     for (const url of urls) {
-      const response = await page.goto(base + url, { waitUntil: 'networkidle' })
-      if (!response?.ok()) throw new Error(`${url}: HTTP ${response?.status()}`)
-      await page.waitForFunction(() => !document.querySelector('astro-island[ssr]'), null, {
-        timeout: 15000,
-      })
-      await page.addScriptTag({ content: axeSource })
-      const violations = await page.evaluate(async () => (await window.axe.run()).violations)
-      for (const v of violations) {
-        failures += v.nodes.length
-        console.log(
-          `${url} ${scheme} ${viewport.width}px  ${v.id} (${v.impact}): ${v.nodes.length} node(s)`
-        )
-        for (const n of v.nodes.slice(0, 3)) console.log(`    ${n.target.join(' ')}`)
-      }
+      await open(page, url)
+      await audit(page, url, tag)
     }
     await page.close()
+
+    const states = await browser.newPage({ viewport, colorScheme: scheme })
+    const home = urls[0]
+    await open(states, home)
+    await states.click('[data-motion-toggle]')
+    await audit(states, home, `${tag} paused`)
+    for (const selector of HOVERED) {
+      await states.hover(selector)
+      await states.waitForTimeout(450)
+      await audit(states, home, `${tag} tooltip ${selector}`)
+    }
+    await states.close()
+
+    let shown = 0
+    for (const url of urls) {
+      const reader = await browser.newPage({
+        viewport,
+        colorScheme: scheme,
+        locale: otherLocale(url),
+      })
+      await open(reader, url)
+      shown += await reader.waitForSelector('div[lang] a[hreflang]', { timeout: 1500 }).then(
+        () => 1,
+        () => 0
+      )
+      await audit(reader, url, `${tag} language notice`)
+      await reader.close()
+    }
+    if (!shown) throw new Error(`${tag}: the language notice never appeared`)
   }
 }
 await browser.close()
@@ -93,6 +135,6 @@ server.close()
 console.log(
   failures
     ? `axe: ${failures} violation node(s)`
-    : `axe: 0 violations on ${urls.length} pages x 2 themes x 2 viewports`
+    : `axe: 0 violations in ${audits} audits (${urls.length} pages x 2 themes x 2 viewports, plus paused, tooltip and language notice states)`
 )
 process.exit(failures ? 1 : 0)

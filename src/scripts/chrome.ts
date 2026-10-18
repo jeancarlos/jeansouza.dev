@@ -1,8 +1,10 @@
 import { localePath } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/t'
+import { INTRO_MS, PAUSED_INTRO_MS } from '@/lib/introTiming'
 import { LOCALE_STORAGE_KEY } from '@/lib/locale-storage'
+import { MOTION_STORAGE_KEY } from '@/lib/motion'
 import { THEME_STORAGE_KEY, type Theme } from '@/lib/theme'
-import type { TopographyState } from './topography.worker'
+import type { TopographyMessage } from './topography.worker'
 
 function persist(key: string, value: string): void {
   try {
@@ -12,26 +14,48 @@ function persist(key: string, value: string): void {
   }
 }
 
-function startTopography(canvas: HTMLCanvasElement) {
-  if (!('transferControlToOffscreen' in canvas)) return () => undefined
+function onHome(): boolean {
+  const windows = document.documentElement.dataset.windows
+  return windows
+    ? windows === 'none'
+    : !/^\/(pt|en)\/(blog|resume|more)(\/|$)/.test(location.pathname)
+}
+
+function startTopography(canvas: HTMLCanvasElement, paused: () => boolean) {
+  if (!('transferControlToOffscreen' in canvas))
+    return { repaint: () => undefined, sync: () => undefined }
   const still = matchMedia('(prefers-reduced-motion: reduce)')
   let worker: Worker | null = null
-  const send = (update: Partial<TopographyState>) => worker?.postMessage(update)
+  const send = (update: TopographyMessage) => worker?.postMessage(update)
   const color = () =>
     getComputedStyle(document.documentElement).getPropertyValue('--contour-color').trim()
+  const narrow = matchMedia('(width < 48rem)')
+  const offHome = () => narrow.matches && !onHome()
+  const introMs = () => {
+    if (still.matches) return 0
+    return paused() ? PAUSED_INTRO_MS : INTRO_MS
+  }
+  const playing = () => !still.matches && !paused() && !offHome() && !document.hidden
   const size = () => ({ w: innerWidth, h: innerHeight, dpr: devicePixelRatio || 1 })
 
-  const begin = () => {
+  const start = () => {
     worker = new Worker(new URL('./topography.worker.ts', import.meta.url), { type: 'module' })
     const offscreen = canvas.transferControlToOffscreen()
-    worker.postMessage({ canvas: offscreen, ...size(), color: color(), animate: !still.matches }, [
-      offscreen,
-    ])
+    worker.postMessage(
+      {
+        canvas: offscreen,
+        ...size(),
+        color: color(),
+        animate: playing(),
+        intro: introMs(),
+      },
+      [offscreen]
+    )
   }
 
-  let pending: Partial<TopographyState> = {}
+  let pending: TopographyMessage = {}
   let queued = false
-  const sendOnce = (update: Partial<TopographyState>) => {
+  const sendOnce = (update: TopographyMessage) => {
     Object.assign(pending, update)
     if (queued) return
     queued = true
@@ -43,8 +67,23 @@ function startTopography(canvas: HTMLCanvasElement) {
   }
 
   addEventListener('resize', () => sendOnce(size()))
-  const motion = () => send({ animate: !still.matches && !document.hidden })
+  let ready = false
+  const motion = () => {
+    if (!worker) {
+      if (ready && !offHome() && !document.hidden) start()
+      return
+    }
+    send(still.matches ? { animate: false, intro: 0 } : { animate: playing() })
+  }
+  const begin = () => {
+    ready = true
+    motion()
+  }
   still.addEventListener('change', motion)
+  narrow.addEventListener('change', motion)
+  new MutationObserver(motion).observe(document.documentElement, {
+    attributeFilter: ['data-windows'],
+  })
   document.addEventListener('visibilitychange', motion)
   addEventListener('pointermove', (e) => sendOnce({ pointer: [e.clientX, e.clientY] }), {
     passive: true,
@@ -52,19 +91,46 @@ function startTopography(canvas: HTMLCanvasElement) {
   document.documentElement.addEventListener('pointerleave', () => sendOnce({ pointer: null }))
   if ('requestIdleCallback' in window) requestIdleCallback(begin, { timeout: 2000 })
   else setTimeout(begin, 200)
-  return () => send({ color: color() })
+  return { repaint: () => send({ color: color() }), sync: motion }
+}
+
+function bindSwitch(button: HTMLButtonElement, isOn: () => boolean, flip: () => void) {
+  const state = button.hasAttribute('aria-pressed') ? 'aria-pressed' : 'aria-checked'
+  const tip = button.querySelector('[data-tip]')
+  const sync = () => {
+    const on = isOn()
+    button.setAttribute(state, String(on))
+    if (tip) tip.setAttribute('data-tip', (on ? button.dataset.tipOn : button.dataset.tipOff) ?? '')
+  }
+  sync()
+  button.addEventListener('click', () => {
+    flip()
+    sync()
+  })
 }
 
 function bindThemeToggle(button: HTMLButtonElement, onChange: () => void) {
   const root = document.documentElement
-  const sync = () => button.setAttribute('aria-checked', String(root.dataset.theme === 'light'))
-  sync()
-  button.addEventListener('click', () => {
-    const next: Theme = root.dataset.theme === 'light' ? 'dark' : 'light'
-    root.dataset.theme = next
-    root.style.colorScheme = next
-    persist(THEME_STORAGE_KEY, next)
-    sync()
+  bindSwitch(
+    button,
+    () => root.dataset.theme === 'light',
+    () => {
+      const next: Theme = root.dataset.theme === 'light' ? 'dark' : 'light'
+      root.dataset.theme = next
+      root.style.colorScheme = next
+      persist(THEME_STORAGE_KEY, next)
+      onChange()
+    }
+  )
+}
+
+function bindMotionToggle(button: HTMLButtonElement, onChange: () => void) {
+  const root = document.documentElement
+  const isPaused = () => root.dataset.motion === 'paused'
+  bindSwitch(button, isPaused, () => {
+    const next = isPaused() ? 'playing' : 'paused'
+    root.dataset.motion = next
+    persist(MOTION_STORAGE_KEY, next)
     onChange()
   })
 }
@@ -78,8 +144,26 @@ function bindLocaleSwitch(link: HTMLAnchorElement) {
 }
 
 const canvas = document.querySelector<HTMLCanvasElement>('[data-topography]')
-const repaint = canvas ? startTopography(canvas) : () => undefined
+const { repaint, sync } = canvas
+  ? startTopography(canvas, () => document.documentElement.dataset.motion === 'paused')
+  : { repaint: () => undefined, sync: () => undefined }
+const motionToggle = document.querySelector<HTMLButtonElement>('[data-motion-toggle]')
+if (motionToggle) bindMotionToggle(motionToggle, sync)
 const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]')
 if (toggle) bindThemeToggle(toggle, repaint)
 const localeLink = document.querySelector<HTMLAnchorElement>('[data-locale-switch]')
 if (localeLink) bindLocaleSwitch(localeLink)
+
+function bindTips() {
+  const root = document.documentElement
+  addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') root.setAttribute('data-tips-hidden', '')
+  })
+  const controls = document.querySelectorAll(
+    '[data-locale-switch], [data-motion-toggle], [data-theme-toggle]'
+  )
+  for (const control of controls)
+    for (const type of ['pointerenter', 'focus'])
+      control.addEventListener(type, () => root.removeAttribute('data-tips-hidden'))
+}
+bindTips()

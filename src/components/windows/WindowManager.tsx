@@ -97,6 +97,12 @@ export function WindowManagerProvider({
   })
 
   useEffect(() => {
+    const state = windows.length ? 'open' : 'none'
+    if (document.documentElement.dataset.windows !== state)
+      document.documentElement.dataset.windows = state
+  }, [windows])
+
+  useEffect(() => {
     if (homeTitle) document.title = topWindow(windows)?.pageTitle ?? homeTitle
   }, [windows, homeTitle])
 
