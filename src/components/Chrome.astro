@@ -17,7 +17,7 @@ const pill =
 const knob =
   'flex aspect-square h-full items-center justify-center rounded-full from-bar-from to-brand-to text-[9px] font-bold text-white text-shadow-bar shadow-sm transition-transform duration-200'
 const tip =
-  'pointer-events-none absolute top-full mt-2 origin-top scale-0 rounded-full bg-gradient-to-r from-brand-from to-brand-to px-3 py-1 text-sm font-normal whitespace-nowrap text-white shadow-md transition-transform duration-300 ease-[var(--ease-spring)] group-hover:scale-100 group-focus-visible:scale-100 motion-reduce:transition-none'
+  'pointer-events-none absolute top-full mt-2 origin-top scale-0 rounded-full bg-gradient-to-r from-brand-from to-brand-to px-3 py-1 text-sm font-normal whitespace-nowrap text-white shadow-md transition-transform duration-300 ease-[var(--ease-spring)] group-hover:scale-100 group-focus-visible:scale-100 motion-reduce:transition-none after:content-[attr(data-tip)]'
 const arrow =
   "before:absolute before:-top-[5px] before:h-0 before:w-0 before:border-x-[5px] before:border-b-[5px] before:border-x-transparent before:border-b-[color-mix(in_srgb,var(--color-brand-from),var(--color-brand-to))] before:content-['']"
 const tipStart = `${tip} ${arrow} left-0 origin-top-left before:left-[19px]`
@@ -32,7 +32,7 @@ const isEn = locale === 'en'
     hreflang={other}
     data-locale-switch
     data-page={page}
-    aria-label={`${t('locale.label')}. ${t('locale.tip')}`}
+    aria-label={`${locale.toUpperCase()}. ${t('locale.label')}. ${t('locale.tip')}`}
     class:list={[pill, isEn ? 'bg-gradient-to-l' : 'bg-gradient-to-r']}
   >
     <span class="flex h-full w-full rounded-full bg-[var(--button-inner-bg)]">
@@ -40,7 +40,7 @@ const isEn = locale === 'en'
         {locale.toUpperCase()}
       </span>
     </span>
-    <span aria-hidden="true" class={tipStart}>{t('locale.tip')}</span>
+    <span aria-hidden="true" data-tip={t('locale.tip')} class={tipStart}></span>
   </a>
   <div class="flex items-center gap-2">
   <button
@@ -62,7 +62,7 @@ const isEn = locale === 'en'
         </svg>
       </span>
     </span>
-    <span aria-hidden="true" data-tip class={`${tipEnd} right-[-14px] before:right-[21px]`}></span>
+    <span aria-hidden="true" data-tip="" class={`${tipEnd} right-[-14px] before:right-[21px]`}></span>
   </button>
   <button
     type="button"
@@ -93,7 +93,7 @@ const isEn = locale === 'en'
         </svg>
       </span>
     </span>
-    <span aria-hidden="true" data-tip class={`${tipEnd} right-0 before:right-[19px]`}></span>
+    <span aria-hidden="true" data-tip="" class={`${tipEnd} right-0 before:right-[19px]`}></span>
   </button>
   </div>
 </div>

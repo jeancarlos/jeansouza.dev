@@ -283,9 +283,9 @@ describe('chrome tooltips', () => {
     await load()
     const button = document.querySelector<HTMLButtonElement>('[data-theme-toggle]')!
     const tip = button.querySelector('[data-tip]')!
-    expect(tip).toHaveTextContent('Set light mode')
+    expect(tip).toHaveAttribute('data-tip', 'Set light mode')
     button.click()
-    expect(tip).toHaveTextContent('Set dark mode')
+    expect(tip).toHaveAttribute('data-tip', 'Set dark mode')
   })
 })
 
@@ -299,12 +299,12 @@ describe('chrome motion toggle', () => {
     const button = document.querySelector<HTMLButtonElement>('[data-motion-toggle]')!
     const tip = button.querySelector('[data-tip]')!
     expect(button).toHaveAttribute('aria-pressed', 'false')
-    expect(tip).toHaveTextContent('Pause')
+    expect(tip).toHaveAttribute('data-tip', 'Pause')
     button.click()
     expect(document.documentElement.dataset.motion).toBe('paused')
     expect(localStorage.getItem('motion')).toBe('paused')
     expect(button).toHaveAttribute('aria-pressed', 'true')
-    expect(tip).toHaveTextContent('Resume')
+    expect(tip).toHaveAttribute('data-tip', 'Resume')
     expect(postedAnimate().at(-1)).toBe(false)
     button.click()
     expect(localStorage.getItem('motion')).toBe('playing')

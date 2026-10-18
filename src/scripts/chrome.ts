@@ -107,7 +107,7 @@ function bindSwitch(button: HTMLButtonElement, isOn: () => boolean, flip: () => 
   const sync = () => {
     const on = isOn()
     button.setAttribute(state, String(on))
-    if (tip) tip.textContent = (on ? button.dataset.tipOn : button.dataset.tipOff) ?? ''
+    if (tip) tip.setAttribute('data-tip', (on ? button.dataset.tipOn : button.dataset.tipOff) ?? '')
   }
   sync()
   button.addEventListener('click', () => {
