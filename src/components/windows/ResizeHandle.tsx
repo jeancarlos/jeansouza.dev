@@ -27,6 +27,8 @@ const RESIZE_STYLES: Record<ResizeDir, CSSProperties> = {
   sw: { bottom: 0, left: 0, width: 12, height: 12 },
 }
 
+export const RESIZE_HANDLE_Z = 20
+
 export const RESIZE_DIRS: ResizeDir[] = ['n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw']
 
 interface DragState {
@@ -144,7 +146,7 @@ export function ResizeHandle({
       className="max-md:hidden"
       style={{
         position: 'absolute',
-        zIndex: 20,
+        zIndex: RESIZE_HANDLE_Z,
         cursor: RESIZE_CURSORS[direction],
         ...RESIZE_STYLES[direction],
       }}

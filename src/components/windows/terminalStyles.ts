@@ -47,7 +47,7 @@ export function getInnerRounded(isHome: boolean): string {
 }
 
 export function getBodyClassName(isHome: boolean): string {
-  return `flex-1 overflow-y-auto ${getInnerRounded(isHome)} font-mono text-brand-text ${isHome ? 'md:bg-crust' : 'bg-crust'}`
+  return `flex-1 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${getInnerRounded(isHome)} font-mono text-brand-text ${isHome ? 'md:bg-crust' : 'bg-crust'}`
 }
 
 export function getOpenKeyframes(
