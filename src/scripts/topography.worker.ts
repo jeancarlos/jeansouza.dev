@@ -1,4 +1,4 @@
-import { contourSegments, type Hill } from '@/lib/topography'
+import { contourSegments, introLook, type Hill } from '@/lib/topography'
 
 export interface TopographyState {
   w: number
@@ -9,7 +9,10 @@ export interface TopographyState {
   pointer: [number, number] | null
 }
 
-type Message = Partial<TopographyState> & { canvas?: OffscreenCanvas }
+export type TopographyMessage = Partial<TopographyState> & {
+  canvas?: OffscreenCanvas
+  intro?: number
+}
 
 const state: TopographyState = {
   w: 0,
@@ -23,6 +26,11 @@ const HILL_HEIGHT = 0.22
 const hill: Hill = { x: 0, y: 0, height: 0 }
 let ctx: OffscreenCanvasRenderingContext2D | null = null
 let frame = 0
+let clock = 0
+let introStart: number | null = null
+let introing = false
+let introMs = 1
+let progress = 1
 
 const nextFrame: (cb: (t: number) => void) => number =
   typeof requestAnimationFrame === 'function'
@@ -60,19 +68,27 @@ function dotPath(segs: number[]): Path2D {
 function paint(time: number) {
   if (!ctx) return
   const flicker = state.animate ? time : 0
-  const levels = contourSegments(state.w, state.h, time, hill)
+  const look = introLook(progress)
+  const levels = contourSegments(state.w, state.h, time, hill, look.flat)
   const lines = new Path2D()
   levels.forEach((segs, k) => isDotted(k) || addLines(lines, segs))
   ctx.clearRect(0, 0, state.w, state.h)
+  ctx.save()
+  if (progress < 1) {
+    ctx.translate(state.w / 2, state.h / 2)
+    ctx.scale(look.scale, look.scale)
+    ctx.translate(-state.w / 2, -state.h / 2)
+  }
   ctx.strokeStyle = ctx.fillStyle = state.color
   ctx.lineWidth = 1
-  ctx.globalAlpha = 0.24
+  ctx.globalAlpha = 0.24 * look.alpha
   ctx.stroke(lines)
   levels.forEach((segs, k) => {
     if (!ctx || !isDotted(k)) return
     ctx.globalAlpha = 0.55 * (flicker === 0 ? 1 : 0.6 + 0.4 * Math.sin(flicker / 1600 + k * 2.3))
     ctx.fill(dotPath(segs))
   })
+  ctx.restore()
 }
 
 const SETTLE_MS = 1000
@@ -97,14 +113,31 @@ function followPointer(dt: number): boolean {
   )
 }
 
+function advanceIntro(t: number) {
+  if (!introing) return
+  introStart ??= t
+  progress = Math.min(1, (t - introStart) / introMs)
+}
+
+function startIntro(ms: number) {
+  introMs = ms
+  introing = true
+  introStart = null
+  progress = 0
+}
+
 const tick = (t: number) => {
-  if (followPointer(Math.min(t - lastTick, 100))) busyUntil = t + SETTLE_MS
+  const dt = Math.min(t - lastTick, 100)
+  if (followPointer(dt)) busyUntil = t + SETTLE_MS
   lastTick = t
-  if (t < busyUntil || t - lastPaint >= IDLE_FRAME_MS) {
+  if (state.animate) clock += dt
+  advanceIntro(t)
+  if (introing || t < busyUntil || t - lastPaint >= IDLE_FRAME_MS) {
     lastPaint = t
-    paint(t)
+    paint(clock)
   }
-  frame = nextFrame(tick)
+  if (progress >= 1) introing = false
+  if (state.animate || introing) frame = nextFrame(tick)
 }
 
 function resize(c: OffscreenCanvasRenderingContext2D) {
@@ -115,8 +148,8 @@ function resize(c: OffscreenCanvasRenderingContext2D) {
 
 function restart() {
   cancelFrame(frame)
-  if (state.animate) frame = nextFrame(tick)
-  else paint(lastTick)
+  if (state.animate || introing) frame = nextFrame(tick)
+  else paint(clock)
 }
 
 function receive(fresh: boolean, update: Partial<TopographyState>) {
@@ -125,15 +158,18 @@ function receive(fresh: boolean, update: Partial<TopographyState>) {
   const pointerOnly = !fresh && Object.keys(update).every((k) => k === 'pointer')
   Object.assign(state, update)
   if (!state.animate) state.pointer = null
-  return { sized, toggled, pointerOnly }
+  return { sized, restarts: toggled || fresh, pointerOnly }
 }
 
-self.onmessage = ({ data }: MessageEvent<Message>) => {
-  const { canvas, ...update } = data
-  if (canvas) ctx = canvas.getContext('2d')
-  const { sized, toggled, pointerOnly } = receive(canvas !== undefined, update)
+self.onmessage = ({ data }: MessageEvent<TopographyMessage>) => {
+  const { canvas, intro = 0, ...update } = data
+  if (canvas) {
+    ctx = canvas.getContext('2d')
+    if (intro) startIntro(intro)
+  }
+  const { sized, restarts, pointerOnly } = receive(canvas !== undefined, update)
   if (!ctx || pointerOnly) return
   if (sized) resize(ctx)
-  if (toggled || canvas) restart()
-  else if (sized || !state.animate) paint(lastTick)
+  if (restarts) restart()
+  else if (sized || !state.animate) paint(clock)
 }

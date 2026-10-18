@@ -2,6 +2,8 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 
 type Listener = (e?: unknown) => void
 
+const observers: MutationObserver[] = []
+
 const added: [EventTarget, string, EventListenerOrEventListenerObject][] = []
 
 const workers: { url: URL; opts: unknown; postMessage: ReturnType<typeof vi.fn> }[] = []
@@ -35,6 +37,16 @@ function setupEnv({
       }
     )
   }
+  const RealObserver = MutationObserver
+  vi.stubGlobal(
+    'MutationObserver',
+    class extends RealObserver {
+      constructor(cb: MutationCallback) {
+        super(cb)
+        observers.push(this)
+      }
+    }
+  )
   document.body.innerHTML = `${canvas ? '<canvas data-topography></canvas>' : ''}${
     toggle
       ? '<button data-theme-toggle data-tip-on="Set dark mode" data-tip-off="Set light mode"><span data-tip></span></button>'
@@ -104,6 +116,7 @@ beforeEach(() => {
 })
 
 afterEach(() => {
+  for (const observer of observers.splice(0)) observer.disconnect()
   for (const [target, type, listener] of added.splice(0)) target.removeEventListener(type, listener)
   vi.unstubAllGlobals()
   vi.useRealTimers()
@@ -392,5 +405,43 @@ describe('chrome topography off the home page on mobile', () => {
     mobileMatches = true
     mediaListeners[NARROW]()
     expect(workers[0].postMessage).toHaveBeenLastCalledWith({ animate: false })
+  })
+})
+
+describe('chrome background intro', () => {
+  it('asks for the intro on the first frame, unless motion is reduced', async () => {
+    setupEnv({ locale: false, toggle: false })
+    await load()
+    expect(workers[0].postMessage.mock.calls[0][0].intro).toBe(2800)
+  })
+
+  it('skips the intro under reduced motion', async () => {
+    mediaMatches = true
+    setupEnv({ locale: false, toggle: false })
+    await load()
+    expect(workers[0].postMessage.mock.calls[0][0].intro).toBe(0)
+    const post = workers[0].postMessage
+    post.mockClear()
+  })
+
+  it('freezes on pause and carries on from the same point on unpause, with no new intro', async () => {
+    setupEnv({ locale: false, toggle: false })
+    await load()
+    const post = workers[0].postMessage
+    const button = document.querySelector<HTMLButtonElement>('[data-motion-toggle]')!
+    post.mockClear()
+    button.click()
+    button.click()
+    for (const [message] of post.mock.calls) expect(message).not.toHaveProperty('intro')
+  })
+
+  it('stays paused on reload and plays the quick intro', async () => {
+    localStorage.setItem('motion', 'paused')
+    setupEnv({ locale: false, toggle: false })
+    await load()
+    const first = workers[0].postMessage.mock.calls[0][0]
+    expect(first.animate).toBe(false)
+    expect(first.intro).toBe(200)
+    expect(document.documentElement.dataset.motion).toBe('paused')
   })
 })

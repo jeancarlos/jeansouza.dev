@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import type * as Topography from '@/lib/topography'
 
 interface FakeCtx {
   canvas: { width: number; height: number }
@@ -10,6 +11,10 @@ interface FakeCtx {
   fillStyle: string
   lineWidth: number
   globalAlpha: number
+  save: ReturnType<typeof vi.fn>
+  restore: ReturnType<typeof vi.fn>
+  translate: ReturnType<typeof vi.fn>
+  scale: ReturnType<typeof vi.fn>
 }
 
 const makeCtx = (): FakeCtx => ({
@@ -22,6 +27,10 @@ const makeCtx = (): FakeCtx => ({
   fillStyle: '',
   lineWidth: 0,
   globalAlpha: 0,
+  save: vi.fn(),
+  restore: vi.fn(),
+  translate: vi.fn(),
+  scale: vi.fn(),
 })
 
 class FakePath2D {
@@ -204,5 +213,79 @@ describe('topography worker', () => {
     expect(ctx.clearRect).toHaveBeenCalledTimes(1)
     vi.advanceTimersByTime(40)
     expect(ctx.clearRect.mock.calls.length).toBeGreaterThan(1)
+  })
+})
+
+describe('topography worker intro', () => {
+  const run = (from: number, to: number, step = 100) => {
+    for (let t = from; t <= to; t += step) flush(t)
+  }
+
+  it('fades the lines in while they scale down, then stops when paused', async () => {
+    await load()
+    send(canvasMsg({ intro: 2800 }))
+    flush(0)
+    expect(ctx.scale).toHaveBeenCalledTimes(1)
+    run(100, 3000)
+    const clips = ctx.scale.mock.calls.length
+    flush(3100)
+    expect(ctx.scale).toHaveBeenCalledTimes(clips)
+    expect(rafCbs).toHaveLength(0)
+  })
+
+  it('plays no intro when none was asked for', async () => {
+    await load()
+    send(canvasMsg())
+    expect(ctx.scale).not.toHaveBeenCalled()
+  })
+
+  it('ignores an intro sent after the canvas', async () => {
+    await load()
+    send(canvasMsg({ animate: true }))
+    flush(0)
+    ctx.scale.mockClear()
+    send({ intro: 2800 })
+    flush(16)
+    expect(ctx.scale).not.toHaveBeenCalled()
+  })
+
+  it('does not drift the lines while paused', async () => {
+    await load()
+    send(canvasMsg({ intro: 2800 }))
+    flush(0)
+    const calls = ctx.stroke.mock.calls.length
+    flush(500)
+    expect(ctx.stroke.mock.calls.length).toBe(calls + 1)
+  })
+})
+
+describe('topography worker clock', () => {
+  it('carries on from where the lines froze instead of restarting', async () => {
+    const times: number[] = []
+    vi.resetModules()
+    vi.doMock('@/lib/topography', async () => {
+      const real = await vi.importActual<typeof Topography>('@/lib/topography')
+      return {
+        ...real,
+        contourSegments: (...args: Parameters<typeof Topography.contourSegments>) => {
+          times.push(args[2] ?? 0)
+          return real.contourSegments(...args)
+        },
+      }
+    })
+    await import('./topography.worker')
+    send(canvasMsg({ animate: true }))
+    flush(1000)
+    flush(1016)
+    flush(1032)
+    const beforePause = times.at(-1)!
+    send({ animate: false })
+    expect(times.at(-1)).toBe(beforePause)
+    send({ animate: true })
+    flush(9000)
+    const resumed = times.at(-1)!
+    expect(resumed).toBeGreaterThan(beforePause)
+    expect(resumed - beforePause).toBeLessThanOrEqual(100)
+    vi.doUnmock('@/lib/topography')
   })
 })

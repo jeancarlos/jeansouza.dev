@@ -1,8 +1,9 @@
 import { localePath } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/t'
+import { INTRO_MS, PAUSED_INTRO_MS } from '@/lib/introTiming'
 import { LOCALE_STORAGE_KEY } from '@/lib/locale-storage'
 import { THEME_STORAGE_KEY, type Theme } from '@/lib/theme'
-import type { TopographyState } from './topography.worker'
+import type { TopographyMessage } from './topography.worker'
 
 function persist(key: string, value: string): void {
   try {
@@ -32,25 +33,36 @@ function startTopography(canvas: HTMLCanvasElement, paused: () => boolean) {
     return { repaint: () => undefined, sync: () => undefined }
   const still = matchMedia('(prefers-reduced-motion: reduce)')
   let worker: Worker | null = null
-  const send = (update: Partial<TopographyState>) => worker?.postMessage(update)
+  const send = (update: TopographyMessage) => worker?.postMessage(update)
   const color = () =>
     getComputedStyle(document.documentElement).getPropertyValue('--contour-color').trim()
   const narrow = matchMedia('(width < 48rem)')
   const offHome = () => narrow.matches && !onHome()
+  const introMs = () => {
+    if (still.matches) return 0
+    return paused() ? PAUSED_INTRO_MS : INTRO_MS
+  }
   const playing = () => !still.matches && !paused() && !offHome()
   const size = () => ({ w: innerWidth, h: innerHeight, dpr: devicePixelRatio || 1 })
 
   const start = () => {
     worker = new Worker(new URL('./topography.worker.ts', import.meta.url), { type: 'module' })
     const offscreen = canvas.transferControlToOffscreen()
-    worker.postMessage({ canvas: offscreen, ...size(), color: color(), animate: playing() }, [
-      offscreen,
-    ])
+    worker.postMessage(
+      {
+        canvas: offscreen,
+        ...size(),
+        color: color(),
+        animate: playing(),
+        intro: introMs(),
+      },
+      [offscreen]
+    )
   }
 
-  let pending: Partial<TopographyState> = {}
+  let pending: TopographyMessage = {}
   let queued = false
-  const sendOnce = (update: Partial<TopographyState>) => {
+  const sendOnce = (update: TopographyMessage) => {
     Object.assign(pending, update)
     if (queued) return
     queued = true

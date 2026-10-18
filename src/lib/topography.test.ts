@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import {
   CELL,
   HILL_RADIUS,
+  introLook,
   LEVELS,
   contourSegments,
   elevation,
@@ -78,5 +79,38 @@ describe('hillAt', () => {
     const raised = contourSegments(400, 400, 0, { x: 200, y: 200, height: 0.2 })
     const count = (levels: number[][]) => levels.reduce((n, s) => n + s.length, 0)
     expect(count(raised)).toBeGreaterThan(count(flat))
+  })
+})
+
+describe('introLook', () => {
+  it('starts invisible, slightly large and straight, and ends as the full contours', () => {
+    const start = introLook(0)
+    expect(start).toMatchObject({ alpha: 0, flat: 1 })
+    expect(start.scale).toBeGreaterThan(1)
+    expect(introLook(1)).toEqual({ alpha: 1, scale: 1, flat: 0 })
+  })
+
+  it('fades in, scales down and deforms together, clamping out of range progress', () => {
+    const a = introLook(0.3)
+    const b = introLook(0.6)
+    expect(b.alpha).toBeGreaterThan(a.alpha)
+    expect(b.scale).toBeLessThan(a.scale)
+    expect(b.flat).toBeLessThan(a.flat)
+    expect(introLook(-1)).toEqual(introLook(0))
+    expect(introLook(9)).toEqual(introLook(1))
+  })
+})
+
+describe('contourSegments flat', () => {
+  it('draws one straight horizontal line per level when fully flat', () => {
+    const levels = contourSegments(320, 240, 0, undefined, 1)
+    const populated = levels.filter((segs) => segs.length > 0)
+    expect(populated.length).toBeGreaterThan(10)
+    for (const segs of populated)
+      for (let i = 0; i < segs.length; i += 4) expect(segs[i + 1]).toBeCloseTo(segs[i + 3], 5)
+  })
+
+  it('matches the unflattened contours at zero', () => {
+    expect(contourSegments(320, 240, 0, undefined, 0)).toEqual(contourSegments(320, 240))
   })
 })
