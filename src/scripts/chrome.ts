@@ -14,7 +14,7 @@ function persist(key: string, value: string): void {
 
 function startTopography(canvas: HTMLCanvasElement) {
   if (!('transferControlToOffscreen' in canvas)) return () => undefined
-  const still = matchMedia('(prefers-reduced-motion: reduce), (width < 48rem)')
+  const still = matchMedia('(prefers-reduced-motion: reduce)')
   let worker: Worker | null = null
   const send = (update: Partial<TopographyState>) => worker?.postMessage(update)
   const color = () =>
