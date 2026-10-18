@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>(function(){var s;try{s=localStorage.getItem('locale')}catch(e){}location.replace('/'+(function preferredLocale(stored, language) {
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>(function(){var s;try{s=localStorage.getItem('locale')}catch(e){}location.replace('/'+(function preferredLocale(stored, languages) {
 	if (stored === "pt" || stored === "en") return stored;
-	return /^pt\b/i.test(language) ? "pt" : "en";
-})(s,navigator.language)+'/')})()</script><meta http-equiv="refresh" content="0;url=/en/"><link rel="canonical" href="https://jeansouza.dev/en/"><title>Jean Souza</title></head><body><a href="/en/">English</a> · <a href="/pt/" lang="pt-BR">Português</a></body></html>
+	return languages.map((tag) => tag.toLowerCase().split("-")[0]).includes("pt") ? "pt" : "en";
+})(s,navigator.languages||[navigator.language])+'/')})()</script><meta http-equiv="refresh" content="0;url=/en/"><link rel="canonical" href="https://jeansouza.dev/en/"><title>Jean Souza</title></head><body><a href="/en/">English</a> · <a href="/pt/" lang="pt-BR">Português</a></body></html>
