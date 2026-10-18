@@ -97,7 +97,9 @@ export function WindowManagerProvider({
   })
 
   useEffect(() => {
-    document.documentElement.dataset.windows = windows.length ? 'open' : 'none'
+    const state = windows.length ? 'open' : 'none'
+    if (document.documentElement.dataset.windows !== state)
+      document.documentElement.dataset.windows = state
   }, [windows])
 
   useEffect(() => {

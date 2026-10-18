@@ -247,7 +247,7 @@ describe('chrome topography', () => {
 
     mediaMatches = true
     document.dispatchEvent(new Event('visibilitychange'))
-    expect(post).toHaveBeenLastCalledWith({ animate: false })
+    expect(post).toHaveBeenLastCalledWith({ animate: false, intro: 0 })
   })
 
   it('merges updates queued in the same frame into one message', async () => {
@@ -312,7 +312,7 @@ describe('chrome motion toggle', () => {
   })
 
   it('starts paused when the visitor paused it before', async () => {
-    localStorage.setItem('motion', 'paused')
+    document.documentElement.dataset.motion = 'paused'
     setupEnv({ locale: false, toggle: false })
     await load()
     expect(workers[0].postMessage.mock.calls[0][0].animate).toBe(false)
@@ -420,8 +420,6 @@ describe('chrome background intro', () => {
     setupEnv({ locale: false, toggle: false })
     await load()
     expect(workers[0].postMessage.mock.calls[0][0].intro).toBe(0)
-    const post = workers[0].postMessage
-    post.mockClear()
   })
 
   it('freezes on pause and carries on from the same point on unpause, with no new intro', async () => {
@@ -431,17 +429,67 @@ describe('chrome background intro', () => {
     const button = document.querySelector<HTMLButtonElement>('[data-motion-toggle]')!
     post.mockClear()
     button.click()
+    expect(post).toHaveBeenLastCalledWith({ animate: false })
     button.click()
+    expect(post).toHaveBeenLastCalledWith({ animate: true })
     for (const [message] of post.mock.calls) expect(message).not.toHaveProperty('intro')
   })
 
   it('stays paused on reload and plays the quick intro', async () => {
-    localStorage.setItem('motion', 'paused')
+    document.documentElement.dataset.motion = 'paused'
     setupEnv({ locale: false, toggle: false })
     await load()
     const first = workers[0].postMessage.mock.calls[0][0]
     expect(first.animate).toBe(false)
     expect(first.intro).toBe(200)
     expect(document.documentElement.dataset.motion).toBe('paused')
+  })
+})
+
+describe('chrome topography start conditions', () => {
+  it('waits for the tab to become visible before starting', async () => {
+    vi.spyOn(document, 'hidden', 'get').mockReturnValue(true)
+    setupEnv({ locale: false, toggle: false })
+    await load()
+    expect(workers).toHaveLength(0)
+    vi.spyOn(document, 'hidden', 'get').mockReturnValue(false)
+    document.dispatchEvent(new Event('visibilitychange'))
+    expect(workers).toHaveLength(1)
+  })
+
+  it('treats pages that are not window pages, like the 404, as home on mobile', async () => {
+    mobileMatches = true
+    history.replaceState(null, '', '/pt/nao-existe')
+    setupEnv({ locale: false, toggle: false })
+    await load()
+    expect(workers).toHaveLength(1)
+  })
+
+  it('ends a running intro when reduced motion switches on', async () => {
+    setupEnv({ locale: false, toggle: false })
+    await load()
+    const post = workers[0].postMessage
+    mediaMatches = true
+    mediaListener()
+    expect(post).toHaveBeenLastCalledWith({ animate: false, intro: 0 })
+  })
+})
+
+describe('chrome tooltips dismissal', () => {
+  it('hides the tooltips on Escape until a control is entered or focused again', async () => {
+    setupEnv({ canvas: false, locale: false })
+    await load()
+    const root = document.documentElement
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }))
+    expect(root).not.toHaveAttribute('data-tips-hidden')
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))
+    expect(root).toHaveAttribute('data-tips-hidden')
+    document.querySelector<HTMLElement>('[data-theme-toggle]')!.dispatchEvent(new Event('focus'))
+    expect(root).not.toHaveAttribute('data-tips-hidden')
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))
+    document
+      .querySelector<HTMLElement>('[data-motion-toggle]')!
+      .dispatchEvent(new Event('pointerenter'))
+    expect(root).not.toHaveAttribute('data-tips-hidden')
   })
 })

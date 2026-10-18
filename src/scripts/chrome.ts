@@ -2,6 +2,7 @@ import { localePath } from '@/i18n/navigation'
 import type { Locale } from '@/i18n/t'
 import { INTRO_MS, PAUSED_INTRO_MS } from '@/lib/introTiming'
 import { LOCALE_STORAGE_KEY } from '@/lib/locale-storage'
+import { MOTION_STORAGE_KEY } from '@/lib/motion'
 import { THEME_STORAGE_KEY, type Theme } from '@/lib/theme'
 import type { TopographyMessage } from './topography.worker'
 
@@ -13,19 +14,11 @@ function persist(key: string, value: string): void {
   }
 }
 
-const MOTION_STORAGE_KEY = 'motion'
-
-function storedPaused(): boolean {
-  try {
-    return localStorage.getItem(MOTION_STORAGE_KEY) === 'paused'
-  } catch {
-    return false
-  }
-}
-
 function onHome(): boolean {
   const windows = document.documentElement.dataset.windows
-  return windows ? windows === 'none' : /^\/(pt|en)\/?$/.test(location.pathname)
+  return windows
+    ? windows === 'none'
+    : !/^\/(pt|en)\/(blog|resume|more)(\/|$)/.test(location.pathname)
 }
 
 function startTopography(canvas: HTMLCanvasElement, paused: () => boolean) {
@@ -42,7 +35,7 @@ function startTopography(canvas: HTMLCanvasElement, paused: () => boolean) {
     if (still.matches) return 0
     return paused() ? PAUSED_INTRO_MS : INTRO_MS
   }
-  const playing = () => !still.matches && !paused() && !offHome()
+  const playing = () => !still.matches && !paused() && !offHome() && !document.hidden
   const size = () => ({ w: innerWidth, h: innerHeight, dpr: devicePixelRatio || 1 })
 
   const start = () => {
@@ -77,10 +70,10 @@ function startTopography(canvas: HTMLCanvasElement, paused: () => boolean) {
   let ready = false
   const motion = () => {
     if (!worker) {
-      if (ready && !offHome()) start()
+      if (ready && !offHome() && !document.hidden) start()
       return
     }
-    send({ animate: playing() && !document.hidden })
+    send(still.matches ? { animate: false, intro: 0 } : { animate: playing() })
   }
   const begin = () => {
     ready = true
@@ -151,7 +144,6 @@ function bindLocaleSwitch(link: HTMLAnchorElement) {
 }
 
 const canvas = document.querySelector<HTMLCanvasElement>('[data-topography]')
-if (storedPaused()) document.documentElement.dataset.motion = 'paused'
 const { repaint, sync } = canvas
   ? startTopography(canvas, () => document.documentElement.dataset.motion === 'paused')
   : { repaint: () => undefined, sync: () => undefined }
@@ -161,3 +153,17 @@ const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]')
 if (toggle) bindThemeToggle(toggle, repaint)
 const localeLink = document.querySelector<HTMLAnchorElement>('[data-locale-switch]')
 if (localeLink) bindLocaleSwitch(localeLink)
+
+function bindTips() {
+  const root = document.documentElement
+  addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') root.setAttribute('data-tips-hidden', '')
+  })
+  const controls = document.querySelectorAll(
+    '[data-locale-switch], [data-motion-toggle], [data-theme-toggle]'
+  )
+  for (const control of controls)
+    for (const type of ['pointerenter', 'focus'])
+      control.addEventListener(type, () => root.removeAttribute('data-tips-hidden'))
+}
+bindTips()

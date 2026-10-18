@@ -90,14 +90,15 @@ function sampleGrid(
   flat: number
 ): Float32Array {
   if (grid.length !== cols * rows) grid = new Float32Array(cols * rows)
-  for (let j = 0; j < rows; j++)
+  for (let j = 0; j < rows; j++) {
+    const y = j * CELL
+    const level = flat > 0 ? LEVEL_MIN + (LEVEL_SPAN * y) / ((rows - 1) * CELL) : 0
     for (let i = 0; i < cols; i++) {
       const x = i * CELL
-      const y = j * CELL
       const real = elevation(x, y, time) + hillAt(hill, x, y)
-      const level = LEVEL_MIN + (LEVEL_SPAN * y) / ((rows - 1) * CELL)
       grid[j * cols + i] = real + (level - real) * flat
     }
+  }
   return grid
 }
 

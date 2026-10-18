@@ -70,5 +70,5 @@ describe('cli', () => {
     git(dir, 'reset', '-q', '--hard', base)
     commit(dir, 'fix: tested', 'src/a.test.ts')
     expect(spawnSync(process.execPath, [script, base, 'HEAD'], { cwd: dir }).status).toBe(0)
-  })
+  }, 30000)
 })

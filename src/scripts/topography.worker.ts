@@ -27,10 +27,9 @@ const hill: Hill = { x: 0, y: 0, height: 0 }
 let ctx: OffscreenCanvasRenderingContext2D | null = null
 let frame = 0
 let clock = 0
-let introStart: number | null = null
-let introing = false
 let introMs = 1
 let progress = 1
+let quick = false
 
 const nextFrame: (cb: (t: number) => void) => number =
   typeof requestAnimationFrame === 'function'
@@ -67,7 +66,6 @@ function dotPath(segs: number[]): Path2D {
 
 function paint(time: number) {
   if (!ctx) return
-  const flicker = state.animate ? time : 0
   const look = introLook(progress)
   const levels = contourSegments(state.w, state.h, time, hill, look.flat)
   const lines = new Path2D()
@@ -85,7 +83,7 @@ function paint(time: number) {
   ctx.stroke(lines)
   levels.forEach((segs, k) => {
     if (!ctx || !isDotted(k)) return
-    ctx.globalAlpha = 0.55 * (flicker === 0 ? 1 : 0.6 + 0.4 * Math.sin(flicker / 1600 + k * 2.3))
+    ctx.globalAlpha = 0.55 * look.alpha * (0.6 + 0.4 * Math.sin(time / 1600 + k * 2.3))
     ctx.fill(dotPath(segs))
   })
   ctx.restore()
@@ -93,7 +91,7 @@ function paint(time: number) {
 
 const SETTLE_MS = 1000
 const IDLE_FRAME_MS = 1000 / 30 - 4
-let lastTick = 0
+let lastTick = -1
 let lastPaint = 0
 let busyUntil = 0
 
@@ -113,31 +111,35 @@ function followPointer(dt: number): boolean {
   )
 }
 
-function advanceIntro(t: number) {
-  if (!introing) return
-  introStart ??= t
-  progress = Math.min(1, (t - introStart) / introMs)
-}
+const loopActive = () => state.animate || (progress < 1 && quick)
 
 function startIntro(ms: number) {
   introMs = ms
-  introing = true
-  introStart = null
   progress = 0
+  quick = !state.animate
 }
 
+function applyIntro(fresh: boolean, intro: number | undefined): boolean {
+  if (fresh && intro) startIntro(intro)
+  else if (intro === 0 && progress < 1) progress = 1
+  else return false
+  return true
+}
+
+const shouldPaint = (t: number) => t < busyUntil || t - lastPaint >= IDLE_FRAME_MS
+
 const tick = (t: number) => {
-  const dt = Math.min(t - lastTick, 100)
+  const dt = lastTick < 0 ? 0 : Math.min(t - lastTick, 100)
   if (followPointer(dt)) busyUntil = t + SETTLE_MS
   lastTick = t
   if (state.animate) clock += dt
-  advanceIntro(t)
-  if (introing || t < busyUntil || t - lastPaint >= IDLE_FRAME_MS) {
+  const introFrame = progress < 1
+  progress = Math.min(1, progress + dt / introMs)
+  if (introFrame || shouldPaint(t)) {
     lastPaint = t
     paint(clock)
   }
-  if (progress >= 1) introing = false
-  if (state.animate || introing) frame = nextFrame(tick)
+  if (loopActive()) frame = nextFrame(tick)
 }
 
 function resize(c: OffscreenCanvasRenderingContext2D) {
@@ -148,7 +150,8 @@ function resize(c: OffscreenCanvasRenderingContext2D) {
 
 function restart() {
   cancelFrame(frame)
-  if (state.animate || introing) frame = nextFrame(tick)
+  lastTick = -1
+  if (loopActive()) frame = nextFrame(tick)
   else paint(clock)
 }
 
@@ -161,15 +164,22 @@ function receive(fresh: boolean, update: Partial<TopographyState>) {
   return { sized, restarts: toggled || fresh, pointerOnly }
 }
 
-self.onmessage = ({ data }: MessageEvent<TopographyMessage>) => {
-  const { canvas, intro = 0, ...update } = data
-  if (canvas) {
-    ctx = canvas.getContext('2d')
-    if (intro) startIntro(intro)
-  }
-  const { sized, restarts, pointerOnly } = receive(canvas !== undefined, update)
-  if (!ctx || pointerOnly) return
+function refresh(
+  ctx: OffscreenCanvasRenderingContext2D,
+  sized: boolean,
+  redo: boolean,
+  recolored: boolean
+) {
   if (sized) resize(ctx)
-  if (restarts) restart()
-  else if (sized || !state.animate) paint(clock)
+  if (redo) restart()
+  else if (sized || (recolored && !state.animate)) paint(clock)
+}
+
+self.onmessage = ({ data }: MessageEvent<TopographyMessage>) => {
+  const { canvas, intro, ...update } = data
+  if (canvas) ctx = canvas.getContext('2d')
+  const { sized, restarts, pointerOnly } = receive(canvas !== undefined, update)
+  const introChanged = applyIntro(canvas !== undefined, intro)
+  if (!ctx || (pointerOnly && !introChanged)) return
+  refresh(ctx, sized, restarts || introChanged, update.color !== undefined)
 }

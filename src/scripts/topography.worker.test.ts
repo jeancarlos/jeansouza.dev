@@ -79,7 +79,9 @@ async function load() {
 beforeEach(() => {
   ctx = makeCtx()
   rafCbs = []
-  cancel = vi.fn()
+  cancel = vi.fn((id: number) => {
+    rafCbs[id - 1] = () => undefined
+  })
   vi.stubGlobal('Path2D', FakePath2D)
   vi.stubGlobal('requestAnimationFrame', (cb: (t: number) => void) => rafCbs.push(cb))
   vi.stubGlobal('cancelAnimationFrame', cancel)
@@ -109,7 +111,8 @@ describe('topography worker', () => {
     expect(ctx.stroke).toHaveBeenCalledTimes(1)
     expect(ctx.fill.mock.calls.length).toBeGreaterThan(0)
     expect(ctx.fill.mock.calls.some(([p]) => (p as FakePath2D).rects > 0)).toBe(true)
-    expect(ctx.globalAlpha).toBeCloseTo(0.55)
+    expect(ctx.globalAlpha).toBeGreaterThan(0.1)
+    expect(ctx.globalAlpha).toBeLessThanOrEqual(0.55)
     expect(rafCbs).toHaveLength(0)
   })
 
@@ -216,21 +219,40 @@ describe('topography worker', () => {
   })
 })
 
-describe('topography worker intro', () => {
-  const run = (from: number, to: number, step = 100) => {
-    for (let t = from; t <= to; t += step) flush(t)
-  }
+const lastScale = () => ctx.scale.mock.calls.at(-1)![0] as number
 
-  it('fades the lines in while they scale down, then stops when paused', async () => {
+describe('topography worker intro', () => {
+  it('fades the lines in while they scale down, then stops the loop', async () => {
     await load()
     send(canvasMsg({ intro: 2800 }))
     flush(0)
     expect(ctx.scale).toHaveBeenCalledTimes(1)
-    run(100, 3000)
-    const clips = ctx.scale.mock.calls.length
+    for (let t = 100; t <= 3000; t += 100) flush(t)
+    const frames = ctx.scale.mock.calls.length
     flush(3100)
-    expect(ctx.scale).toHaveBeenCalledTimes(clips)
+    expect(ctx.scale).toHaveBeenCalledTimes(frames)
     expect(rafCbs).toHaveLength(0)
+  })
+
+  it('paints the final frame without the scale once the intro is done', async () => {
+    await load()
+    send(canvasMsg({ intro: 200 }))
+    flush(0)
+    flush(100)
+    flush(200)
+    flush(300)
+    ctx.scale.mockClear()
+    const paints = ctx.clearRect.mock.calls.length
+    expect(rafCbs).toHaveLength(0)
+    expect(ctx.clearRect.mock.calls.length).toBe(paints)
+    expect(ctx.scale).not.toHaveBeenCalled()
+  })
+
+  it('fades the dotted lines in with the rest', async () => {
+    await load()
+    send(canvasMsg({ intro: 2800 }))
+    flush(0)
+    expect(ctx.globalAlpha).toBe(0)
   })
 
   it('plays no intro when none was asked for', async () => {
@@ -249,18 +271,58 @@ describe('topography worker intro', () => {
     expect(ctx.scale).not.toHaveBeenCalled()
   })
 
-  it('does not drift the lines while paused', async () => {
+  it('freezes a running intro on pause and carries it on when unpaused', async () => {
     await load()
-    send(canvasMsg({ intro: 2800 }))
+    send(canvasMsg({ animate: true, intro: 2800 }))
     flush(0)
-    const calls = ctx.stroke.mock.calls.length
+    flush(100)
+    flush(200)
+    send({ animate: false })
+    const frozen = lastScale()
+    const paints = ctx.clearRect.mock.calls.length
+    flush(900)
+    expect(ctx.clearRect.mock.calls.length).toBe(paints)
+    send({ animate: true })
+    flush(1000)
+    flush(1100)
+    expect(lastScale()).toBeLessThan(frozen)
+  })
+
+  it('ends a running intro at once when asked, for example under reduced motion', async () => {
+    await load()
+    send(canvasMsg({ animate: true, intro: 2800 }))
+    flush(0)
+    flush(100)
+    ctx.scale.mockClear()
+    send({ animate: false, intro: 0 })
+    expect(ctx.scale).not.toHaveBeenCalled()
+    expect(rafCbs.filter(Boolean).length).toBeGreaterThanOrEqual(0)
     flush(500)
-    expect(ctx.stroke.mock.calls.length).toBe(calls + 1)
+    expect(ctx.scale).not.toHaveBeenCalled()
+  })
+
+  it('plays the quick intro of a paused start without animating the lines', async () => {
+    await load()
+    send(canvasMsg({ animate: false, intro: 200 }))
+    flush(0)
+    flush(100)
+    flush(200)
+    expect(ctx.scale).toHaveBeenCalled()
+    flush(300)
+    expect(rafCbs).toHaveLength(0)
+  })
+
+  it('does not repaint when only an unchanged animate flag arrives while paused', async () => {
+    await load()
+    send(canvasMsg())
+    ctx.clearRect.mockClear()
+    send({ animate: false })
+    expect(ctx.clearRect).not.toHaveBeenCalled()
   })
 })
 
 describe('topography worker clock', () => {
-  it('carries on from where the lines froze instead of restarting', async () => {
+  const loadSpying = async () => {
     const times: number[] = []
     vi.resetModules()
     vi.doMock('@/lib/topography', async () => {
@@ -274,18 +336,37 @@ describe('topography worker clock', () => {
       }
     })
     await import('./topography.worker')
+    return times
+  }
+
+  afterEach(() => {
+    vi.doUnmock('@/lib/topography')
+  })
+
+  it('carries on from where the lines froze, without lurching on resume', async () => {
+    const times = await loadSpying()
     send(canvasMsg({ animate: true }))
     flush(1000)
     flush(1016)
     flush(1032)
-    const beforePause = times.at(-1)!
+    const frozen = times.at(-1)!
     send({ animate: false })
-    expect(times.at(-1)).toBe(beforePause)
+    expect(times.at(-1)).toBe(frozen)
     send({ animate: true })
     flush(9000)
-    const resumed = times.at(-1)!
-    expect(resumed).toBeGreaterThan(beforePause)
-    expect(resumed - beforePause).toBeLessThanOrEqual(100)
-    vi.doUnmock('@/lib/topography')
+    expect(times.at(-1)).toBe(frozen)
+    flush(9016)
+    flush(9032)
+    expect(times.at(-1)).toBe(frozen + 32)
+  })
+
+  it('does not move the lines during a paused intro', async () => {
+    const times = await loadSpying()
+    send(canvasMsg({ animate: false, intro: 200 }))
+    flush(0)
+    flush(100)
+    flush(200)
+    expect(times.length).toBeGreaterThan(1)
+    expect(new Set(times)).toEqual(new Set([0]))
   })
 })

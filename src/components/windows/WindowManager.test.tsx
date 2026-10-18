@@ -80,6 +80,23 @@ describe('WindowManager', () => {
     expect(document.documentElement.dataset.windows).toBe('none')
   })
 
+  it('does not touch the page attribute when the answer is unchanged', async () => {
+    const records: MutationRecord[] = []
+    const observer = new MutationObserver((r) => records.push(...r))
+    document.documentElement.removeAttribute('data-windows')
+    observer.observe(document.documentElement, { attributeFilter: ['data-windows'] })
+    render(
+      <WindowManagerProvider>
+        <TestConsumer />
+      </WindowManagerProvider>
+    )
+    await userEvent.click(screen.getByText('open'))
+    await userEvent.click(screen.getByText('open'))
+    observer.takeRecords().forEach((r) => records.push(r))
+    observer.disconnect()
+    expect(records).toHaveLength(2)
+  })
+
   it('closes a window', async () => {
     render(
       <WindowManagerProvider>
