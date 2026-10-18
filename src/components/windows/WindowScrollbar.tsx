@@ -2,12 +2,16 @@ import {
   useEffect,
   useRef,
   useState,
+  type CSSProperties,
   type PointerEvent,
   type RefObject,
   type WheelEvent,
 } from 'react'
 import { useIsMobile } from '@/lib/useIsMobile'
+import styles from './WindowScrollbar.module.css'
 import {
+  THUMB_CAP,
+  THUMB_WIDTH,
   TRACK_INSET,
   scrollByWheel,
   scrollTopForDrag,
@@ -35,6 +39,15 @@ function measure(el: HTMLElement): Track | null {
 }
 
 const LABEL_HIDE_MS = 2000
+
+function thumbStyle(track: Track): CSSProperties {
+  return {
+    transform: `translateY(${track.offset}px)`,
+    height: track.size,
+    ['--thumb-cap' as string]: `${THUMB_CAP}px`,
+    ['--thumb-width' as string]: `${THUMB_WIDTH}px`,
+  }
+}
 
 export function WindowScrollbar({ target }: Props) {
   const [track, setTrack] = useState<Track | null>(null)
@@ -114,10 +127,10 @@ export function WindowScrollbar({ target }: Props) {
         data-scroll-thumb
         onPointerDown={onPointerDown}
         onWheel={onWheel}
-        className="group pointer-events-auto absolute top-0 right-[-7px] flex w-[24px] cursor-grab touch-none active:cursor-grabbing md:right-[-6px] md:w-[14px]"
-        style={{ transform: `translateY(${track.offset}px)`, height: track.size }}
+        className={`${styles.grip} pointer-events-auto absolute top-0 right-[-7px] flex w-[24px] touch-none md:right-[-6px] md:w-[14px]`}
+        style={thumbStyle(track)}
       >
-        <div className="scroll-thumb mr-[3px] ml-auto h-full w-[8px] transition-[scale] duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-active:[scale:1.8_1] motion-reduce:transition-none" />
+        <div className={styles.thumb} />
         <span
           className={`font-reading text-brand-muted pointer-events-none absolute top-1/2 -translate-y-1/2 text-sm leading-5 transition-opacity duration-300 select-none motion-reduce:transition-none ${isMobile ? 'right-full mr-1' : 'left-full ml-1'} ${isMobile && !awake ? 'opacity-0' : 'opacity-100'}`}
         >

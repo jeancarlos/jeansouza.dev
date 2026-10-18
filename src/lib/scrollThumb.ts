@@ -1,4 +1,5 @@
 export const THUMB_CAP = 16
+export const THUMB_WIDTH = 8
 export const LABEL_HEIGHT = 20
 const THUMB_SCALE = 0.8
 export const TRACK_INSET = 16
