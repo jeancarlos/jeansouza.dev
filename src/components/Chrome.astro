@@ -21,7 +21,7 @@ const tip =
 const arrow =
   "before:absolute before:-top-[5px] before:h-0 before:w-0 before:border-x-[5px] before:border-b-[5px] before:border-x-transparent before:border-b-[color-mix(in_srgb,var(--color-brand-from),var(--color-brand-to))] before:content-['']"
 const tipStart = `${tip} ${arrow} left-0 origin-top-left before:left-[19px]`
-const tipEnd = `${tip} ${arrow} right-0 origin-top-right`
+const tipEnd = `${tip} ${arrow} origin-top-right`
 const isEn = locale === 'en'
 ---
 
@@ -62,7 +62,7 @@ const isEn = locale === 'en'
         </svg>
       </span>
     </span>
-    <span aria-hidden="true" data-tip class={`${tipEnd} before:right-[7px]`}></span>
+    <span aria-hidden="true" data-tip class={`${tipEnd} right-[-14px] before:right-[21px]`}></span>
   </button>
   <button
     type="button"
@@ -93,7 +93,7 @@ const isEn = locale === 'en'
         </svg>
       </span>
     </span>
-    <span aria-hidden="true" data-tip class={`${tipEnd} before:right-[19px]`}></span>
+    <span aria-hidden="true" data-tip class={`${tipEnd} right-0 before:right-[19px]`}></span>
   </button>
   </div>
 </div>
