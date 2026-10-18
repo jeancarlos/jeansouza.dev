@@ -55,4 +55,32 @@
       background-color 300ms ease,
       color 300ms ease;
   }
+
+  @media (hover: none) and (pointer: coarse) {
+    body {
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    li,
+    blockquote,
+    pre,
+    code,
+    td,
+    th,
+    input,
+    textarea {
+      -webkit-user-select: text;
+      user-select: text;
+      -webkit-touch-callout: default;
+    }
+  }
 }
