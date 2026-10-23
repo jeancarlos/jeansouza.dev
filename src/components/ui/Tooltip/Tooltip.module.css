@@ -29,3 +29,16 @@
   position: absolute;
   width: 0;
 }
+
+.End {
+  left: auto;
+  margin: 0;
+  right: -1rem;
+  transform-origin: calc(100% - 1rem - 0.5em) calc(100% + 5px);
+}
+
+.End::before {
+  left: auto;
+  margin-left: 0;
+  right: calc(1rem + 0.5em - 5px);
+}
