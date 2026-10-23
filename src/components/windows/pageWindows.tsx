@@ -17,7 +17,7 @@ import { MoreLinksWindow } from './MoreLinksWindow'
 import { ResumeWindow } from './ResumeWindow'
 
 const LIST_W = 820
-const MORE_SIZE = { width: 320, height: 280 }
+const MORE_SIZE = { width: 420, height: 280 }
 
 /**
  * A window opened by a click is placed in pixels so it can grow out of the

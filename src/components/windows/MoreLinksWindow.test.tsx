@@ -35,15 +35,15 @@ describe('MoreLinksWindow', () => {
   it('lists each profile as a row: name, then the link or the copyable code', () => {
     render(<MoreLinksWindow />)
     expect(screen.getByRole('heading', { name: 'Mais links' })).toBeInTheDocument()
-    expect(row('Instagram').getByRole('link', { name: 'jeansouza.dev' })).toHaveAttribute(
+    expect(row('Instagram').getByRole('link', { name: '@jeansouza.dev' })).toHaveAttribute(
       'href',
       'https://www.instagram.com/jeansouza.dev/'
     )
-    expect(row('Bluesky').getByRole('link', { name: 'jeansouza.dev' })).toHaveAttribute(
+    expect(row('Bluesky').getByRole('link', { name: '@jeansouza.dev' })).toHaveAttribute(
       'href',
       'https://bsky.app/profile/jeansouza.dev'
     )
-    expect(row('Steam').getByRole('link', { name: 'jeanrnk' })).toHaveAttribute(
+    expect(row('Steam').getByRole('link', { name: '@jeanrnk' })).toHaveAttribute(
       'href',
       'https://steamcommunity.com/id/jeanrnk/'
     )

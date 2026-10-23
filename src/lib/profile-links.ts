@@ -10,12 +10,12 @@ const links: LinkItem[] = [
   {
     name: 'Instagram',
     url: 'https://www.instagram.com/jeansouza.dev/',
-    label: 'jeansouza.dev',
+    label: '@jeansouza.dev',
   },
   {
     name: 'Bluesky',
     url: 'https://bsky.app/profile/jeansouza.dev',
-    label: 'jeansouza.dev',
+    label: '@jeansouza.dev',
   },
   {
     name: 'Discord',
@@ -24,7 +24,7 @@ const links: LinkItem[] = [
   {
     name: 'Steam',
     url: 'https://steamcommunity.com/id/jeanrnk/',
-    label: 'jeanrnk',
+    label: '@jeanrnk',
   },
   {
     name: 'Switch ID',

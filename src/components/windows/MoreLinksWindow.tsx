@@ -73,7 +73,7 @@ export function MoreLinksWindow() {
                   <Icon name="copy" />
                 </button>
                 {bubble?.index === index && (
-                  <Tooltip show={true} component="span" onDismiss={() => setBubble(null)}>
+                  <Tooltip show component="span" align="end" onDismiss={() => setBubble(null)}>
                     {bubble.text}
                   </Tooltip>
                 )}
