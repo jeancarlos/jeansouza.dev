@@ -1,6 +1,7 @@
 export interface LinkItem {
   name: string
   url?: string
+  label?: string
   content?: string
   primary?: boolean
 }
@@ -9,10 +10,12 @@ const links: LinkItem[] = [
   {
     name: 'Instagram',
     url: 'https://www.instagram.com/jeansouza.dev/',
+    label: '@jeansouza.dev',
   },
   {
     name: 'Bluesky',
     url: 'https://bsky.app/profile/jeansouza.dev',
+    label: '@jeansouza.dev',
   },
   {
     name: 'Discord',
@@ -20,15 +23,12 @@ const links: LinkItem[] = [
   },
   {
     name: 'Steam',
-    content: 'jeanrnk',
+    url: 'https://steamcommunity.com/id/jeanrnk/',
+    label: '@jeanrnk',
   },
   {
-    name: 'Switch Friend Code',
+    name: 'Switch ID',
     content: '1749 2384 1794',
-  },
-  {
-    name: 'Xbox gamertag',
-    content: 'jeanrnk',
   },
   {
     name: 'PSN ID',

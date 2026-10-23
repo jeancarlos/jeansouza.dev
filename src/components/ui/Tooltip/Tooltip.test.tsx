@@ -43,6 +43,15 @@ describe('Tooltip', () => {
     expect(screen.getByRole('tooltip').style.transform).toBe('translate(-50px, 0) scale(1)')
   })
 
+  it('does not shift sideways when aligned to the end', () => {
+    render(
+      <Tooltip show align="end">
+        hi
+      </Tooltip>
+    )
+    expect(screen.getByRole('tooltip').style.transform).toBe('translate(0px, 0) scale(1)')
+  })
+
   it('recomputes the margin when the element resizes', () => {
     render(<Tooltip show>hi</Tooltip>)
     vi.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(200)

@@ -7,6 +7,7 @@ interface TooltipProps {
   component?: ElementType
   show?: boolean
   className?: string
+  align?: 'center' | 'end'
 }
 
 export function Tooltip({
@@ -15,6 +16,7 @@ export function Tooltip({
   component: Component = 'div',
   show = false,
   className = '',
+  align = 'center',
 }: TooltipProps) {
   const ref = useRef<HTMLElement>(null)
   const [buttonMargin, setButtonMargin] = useState(0)
@@ -30,16 +32,18 @@ export function Tooltip({
     return () => observer.disconnect()
   }, [])
 
+  const shiftX = align === 'end' ? 0 : -buttonMargin
   const transform = show
-    ? `translate(-${buttonMargin}px, 0) scale(1)`
-    : `translate(-${buttonMargin}px, 8px) scale(0)`
+    ? `translate(${shiftX}px, 0) scale(1)`
+    : `translate(${shiftX}px, 8px) scale(0)`
+  const alignClass = align === 'end' ? styles.End : ''
 
   return (
     <Component
       ref={ref}
       onClick={onDismiss}
       onMouseLeave={onDismiss}
-      className={`${styles.Tooltip} ${className}`}
+      className={`${styles.Tooltip} ${alignClass} ${className}`}
       role="tooltip"
       style={{ transform }}
     >

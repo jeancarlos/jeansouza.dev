@@ -108,8 +108,8 @@ describe('pageWindow placement for a click', () => {
 
   it('centers the small links window below the topbar', () => {
     const w = pageWindow({ kind: 'more' }, 'en', posts, origin)
-    expect(w.size).toEqual({ width: 320, height: 280 })
-    expect(w.position).toEqual({ x: 540, y: 347.5 })
+    expect(w.size).toEqual({ width: 420, height: 280 })
+    expect(w.position).toEqual({ x: 490, y: 347.5 })
   })
 })
 
@@ -136,9 +136,9 @@ describe('pageWindow placement for the page url', () => {
 
   it('centers the links window with css', () => {
     const w = pageWindow({ kind: 'more' }, 'en', posts)
-    expect(w.size).toEqual({ width: 320, height: 280 })
+    expect(w.size).toEqual({ width: 420, height: 280 })
     expect(w.position).toEqual({
-      x: 'max(20px, (100vw - 320px) / 2)',
+      x: 'max(20px, (100vw - 420px) / 2)',
       y: 'calc(75px + max(20px, (100dvh - 75px - 280px) / 2))',
     })
   })
