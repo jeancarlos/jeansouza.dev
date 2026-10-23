@@ -57,7 +57,7 @@ export function MoreLinksWindow() {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-from hover:text-brand-to underline"
+                className="hover:text-brand-muted underline"
               >
                 {link.label ?? link.url}
               </a>
@@ -66,8 +66,8 @@ export function MoreLinksWindow() {
                 <button
                   type="button"
                   onClick={() => link.content && handleCopyContent(link.content, index)}
-                  aria-label={t('copy', { name: link.name })}
-                  className="hover:text-brand-from inline-flex cursor-pointer items-baseline gap-2"
+                  aria-label={`${t('copy', { name: link.name })}: ${link.content}`}
+                  className="hover:text-brand-muted inline-flex cursor-pointer items-baseline gap-2"
                 >
                   {link.content}
                   <Icon name="copy" />

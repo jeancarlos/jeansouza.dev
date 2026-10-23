@@ -48,9 +48,9 @@ describe('MoreLinksWindow', () => {
       'https://steamcommunity.com/id/jeanrnk/'
     )
     expect(row('Switch ID').getByRole('button')).toHaveTextContent('1749 2384 1794')
-    expect(row('Discord').getByRole('button', { name: 'Copiar Discord' })).toHaveTextContent(
-      'jeanrnk#5682'
-    )
+    expect(
+      row('Discord').getByRole('button', { name: 'Copiar Discord: jeanrnk#5682' })
+    ).toHaveTextContent('jeanrnk#5682')
     expect(row('Discord').queryByRole('link')).toBeNull()
     expect(screen.queryByRole('link', { name: 'Source for this website' })).toBeNull()
   })
@@ -63,7 +63,7 @@ describe('MoreLinksWindow', () => {
   it('copies the value and confirms it, then hides the confirmation after a moment', async () => {
     writeText.mockResolvedValue(undefined)
     render(<MoreLinksWindow />)
-    await copy('Copiar PSN ID')
+    await copy('Copiar PSN ID: jeanrnk')
     expect(writeText).toHaveBeenCalledWith('jeanrnk')
     expect(screen.getByRole('tooltip')).toHaveTextContent('Copiado! jeanrnk')
     act(() => {
@@ -79,11 +79,11 @@ describe('MoreLinksWindow', () => {
   it('restarts the countdown when another value is copied', async () => {
     writeText.mockResolvedValue(undefined)
     render(<MoreLinksWindow />)
-    await copy('Copiar PSN ID')
+    await copy('Copiar PSN ID: jeanrnk')
     act(() => {
       vi.advanceTimersByTime(1500)
     })
-    await copy('Copiar Discord')
+    await copy('Copiar Discord: jeanrnk#5682')
     act(() => {
       vi.advanceTimersByTime(1500)
     })
@@ -97,7 +97,7 @@ describe('MoreLinksWindow', () => {
   it('keeps the raw value on screen when the clipboard is blocked, until dismissed', async () => {
     writeText.mockRejectedValue(new Error('denied'))
     render(<MoreLinksWindow />)
-    await copy('Copiar Discord')
+    await copy('Copiar Discord: jeanrnk#5682')
     const tooltip = screen.getByRole('tooltip')
     expect(tooltip).toHaveTextContent(/^jeanrnk#5682$/)
     act(() => {
@@ -111,7 +111,7 @@ describe('MoreLinksWindow', () => {
   it('drops a pending confirmation when the pointer leaves it', async () => {
     writeText.mockResolvedValue(undefined)
     render(<MoreLinksWindow />)
-    await copy('Copiar PSN ID')
+    await copy('Copiar PSN ID: jeanrnk')
     fireEvent.mouseLeave(screen.getByRole('tooltip'))
     expect(screen.queryByRole('tooltip')).toBeNull()
   })
@@ -119,7 +119,7 @@ describe('MoreLinksWindow', () => {
   it('clears the countdown on unmount', async () => {
     writeText.mockResolvedValue(undefined)
     const { unmount } = render(<MoreLinksWindow />)
-    await copy('Copiar PSN ID')
+    await copy('Copiar PSN ID: jeanrnk')
     unmount()
     expect(vi.getTimerCount()).toBe(0)
   })
