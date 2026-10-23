@@ -23,7 +23,8 @@ const links: LinkItem[] = [
   },
   {
     name: 'Steam',
-    content: 'jeanrnk',
+    url: 'https://steamcommunity.com/id/jeanrnk/',
+    label: 'jeanrnk',
   },
   {
     name: 'Switch ID',

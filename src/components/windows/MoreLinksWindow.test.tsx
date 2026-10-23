@@ -43,6 +43,10 @@ describe('MoreLinksWindow', () => {
       'href',
       'https://bsky.app/profile/jeansouza.dev'
     )
+    expect(row('Steam').getByRole('link', { name: 'jeanrnk' })).toHaveAttribute(
+      'href',
+      'https://steamcommunity.com/id/jeanrnk/'
+    )
     expect(row('Switch ID').getByRole('button')).toHaveTextContent('1749 2384 1794')
     expect(row('Discord').getByRole('button', { name: 'Copiar Discord' })).toHaveTextContent(
       'jeanrnk#5682'
@@ -59,7 +63,7 @@ describe('MoreLinksWindow', () => {
   it('copies the value and confirms it, then hides the confirmation after a moment', async () => {
     writeText.mockResolvedValue(undefined)
     render(<MoreLinksWindow />)
-    await copy('Copiar Steam')
+    await copy('Copiar PSN ID')
     expect(writeText).toHaveBeenCalledWith('jeanrnk')
     expect(screen.getByRole('tooltip')).toHaveTextContent('Copiado! jeanrnk')
     act(() => {
@@ -75,7 +79,7 @@ describe('MoreLinksWindow', () => {
   it('restarts the countdown when another value is copied', async () => {
     writeText.mockResolvedValue(undefined)
     render(<MoreLinksWindow />)
-    await copy('Copiar Steam')
+    await copy('Copiar PSN ID')
     act(() => {
       vi.advanceTimersByTime(1500)
     })
@@ -115,7 +119,7 @@ describe('MoreLinksWindow', () => {
   it('clears the countdown on unmount', async () => {
     writeText.mockResolvedValue(undefined)
     const { unmount } = render(<MoreLinksWindow />)
-    await copy('Copiar Steam')
+    await copy('Copiar PSN ID')
     unmount()
     expect(vi.getTimerCount()).toBe(0)
   })
