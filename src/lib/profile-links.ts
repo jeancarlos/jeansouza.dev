@@ -23,7 +23,7 @@ const links: LinkItem[] = [
   },
   {
     name: 'Steam',
-    url: 'https://steamcommunity.com/id/jeanrnk/',
+    url: 'https://steamcommunity.com/id/jeanrk/',
     label: '@jeanrnk',
   },
   {
