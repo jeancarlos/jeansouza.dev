@@ -45,7 +45,7 @@ describe('MoreLinksWindow', () => {
     )
     expect(row('Steam').getByRole('link', { name: '@jeanrnk' })).toHaveAttribute(
       'href',
-      'https://steamcommunity.com/id/jeanrnk/'
+      'https://steamcommunity.com/id/jeanrk/'
     )
     expect(row('Switch ID').getByRole('button')).toHaveTextContent('1749 2384 1794')
     expect(
