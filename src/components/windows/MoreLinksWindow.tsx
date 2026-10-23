@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslations } from '../../i18n/react'
-import { Button } from '@/components/ui/Button'
+import { Icon } from '@/components/ui/Icon'
 import { Tooltip } from '@/components/ui/Tooltip'
 import { extraLinks } from '@/lib/profile-links'
 
@@ -39,24 +39,39 @@ export function MoreLinksWindow() {
   }
 
   return (
-    <div className="text-brand-text space-y-2 p-4 text-sm">
+    <div className="text-brand-text p-4 text-sm">
       <h1 className="sr-only">{t('title')}</h1>
       <p className="text-brand-muted mb-3 text-xs" aria-hidden="true">
         $ ls more/
       </p>
-      <div className="flex flex-wrap gap-2">
+      <ul className="space-y-2">
         {extraLinks.map((link, index) => (
-          <div key={link.name} className="relative">
+          <li key={link.name} className="relative flex items-baseline gap-2 whitespace-nowrap">
+            <span>{link.name}</span>
+            <span
+              aria-hidden="true"
+              className="border-brand-muted/40 min-w-4 flex-1 translate-y-[-0.2em] border-b border-dotted"
+            />
             {link.url ? (
-              <Button href={link.url}>{link.name}</Button>
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand-from hover:text-brand-to underline"
+              >
+                {link.label ?? link.url}
+              </a>
             ) : (
               <>
-                <Button
+                <button
+                  type="button"
                   onClick={() => link.content && handleCopyContent(link.content, index)}
                   aria-label={t('copy', { name: link.name })}
+                  className="hover:text-brand-from inline-flex cursor-pointer items-baseline gap-2"
                 >
-                  {link.name}
-                </Button>
+                  {link.content}
+                  <Icon name="copy" />
+                </button>
                 {bubble?.index === index && (
                   <Tooltip show={true} component="span" onDismiss={() => setBubble(null)}>
                     {bubble.text}
@@ -64,9 +79,9 @@ export function MoreLinksWindow() {
                 )}
               </>
             )}
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   )
 }

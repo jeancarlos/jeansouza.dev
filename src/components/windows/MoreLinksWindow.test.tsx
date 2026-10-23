@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { act, fireEvent, render, screen } from '@testing-library/react'
+import { act, fireEvent, render, screen, within } from '@testing-library/react'
 import { MoreLinksWindow } from './MoreLinksWindow'
 
 class ResizeObserverStub {
@@ -27,17 +27,33 @@ async function copy(name: string) {
   })
 }
 
+function row(name: string) {
+  return within(screen.getByText(name).closest('li') as HTMLElement)
+}
+
 describe('MoreLinksWindow', () => {
-  it('links the profiles that have a url and offers the rest as copy buttons', () => {
+  it('lists each profile as a row: name, then the link or the copyable code', () => {
     render(<MoreLinksWindow />)
     expect(screen.getByRole('heading', { name: 'Mais links' })).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'Instagram' })).toHaveAttribute(
+    expect(row('Instagram').getByRole('link', { name: 'jeansouza.dev' })).toHaveAttribute(
       'href',
       'https://www.instagram.com/jeansouza.dev/'
     )
-    expect(screen.getByRole('button', { name: 'Copiar Discord' })).toBeInTheDocument()
-    expect(screen.queryByRole('link', { name: 'Discord' })).toBeNull()
+    expect(row('Bluesky').getByRole('link', { name: 'jeansouza.dev' })).toHaveAttribute(
+      'href',
+      'https://bsky.app/profile/jeansouza.dev'
+    )
+    expect(row('Switch ID').getByRole('button')).toHaveTextContent('1749 2384 1794')
+    expect(row('Discord').getByRole('button', { name: 'Copiar Discord' })).toHaveTextContent(
+      'jeanrnk#5682'
+    )
+    expect(row('Discord').queryByRole('link')).toBeNull()
     expect(screen.queryByRole('link', { name: 'Source for this website' })).toBeNull()
+  })
+
+  it('no longer lists Xbox', () => {
+    render(<MoreLinksWindow />)
+    expect(screen.queryByText(/xbox/i)).toBeNull()
   })
 
   it('copies the value and confirms it, then hides the confirmation after a moment', async () => {
