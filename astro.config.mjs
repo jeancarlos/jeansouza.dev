@@ -17,19 +17,22 @@ export default defineConfig({
   integrations: [react(), afterPaint()],
   fonts: [
     {
-      provider: fontProviders.google(),
+      provider: fontProviders.local(),
       name: 'Poppins',
       cssVariable: '--font-poppins',
-      weights: [500, 700],
-      subsets: ['latin'],
-      styles: ['normal'],
-      display: 'optional',
+      display: 'swap',
+      options: {
+        variants: [
+          { src: ['./src/assets/fonts/poppins-500.woff2'], weight: 500, style: 'normal' },
+          { src: ['./src/assets/fonts/poppins-700.woff2'], weight: 700, style: 'normal' },
+        ],
+      },
     },
     {
       provider: fontProviders.local(),
       name: 'Lexend',
       cssVariable: '--font-lexend',
-      display: 'optional',
+      display: 'swap',
       options: {
         variants: [
           { src: ['./src/assets/fonts/lexend-400.woff2'], weight: 400, style: 'normal' },
@@ -38,13 +41,19 @@ export default defineConfig({
       },
     },
     {
-      provider: fontProviders.google(),
+      provider: fontProviders.local(),
       name: 'JetBrains Mono',
       cssVariable: '--font-jetbrains-mono',
-      weights: [400, 700],
-      subsets: ['latin'],
-      styles: ['normal'],
-      display: 'optional',
+      display: 'swap',
+      options: {
+        variants: [
+          {
+            src: ['./src/assets/fonts/jetbrains-mono-latin.woff2'],
+            weight: '100 800',
+            style: 'normal',
+          },
+        ],
+      },
     },
   ],
   vite: { plugins: [tailwind()] },
