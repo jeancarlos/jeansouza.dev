@@ -60,7 +60,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",
     "jsdom": "^30.0.1",
-    "knip": "^6.41.0",
+    "knip": "^6.43.0",
     "playwright-core": "^1.60.0",
     "postcss": "^8.5.15",
     "prettier": "^3.8.3",
